@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/regub1.jsp</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/accueil.jsp</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/regub.jsp</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/src/java/hibernate.reveng.xml</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/src/java/entities/Client.java</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/src/java/entities/Region.java</file>
-            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/src/java/entities/Magasin.java</file>
+            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/web/resources/font-awesome/scss/_variables.scss</file>
+            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/src/java/model/dao/ClientDAO.java</file>
+            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/src/java/controller/AccueilController.java</file>
         </group>
     </open-files>
 </project-private>
