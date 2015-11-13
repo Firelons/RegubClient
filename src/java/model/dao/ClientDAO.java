@@ -1,6 +1,9 @@
 package model.dao;
 
 import entities.Client;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
@@ -18,10 +21,10 @@ import org.hibernate.Session;
  */
 public class ClientDAO {
 
-    public Client checkLogin(String email, String motDePasse) {
+    public Client checkLogin(String email, String motDePasse) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String SQL_QUERY = "from Client as cli where cli.email=? and cli.motDePasse=?";
+        String SQL_QUERY = "from Client as cli where cli.email=? and cli.motDePasse= SHA2( CONCAT( ? , cli.salt),256)";
         Query query = session.createQuery(SQL_QUERY);
         query.setParameter(0, email);
         query.setParameter(1, motDePasse);
@@ -32,5 +35,28 @@ public class ClientDAO {
         }
         session.close();
         return null;
+    }
+
+    public String encode(String sel){
+        return sha256("toto".concat(sel));
+    }
+    public static String sha256(String base) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

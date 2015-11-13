@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Rayons" table="rayons" catalog="regub" optimistic-lock="version">
+        <composite-id name="id" class="entities.RayonsId">
+            <key-property name="idMagasin" type="int">
+                <column name="idMagasin" />
+            </key-property>
+            <key-property name="idTypeRayon" type="int">
+                <column name="idTypeRayon" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -2,16 +2,20 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost/regub</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/regub</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="entities/Region.hbm.xml"/>
+    <mapping resource="entities/Diffusionstypesrayons.hbm.xml"/>
     <mapping resource="entities/Magasin.hbm.xml"/>
-    <mapping resource="entities/Typerayon.hbm.xml"/>
-    <mapping resource="entities/Compte.hbm.xml"/>
     <mapping resource="entities/Diffusions.hbm.xml"/>
-    <mapping resource="entities/Typecompte.hbm.xml"/>
+    <mapping resource="entities/Diffusionregions.hbm.xml"/>
     <mapping resource="entities/Client.hbm.xml"/>
     <mapping resource="entities/Video.hbm.xml"/>
+    <mapping resource="entities/Rayons.hbm.xml"/>
+    <mapping resource="entities/Region.hbm.xml"/>
+    <mapping resource="entities/Typerayon.hbm.xml"/>
+    <mapping resource="entities/Compte.hbm.xml"/>
+    <mapping resource="entities/Typecompte.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

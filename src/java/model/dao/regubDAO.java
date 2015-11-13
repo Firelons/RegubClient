@@ -22,7 +22,7 @@ public class regubDAO {
         List<Video> lst = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Video as vid where vid.client.idClient =?";
+            String hql = "from Video as vid where vid.idClient =?";
             Query query = session.createQuery(hql);
             query.setParameter(0, idClient);
             lst = query.list();

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10 nov. 2015 12:53:16 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Client" table="client" catalog="regub" optimistic-lock="version">
         <id name="idClient" type="java.lang.Integer">
@@ -30,13 +30,10 @@
             <column name="code_postal" length="5" not-null="true" />
         </property>
         <property name="motDePasse" type="string">
-            <column name="mot_de_passe" length="50" />
+            <column name="mot_de_passe" length="64" not-null="true" />
         </property>
-        <set name="videos" table="video" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idClient" not-null="true" />
-            </key>
-            <one-to-many class="entities.Video" />
-        </set>
+        <property name="salt" type="string">
+            <column name="salt" length="32" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

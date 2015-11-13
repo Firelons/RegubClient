@@ -33,6 +33,33 @@ BEGIN
 	WHERE (log = Compte.login AND Compte.password = SHA2( CONCAT( pass , Compte.salt),256));
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkLogin`(IN `email` VARCHAR(32) CHARSET utf8, IN `mdp` VARCHAR(64) CHARSET utf8)
+    NO SQL
+    DETERMINISTIC
+BEGIN
+	SELECT Client.idClient AS id, Client.societe,Client.telephone,Client.email,Client.addr_ligne1,Client.salt,Client.assr_ligne2,Client.ville,Client.code_postal,Client.mot_de_passe
+	FROM Client 
+	WHERE (email = Client.email AND Client.mot_de_passe = SHA2( CONCAT( mdp , Client.salt),256));
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updcli`(IN `email` VARCHAR(32) CHARSET utf8, IN `oldpass` VARCHAR(64) CHARSET utf8, IN `newpass` VARCHAR(64) CHARSET utf8)
+    NO SQL
+BEGIN
+	DECLARE cli INT(10);
+
+	SELECT COUNT(*) INTO cli
+	FROM `Client` 
+	WHERE(`Client`.`email` = email AND `Client`.`mot_de_passe` = SHA2(CONCAT(oldpass,Client.salt),256));
+	IF cli =1 THEN
+		UPDATE `Client`
+		SET `mot_de_passe` = newpass
+		WHERE(`Client`.`email` = email AND
+      		`Client`.`mot_de_passe` = SHA2(CONCAT(oldpass,Compte.salt),256));  
+	END IF;
+    SELECT cmpt;
+END$$
+
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updPass`(IN `login` VARCHAR(64) CHARSET utf8, IN `oldpass` VARCHAR(64) CHARSET utf8, IN `newpass` VARCHAR(64) CHARSET utf8)
     NO SQL
 BEGIN
@@ -67,23 +94,53 @@ CREATE TABLE IF NOT EXISTS `client` (
   `addr_ligne2` varchar(128) DEFAULT NULL,
   `ville` varchar(64) DEFAULT NULL,
   `code_postal` char(5) NOT NULL,
-  `mot_de_passe` varchar(50) NOT NULL
+  `mot_de_passe` varchar(64) NOT NULL,
+  `salt` char(32) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`) VALUES
-(1, 'TF1', '0606060606', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'tf1'),
-(3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000', 'lons'),
-(45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000', ''),
-(46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000', ''),
-(47, 'Intermarche', '0800008180', 'landryl@yahoo.com', '24 rue Auguste Chabrieres ', '', ' Paris', '75737', ''),
-(48, 'Leclerc', '0800865286', 'Francklin@yahoo.com', 'Rue Henri Giffard', '', 'Limoges', '87280', ''),
-(49, 'Leader Price', '0782584292', 'leader@yahoo.com', 'Rue de la soif', '', 'Lyon', '69000', ''),
-(50, 'Ginseng', '0641295609', 'ginseng@yahoo.fr', 'Rue des Tanniers', '', 'Lille', '59000', ''),
-(51, 'Leader mESMER', '067582235', 'leaderm@yahoo.com', 'Rue de la merde', NULL, 'Lyon', '69000', '');
+
+INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`,`mot_de_passe`,`salt`) VALUES
+(1, 'TF1', '0606060606', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(47, 'Intermarche', '0800008180', 'landryl@yahoo.com', '24 rue Auguste Chabrieres ', '', ' Paris', '75737','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(48, 'Leclerc', '0800865286', 'Francklin@yahoo.com', 'Rue Henri Giffard', '', 'Limoges', '87280','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(49, 'Leader Price', '0782584292', 'leader@yahoo.com', 'Rue de la soif', '', 'Lyon', '69000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(50, 'Ginseng', '0641295609', 'ginseng@yahoo.fr', 'Rue des Tanniers', '', 'Lille', '59000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
+(51, 'Leader mESMER', '067582235', 'leaderm@yahoo.com', 'Rue de la merde', NULL, 'Lyon', '69000','fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86');
+
+--
+-- Déclencheurs `client`
+--
+
+DELIMITER $$
+CREATE TRIGGER `insCli` BEFORE INSERT ON `client`
+FOR EACH ROW BEGIN
+	SET NEW.salt = md5(uuid());            
+	SET NEW.mot_de_passe =SHA2(CONCAT(NEW.mot_de_passe,NEW.salt),256);            
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `updCli` BEFORE UPDATE ON `client`
+ FOR EACH ROW BEGIN
+	IF ( NEW.mot_de_passe <> OLD.mot_de_passe ) THEN
+		SET NEW.salt = md5(uuid());            
+		SET NEW.mot_de_passe =SHA2(CONCAT(NEW.mot_de_passe,NEW.salt),256); 
+	ELSE
+		SET NEW.salt = OLD.salt;
+	END IF;
+END
+$$
+DELIMITER ;
+
+
 
 -- --------------------------------------------------------
 
@@ -122,6 +179,7 @@ CREATE TRIGGER `insCmpt` BEFORE INSERT ON `compte`
 END
 $$
 DELIMITER ;
+
 DELIMITER $$
 CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `compte`
  FOR EACH ROW BEGIN

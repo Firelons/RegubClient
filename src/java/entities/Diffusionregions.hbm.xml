@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Diffusionregions" table="diffusionregions" catalog="regub" optimistic-lock="version">
+        <composite-id name="id" class="entities.DiffusionregionsId">
+            <key-property name="idVideo" type="int">
+                <column name="idVideo" />
+            </key-property>
+            <key-property name="idRegion" type="int">
+                <column name="idRegion" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

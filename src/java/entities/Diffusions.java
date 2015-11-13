@@ -1,5 +1,5 @@
 package entities;
-// Generated 10 nov. 2015 12:53:16 by Hibernate Tools 4.3.1
+// Generated 12 nov. 2015 22:38:59 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,18 +11,18 @@ public class Diffusions  implements java.io.Serializable {
 
 
      private Integer idDiffusion;
-     private Magasin magasin;
-     private Typerayon typerayon;
-     private Video video;
+     private int idVideo;
+     private int idMagasin;
+     private int idTypeRayon;
      private Date dateDiffusion;
 
     public Diffusions() {
     }
 
-    public Diffusions(Magasin magasin, Typerayon typerayon, Video video, Date dateDiffusion) {
-       this.magasin = magasin;
-       this.typerayon = typerayon;
-       this.video = video;
+    public Diffusions(int idVideo, int idMagasin, int idTypeRayon, Date dateDiffusion) {
+       this.idVideo = idVideo;
+       this.idMagasin = idMagasin;
+       this.idTypeRayon = idTypeRayon;
        this.dateDiffusion = dateDiffusion;
     }
    
@@ -33,26 +33,26 @@ public class Diffusions  implements java.io.Serializable {
     public void setIdDiffusion(Integer idDiffusion) {
         this.idDiffusion = idDiffusion;
     }
-    public Magasin getMagasin() {
-        return this.magasin;
+    public int getIdVideo() {
+        return this.idVideo;
     }
     
-    public void setMagasin(Magasin magasin) {
-        this.magasin = magasin;
+    public void setIdVideo(int idVideo) {
+        this.idVideo = idVideo;
     }
-    public Typerayon getTyperayon() {
-        return this.typerayon;
-    }
-    
-    public void setTyperayon(Typerayon typerayon) {
-        this.typerayon = typerayon;
-    }
-    public Video getVideo() {
-        return this.video;
+    public int getIdMagasin() {
+        return this.idMagasin;
     }
     
-    public void setVideo(Video video) {
-        this.video = video;
+    public void setIdMagasin(int idMagasin) {
+        this.idMagasin = idMagasin;
+    }
+    public int getIdTypeRayon() {
+        return this.idTypeRayon;
+    }
+    
+    public void setIdTypeRayon(int idTypeRayon) {
+        this.idTypeRayon = idTypeRayon;
     }
     public Date getDateDiffusion() {
         return this.dateDiffusion;

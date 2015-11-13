@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/web/META-INF/context.xml</file>
-            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/web/resources/font-awesome/scss/_variables.scss</file>
-            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/src/java/model/dao/ClientDAO.java</file>
-            <file>file:/C:/Users/Regub/Documents/NetBeansProjects/RegubClient/src/java/controller/AccueilController.java</file>
+            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/regub.sql</file>
+            <file>file:/C:/Users/Mesmerus/Documents/NetBeansProjects/RegubClient/src/java/model/dao/ClientDAO.java</file>
         </group>
     </open-files>
 </project-private>

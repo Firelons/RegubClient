@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10 nov. 2015 12:53:16 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Magasin" table="magasin" catalog="regub" optimistic-lock="version">
         <id name="idMagasin" type="java.lang.Integer">
             <column name="idMagasin" />
             <generator class="identity" />
         </id>
-        <many-to-one name="region" class="entities.Region" fetch="select">
-            <column name="idRegion" not-null="true" />
-        </many-to-one>
         <property name="nom" type="string">
             <column name="nom" length="32" not-null="true" />
         </property>
@@ -23,22 +20,11 @@
         <property name="codePostal" type="string">
             <column name="code_postal" length="5" not-null="true" />
         </property>
+        <property name="idRegion" type="int">
+            <column name="idRegion" not-null="true" />
+        </property>
         <property name="ville" type="string">
             <column name="ville" length="64" not-null="true" />
         </property>
-        <set name="diffusionses" table="diffusions" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idMagasin" not-null="true" />
-            </key>
-            <one-to-many class="entities.Diffusions" />
-        </set>
-        <set name="typerayons" table="rayons" inverse="false" lazy="true" fetch="select">
-            <key>
-                <column name="idMagasin" not-null="true" />
-            </key>
-            <many-to-many entity-name="entities.Typerayon">
-                <column name="idTypeRayon" not-null="true" />
-            </many-to-many>
-        </set>
     </class>
 </hibernate-mapping>

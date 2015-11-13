@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10 nov. 2015 12:53:16 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Typecompte" table="typecompte" catalog="regub" optimistic-lock="version">
         <id name="idTypeCompte" type="java.lang.Integer">
@@ -17,11 +17,5 @@
         <property name="dbpassword" type="string">
             <column name="dbpassword" length="64" not-null="true" />
         </property>
-        <set name="comptes" table="compte" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="idTypeCompte" not-null="true" />
-            </key>
-            <one-to-many class="entities.Compte" />
-        </set>
     </class>
 </hibernate-mapping>
