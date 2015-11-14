@@ -70,10 +70,10 @@
                             <a class="page-scroll" href="#contact">Contact</a>
                         </li>
                         <li>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Parametres</a>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Profil</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="logout">Deconnection</a>
+                            <a class="page-scroll" href="logout">Deconnexion</a>
                         </li>
                     </ul>
                 </div>
