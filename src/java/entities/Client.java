@@ -110,8 +110,7 @@ public class Client  implements java.io.Serializable {
     }
     
     public void setMotDePasse(String motDePasse) {
-        sha256(motDePasse.concat(getSalt()));
-        this.motDePasse = sha256(motDePasse.concat(getSalt()));;
+        this.motDePasse = motDePasse;
     }
     public String getSalt() {
         return this.salt;
