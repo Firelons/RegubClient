@@ -239,8 +239,14 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label>Mot de passe* (8 caractères max)</label>
-                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="mot de passe" required Autofocus>
+                                         <label>Ancien mot de passe</label>
+                                        <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                         <label>Mot de passe*(8 caractères min)</label>
+                                        <input type="newpassword" name="newpassword" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

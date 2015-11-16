@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 nov. 2015 22:39:00 by Hibernate Tools 4.3.1 -->
+<!-- Generated 15 nov. 2015 13:36:42 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Typerayon" table="typerayon" catalog="regub" optimistic-lock="version">
         <id name="idTypeRayon" type="java.lang.Integer">
@@ -9,7 +9,29 @@
             <generator class="identity" />
         </id>
         <property name="libelle" type="string">
-            <column name="libelle" length="32" not-null="true" />
+            <column name="libelle" length="32" not-null="true" unique="true" />
         </property>
+        <set name="videos" table="diffusionstypesrayons" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTypeRayon" not-null="true" />
+            </key>
+            <many-to-many entity-name="entities.Video">
+                <column name="idVideo" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="diffusionses" table="diffusions" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTypeRayon" not-null="true" />
+            </key>
+            <one-to-many class="entities.Diffusions" />
+        </set>
+        <set name="magasins" table="rayons" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTypeRayon" not-null="true" />
+            </key>
+            <many-to-many entity-name="entities.Magasin">
+                <column name="idMagasin" not-null="true" />
+            </many-to-many>
+        </set>
     </class>
 </hibernate-mapping>

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Mesmerus
  */
 @Controller
-public class RegubController{
+public class ClientController{
 
     @RequestMapping("/regub")
     protected String regubAction(HttpSession session,Model model) {
@@ -43,7 +43,7 @@ public class RegubController{
     }
     @RequestMapping("/logout")
       public String logout(HttpSession session ) {
-         session.invalidate();
+         session.removeAttribute("UserConnected");
          return "redirect:/accueil";
       }
     

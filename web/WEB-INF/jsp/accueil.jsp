@@ -8,6 +8,9 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<c:if test="${UserConnected!=null}">
+    <c:redirect url="regub"/>
+</c:if>
 <html lang="fr">
 
     <head>
@@ -133,12 +136,12 @@
                         <h4 class="modal-title" id="myModalLabel">Inscription</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" action="inscription">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom"required>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom"required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -182,7 +185,7 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label>Mot de passe* (8 caractères max)</label>
+                                        <label>Mot de passe*(8 caractères min)</label>
                                         <input type="password" name="password" id="password" class="form-control input-sm" placeholder="mot de passe" required Autofocus>
                                     </div>
                                 </div>
@@ -194,7 +197,7 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="checkbox" id="human" name="human" checked>
+                                        <input type="checkbox" id="human" name="human" required>
                                         <label for="human">j'accepte<a href="#"> les conditions</a>...</label>
                                     </div>
                                 </div>
