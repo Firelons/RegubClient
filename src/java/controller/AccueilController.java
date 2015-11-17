@@ -31,7 +31,7 @@ public class AccueilController {
             ClientConnecte cli = new ClientConnecte(auth.checkLogin(email, password));
             if (cli.getCli() != null) {
                 session.setAttribute("UserConnected", cli.getCli());
-                return "redirect:regub";
+                return "redirect:client";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,8 +46,12 @@ public class AccueilController {
     }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
-    protected String accAction() {
+    protected String accAction(Model model) {
         return "accueil";
+    }
+    @RequestMapping(value = "/regub")
+    protected String regubAction(Model model) {
+        return "regub";
     }
 
 }

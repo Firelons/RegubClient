@@ -7,7 +7,7 @@ package controller;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import model.dao.regubDAO;
+import model.dao.VideoDAO;
 import entities.Client;
 import entities.ClientConnecte;
 import entities.Video;
@@ -23,8 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ClientController{
 
-    @RequestMapping("/regub")
-    protected String regubAction(HttpSession session,Model model) {
+    @RequestMapping("/client")
+    protected String listVideoAction(HttpSession session,Model model) {
         ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
         try{
              model.addAttribute("usr",cli.getCli().getSociete());
@@ -33,16 +33,16 @@ public class ClientController{
            e.printStackTrace();
         }
         try{
-            List<Video> lst = regubDAO.layDS(cli.getCli().getIdClient());
+            List<Video> lst = VideoDAO.layDS(cli.getCli().getIdClient());
             model.addAttribute("video",lst);
         }
         catch(Exception e){
             e.printStackTrace();
         }
-        return "regub";
+        return "client";
     }
     @RequestMapping("/logout")
-      public String logout(HttpSession session ) {
+      public String logoutAction(HttpSession session ) {
          session.removeAttribute("UserConnected");
          return "redirect:/accueil";
       }

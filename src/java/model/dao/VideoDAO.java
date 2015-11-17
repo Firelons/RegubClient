@@ -15,7 +15,7 @@ import org.hibernate.Session;
  *
  * @author Mesmerus
  */
-public class regubDAO {
+public class VideoDAO {
 
     public static List<Video> layDS(Integer idClient) {
 
