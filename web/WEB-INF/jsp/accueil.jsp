@@ -92,7 +92,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Telephone*</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="telephone" class="form-control input-sm" placeholder="telephone"required>
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone"required>
                                     </div>
                                 </div>
                             </div>
@@ -105,19 +105,19 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ligne1*</label>
-                                        <input type="text" name="ligne1" id="ligne1" class="form-control input-sm" placeholder="rue"required>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue"required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="ligne2" id="ligne2" class="form-control input-sm" placeholder="compléments">
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>code postal*</label>
-                                        <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal"required>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal"required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -131,7 +131,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="mot de passe" required Autofocus>
+                                        <input type="password" name="motDePasse" id="password" class="form-control input-sm" placeholder="mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

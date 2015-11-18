@@ -186,6 +186,9 @@ header {
     -o-background-size: cover;
 }
 
+header.headd {
+    background-image: url(../img/header1.jpg);
+}
 header .header-content {
     position: relative;
     width: 100%;

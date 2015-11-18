@@ -42,7 +42,7 @@ public class AccueilController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/inscription")
     public String singin(HttpServletRequest request, @RequestParam("SignedClient") Client cli) {   
-        return "redirect:"+cli.getSociete();
+      return "toto";  
     }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)

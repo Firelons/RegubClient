@@ -2,15 +2,15 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="regub"/>
-  <table-filter match-name="compte"/>
-  <table-filter match-name="diffusionregions"/>
   <table-filter match-name="client"/>
+  <table-filter match-name="diffusionregions"/>
   <table-filter match-name="diffusionstypesrayons"/>
   <table-filter match-name="typecompte"/>
-  <table-filter match-name="rayons"/>
-  <table-filter match-name="diffusions"/>
-  <table-filter match-name="typerayon"/>
-  <table-filter match-name="video"/>
   <table-filter match-name="magasin"/>
+  <table-filter match-name="typerayon"/>
+  <table-filter match-name="rayons"/>
+  <table-filter match-name="video"/>
+  <table-filter match-name="diffusions"/>
   <table-filter match-name="region"/>
+  <table-filter match-name="compte"/>
 </hibernate-reverse-engineering>
