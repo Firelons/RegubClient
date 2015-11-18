@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Sam 14 Novembre 2015 à 17:16
--- Version du serveur :  5.6.20
--- Version de PHP :  5.5.15
+-- Client: localhost
+-- Généré le: Mer 18 Novembre 2015 à 09:22
+-- Version du serveur: 5.5.44-MariaDB-1ubuntu0.14.04.1
+-- Version de PHP: 5.5.9-1ubuntu4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `regub`
+-- Base de données: `regub`
 --
 
 DELIMITER $$
@@ -55,11 +55,11 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `client`
+-- Structure de la table `Client`
 --
 
-CREATE TABLE IF NOT EXISTS `client` (
-`idClient` int(8) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Client` (
+  `idClient` int(8) NOT NULL AUTO_INCREMENT,
   `societe` varchar(64) NOT NULL,
   `telephone` varchar(10) NOT NULL,
   `email` varchar(32) NOT NULL,
@@ -68,14 +68,15 @@ CREATE TABLE IF NOT EXISTS `client` (
   `ville` varchar(64) DEFAULT NULL,
   `code_postal` char(5) NOT NULL,
   `mot_de_passe` varchar(64) NOT NULL,
-  `salt` char(32) NOT NULL
+  `salt` char(32) NOT NULL,
+  PRIMARY KEY (`idClient`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 --
--- Contenu de la table `client`
+-- Contenu de la table `Client`
 --
 
-INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`, `salt`) VALUES
+INSERT INTO `Client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`, `salt`) VALUES
 (1, 'TF1', '0606060606', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
 (3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
 (45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86'),
@@ -86,18 +87,20 @@ INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`
 (52, 'mesmer', '0625649875', 'm@g.fr', '45 rue fjknlk', NULL, 'l,lfsk', '05611', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86');
 
 --
--- Déclencheurs `client`
+-- Déclencheurs `Client`
 --
+DROP TRIGGER IF EXISTS `insCli`;
 DELIMITER //
-CREATE TRIGGER `insCli` BEFORE INSERT ON `client`
+CREATE TRIGGER `insCli` BEFORE INSERT ON `Client`
  FOR EACH ROW BEGIN
 	SET NEW.salt = md5(uuid());            
 	SET NEW.mot_de_passe =SHA2(CONCAT(NEW.mot_de_passe,NEW.salt),256);            
 END
 //
 DELIMITER ;
+DROP TRIGGER IF EXISTS `updCli`;
 DELIMITER //
-CREATE TRIGGER `updCli` BEFORE UPDATE ON `client`
+CREATE TRIGGER `updCli` BEFORE UPDATE ON `Client`
  FOR EACH ROW BEGIN
 	IF ( NEW.mot_de_passe <> OLD.mot_de_passe ) THEN
 		SET NEW.salt = md5(uuid());            
@@ -112,43 +115,48 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `compte`
+-- Structure de la table `Compte`
 --
 
-CREATE TABLE IF NOT EXISTS `compte` (
-`idCompte` int(8) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Compte` (
+  `idCompte` int(8) NOT NULL AUTO_INCREMENT,
   `nom` varchar(32) NOT NULL,
   `prenom` varchar(32) NOT NULL,
   `login` varchar(32) NOT NULL,
   `password` char(64) NOT NULL,
   `salt` char(32) NOT NULL,
   `creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `idTypeCompte` int(8) NOT NULL
+  `idTypeCompte` int(8) NOT NULL,
+  PRIMARY KEY (`idCompte`),
+  UNIQUE KEY `login` (`login`),
+  KEY `idTypeCompte` (`idTypeCompte`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Contenu de la table `compte`
+-- Contenu de la table `Compte`
 --
 
-INSERT INTO `compte` (`idCompte`, `nom`, `prenom`, `login`, `password`, `salt`, `creation`, `idTypeCompte`) VALUES
+INSERT INTO `Compte` (`idCompte`, `nom`, `prenom`, `login`, `password`, `salt`, `creation`, `idTypeCompte`) VALUES
 (1, 'toto', 'toto', 'toto', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', '2015-03-17 23:00:00', 2),
 (2, 'titi', 'titi', 'titi', 'a90dacbe58f3aa6825c04ff467030b36472ef80fbca958934871d1a73a8c4dbd', '8493cf52b4a630b881bb235ee121d17c', '2015-03-24 23:00:00', 1),
 (3, 'tutu', 'tutu', 'tutu', '4cecb6cfba32ffba55400fccb7086f0b9bd52b44b1af40bd818a5171d29edd85', 'e7d188513a6f973f16010ae88ca6ba41', '2015-03-25 22:08:28', 1),
 (4, 'aurelien', 'toto', 'totis', 'e263215d3c0d74c1d74924627fd0b9b8fdb3f1b4185f5a33be03007ea2510e4b', 'a91c2f6c452065cd36704d9d0d2873dc', '2015-05-19 12:33:49', 1);
 
 --
--- Déclencheurs `compte`
+-- Déclencheurs `Compte`
 --
+DROP TRIGGER IF EXISTS `insCmpt`;
 DELIMITER //
-CREATE TRIGGER `insCmpt` BEFORE INSERT ON `compte`
+CREATE TRIGGER `insCmpt` BEFORE INSERT ON `Compte`
  FOR EACH ROW BEGIN
 	SET NEW.salt = md5(uuid());            
 	SET NEW.password =SHA2(CONCAT(NEW.password,NEW.salt),256);            
 END
 //
 DELIMITER ;
+DROP TRIGGER IF EXISTS `updCmpt`;
 DELIMITER //
-CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `compte`
+CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `Compte`
  FOR EACH ROW BEGIN
 	IF ( NEW.password <> OLD.password ) THEN
 		SET NEW.salt = md5(uuid());            
@@ -163,53 +171,61 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `diffusionregions`
+-- Structure de la table `DiffusionRegions`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusionregions` (
+CREATE TABLE IF NOT EXISTS `DiffusionRegions` (
   `idVideo` int(8) NOT NULL,
-  `idRegion` int(8) NOT NULL
+  `idRegion` int(8) NOT NULL,
+  PRIMARY KEY (`idVideo`,`idRegion`),
+  KEY `fk_idRegion` (`idRegion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `diffusionregions`
+-- Contenu de la table `DiffusionRegions`
 --
 
-INSERT INTO `diffusionregions` (`idVideo`, `idRegion`) VALUES
+INSERT INTO `DiffusionRegions` (`idVideo`, `idRegion`) VALUES
 (2, 5),
-(9, 5),
-(10, 5),
-(11, 5),
-(12, 5),
-(4, 6),
-(11, 6),
-(5, 7),
-(9, 14),
-(10, 14),
 (3, 17),
+(4, 6),
+(5, 7),
+(9, 5),
+(9, 14),
 (9, 17),
 (9, 21),
-(12, 21);
+(10, 5),
+(10, 14),
+(11, 5),
+(11, 6),
+(12, 5),
+(12, 21),
+(13, 21),
+(13, 30);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `diffusions`
+-- Structure de la table `Diffusions`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusions` (
-`idDiffusion` int(8) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Diffusions` (
+  `idDiffusion` int(8) NOT NULL AUTO_INCREMENT,
   `idVideo` int(8) NOT NULL,
   `idMagasin` int(8) NOT NULL,
   `idTypeRayon` int(8) NOT NULL,
-  `dateDiffusion` datetime NOT NULL
+  `dateDiffusion` datetime NOT NULL,
+  PRIMARY KEY (`idDiffusion`),
+  KEY `idVideo` (`idVideo`),
+  KEY `idMagasin` (`idMagasin`),
+  KEY `idTypeRayon` (`idTypeRayon`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Contenu de la table `diffusions`
+-- Contenu de la table `Diffusions`
 --
 
-INSERT INTO `diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, `dateDiffusion`) VALUES
+INSERT INTO `Diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, `dateDiffusion`) VALUES
 (1, 2, 3, 5, '2015-04-23 16:00:00'),
 (2, 2, 3, 6, '2015-04-23 16:00:00'),
 (3, 5, 3, 4, '2015-04-24 13:00:00'),
@@ -221,61 +237,67 @@ INSERT INTO `diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `diffusionstypesrayons`
+-- Structure de la table `DiffusionsTypesRayons`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusionstypesrayons` (
+CREATE TABLE IF NOT EXISTS `DiffusionsTypesRayons` (
   `idVideo` int(8) NOT NULL,
-  `idTypeRayon` int(8) NOT NULL
+  `idTypeRayon` int(8) NOT NULL,
+  PRIMARY KEY (`idVideo`,`idTypeRayon`),
+  KEY `fk_typerayon` (`idTypeRayon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `diffusionstypesrayons`
+-- Contenu de la table `DiffusionsTypesRayons`
 --
 
-INSERT INTO `diffusionstypesrayons` (`idVideo`, `idTypeRayon`) VALUES
+INSERT INTO `DiffusionsTypesRayons` (`idVideo`, `idTypeRayon`) VALUES
 (2, 1),
+(2, 9),
 (3, 1),
+(3, 8),
 (4, 1),
-(5, 1),
 (4, 2),
-(11, 2),
-(9, 3),
-(10, 3),
-(12, 3),
-(10, 4),
+(4, 7),
+(5, 1),
 (5, 5),
 (5, 6),
-(4, 7),
+(9, 3),
 (9, 7),
-(12, 7),
-(3, 8),
-(2, 9),
 (9, 9),
+(10, 3),
+(10, 4),
+(11, 2),
 (11, 9),
-(12, 9);
+(12, 3),
+(12, 7),
+(12, 9),
+(13, 3),
+(13, 7);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `magasin`
+-- Structure de la table `Magasin`
 --
 
-CREATE TABLE IF NOT EXISTS `magasin` (
-`idMagasin` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Magasin` (
+  `idMagasin` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(32) NOT NULL,
   `addr_ligne1` varchar(32) DEFAULT NULL,
   `addr_ligne2` varchar(32) DEFAULT NULL,
   `code_postal` char(5) NOT NULL,
   `idRegion` int(8) NOT NULL,
-  `ville` varchar(64) NOT NULL
+  `ville` varchar(64) NOT NULL,
+  PRIMARY KEY (`idMagasin`),
+  KEY `idRegion` (`idRegion`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Contenu de la table `magasin`
+-- Contenu de la table `Magasin`
 --
 
-INSERT INTO `magasin` (`idMagasin`, `nom`, `addr_ligne1`, `addr_ligne2`, `code_postal`, `idRegion`, `ville`) VALUES
+INSERT INTO `Magasin` (`idMagasin`, `nom`, `addr_ligne1`, `addr_ligne2`, `code_postal`, `idRegion`, `ville`) VALUES
 (1, 'Carouf', '3 rue de la soif', 'les 7 chemins', '87100', 17, 'Limoges'),
 (2, 'U', 'Avenue Emile Labussiere', '', '87100', 17, 'Limoges'),
 (3, 'Alinéa', 'Rue Amédée Gordini ', '', '87280', 17, 'Limoges'),
@@ -291,50 +313,54 @@ INSERT INTO `magasin` (`idMagasin`, `nom`, `addr_ligne1`, `addr_ligne2`, `code_p
 -- --------------------------------------------------------
 
 --
--- Structure de la table `rayons`
+-- Structure de la table `Rayons`
 --
 
-CREATE TABLE IF NOT EXISTS `rayons` (
+CREATE TABLE IF NOT EXISTS `Rayons` (
   `idMagasin` int(8) NOT NULL,
-  `idTypeRayon` int(8) NOT NULL
+  `idTypeRayon` int(8) NOT NULL,
+  PRIMARY KEY (`idMagasin`,`idTypeRayon`),
+  KEY `fk_typRay` (`idTypeRayon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `rayons`
+-- Contenu de la table `Rayons`
 --
 
-INSERT INTO `rayons` (`idMagasin`, `idTypeRayon`) VALUES
+INSERT INTO `Rayons` (`idMagasin`, `idTypeRayon`) VALUES
 (1, 1),
-(6, 1),
 (1, 2),
 (2, 3),
-(5, 3),
-(6, 3),
 (2, 4),
-(3, 4),
-(5, 4),
-(6, 4),
 (2, 7),
-(6, 7),
+(3, 4),
+(5, 3),
+(5, 4),
 (5, 8),
-(5, 9);
+(5, 9),
+(6, 1),
+(6, 3),
+(6, 4),
+(6, 7);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `region`
+-- Structure de la table `Region`
 --
 
-CREATE TABLE IF NOT EXISTS `region` (
-`idRegion` int(8) NOT NULL,
-  `libelle` varchar(32) NOT NULL
+CREATE TABLE IF NOT EXISTS `Region` (
+  `idRegion` int(8) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(32) NOT NULL,
+  PRIMARY KEY (`idRegion`),
+  UNIQUE KEY `libelle` (`libelle`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
--- Contenu de la table `region`
+-- Contenu de la table `Region`
 --
 
-INSERT INTO `region` (`idRegion`, `libelle`) VALUES
+INSERT INTO `Region` (`idRegion`, `libelle`) VALUES
 (1, 'Alsace'),
 (2, 'Aquitaine'),
 (3, 'Auvergne'),
@@ -367,21 +393,22 @@ INSERT INTO `region` (`idRegion`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `typecompte`
+-- Structure de la table `TypeCompte`
 --
 
-CREATE TABLE IF NOT EXISTS `typecompte` (
-`idTypeCompte` int(8) NOT NULL,
+CREATE TABLE IF NOT EXISTS `TypeCompte` (
+  `idTypeCompte` int(8) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(32) NOT NULL,
   `dblogin` varchar(64) NOT NULL,
-  `dbpassword` varchar(64) NOT NULL
+  `dbpassword` varchar(64) NOT NULL,
+  PRIMARY KEY (`idTypeCompte`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Contenu de la table `typecompte`
+-- Contenu de la table `TypeCompte`
 --
 
-INSERT INTO `typecompte` (`idTypeCompte`, `libelle`, `dblogin`, `dbpassword`) VALUES
+INSERT INTO `TypeCompte` (`idTypeCompte`, `libelle`, `dblogin`, `dbpassword`) VALUES
 (1, 'administrateur', 'adm', 'adm'),
 (2, 'commercial', 'com', 'com'),
 (3, 'gestionnaire', 'ges', 'ges');
@@ -389,19 +416,21 @@ INSERT INTO `typecompte` (`idTypeCompte`, `libelle`, `dblogin`, `dbpassword`) VA
 -- --------------------------------------------------------
 
 --
--- Structure de la table `typerayon`
+-- Structure de la table `TypeRayon`
 --
 
-CREATE TABLE IF NOT EXISTS `typerayon` (
-`idTypeRayon` int(8) NOT NULL,
-  `libelle` varchar(32) NOT NULL
+CREATE TABLE IF NOT EXISTS `TypeRayon` (
+  `idTypeRayon` int(8) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(32) NOT NULL,
+  PRIMARY KEY (`idTypeRayon`),
+  UNIQUE KEY `libelle` (`libelle`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
--- Contenu de la table `typerayon`
+-- Contenu de la table `TypeRayon`
 --
 
-INSERT INTO `typerayon` (`idTypeRayon`, `libelle`) VALUES
+INSERT INTO `TypeRayon` (`idTypeRayon`, `libelle`) VALUES
 (5, 'Boucherie'),
 (2, 'Charcuterie'),
 (9, 'Crèmerie'),
@@ -415,11 +444,11 @@ INSERT INTO `typerayon` (`idTypeRayon`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `video`
+-- Structure de la table `Video`
 --
 
-CREATE TABLE IF NOT EXISTS `video` (
-`idVideo` int(8) NOT NULL,
+CREATE TABLE IF NOT EXISTS `Video` (
+  `idVideo` int(8) NOT NULL AUTO_INCREMENT,
   `titre` varchar(32) NOT NULL,
   `frequence` int(11) NOT NULL,
   `duree` int(11) NOT NULL,
@@ -430,14 +459,17 @@ CREATE TABLE IF NOT EXISTS `video` (
   `tarif` double NOT NULL,
   `statut` int(1) NOT NULL,
   `idCommercial` int(8) NOT NULL,
-  `idClient` int(8) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+  `idClient` int(8) NOT NULL,
+  PRIMARY KEY (`idVideo`),
+  KEY `idCommercial` (`idCommercial`),
+  KEY `idClient` (`idClient`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
--- Contenu de la table `video`
+-- Contenu de la table `Video`
 --
 
-INSERT INTO `video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dateFin`, `dateReception`, `dateValidation`, `tarif`, `statut`, `idCommercial`, `idClient`) VALUES
+INSERT INTO `Video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dateFin`, `dateReception`, `dateValidation`, `tarif`, `statut`, `idCommercial`, `idClient`) VALUES
 (2, 'Test', 3, 26, '2015-04-16', '2015-05-21', '2015-03-11', '2015-03-13', 25, 3, 1, 1),
 (3, 'Controlla', 4, 30, '2015-03-11', '2015-05-30', '2015-03-31', '2015-03-27', 111, 1, 2, 45),
 (4, 'Danza kuduro', 7, 100, '2015-03-26', '2015-06-19', '2015-03-23', '2015-03-27', 155, 1, 2, 46),
@@ -445,173 +477,8 @@ INSERT INTO `video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dat
 (9, 'test', 10, 10, '2015-05-20', '2015-05-21', '2015-05-19', '2015-05-19', 10, 3, 1, 1),
 (10, 'm', 12, 10, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 12, 3, 1, 52),
 (11, '8.mp4', 10, 12, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 1, 3, 1, 52),
-(12, 'TestLons', 6, 8, '2015-10-20', '2015-10-24', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50);
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `client`
---
-ALTER TABLE `client`
- ADD PRIMARY KEY (`idClient`);
-
---
--- Index pour la table `compte`
---
-ALTER TABLE `compte`
- ADD PRIMARY KEY (`idCompte`), ADD UNIQUE KEY `login` (`login`), ADD KEY `idTypeCompte` (`idTypeCompte`);
-
---
--- Index pour la table `diffusionregions`
---
-ALTER TABLE `diffusionregions`
- ADD PRIMARY KEY (`idVideo`,`idRegion`), ADD KEY `fk_idRegion` (`idRegion`);
-
---
--- Index pour la table `diffusions`
---
-ALTER TABLE `diffusions`
- ADD PRIMARY KEY (`idDiffusion`), ADD KEY `idVideo` (`idVideo`), ADD KEY `idMagasin` (`idMagasin`), ADD KEY `idTypeRayon` (`idTypeRayon`);
-
---
--- Index pour la table `diffusionstypesrayons`
---
-ALTER TABLE `diffusionstypesrayons`
- ADD PRIMARY KEY (`idVideo`,`idTypeRayon`), ADD KEY `fk_typerayon` (`idTypeRayon`);
-
---
--- Index pour la table `magasin`
---
-ALTER TABLE `magasin`
- ADD PRIMARY KEY (`idMagasin`), ADD KEY `idRegion` (`idRegion`);
-
---
--- Index pour la table `rayons`
---
-ALTER TABLE `rayons`
- ADD PRIMARY KEY (`idMagasin`,`idTypeRayon`), ADD KEY `fk_typRay` (`idTypeRayon`);
-
---
--- Index pour la table `region`
---
-ALTER TABLE `region`
- ADD PRIMARY KEY (`idRegion`), ADD UNIQUE KEY `libelle` (`libelle`);
-
---
--- Index pour la table `typecompte`
---
-ALTER TABLE `typecompte`
- ADD PRIMARY KEY (`idTypeCompte`);
-
---
--- Index pour la table `typerayon`
---
-ALTER TABLE `typerayon`
- ADD PRIMARY KEY (`idTypeRayon`), ADD UNIQUE KEY `libelle` (`libelle`);
-
---
--- Index pour la table `video`
---
-ALTER TABLE `video`
- ADD PRIMARY KEY (`idVideo`), ADD KEY `idCommercial` (`idCommercial`), ADD KEY `idClient` (`idClient`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `client`
---
-ALTER TABLE `client`
-MODIFY `idClient` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
---
--- AUTO_INCREMENT pour la table `compte`
---
-ALTER TABLE `compte`
-MODIFY `idCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT pour la table `diffusions`
---
-ALTER TABLE `diffusions`
-MODIFY `idDiffusion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT pour la table `magasin`
---
-ALTER TABLE `magasin`
-MODIFY `idMagasin` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT pour la table `region`
---
-ALTER TABLE `region`
-MODIFY `idRegion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
---
--- AUTO_INCREMENT pour la table `typecompte`
---
-ALTER TABLE `typecompte`
-MODIFY `idTypeCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `typerayon`
---
-ALTER TABLE `typerayon`
-MODIFY `idTypeRayon` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT pour la table `video`
---
-ALTER TABLE `video`
-MODIFY `idVideo` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `compte`
---
-ALTER TABLE `compte`
-ADD CONSTRAINT `foreikeyTypeCompte` FOREIGN KEY (`idTypeCompte`) REFERENCES `typecompte` (`idTypeCompte`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `diffusionregions`
---
-ALTER TABLE `diffusionregions`
-ADD CONSTRAINT `DiffusionRegions_ibfk_1` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_idRegion` FOREIGN KEY (`idRegion`) REFERENCES `region` (`idRegion`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `diffusions`
---
-ALTER TABLE `diffusions`
-ADD CONSTRAINT `fk_magasin` FOREIGN KEY (`idMagasin`) REFERENCES `magasin` (`idMagasin`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `foreikeyTypeRayon` FOREIGN KEY (`idTypeRayon`) REFERENCES `typerayon` (`idTypeRayon`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `foreikeyVideo` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `diffusionstypesrayons`
---
-ALTER TABLE `diffusionstypesrayons`
-ADD CONSTRAINT `fk_typerayon` FOREIGN KEY (`idTypeRayon`) REFERENCES `typerayon` (`idTypeRayon`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `foreikeyidVideo` FOREIGN KEY (`idVideo`) REFERENCES `video` (`idVideo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `magasin`
---
-ALTER TABLE `magasin`
-ADD CONSTRAINT `fk_region` FOREIGN KEY (`idRegion`) REFERENCES `region` (`idRegion`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `rayons`
---
-ALTER TABLE `rayons`
-ADD CONSTRAINT `fk_typRay` FOREIGN KEY (`idTypeRayon`) REFERENCES `typerayon` (`idTypeRayon`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `foreikeyMagasin` FOREIGN KEY (`idMagasin`) REFERENCES `magasin` (`idMagasin`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `video`
---
-ALTER TABLE `video`
-ADD CONSTRAINT `fk_client` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `foreikeyCom` FOREIGN KEY (`idCommercial`) REFERENCES `compte` (`idCompte`) ON DELETE NO ACTION ON UPDATE CASCADE;
+(12, 'TestLons', 6, 8, '2015-10-20', '2015-10-24', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50),
+(13, 'Retest', 2, 2, '2015-11-17', '2015-11-17', '2015-11-16', '2015-11-16', 2, 1, 1, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
