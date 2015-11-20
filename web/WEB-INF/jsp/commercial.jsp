@@ -57,6 +57,15 @@
                     </div>
                 </div>
             </div>
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <td><a href="#" class="btn btn-primary">
+                                <c:out value=""></c:out>Ajouter</a>
+                        </td>
+                    </div>
+                </div>
+            </div>
             <div class="container">
                 <div class="table-responsive">          
                     <table class="table">
@@ -75,10 +84,10 @@
                                         <c:out value="${cli.getAddrLigne1()}"></c:out>
                                         </td>
                                         
-                                        <td><a href="#" class="btn btn-primary">
+                                        <td><a href="#" class="btn btn-info">
                                             <c:out value=""></c:out>Contars</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-info">
+                                        <td><a href="#" class="btn btn-primary">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
