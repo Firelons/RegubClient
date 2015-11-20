@@ -59,4 +59,18 @@ public class ClientDAO {
             throw new RuntimeException(ex);
         }
     }
+    
+    public static List<Client> listclient() {
+
+        List<Client> lst = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Client";
+            Query query = session.createQuery(hql);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lst;
+    }
 }
