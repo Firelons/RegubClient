@@ -8,9 +8,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<c:if test="${UserConnected!=null}">
-    <c:redirect url="client"/>
-</c:if>
 <html lang="fr">
 
     <head>
