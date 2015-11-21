@@ -12,6 +12,7 @@ import model.dao.ClientDAO;
 import entities.ClientConnecte;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AccueilController {
 
-    private final ClientDAO auth = new ClientDAO();
+    private final ClientDAO CliBDD = new ClientDAO();
 
     @RequestMapping(method = RequestMethod.POST, value = "/connection")
     public String login(HttpServletRequest request,
@@ -28,7 +29,7 @@ public class AccueilController {
             HttpSession session,
             Model model) {
         try {
-            ClientConnecte cli = new ClientConnecte(auth.checkLogin(email, password));
+            ClientConnecte cli = new ClientConnecte(CliBDD.checkLogin(email, password));
             if (cli.getCli() != null) {
                 session.setAttribute("UserConnected", cli.getCli());
                 return "redirect:client";
@@ -41,14 +42,18 @@ public class AccueilController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/inscription")
-    public String singin(HttpServletRequest request, @RequestParam("SignedClient") Client cli) {   
-      return "toto";  
+    public String singin(HttpServletRequest request, 
+            @ModelAttribute("cli") Client cli, Model model) {
+        //CliBDD.addUser();
+        //model.addAttribute("societe", cli.getSociete());
+        return "inscripClient";
     }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     protected String accAction(Model model) {
         return "accueil";
     }
+
     @RequestMapping(value = "/regub")
     protected String regubAction(Model model) {
         return "regub";
