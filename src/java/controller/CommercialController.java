@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommercialController {
     
     
-    @RequestMapping(value = "/commercial", method = RequestMethod.GET)
+    @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpSession session,Model model) {
         ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
         
@@ -42,15 +42,16 @@ public class CommercialController {
         return "commercial";
       }
     
-    @RequestMapping("/acceuil")
-      public String acceuilAction(HttpSession session ) {
-         session.removeAttribute("UserConnected");
-         return "redirect:/accueil";
+     @RequestMapping("/regub/commercial/accueil")
+      public String retouraccueil(HttpSession session ,Model model) {
+          listClientAction( session, model);
+         return "commercial";
       }
-    
-    @RequestMapping("/contrats")
-      public String contratsAction(HttpSession session ) {
+      
+    @RequestMapping("rebub/commercial/contrats")
+      public String contratsAction(HttpSession session ,Model model) {
+        ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
          session.removeAttribute("UserConnected");
-         return "redirect:/contrtas";
+         return "redirect:/contrats";
       }
 }
