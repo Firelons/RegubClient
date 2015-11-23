@@ -42,4 +42,15 @@ public class CommercialController {
         return "commercial";
       }
     
+    @RequestMapping("/acceuil")
+      public String acceuilAction(HttpSession session ) {
+         session.removeAttribute("UserConnected");
+         return "redirect:/accueil";
+      }
+    
+    @RequestMapping("/contras")
+      public String contrasAction(HttpSession session ) {
+         session.removeAttribute("UserConnected");
+         return "redirect:/contras";
+      }
 }
