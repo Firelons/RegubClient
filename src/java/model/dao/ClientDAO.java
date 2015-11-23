@@ -37,9 +37,10 @@ public class ClientDAO {
         return null;
     }
 
-    public String encode(String sel){
+    public String encode(String sel) {
         return sha256("toto".concat(sel));
     }
+
     public static String sha256(String base) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -59,7 +60,7 @@ public class ClientDAO {
             throw new RuntimeException(ex);
         }
     }
-    
+
     public static List<Client> listclient() {
 
         List<Client> lst = null;
@@ -72,5 +73,28 @@ public class ClientDAO {
             e.printStackTrace();
         }
         return lst;
+    }
+
+    public boolean addClient(Client cli) {
+        List<Client> list = new ArrayList<Client>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String SQL_QUERY = "insert into Client (?,?,?,?,?,?,?,?,?)  from Client cli";
+        try {
+            Query query = session.createQuery(SQL_QUERY);
+            query.setParameter(0, cli.getSociete());
+            query.setParameter(1, cli.getTelephone());
+            query.setParameter(2, cli.getEmail());
+            query.setParameter(3, cli.getAddrLigne1());
+            query.setParameter(4, cli.getAddrLigne2());
+            query.setParameter(5, cli.getCodePostal());
+            query.setParameter(6, cli.getVille());
+            query.setParameter(7, cli.getMotDePasse());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        return false;
+
     }
 }

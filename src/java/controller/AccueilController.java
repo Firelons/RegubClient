@@ -42,9 +42,12 @@ public class AccueilController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/inscription")
-    public String singin(HttpServletRequest request, 
+    public String singin(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, Model model) {
-        //CliBDD.addUser();
+      /* if( CliBDD.addClient(cli)){
+           model.addAttribute("msg", "Enregistrement effectué");
+       }*/
+       
         //model.addAttribute("societe", cli.getSociete());
         return "inscripClient";
     }

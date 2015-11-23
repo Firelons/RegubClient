@@ -81,7 +81,7 @@
                         <h4 class="modal-title" id="myModalLabel">Inscription</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" action="inscription">
+                        <form role="form" action="inscription" method="post">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" value="S'inscrire" class="btn btn-info btn-block">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">S'inscrire</button>
 
                         </form>
 
