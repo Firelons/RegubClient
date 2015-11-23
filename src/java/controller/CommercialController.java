@@ -48,9 +48,9 @@ public class CommercialController {
          return "redirect:/accueil";
       }
     
-    @RequestMapping("/contras")
-      public String contrasAction(HttpSession session ) {
+    @RequestMapping("/contrats")
+      public String contratsAction(HttpSession session ) {
          session.removeAttribute("UserConnected");
-         return "redirect:/contras";
+         return "redirect:/contrtas";
       }
 }
