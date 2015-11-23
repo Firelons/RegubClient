@@ -15,7 +15,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#accueil">ACCUEIL</a>
+                    <a class="navbar-brand page-scroll" href="/RegubClient/regub/commercial">ACCUEIL</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
