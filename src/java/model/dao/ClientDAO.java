@@ -78,10 +78,13 @@ public class ClientDAO {
     public boolean addClient(Client cli) {
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String SQL_QUERY = "insert into Client(cli.getSociete(),cli.getTelephone(),cli.getEmail(),cli.getAddrLigne1()"
-                + ",cli.getAddrLigne2(),cli.getCodePostal(),cli.getVille(),cli.getMotDePasse())  from Client cli";
         try {
-            Query query = session.createQuery(SQL_QUERY);
+            cli.setSalt("sel");
+            session.beginTransaction();
+            session.save(cli);
+            session.getTransaction().commit();
+            session.close();
+            HibernateUtil.getSessionFactory().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
