@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegubController {
      private final ClientDAO auth = new ClientDAO();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/connect")
+    @RequestMapping(value = "/connect",method = RequestMethod.POST)
     public String login(HttpServletRequest request,
             @RequestParam("login") String email,
             @RequestParam("Password") String password,
@@ -40,6 +40,11 @@ public class RegubController {
         }
         model.addAttribute("Err", "Erreur");
         return "accueil";
+    }
+    
+    @RequestMapping(value = "/regub",method = RequestMethod.GET)
+    protected String regubAction(Model model) {
+        return "regub";
     }
 }
 

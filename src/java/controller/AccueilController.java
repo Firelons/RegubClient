@@ -41,7 +41,7 @@ public class AccueilController {
         return "accueil";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/inscription")
+    @RequestMapping(value = "/inscription",method = RequestMethod.POST)
     public String singin(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, Model model) {
       /* if( CliBDD.addClient(cli)){
@@ -51,15 +51,15 @@ public class AccueilController {
         //model.addAttribute("societe", cli.getSociete());
         return "inscripClient";
     }
+    @RequestMapping(value = "/inscription", method = RequestMethod.GET)
+    protected String inscrp(Model model) {
+        return "regub";
+    }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
     protected String accAction(Model model) {
         return "accueil";
     }
 
-    @RequestMapping(value = "/regub")
-    protected String regubAction(Model model) {
-        return "regub";
-    }
 
 }
