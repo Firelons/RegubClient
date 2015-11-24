@@ -84,7 +84,7 @@
                                         <c:out value="${cli.getAddrLigne1()}"></c:out>
                                         </td>
                                         
-                                        <td><a href="#" class="btn btn-info"x>
+                                        <td><a href="/RegubClient/regub/commercial/contrats" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
@@ -110,19 +110,19 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" >
                         <form role="form">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Telephone*</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
                                     </div>
                                 </div>
                             </div>
@@ -135,19 +135,19 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ligne1*</label>
-                                        <input type="text" name="ligne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="ligne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>code postal*</label>
-                                        <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -207,7 +207,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                          <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="newpassword" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
+                                        <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -242,13 +242,13 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()}"required>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()}"required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Telephone*</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${UserConnected.getTelephone()}" required>
                                     </div>
                                 </div>
                             </div>
@@ -261,19 +261,19 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ligne1*</label>
-                                        <input type="text" name="ligne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${UserConnected.getAddrLigne1()}" required>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${UserConnected.getAddrLigne1()}" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="ligne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>code postal*</label>
-                                        <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

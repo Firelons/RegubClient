@@ -42,16 +42,25 @@ public class CommercialController {
         return "commercial";
       }
     
+    
+    
      @RequestMapping("/regub/commercial/accueil")
       public String retouraccueil(HttpSession session ,Model model) {
           listClientAction( session, model);
          return "commercial";
       }
       
-    @RequestMapping("rebub/commercial/contrats")
+    @RequestMapping("regub/commercial/contrats")
       public String contratsAction(HttpSession session ,Model model) {
         ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
          session.removeAttribute("UserConnected");
-         return "redirect:/contrats";
+         try{
+            List<Video> lst = VideoDAO.layDS(cli.getCli().getIdClient());
+            model.addAttribute("video",lst);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+         return "contrats";
       }
 }

@@ -60,8 +60,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading"> Liste des Contrats</h2>
+                        <h2 class="section-heading"> Liste des Contrats pour un Client</h2>
                         <hr class="primary">
+                    </div>
+                </div>
+            </div>
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
+                                <c:out value=""></c:out>Ajouter</a>
+                        </td>
                     </div>
                 </div>
             </div>
@@ -70,13 +79,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
+                                <th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif<th><th>Statut(Contrat)</th><th>Devis</th><th>Facture</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${video}">
                                 <tr>
                                     <td>
+                                        <c:out value="${vid.getTitre()}"></c:out>
+                                        </td>
+                                        <td>
+                                        <c:out value="${vid.getDuree()}"></c:out>
+                                        </td>
+                                        <td>
+                                        <c:out value="${vid.getDateDebut()}"></c:out>
+                                        </td>
+                                        <td>
+                                        <c:out value="${vid.getDateFin()}"></c:out>
+                                        </td>
+                                        <td>
+                                        <c:out value="${vid.getTarif()}"></c:out>
+                                        </td>
+                                        <td>
                                         <c:if test="${vid.getStatut()==1}">
                                             <c:out value="Validé">
                                             </c:out>
@@ -90,19 +114,7 @@
                                             </c:out>
                                         </c:if>
                                     </td>
-                                    <td>
-                                        <c:out value="${vid.getTitre()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDuree()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDateDebut()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDateFin()}"></c:out>
-                                        </td>
-                                        <td><a href="#" class="btn btn-primary">
+                                    <td><a href="#" class="btn btn-primary">
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><a href="#" class="btn btn-info">
@@ -111,7 +123,10 @@
                                         <td><a href="#" class="btn btn-primary">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
-                                    </tr>
+                                        <td><a href="#" class="btn btn-primary">
+                                            <c:out value=""></c:out>Annuler</a>
+                                    </td>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
