@@ -68,6 +68,11 @@
                                 <strong>${Err}</strong> Email / mot de passe incorrect.
                             </div>
                         </c:if>
+                        <c:if test="${Err=='Erreur inscription'}">
+                            <div class="alert alert-danger">
+                                <strong>${Err}</strong> Erreur d'enregistrement
+                            </div>
+                        </c:if>
                     </div>
                 </div>
         </header>

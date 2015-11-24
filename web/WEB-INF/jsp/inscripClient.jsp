@@ -17,7 +17,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue [Client] | Regub</title>
+        <title>Bienvenue ${cli.getSociete()} | Regub</title>
 
         <!-- Bootstrap Core CSS -->
 

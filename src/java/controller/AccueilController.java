@@ -44,13 +44,14 @@ public class AccueilController {
     @RequestMapping(value = "/inscription",method = RequestMethod.POST)
     public String singin(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, Model model) {
-      /* if( CliBDD.addClient(cli)){
-           model.addAttribute("msg", "Enregistrement effectué");
-       }*/
-       
+       if( CliBDD.addClient(cli)){
+           return "inscripClient";
+       }
         //model.addAttribute("societe", cli.getSociete());
-        return "inscripClient";
+       model.addAttribute("Err", "Erreur inscription");
+       return "regub";
     }
+    
     @RequestMapping(value = "/inscription", method = RequestMethod.GET)
     protected String inscrp(Model model) {
         return "regub";
