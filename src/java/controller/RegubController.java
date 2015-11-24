@@ -26,21 +26,20 @@ public class RegubController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/connect")
     public String login(HttpServletRequest request,
-            @RequestParam("inputEmail") String email,
-            @RequestParam("inputPassword") String password,
+            @RequestParam("login") String email,
+            @RequestParam("Password") String password,
             HttpSession session,
             Model model) {
         try {
-            ClientConnecte cli = new ClientConnecte(auth.checkLogin(email, password));
-            if (cli.getCli() != null) {
-                session.setAttribute("UserConnected", cli.getCli());
-                return "redirect:client";
-            }
+            
+            
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
         model.addAttribute("Err", "Erreur");
         return "accueil";
     }
-   
 }
+
