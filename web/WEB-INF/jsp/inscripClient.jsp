@@ -70,14 +70,14 @@
                             <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
                             <h3>Les informations suivantes ont été enrégistrées</h3>
                             <hr class="primary">
-                            <h3 class="text-muted">
+                            <p class="text-muted">
                                 Société :   <b> ${cli.getSociete()}</b><br/> 
                                 Telephone:  <b>  ${cli.getTelephone()}</b><br/> 
                                 Email:  <b>  ${cli.getEmail()}</b><br/>
                                 Adresse:    <b>    ${cli.getAddrLigne1()} ${cli.getAddrLigne2()}</b><br/> 
                                 Ville:  <b>  ${cli.getVille()}</b><br/>
                                 Code Postal:    <b>    ${cli.getCodePostal()}</b><br/>
-                            </h3>
+                            </p>
                         </div>
                     </div>
                 </div>

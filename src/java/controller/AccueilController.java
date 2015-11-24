@@ -45,6 +45,7 @@ public class AccueilController {
     public String singin(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, Model model) {
        if( CliBDD.addClient(cli)){
+           model.addAttribute("msg", "Enregistrement effectué");
            return "inscripClient";
        }
         //model.addAttribute("societe", cli.getSociete());
