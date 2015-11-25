@@ -41,18 +41,21 @@ public class AccueilController {
         return "accueil";
     }
 
-    @RequestMapping(value = "/inscription",method = RequestMethod.POST)
+    @RequestMapping(value = "/inscription", method = RequestMethod.POST)
     public String singin(HttpServletRequest request,
-            @ModelAttribute("cli") Client cli, Model model) {
-       if( CliBDD.addClient(cli)){
-           model.addAttribute("msg", "Enregistrement effectué");
-           return "inscripClient";
-       }
+            @ModelAttribute("cli") Client cli,@RequestParam("confirmation") String confirmation,Model model) {
+        if (!cli.getMotDePasse().equals(confirmation)) {
+            model.addAttribute("Err", "Erreur confirmation");
+            return "accueil";
+        }else if (CliBDD.addClient(cli)) {
+            model.addAttribute("msg", "Enregistrement effectué");
+            return "inscripClient";
+        }
         //model.addAttribute("societe", cli.getSociete());
-       model.addAttribute("Err", "Erreur inscription");
-       return "regub";
+        model.addAttribute("Err", "Erreur inscription");
+        return "accueil";
     }
-    
+
     @RequestMapping(value = "/inscription", method = RequestMethod.GET)
     protected String inscrp(Model model) {
         return "regub";
@@ -62,6 +65,5 @@ public class AccueilController {
     protected String accAction(Model model) {
         return "accueil";
     }
-
 
 }

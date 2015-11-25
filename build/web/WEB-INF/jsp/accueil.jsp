@@ -73,6 +73,11 @@
                                 <strong>${Err}</strong> Erreur d'enregistrement
                             </div>
                         </c:if>
+                        <c:if test="${Err=='Erreur confirmation'}">
+                            <div class="alert alert-danger">
+                                <strong>${Err}</strong> Mot de passe different de la confirmation
+                            </div>
+                        </c:if>
                     </div>
                 </div>
         </header>
@@ -142,7 +147,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Confirmation*</label>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
+                                        <input type="password" name="confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
