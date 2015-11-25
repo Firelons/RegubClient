@@ -83,13 +83,12 @@ public class ClientDAO {
             session.beginTransaction();
             session.save(cli);
             session.getTransaction().commit();
-            session.close();
-            HibernateUtil.getSessionFactory().close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
+        HibernateUtil.getSessionFactory().close();
         return false;
 
     }
