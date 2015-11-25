@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
+import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -91,5 +92,22 @@ public class ClientDAO {
         HibernateUtil.getSessionFactory().close();
         return false;
 
+    }
+
+    public boolean updClient(Client cli) {
+        List<Client> list = new ArrayList<Client>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            cli.setSalt("sel");
+            session.beginTransaction();
+            session.save(cli);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false; 
     }
 }

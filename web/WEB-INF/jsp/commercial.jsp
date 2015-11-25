@@ -111,7 +111,7 @@
                         <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
                     </div>
                     <div class="modal-body" >
-                        <form role="form">
+                        <form role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">

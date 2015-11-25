@@ -13,11 +13,14 @@ import entities.Compte;
 import entities.Typecompte;
 import entities.ClientConnecte;
 import entities.Video;
+import javax.servlet.http.HttpServletRequest;
 import model.dao.ClientDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CommercialController {
     
+    private final ClientDAO CliBDD = new ClientDAO();
     
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpSession session,Model model) {
@@ -42,7 +46,19 @@ public class CommercialController {
         return "commercial";
       }
     
-    
+     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
+    public String ajoutclient(HttpServletRequest request,
+            @ModelAttribute("cli") Client cli,HttpSession session,Model model) {
+        cli.setMotDePasse("");
+       if (CliBDD.addClient(cli)) {
+            model.addAttribute("msg", "Enregistrement effectué");
+        }else{
+            model.addAttribute("msg", "Erreur inscription");
+       }
+        //model.addAttribute("societe", cli.getSociete());
+       listClientAction(session,model);
+        return "commercial";
+    }
     
      @RequestMapping("/regub/commercial/accueil")
       public String retouraccueil(HttpSession session ,Model model) {

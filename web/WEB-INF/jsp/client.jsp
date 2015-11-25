@@ -67,15 +67,16 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="table-responsive">          
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+               <div class="container">
+                    <div class="table-responsive">  
+                         <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModalAjouter" >Ajouter</a>             
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <c:forEach var="vid" items="${video}">
                                 <tr>
                                     <td>
@@ -130,7 +131,7 @@
                         <h4 class="modal-title" id="myModalLabel">Parametres</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" method="post" action="modifierclient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -179,13 +180,13 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Ancien mot de passe</label>
+                                        <label>Ancien mot de passe</label>
                                         <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Mot de passe*(8 caractères min)</label>
+                                        <label>Mot de passe*(8 caractères min)</label>
                                         <input type="newpassword" name="newpassword" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
@@ -196,6 +197,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter un Contrat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
                         </form>
