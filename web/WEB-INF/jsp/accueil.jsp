@@ -47,7 +47,7 @@
     </head>
 
     <body id="page-top">
-        
+
         <jsp:include page="navAccueil.jsp"/>
         <header>
             <div class="header-content">
@@ -63,11 +63,7 @@
                     </button>
                     <br>
                     <div>
-                        <c:if test="${Err=='Erreur'}">
-                            <div class="alert alert-danger">
-                                <strong>${Err}</strong> Email / mot de passe incorrect.
-                            </div>
-                        </c:if>
+
                         <c:if test="${Err=='Erreur inscription'}">
                             <div class="alert alert-danger">
                                 <strong>${Err}</strong> Erreur d'enregistrement
@@ -91,7 +87,7 @@
                         <h4 class="modal-title" id="myModalLabel">Inscription</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" action="inscription" method="post">
+                        <form id="incripClient" role="form" action="inscription" method="post">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -158,9 +154,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">S'inscrire</button>
-
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -177,7 +171,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <form class="form-signin"action="connection" method="post">
+                            <form id="connectClient" class="form-signin">
                                 <label>Email*</label>
                                 <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
                                 <br>
@@ -186,15 +180,14 @@
                                 <br><a href="#">Mot de passe oublié ?</a><br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
                             </form>
-
-                            <c:if test="${Err=='Erreur'}">
-                                <div class="alert alert-danger">
-                                    <strong>${Err}</strong> Email / mot de passe incorrect.
-                                </div>
-                            </c:if>
+                            <br>
+                            <p>${info}</p>
+                            <p id ="info" class="text-success"></p>
+                            <p id ="error" class="text-danger"></p>
                             <br><br>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                     </div>
@@ -214,6 +207,9 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
+
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/accueil.js"/>"></script>
 
     </body>
 
