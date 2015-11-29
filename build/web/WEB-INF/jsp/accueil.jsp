@@ -20,7 +20,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Regub</title>
+        <title>RegubClient</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -87,7 +87,7 @@
                         <h4 class="modal-title" id="myModalLabel">Inscription</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="incripClient" role="form" action="inscription" method="post">
+                        <form id="inscripClient" role="form" class="form-signin">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -102,7 +102,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label>E-mail*</label>
                                 <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email"required>
@@ -154,6 +153,8 @@
                                 </div>
                             </div>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">S'inscrire</button>
+                            <p id ="infoins" class="text-success"></p>
+                            <p id ="errorins" class="text-danger"></p>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -171,7 +172,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <form id="connectClient" class="form-signin">
+                            <form id="connectClient" role="form" class="form-signin">
                                 <label>Email*</label>
                                 <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
                                 <br>
@@ -181,7 +182,6 @@
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
                             </form>
                             <br>
-                            <p>${info}</p>
                             <p id ="info" class="text-success"></p>
                             <p id ="error" class="text-danger"></p>
                             <br><br>

@@ -18,7 +18,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>regub</title>
+        <title>Regub</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -79,7 +79,7 @@
                     <div class="modal-body">
                         <div class="modal-body">
                             <form class="form-signin"action="/regub/connection" method="post">
-                                <label>Email*</label>
+                                <label>login*</label>
                                 <input type="login" id="login" name="login" class="form-control" placeholder="login" required autofocus>
                                 <br>
                                 <label>Mot de passe*</label>

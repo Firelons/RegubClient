@@ -20,7 +20,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue [Client] | Regub</title>
+        <title>Bienvenue ${UserConnected.getSociete()} | RegubClient</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -67,16 +67,16 @@
                     </div>
                 </div>
             </div>
-               <div class="container">
-                    <div class="table-responsive">  
-                         <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModalAjouter" >Ajouter</a>             
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            <div class="container">
+                <div class="table-responsive">  
+                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModalAjouter" >Ajouter</a>             
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <c:forEach var="vid" items="${video}">
                                 <tr>
                                     <td>
@@ -128,21 +128,21 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Parametres</h4>
+                        <h4 class="modal-title" id="myModalLabel">Paramètres</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" method="post" action="modifierclient">
+                        <form role="form" id="modifClient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Telephone*</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="telephone" class="form-control input-sm" placeholder="telephone"value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone"value="${UserConnected.getTelephone()}" required>
                                     </div>
                                 </div>
                             </div>
@@ -155,19 +155,19 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ligne1*</label>
-                                        <input type="text" name="ligne1" id="ligne1" class="form-control input-sm" placeholder="rue"value="${UserConnected.getAddrLigne1()}" required>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue"value="${UserConnected.getAddrLigne1()}" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="ligne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>code postal*</label>
-                                        <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -181,13 +181,13 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ancien mot de passe</label>
-                                        <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
+                                        <input type="password" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="newpassword" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
+                                        <input type="password" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -195,12 +195,12 @@
                                         <label>Confirmation*</label>
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
                                     </div>
+                                    <p id ="infomod" class="text-success"></p>
+                                    <p id ="errormod" class="text-danger"></p>
                                 </div>
                             </div>
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
-
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -217,7 +217,7 @@
                     </div>
                     <div class="modal-body">
                         <form role="form">
-                            
+
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
                         </form>
@@ -242,6 +242,8 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/client.js"/>"></script>
 
     </body>
 

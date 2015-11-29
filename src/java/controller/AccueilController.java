@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AccueilController {
 
     private final ClientDAO CliBDD = new ClientDAO();
+    private Client cl = new Client();
 
     @RequestMapping(method = RequestMethod.POST, value = "/connection")
-    public @ResponseBody String login(
+    public @ResponseBody
+    String login(
             @RequestParam("inputEmail") String email,
             @RequestParam("inputPassword") String password,
             HttpSession session) {
@@ -41,33 +43,26 @@ public class AccueilController {
         return "accueil";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/conn")
-    public @ResponseBody
-    String test ( @RequestParam("inputEmail") String email,
-            @RequestParam("inputPassword") String password,BindingResult result){
- 
-        return "toto";
-
-    }
-
     @RequestMapping(value = "/inscription", method = RequestMethod.POST)
-    public String singin(HttpServletRequest request,
-            @ModelAttribute("cli") Client cli, @RequestParam("confirmation") String confirmation, Model model) {
+    public @ResponseBody
+    String signin(
+            @ModelAttribute("cli") Client cli,
+            @RequestParam("confirmation") String confirmation,
+            HttpSession session) {
         if (!cli.getMotDePasse().equals(confirmation)) {
-            model.addAttribute("Err", "Erreur confirmation");
+            return "accueil";
+        } else if (cli.getMotDePasse().length() < 8) {
             return "accueil";
         } else if (CliBDD.addClient(cli)) {
-            model.addAttribute("msg", "Enregistrement effectué");
+            session.setAttribute("usersigned", cli);
             return "inscripClient";
         }
-        //model.addAttribute("societe", cli.getSociete());
-        model.addAttribute("Err", "Erreur inscription");
         return "accueil";
     }
 
     @RequestMapping(value = "/inscription", method = RequestMethod.GET)
-    protected String inscrp(Model model) {
-        return "regub";
+    public String sign(HttpSession session) {
+        return "inscripClient";
     }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)

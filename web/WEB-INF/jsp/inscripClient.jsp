@@ -4,10 +4,18 @@
     Author     : Mesmerus
 --%>
 
+<%@page import="entities.ClientConnecte"%>
+<%@page import="entities.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+<%
+    ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("usersigned"));
+%>
+<% if (cli.getCli() == null) {%>
+<c:redirect url="accueil"/>
+<%}%>
 <html lang="fr">
     <head>
 
@@ -17,7 +25,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue ${cli.getSociete()} | Regub</title>
+        <title>Bienvenue <%=  cli.getCli().getSociete()%> | Regub</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -48,7 +56,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Votre compte  ${cli.getSociete()} a bien été crée !</h2>
+                        <h2 class="section-heading">Votre compte  <%=  cli.getCli().getSociete()%> a bien été crée !</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -62,7 +70,7 @@
                             <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary" data-wow-delay=".1s"></i>
                             <h3>Un mail a été envoyé à votre adresse</h3>
                             <hr class="primary">
-                            <p class="text-muted">Veuillez confirmer votre compte en allant dans votre adresse mail : <a href="#">${cli.getEmail()}</a> </p>
+                            <p class="text-muted">Veuillez confirmer votre compte en allant dans votre adresse mail : <a href="#"><%=  cli.getCli().getEmail()%></a> </p>
                         </div>
                     </div>
                     <div class="col-md-6 text-center">
@@ -70,13 +78,13 @@
                             <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary" data-wow-delay=".2s"></i>
                             <h3>Les informations suivantes ont été enrégistrées</h3>
                             <hr class="primary">
-                            <p class="text-muted">
-                                Société :   <b> ${cli.getSociete()}</b><br/> 
-                                Telephone:  <b>  ${cli.getTelephone()}</b><br/> 
-                                Email:  <b>  ${cli.getEmail()}</b><br/>
-                                Adresse:    <b>    ${cli.getAddrLigne1()} ${cli.getAddrLigne2()}</b><br/> 
-                                Ville:  <b>  ${cli.getVille()}</b><br/>
-                                Code Postal:    <b>    ${cli.getCodePostal()}</b><br/>
+                            <p id="societe" class="text-muted">
+                                Société :   <b> <%=  cli.getCli().getSociete()%></b><br/> 
+                                Telephone:  <b>  <%=  cli.getCli().getTelephone()%></b><br/> 
+                                Email:  <b>  <%=  cli.getCli().getEmail()%></b><br/>
+                                Adresse:    <b>    <%=  cli.getCli().getTelephone()%>${cli.getAddrLigne2()}</b><br/> 
+                                Ville:  <b>  <%=  cli.getCli().getVille()%></b><br/>
+                                Code Postal:    <b>    <%=  cli.getCli().getCodePostal()%></b><br/>
                             </p>
                         </div>
                     </div>
@@ -103,3 +111,6 @@
     </body>
 
 </html>
+<%
+    session.removeAttribute("usersigned");
+%>

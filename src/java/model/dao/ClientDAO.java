@@ -10,6 +10,7 @@ import model.util.HibernateUtil;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -97,17 +98,14 @@ public class ClientDAO {
     public boolean updClient(Client cli) {
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            cli.setSalt("sel");
-            session.beginTransaction();
-            session.save(cli);
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Client updcli = (Client) session.get(cli.getClass(), cli.getIdClient());
+        updcli.setMotDePasse(cli.getMotDePasse());
+        session.beginTransaction();
+        session.update(updcli);
+        session.getTransaction().commit();
         session.close();
         HibernateUtil.getSessionFactory().close();
-        return false; 
+        return false;
     }
 }

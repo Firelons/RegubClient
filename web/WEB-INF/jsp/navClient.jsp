@@ -28,7 +28,7 @@
                             <a class="page-scroll" href="#contact">Contact</a>
                         </li>
                         <li>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Profil</a>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Paramètres</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="logout">Deconnexion</a>
