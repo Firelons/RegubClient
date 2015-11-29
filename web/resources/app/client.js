@@ -17,20 +17,19 @@ $(document).ready(function () {
                     $('#errormod').html("le mot de passe a au moins 8 caractères");
                     $('#infomod').html("");
                 } else if (mdp !== confirmmdp) {
-                    $('#errormod').html("confirmation different de mot de passe");
+                    $('#errormod').html("confirmation different du nouveau");
                     $('#infomod').html("");
                 } else { //test si  response est correct
                     if (response === "success") {
                         $('#infomod').html("Enregistrement reussi");
                         $('#errormod').html("");
                         window.location.replace('client'); //redirection
-                    } else if (response === "error") {
+                    } else if (response === "erroroldmdp") {
                         $('#infomod').html("");
-                        $('#errormod').html("Enregistrement echoué");
-                    }
-                    else {
-                        $('#infomod').html("");
+                        $('#errormod').html("ancien mot de passe incorrect");
+                    } else {
                         $('#errormod').html("Echec de l'enregistrement");
+                        $('#infomod').html("");
                     }
                 }
             },

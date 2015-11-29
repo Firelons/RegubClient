@@ -7,10 +7,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
-import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,8 +37,8 @@ public class ClientDAO {
         return null;
     }
 
-    public String encode(String sel) {
-        return sha256("toto".concat(sel));
+    public String encode(String mdp,String sel) {
+        return sha256(mdp.concat(sel));
     }
 
     public static String sha256(String base) {
@@ -78,6 +76,7 @@ public class ClientDAO {
     }
 
     public boolean addClient(Client cli) {
+         System.out.println("TST:");
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -92,20 +91,33 @@ public class ClientDAO {
         session.close();
         HibernateUtil.getSessionFactory().close();
         return false;
-
     }
 
-    public boolean updClient(Client cli) {
-        List<Client> list = new ArrayList<Client>();
+    public Client updClient(Client cli) {
+        System.out.println("TEST1:");
         Session session = HibernateUtil.getSessionFactory().openSession();
-
-        Client updcli = (Client) session.get(cli.getClass(), cli.getIdClient());
-        updcli.setMotDePasse(cli.getMotDePasse());
-        session.beginTransaction();
-        session.update(updcli);
-        session.getTransaction().commit();
+        try {
+            System.out.println("TEST:");
+            session.beginTransaction();
+            Client updcli = (Client) session.load(Client.class,cli.getIdClient());
+            updcli.setAddrLigne1(cli.getAddrLigne1());
+            updcli.setAddrLigne2(cli.getAddrLigne2());
+            updcli.setCodePostal(cli.getCodePostal());
+            updcli.setEmail(cli.getEmail());
+            updcli.setSociete(cli.getSociete());
+            updcli.setTelephone(cli.getTelephone());
+            updcli.setVille(cli.getVille());
+            updcli.setMotDePasse(cli.getMotDePasse());
+            session.update(updcli);
+            session.getTransaction().commit();
+            System.out.println("FIN:");
+            return updcli;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         session.close();
         HibernateUtil.getSessionFactory().close();
-        return false;
+        System.out.println("ERROR:");
+        return null;
     }
 }

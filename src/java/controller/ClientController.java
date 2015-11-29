@@ -11,6 +11,8 @@ import model.dao.VideoDAO;
 import entities.Client;
 import entities.ClientConnecte;
 import entities.Video;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import model.dao.ClientDAO;
 import org.springframework.stereotype.Controller;
@@ -54,16 +56,20 @@ public class ClientController {
             HttpSession session,
             @ModelAttribute("cli") Client cli,
             @RequestParam("password_confirmation") String confirmation,
-            @RequestParam("oldpassword") String oldmotdepasse) {
+            @RequestParam("oldpassword") String oldmotdepasse) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
-        if (!cl.getCli().getMotDePasse().equals(oldmotdepasse)) {
-            return "error";
-        }if (!cli.getMotDePasse().equals(oldmotdepasse)) {
-            return "error";
-        }
-        cl.getCli().setMotDePasse(cli.getMotDePasse());
-        if (CliBDD.updClient(cl.getCli())) {
-            return "success";
+        if (!cli.getMotDePasse().equals(confirmation)) {
+            System.out.println("mdp:" + cl.getCli().getMotDePasse() + " et " + CliBDD.encode(oldmotdepasse, cl.getCli().getSalt()));
+            return "erroroldmdp";
+        } else if (!cli.getMotDePasse().equals(confirmation)) {
+            return "errorconfirm";
+        } else {
+            cli.setIdClient(cl.getCli().getIdClient());
+            cli.setSalt(cl.getCli().getSalt());
+            if (CliBDD.updClient(cli)!=null) {
+                session.setAttribute("UserConnected", CliBDD.updClient(cli));
+                return "success";
+            }
         }
         return "error";
     }
