@@ -30,67 +30,60 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class CommercialController {
-    
+
     private final ClientDAO CliBDD = new ClientDAO();
-    
+
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
-    protected String listClientAction(HttpSession session,Model model) {
-        ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
-        
-        try{
+    protected String listClientAction(HttpSession session, Model model) {
+        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+
+        try {
             List<Client> lst = ClientDAO.listclient();
-            model.addAttribute("client",lst);
-        }
-        catch(Exception e){
+            model.addAttribute("client", lst);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "commercial";
-      }
-    
-     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
+    }
+
+    @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
     public String ajoutclient(HttpServletRequest request,
-            @ModelAttribute("cli") Client cli,HttpSession session,Model model) {
+            @ModelAttribute("cli") Client cli, HttpSession session, Model model) {
         cli.setMotDePasse("");
-       if (CliBDD.addClient(cli)) {
+        if (CliBDD.addClient(cli)) {
             model.addAttribute("msg", "Enregistrement effectué");
-        }else{
+        } else {
             model.addAttribute("msg", "Erreur inscription");
-       }
+        }
         //model.addAttribute("societe", cli.getSociete());
-       listClientAction(session,model);
+        listClientAction(session, model);
         return "commercial";
     }
-    
+
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
-    public String deleteclient(HttpServletRequest request,HttpSession session,Model model, Client cli, @PathVariable("id") Integer IdClient) {
-       System.out.println("test "+IdClient);
-       if (CliBDD.deleteClient(IdClient)) {
-           
-           model.addAttribute("msg", "Suppression effectué");
-       }else{
-           model.addAttribute("msg", "Suppression non effectué");
-       
-       }
-       return retouraccueil(session,model);   
+    public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
+        System.out.println("test " + IdClient);
+        CliBDD.deleteClient(IdClient);
+        retouraccueil(session, model);
+        return "redirect:/regub/commercial/accueil";
     }
-    
-     @RequestMapping("/regub/commercial/accueil")
-      public String retouraccueil(HttpSession session ,Model model) {
-          listClientAction( session, model);
-         return "commercial";
-      }
-      
+
+    @RequestMapping("/regub/commercial/accueil")
+    public String retouraccueil(HttpSession session, Model model) {
+        listClientAction(session, model);
+        return "commercial";
+    }
+
     @RequestMapping("regub/commercial/contrats")
-      public String contratsAction(HttpSession session ,Model model) {
-        ClientConnecte cli = new ClientConnecte((Client)session.getAttribute("UserConnected"));
-         session.removeAttribute("UserConnected");
-         try{
+    public String contratsAction(HttpSession session, Model model) {
+        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        session.removeAttribute("UserConnected");
+        try {
             List<Video> lst = VideoDAO.layDS(cli.getCli().getIdClient());
-            model.addAttribute("video",lst);
-        }
-        catch(Exception e){
+            model.addAttribute("video", lst);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-         return "contrats";
-      }
+        return "contrats";
+    }
 }

@@ -87,7 +87,7 @@
                                         <td><a href="/RegubClient/regub/commercial/contrats" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                        <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
