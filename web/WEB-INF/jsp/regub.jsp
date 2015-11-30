@@ -61,7 +61,7 @@
                     <div>
                         <c:if test="${Err=='Erreur'}">
                             <div class="alert alert-danger">
-                                <strong>${Err}</strong> Email / mot de passe incorrect.
+                                <strong>${Err}</strong> login / mot de passe incorrect.
                             </div>
                         </c:if>
                     </div>
@@ -78,21 +78,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <form class="form-signin"action="/regub/connection" method="post">
-                                <label>login*</label>
+
+                            <form class="form-signin"action="admconnect" method="POST">
+                                <label>Login*</label>
                                 <input type="login" id="login" name="login" class="form-control" placeholder="login" required autofocus>
                                 <br>
                                 <label>Mot de passe*</label>
-                                <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Mot de passe" required>
+                                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
                                 <br><a href="#">Mot de passe oublié ?</a><br>
                                 <button class="btn btn-lg btn-block" type="submit">Se connecter</button>
                             </form>
 
-                            <c:if test="${Err=='Erreur'}">
-                                <div class="alert alert-danger">
-                                    <strong>${Err}</strong> login / mot de passe incorrect.
-                                </div>
-                            </c:if>
                             <br><br>
                         </div>
                     </div>
