@@ -25,7 +25,7 @@
                             <%--${UserConnected.getSociete()}--%>
                         </li>
                         <li>
-                            <a href="#" class="page-scroll" data-toggle="modal" data-target="#myModalParametre">Parametre</a>
+                            <a href="#" class="page-scroll" data-toggle="modal" data-target="#myModalParametre">Parametres</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="logout">Deconnexion</a>

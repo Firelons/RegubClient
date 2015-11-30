@@ -79,7 +79,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif<th><th>Statut(Contrat)</th><th>Devis</th><th>Facture</th>
+                                <th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif</th><th>Statut(Contrat)</th><th>Devis</th><th>Facture</th>
                             </tr>
                         </thead>
                         <tbody>

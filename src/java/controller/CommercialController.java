@@ -74,12 +74,13 @@ public class CommercialController {
         return "commercial";
     }
 
-    @RequestMapping("regub/commercial/contrats")
-    public String contratsAction(HttpSession session, Model model) {
-        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
-        session.removeAttribute("UserConnected");
+    @RequestMapping("regub/commercial/contrats/{id}")
+    public String contratsAction(HttpServletRequest request,HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
+        //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        //session.removeAttribute("UserConnected");
+        
         try {
-            List<Video> lst = VideoDAO.layDS(cli.getCli().getIdClient());
+            List<Video> lst = VideoDAO.layDS(idClient);
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();

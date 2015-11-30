@@ -84,7 +84,7 @@
                                         <c:out value="${cli.getAddrLigne1()}"></c:out>
                                         </td>
                                         
-                                        <td><a href="/RegubClient/regub/commercial/contrats" class="btn btn-info"x>
+                                        <td><a href="/RegubClient/regub/commercial/contrats/${cli.getIdClient()}" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td>
                                         <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
