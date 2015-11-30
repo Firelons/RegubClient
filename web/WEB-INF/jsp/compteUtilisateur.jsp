@@ -31,6 +31,8 @@
                             <th>Prénom</th>
                             <th>Type de Compte</th>
                             <th>Login</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
                         </tr>
                         <% ArrayList<Compte> liste =new ArrayList<Compte>();
                         
@@ -43,6 +45,8 @@
                                <td><%=liste.get(i).getPrenom() %></td>
                                <td><%=liste.get(i).getTypecompte().getLibelle() %></td>
                                <td><%=liste.get(i).getLogin() %></td>
+                               <td>voir</td>
+                               <td> voir </td>
                             </tr>   
                          <%    
                          }
