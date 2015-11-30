@@ -35,7 +35,7 @@ public class RegubController {
                 if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==1){
                     return "accueilAdm";
                 }else if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==2){
-                    return "accueilCom";
+                    return "redirect:regub/commercial";
                 }
             }
             

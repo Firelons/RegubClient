@@ -37,7 +37,7 @@ public class ClientDAO {
         return null;
     }
 
-    public String encode(String mdp,String sel) {
+    public String encode(String mdp, String sel) {
         return sha256(mdp.concat(sel));
     }
 
@@ -76,7 +76,7 @@ public class ClientDAO {
     }
 
     public boolean addClient(Client cli) {
-         System.out.println("TST:");
+        System.out.println("TST:");
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -93,13 +93,31 @@ public class ClientDAO {
         return false;
     }
 
+    public boolean deleteClient(Integer idCli) {
+
+        List<Client> list = new ArrayList<Client>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Client suppcli = (Client) session.load(Client.class, idCli);
+                session.beginTransaction();
+                session.delete(suppcli);
+                session.getTransaction().commit();
+                return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false;
+    }
+
     public Client updClient(Client cli) {
         System.out.println("TEST1:");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             System.out.println("TEST:");
             session.beginTransaction();
-            Client updcli = (Client) session.load(Client.class,cli.getIdClient());
+            Client updcli = (Client) session.load(Client.class, cli.getIdClient());
             updcli.setAddrLigne1(cli.getAddrLigne1());
             updcli.setAddrLigne2(cli.getAddrLigne2());
             updcli.setCodePostal(cli.getCodePostal());

@@ -90,7 +90,7 @@
                                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary">
+                                        <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
                                         </td>
                                     </tr>

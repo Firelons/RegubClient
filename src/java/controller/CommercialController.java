@@ -18,6 +18,7 @@ import model.dao.ClientDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,6 +59,19 @@ public class CommercialController {
         //model.addAttribute("societe", cli.getSociete());
        listClientAction(session,model);
         return "commercial";
+    }
+    
+    @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
+    public String deleteclient(HttpServletRequest request,HttpSession session,Model model, Client cli, @PathVariable("id") Integer IdClient) {
+       System.out.println("test "+IdClient);
+       if (CliBDD.deleteClient(IdClient)) {
+           
+           model.addAttribute("msg", "Suppression effectué");
+       }else{
+           model.addAttribute("msg", "Suppression non effectué");
+       
+       }
+       return retouraccueil(session,model);   
     }
     
      @RequestMapping("/regub/commercial/accueil")
