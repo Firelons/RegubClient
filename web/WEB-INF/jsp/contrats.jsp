@@ -133,14 +133,83 @@
                 </div>
             </div>
         </section>
-        <jsp:include page="foot.jsp" />
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        
+        <jsp:include page="foot.jsp" />        
+        
+        <!-- Modal Ajouter -->
+        <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Parametres</h4>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <form role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Test C*</label>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <label>Telephone*</label>
+                                    <div class="form-group">
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>E-mail*</label>
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ligne1*</label>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>ligne2 (facultatif)</label>
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>code postal*</label>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ville*</label>
+                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Paramètre -->
+        <div class="modal fade" id="myModalParametre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Paramètre</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form">
@@ -152,9 +221,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <label>Telephone*</label>
+                                    <label>Prenom*</label>
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="telephone" class="form-control input-sm" placeholder="telephone"value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${UserConnected.getTelephone()}" required>
                                     </div>
                                 </div>
                             </div>
@@ -166,32 +235,6 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label>Ligne1*</label>
-                                        <input type="text" name="ligne1" id="ligne1" class="form-control input-sm" placeholder="rue"value="${UserConnected.getAddrLigne1()}" required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="ligne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>code postal*</label>
-                                        <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Ville*</label>
-                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${UserConnected.getVille()}" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
                                          <label>Ancien mot de passe</label>
                                         <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
                                     </div>
@@ -199,7 +242,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                          <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="newpassword" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
+                                        <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -220,6 +263,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- jQuery -->
         <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
