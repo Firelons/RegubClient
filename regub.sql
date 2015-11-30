@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 18 Novembre 2015 à 09:22
--- Version du serveur: 5.5.44-MariaDB-1ubuntu0.14.04.1
+-- Généré le: Lun 30 Novembre 2015 à 12:56
+-- Version du serveur: 5.5.46-MariaDB-1ubuntu0.14.04.2
 -- Version de PHP: 5.5.9-1ubuntu4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -201,7 +201,8 @@ INSERT INTO `DiffusionRegions` (`idVideo`, `idRegion`) VALUES
 (12, 5),
 (12, 21),
 (13, 21),
-(13, 30);
+(13, 30),
+(14, 17);
 
 -- --------------------------------------------------------
 
@@ -219,20 +220,7 @@ CREATE TABLE IF NOT EXISTS `Diffusions` (
   KEY `idVideo` (`idVideo`),
   KEY `idMagasin` (`idMagasin`),
   KEY `idTypeRayon` (`idTypeRayon`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
-
---
--- Contenu de la table `Diffusions`
---
-
-INSERT INTO `Diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, `dateDiffusion`) VALUES
-(1, 2, 3, 5, '2015-04-23 16:00:00'),
-(2, 2, 3, 6, '2015-04-23 16:00:00'),
-(3, 5, 3, 4, '2015-04-24 13:00:00'),
-(5, 5, 7, 5, '2015-04-22 09:00:00'),
-(6, 5, 7, 5, '2015-04-22 10:00:00'),
-(7, 4, 5, 9, '2015-04-29 10:00:00'),
-(8, 4, 5, 5, '2015-04-29 20:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -254,26 +242,52 @@ CREATE TABLE IF NOT EXISTS `DiffusionsTypesRayons` (
 INSERT INTO `DiffusionsTypesRayons` (`idVideo`, `idTypeRayon`) VALUES
 (2, 1),
 (2, 9),
-(3, 1),
+(3, 2),
 (3, 8),
 (4, 1),
 (4, 2),
 (4, 7),
 (5, 1),
+(5, 2),
 (5, 5),
 (5, 6),
-(9, 3),
+(9, 2),
 (9, 7),
 (9, 9),
+(10, 2),
 (10, 3),
 (10, 4),
 (11, 2),
-(11, 9),
 (12, 3),
 (12, 7),
 (12, 9),
 (13, 3),
-(13, 7);
+(13, 7),
+(14, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Entreprise`
+--
+
+CREATE TABLE IF NOT EXISTS `Entreprise` (
+  `idEntreprise` int(8) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(64) CHARACTER SET utf8 NOT NULL,
+  `adresse` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  `code` char(5) CHARACTER SET utf8 NOT NULL,
+  `ville` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `telephone` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `mail` varchar(32) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`idEntreprise`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `Entreprise`
+--
+
+INSERT INTO `Entreprise` (`idEntreprise`, `nom`, `adresse`, `code`, `ville`, `telephone`, `mail`) VALUES
+(1, 'HYPERMARCHE', '22 Avenue Lelons', '75000', 'Paris', '0555662020', 'regub@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -334,11 +348,13 @@ INSERT INTO `Rayons` (`idMagasin`, `idTypeRayon`) VALUES
 (2, 4),
 (2, 7),
 (3, 4),
+(5, 2),
 (5, 3),
 (5, 4),
 (5, 8),
 (5, 9),
 (6, 1),
+(6, 2),
 (6, 3),
 (6, 4),
 (6, 7);
@@ -463,22 +479,23 @@ CREATE TABLE IF NOT EXISTS `Video` (
   PRIMARY KEY (`idVideo`),
   KEY `idCommercial` (`idCommercial`),
   KEY `idClient` (`idClient`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `Video`
 --
 
 INSERT INTO `Video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dateFin`, `dateReception`, `dateValidation`, `tarif`, `statut`, `idCommercial`, `idClient`) VALUES
+(0, 'wololo', 10, 12, '2015-11-20', '2015-12-06', '2015-05-21', '2015-05-21', 1, 3, 1, 52),
+(1, 'TestLons', 6, 8, '2015-10-20', '2016-01-20', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50),
 (2, 'Test', 3, 26, '2015-04-16', '2015-05-21', '2015-03-11', '2015-03-13', 25, 3, 1, 1),
-(3, 'Controlla', 4, 30, '2015-03-11', '2015-05-30', '2015-03-31', '2015-03-27', 111, 1, 2, 45),
-(4, 'Danza kuduro', 7, 100, '2015-03-26', '2015-06-19', '2015-03-23', '2015-03-27', 155, 1, 2, 46),
-(5, 'Ser Exclu', 2, 85, '2015-03-18', '2015-07-16', '2015-03-01', '2015-03-02', 1222, 1, 1, 47),
-(9, 'test', 10, 10, '2015-05-20', '2015-05-21', '2015-05-19', '2015-05-19', 10, 3, 1, 1),
-(10, 'm', 12, 10, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 12, 3, 1, 52),
-(11, '8.mp4', 10, 12, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 1, 3, 1, 52),
-(12, 'TestLons', 6, 8, '2015-10-20', '2015-10-24', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50),
-(13, 'Retest', 2, 2, '2015-11-17', '2015-11-17', '2015-11-16', '2015-11-16', 2, 1, 1, 1);
+(3, 'Controlla', 4, 5, '2015-11-20', '2016-01-20', '2015-03-31', '2015-03-27', 111, 1, 2, 45),
+(4, 'Danza kuduro', 7, 5, '2015-05-19', '2015-10-14', '2015-03-23', '2015-03-27', 155, 1, 2, 46),
+(5, 'Ser Exclu', 2, 4, '2015-11-17', '2016-01-20', '2015-03-01', '2015-03-02', 1222, 1, 1, 47),
+(6, 'Retest', 2, 2, '2015-11-17', '2015-11-17', '2015-11-16', '2015-11-16', 2, 1, 1, 1),
+(7, 'Dernier_Test', 20, 6, '2015-11-23', '2015-12-18', '2015-11-23', '2015-11-23', 1, 1, 1, 1),
+(9, 'test', 10, 115, '2015-05-20', '2016-01-20', '2015-05-19', '2015-05-19', 10, 3, 1, 1),
+(10, 'm', 12, 10, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 12, 3, 1, 52);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
