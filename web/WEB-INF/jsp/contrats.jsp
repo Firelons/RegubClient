@@ -120,11 +120,13 @@
                                         <td><a href="#" class="btn btn-info">
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary">
+                                        <td><!-- <a href="#" class="btn btn-primary"> -->
+                                            <a href="/RegubClient/regub/commercial/contrats/modifiercontrat/${vid.getIdVideo()}" name="select" value="${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
                                             <c:out value=""></c:out>Annuler</a>
+                                        
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -142,7 +144,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter Un Contrat</h4>
                     </div>
                     <div class="modal-body" >
                         <form role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
@@ -202,6 +204,74 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Modifier -->
+        <div class="modal fade" id="myModalModifier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modifier Un Contrat</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <form role="form" method="post" action="/RegubClient/regub/commercial/contrats/modifiercontrat/">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Test Modifier*</label>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" value="${Modify.getIdVideo()}" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <label>Telephone*</label>
+                                    <div class="form-group">
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>E-mail*</label>
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ligne1*</label>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>ligne2 (facultatif)</label>
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>code postal*</label>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ville*</label>
+                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         
         <!-- Modal Paramètre -->
         <div class="modal fade" id="myModalParametre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

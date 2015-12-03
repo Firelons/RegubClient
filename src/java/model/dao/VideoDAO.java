@@ -31,4 +31,17 @@ public class VideoDAO {
         }
         return lst;
     }
+    
+    public Video modifcontrat(Integer idContrat) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Video modif = (Video) session.load(Video.class, idContrat);
+            return modif;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return null;
+    }
 }
