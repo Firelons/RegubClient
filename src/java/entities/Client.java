@@ -1,8 +1,7 @@
 package entities;
-// Generated 15 nov. 2015 13:36:36 by Hibernate Tools 4.3.1
+// Generated 3 déc. 2015 16:18:03 by Hibernate Tools 4.3.1
 
 
-import java.security.MessageDigest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,21 +21,23 @@ public class Client  implements java.io.Serializable {
      private String codePostal;
      private String motDePasse;
      private String salt;
+     private boolean valide;
      private Set videos = new HashSet(0);
 
     public Client() {
     }
 
 	
-    public Client(String societe, String telephone, String email, String codePostal, String motDePasse, String salt) {
+    public Client(String societe, String telephone, String email, String codePostal, String motDePasse, String salt, boolean valide) {
         this.societe = societe;
         this.telephone = telephone;
         this.email = email;
         this.codePostal = codePostal;
         this.motDePasse = motDePasse;
         this.salt = salt;
+        this.valide = valide;
     }
-    public Client(String societe, String telephone, String email, String addrLigne1, String addrLigne2, String ville, String codePostal, String motDePasse, String salt, Set videos) {
+    public Client(String societe, String telephone, String email, String addrLigne1, String addrLigne2, String ville, String codePostal, String motDePasse, String salt, boolean valide, Set videos) {
        this.societe = societe;
        this.telephone = telephone;
        this.email = email;
@@ -46,6 +47,7 @@ public class Client  implements java.io.Serializable {
        this.codePostal = codePostal;
        this.motDePasse = motDePasse;
        this.salt = salt;
+       this.valide = valide;
        this.videos = videos;
     }
    
@@ -119,6 +121,13 @@ public class Client  implements java.io.Serializable {
     public void setSalt(String salt) {
         this.salt = salt;
     }
+    public boolean isValide() {
+        return this.valide;
+    }
+    
+    public void setValide(boolean valide) {
+        this.valide = valide;
+    }
     public Set getVideos() {
         return this.videos;
     }
@@ -126,25 +135,8 @@ public class Client  implements java.io.Serializable {
     public void setVideos(Set videos) {
         this.videos = videos;
     }
-    public static String sha256(String base) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(base.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
 
-            return hexString.toString();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
 
 
 }

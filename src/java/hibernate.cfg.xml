@@ -4,16 +4,16 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://172.16.0.250:3306/regub</property>
-    <property name="hibernate.connection.username">projet</property>
-    <property name="hibernate.connection.password">projet171</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/regub</property>
+    <property name="hibernate.connection.username">root</property>
     <mapping resource="entities/Region.hbm.xml"/>
-    <mapping resource="entities/Magasin.hbm.xml"/>
-    <mapping resource="entities/Typerayon.hbm.xml"/>
+    <mapping resource="entities/Typecompte.hbm.xml"/>
+    <mapping resource="entities/Entreprise.hbm.xml"/>
+    <mapping resource="entities/Video.hbm.xml"/>
     <mapping resource="entities/Diffusions.hbm.xml"/>
     <mapping resource="entities/Compte.hbm.xml"/>
-    <mapping resource="entities/Typecompte.hbm.xml"/>
+    <mapping resource="entities/Magasin.hbm.xml"/>
+    <mapping resource="entities/Typerayon.hbm.xml"/>
     <mapping resource="entities/Client.hbm.xml"/>
-    <mapping resource="entities/Video.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

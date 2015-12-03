@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 3 d?c. 2015 16:18:03 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entities.Entreprise" table="entreprise" catalog="regub" optimistic-lock="version">
+        <id name="idEntreprise" type="java.lang.Integer">
+            <column name="idEntreprise" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="64" not-null="true" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="adresse" length="128" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="5" not-null="true" />
+        </property>
+        <property name="ville" type="string">
+            <column name="ville" length="64" />
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="10" not-null="true" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="32" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
