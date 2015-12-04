@@ -121,7 +121,7 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="/RegubClient/regub/commercial/contrats/modifiercontrat/${vid.getIdVideo()}" name="select" value="${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                            <a href="regub/commercial/contrats/modifiercontrat/{$vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
@@ -214,7 +214,7 @@
                         <h4 class="modal-title" id="myModalLabel">Modifier Un Contrat</h4>
                     </div>
                     <div class="modal-body" >
-                        <form role="form" method="post" action="/RegubClient/regub/commercial/contrats/modifiercontrat/">
+                        <form role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">

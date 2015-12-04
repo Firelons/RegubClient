@@ -104,19 +104,19 @@ public class CommercialController {
     }
     
     //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value="regub/commercial/contrats/modifiercontrat/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="regub/commercial/contrats/modifiercontrat/{id}", method = RequestMethod.GET)
     //public @ResponseBody
-    String modifiercontratAction(
+    void modifiercontratAction(
             HttpServletRequest request,
             HttpSession session, 
             @ModelAttribute("video") Video video, 
-            @PathVariable("id") Integer idContrat) {
+            @PathVariable(value="id") Integer id) {
         //if(request.getSession()){
-        int test = Integer.parseInt(request.getParameter("select")) ;
-        request.setAttribute("Modify", modif.modifcontrat(test));
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
-        //session.setAttribute("Modify", modif.modifcontrat(idContrat));
-        return "contrats";
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        //return "contrats";
     }
     
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
