@@ -17,7 +17,12 @@ $(document).ready(function () {
                     $('#info').html("Authentification reussie");
                     $('#error').html("");
                     window.location.replace('' + response.toString()); //redirection
-                } else if (response === "accueil") {//test si response est accueil.jsp
+                } if (response === "inscription") { //test si  response est inscripClient.jsp
+                    $('#info').html("Authentification reussie; Veuillez activer votre compte.");
+                    $('#error').html("");
+                    window.location.replace('' + response.toString()); //redirection
+                } 
+                else if (response === "accueil") {//test si response est accueil.jsp
                     $('#error').html("Erreur email / mot de passe");
                     $('#info').html("");
                 }

@@ -4,13 +4,17 @@
     Author     : Mesmerus
 --%>
 
+<%@page import="entities.ClientConnecte"%>
+<%@page import="entities.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<c:if test="${UserConnected!=null}">
-    <c:redirect url="client"/>
-</c:if>
+<%
+    ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+    if (cli.getCli()!=null && cli.getCli().isValide()) { %>
+<c:redirect url="client"/>
+<% }%>
 <html lang="fr">
     <head>
 

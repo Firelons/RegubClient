@@ -36,7 +36,7 @@
             <column name="salt" length="32" not-null="true" />
         </property>
         <property name="valide" type="boolean">
-            <column name="valide" not-null="true" />
+            <column name="valide" not-null="true" default="false" />
         </property>
         <set name="videos" table="video" inverse="true" lazy="true" fetch="select">
             <key>

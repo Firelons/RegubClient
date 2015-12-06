@@ -24,9 +24,9 @@ public class sendEmail {
     public sendEmail() {
     }
 
-    public static void send(Client client) throws Exception {
-        final String username = "****@gmail.com";
-		final String password = "****";
+    public static void send(Client cli,String Link) throws Exception {
+        final String username = "regubclient@gmail.com ";
+		final String password = "regieVideos";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -44,13 +44,16 @@ public class sendEmail {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("mesmerloic@gmail.com"));
+			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("mesmerloic@yahoo.fr"));
-			message.setSubject("Testing Subject");
-			message.setText("Bonjour,"
-				+ "\n\n Pour confirmer votre compte, veuillez cliquer sur ce lien:\n\n "
-                                +  "");
+				InternetAddress.parse(cli.getEmail()));
+			message.setSubject("regubClient " +cli.getSociete() );
+			message.setText("Bonjour "+cli.getSociete()
+                                + ",\n\nBienvienue sur l'application regubClient, nous vous remercions pour votre confiance."
+				+ ",\nPour Activer votre compte, veuillez cliquer sur ce lien:\n\n"
+                                +Link
+                                +  "\n\n Bonne journée."
+                                +  "\n\n\n <<Service reguClient onLine>>");
 
 			Transport.send(message);
 

@@ -99,10 +99,10 @@ public class ClientDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Client suppcli = (Client) session.load(Client.class, idCli);
-                session.beginTransaction();
-                session.delete(suppcli);
-                session.getTransaction().commit();
-                return true;
+            session.beginTransaction();
+            session.delete(suppcli);
+            session.getTransaction().commit();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,10 +112,8 @@ public class ClientDAO {
     }
 
     public Client updClient(Client cli) {
-        System.out.println("TEST1:");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            System.out.println("TEST:");
             session.beginTransaction();
             Client updcli = (Client) session.load(Client.class, cli.getIdClient());
             updcli.setAddrLigne1(cli.getAddrLigne1());
@@ -128,16 +126,35 @@ public class ClientDAO {
             updcli.setMotDePasse(cli.getMotDePasse());
             session.update(updcli);
             session.getTransaction().commit();
-            System.out.println("FIN:");
             return updcli;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
         HibernateUtil.getSessionFactory().close();
-        System.out.println("ERROR:");
         return null;
     }
-    
-    
+
+    public Client getClient(Integer IdClient) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Client cli = (Client) session.load(Client.class, IdClient);
+        session.close();
+        return cli;
+    }
+
+    public void activerClient(Integer IdClient) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Client updcli = (Client) session.load(Client.class, IdClient);
+            updcli.setValide(true);
+            session.update(updcli);
+            session.getTransaction().commit(); session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        session.close();
+    }
+
 }
