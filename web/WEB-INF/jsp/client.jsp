@@ -114,7 +114,7 @@
                                         <td><a href="#" class="btn btn-info">
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary">
+                                        <td><a href="modifiercontrat" class="btn btn-primary">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                     </tr>
