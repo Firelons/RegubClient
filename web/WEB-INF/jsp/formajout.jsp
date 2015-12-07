@@ -200,25 +200,11 @@
                                                 <th>ID</th><th>Libelle</th>
                                             </tr> -->
                                             <c:forEach var="reg" items="${rayon}">
-                                                <!--<tr>
-                                                    <td>
-                                                        
-                                                    </td>
-                                                    <td> -->
-                                                        <option >
-                                                            <input type="checkbox" name="rayonselected" value="${reg.getIdTypeRayon()}">
-                                                            <c:out value="${reg.getLibelle()}"></c:out>
-                                                        </option>
-                                                        
-                                                    <!--</td>
-                                                </tr> -->
+                                                <option>
+                                                    <c:out value="${reg.getLibelle()}"></c:out>
+                                                </option> 
                                             </c:forEach>
-                                        </select>        
-                                            <!-- <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option> -->
+                                        </select> 
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label">Regions :</label>

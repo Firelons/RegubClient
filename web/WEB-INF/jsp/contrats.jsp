@@ -65,10 +65,12 @@
                     </div>
                 </div>
             </div>
-            <div class="container" >
+           <div class="container" >
                 <div class="row">
                     <div class="col-lg-12">
-                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
+                        <!-- <a href="/RegubClient/regub/commercial/contrats/ajoutcontrat" class="btn btn-primary" data-toggle="modal"> -->
+                        <!-- data-target="#myModalAjouter" -->
+                        <td><a href="/RegubClient/regub/commercial/contrats/ajoutcontrat" class="btn btn-primary" data-toggle="modal">
                                 <c:out value=""></c:out>Ajouter</a>
                         </td>
                     </div>

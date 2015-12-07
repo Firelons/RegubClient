@@ -12,6 +12,7 @@ import model.dao.VideoDAO;
 import entities.Compte;
 import entities.Typecompte;
 import entities.ClientConnecte;
+import entities.Typerayon;
 import entities.Video;
 import javax.servlet.http.HttpServletRequest;
 import model.dao.ClientDAO;
@@ -35,6 +36,9 @@ public class CommercialController {
     private final ClientDAO CliBDD = new ClientDAO();
     
     private VideoDAO modif = new VideoDAO();
+    
+    //recup de l'id du client
+    private int cleclient;
 
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpSession session, Model model) {
@@ -83,6 +87,7 @@ public class CommercialController {
         //session.removeAttribute("UserConnected");
         
         try {
+            cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
             model.addAttribute("video", lst);
         } catch (Exception e) {
@@ -91,16 +96,25 @@ public class CommercialController {
         return "contrats";
     }
     
-    @RequestMapping("regub/commercial/contrats/ajoutcontrat/{id}")
-    public String ajoutcontratAction(HttpServletRequest request,HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) {
-        //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+    @RequestMapping("regub/commercial/contrats/ajoutcontrat")
+    String ajoutcontratAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) {
+        //Client contrat = contratclient.chargerclient(cleclient);
+        List<Client> lst = ClientDAO.Charge(cleclient);
+        List<Typerayon> listrayon = VideoDAO.layDS();
+        model.addAttribute("ajout", lst.get(0).getSociete());
+        model.addAttribute("cleclient", cleclient);
+        model.addAttribute("rayon", listrayon);
+        //@PathVariable("id") Integer idContrat
         //session.removeAttribute("UserConnected");
         
-        try {
+        /*try {
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return "contrats";
+        } */
+        return "formajout";
     }
     
     //action de chargement ds données pr le click du bouton modifier

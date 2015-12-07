@@ -135,7 +135,7 @@ public class ClientDAO {
         return null;
     }
 
-    public Client getClient(Integer IdClient) {
+    public static Client getClient(Integer IdClient) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Client cli = (Client) session.load(Client.class, IdClient);
         session.close();
@@ -155,6 +155,22 @@ public class ClientDAO {
         }
 
             session.close();
+    }
+    
+    //modif T.serge
+    public static List<Client> Charge(Integer idclient) {
+
+        List<Client> lst = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Client as c where c.idClient =?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, idclient);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lst;
     }
 
 }

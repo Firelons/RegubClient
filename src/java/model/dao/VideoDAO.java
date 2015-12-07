@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import entities.Typerayon;
 import entities.Video;
 import java.util.List;
 import model.util.HibernateUtil;
@@ -30,6 +31,20 @@ public class VideoDAO {
             e.printStackTrace();
         }
         return lst;
+    }
+    
+    public static List<Typerayon> layDS() {
+
+        List<Typerayon> listrayon = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Typerayon";
+            Query query = session.createQuery(hql);
+            listrayon = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listrayon;
     }
     
     public Video modifcontrat(Integer idContrat) {
