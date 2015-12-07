@@ -149,12 +149,12 @@ public class ClientDAO {
             Client updcli = (Client) session.load(Client.class, IdClient);
             updcli.setValide(true);
             session.update(updcli);
-            session.getTransaction().commit(); session.close();
+            session.getTransaction().commit(); 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        session.close();
+            session.close();
     }
 
 }

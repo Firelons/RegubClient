@@ -11,9 +11,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%
-    ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("userActivated"));
+    Client cli = (Client) session.getAttribute("userActivated");
 %>
-<% if (cli.getCli() == null) {%>
+<% if (cli == null) {%>
 <c:redirect url="accueil"/>
 <%}%>
 <html lang="fr">
@@ -25,7 +25,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue <%=  cli.getCli().getSociete()%> | Regub</title>
+        <title>Regub</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -56,7 +56,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Votre compte  <%=  cli.getCli().getSociete()%> a bien été Activé!</h2>
+                        <h2 class="section-heading">Votre compte a bien été Activé!</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -81,6 +81,3 @@
     </body>
 
 </html>
-<%
-    session.removeAttribute("userActivated");
-%>
