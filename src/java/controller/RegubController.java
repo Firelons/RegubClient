@@ -7,6 +7,7 @@
 package controller;
 
 import entities.Compte;
+import entities.Typecompte;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.AdministrateurDAO;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -24,18 +26,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegubController {
      private final AdministrateurDAO auth = new AdministrateurDAO();
 
+     
     @RequestMapping(value = "admconnect",method = RequestMethod.POST)
-    public String login(HttpServletRequest request,
+    public @ResponseBody String login(HttpServletRequest request,
             @RequestParam("login") String login,
             @RequestParam("password") String password,
             HttpSession session,
             Model model) {
         try {
-            if(auth.connexion(login, password) != null){
+            if(auth.connexion(login, password) != null){ 
+                session.setAttribute("compteConnected", auth.connexion(login, password).getTypecompte());
                 if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==1){
-                    return "accueilAdm";
+                    return "admin";
                 }else if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==2){
-                    return "redirect:regub/commercial";
+                    return "commercial";
                 }
             }
             
@@ -43,7 +47,7 @@ public class RegubController {
             e.printStackTrace();
         }
         model.addAttribute("Err", "Erreur");
-        return "accueil";
+        return "regub";
     }
     
     @RequestMapping(value = "/regub",method = RequestMethod.GET)

@@ -4,11 +4,19 @@
     Author     : batchanou
 --%>
 
+<%@page import="entities.Typecompte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%
+    Typecompte tcpt = (Typecompte)session.getAttribute("compteConnected");
+    if(tcpt==null){ %>
+    <c:redirect url="/regub"/>
+    <% }else if(tcpt.getIdTypeCompte()!=1){ %>
+    <c:redirect url="/regub"/>
+    }%>
 
+<% }%>
 <!DOCTYPE html>
 <html>
     <head>

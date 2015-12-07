@@ -4,15 +4,44 @@
     Author     : batchanou
 --%>
 
+
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Compte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Création des Comptes</title>
+
+        <!-- Bootstrap Core CSS -->
+
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
+
+        <!-- Custom Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="<c:url value="/resources/font-awesome/css/font-awesome.min.css"/>" type="text/css">
+
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="<c:url value="/resources/css/animate.min.css"/>" type="text/css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
+    <body> 
+        <jsp:include page="navAdministrateur.jsp"/>
         
         <div class="container">
             <div class="row">
@@ -24,48 +53,44 @@
         </div>
         <div class="container">
             <div class="table-responsive">    
-                <form action="user" method="post">
-                    <table class="table" border="1">
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Type de Compte</th>
-                            <th>Login</th>
-                            <th>Modifier</th>
-                            <th>Supprimer</th>
-                        </tr>
-                        <% ArrayList<Compte> liste =new ArrayList<Compte>();
-                        
-                           liste=(ArrayList<Compte>)request.getAttribute("compte") ;
-                                int i =0;
-                         for(i=0;i<liste.size(); i++){
-                             %>
-                           <tr>
-                               <td><%=liste.get(i).getNom() %></td>
-                               <td><%=liste.get(i).getPrenom() %></td>
-                               <td><%=liste.get(i).getTypecompte().getLibelle() %></td>
-                               <td><%=liste.get(i).getLogin() %></td>
-                               <td>voir</td>
-                               <td> voir </td>
-                            </tr>   
-                         <%    
-                         }
-                        %>
-                        <form class="" action="retour" method="get">
-                            <button class="btn  btn-default " type="submit"><strong>Accueil</strong></button>
-                        </form>
-                    </table>
-                </form>
+                
                 <form class="" action="creer" method="get">
                     <button class="btn  btn-default " type="submit"><strong>Ajouter</strong></button>
-                </form>
-                <form class="" action="update" method="post">
-                    <button class="btn btn-primary car" type="submit"><strong>Modifier</strong></button>
                 </form> 
-                <form class="" action="delete" method="post">
-                    <button class="btn btn-primary car" type="submit"><strong>Supprimer</strong></button>
+                <form action="user" method="post">
+                    <!-- 1ere facon de faire le tableau -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th><th>Prénom</th><th>Type de Compte</th><th>Login</th><th>Modifier</th><th>Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                ArrayList<Compte> list = new ArrayList<Compte>();
+
+                                list = (ArrayList<Compte>) request.getAttribute("compte");
+                                int j = 0;
+                                for (j = 0; j < list.size(); j++) {
+                            %>
+                            <tr>
+                                <td><%=list.get(j).getNom()%></td>
+                                <td><%=list.get(j).getPrenom()%></td>
+                                <td><%=list.get(j).getTypecompte().getLibelle()%></td>
+                                <td><%=list.get(j).getLogin()%></td>
+                                <td><a href="#" class="btn btn-primary">Voir</a></td>
+                                <td><a href="#" class="btn btn-info">Voir</a></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
                 </form>
+                
+
             </div>
-        </div>    
+        </div>  
+        <jsp:include page="foot.jsp" />   
     </body>
 </html>

@@ -28,7 +28,7 @@
                             <a href="#" class="page-scroll" data-toggle="modal" data-target="#myModalParametre">Parametres</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="logout">Deconnexion</a>
+                            <a class="page-scroll" href="/RegubClient/logout">Deconnexion</a>
                         </li>
                     </ul>
                 </div>

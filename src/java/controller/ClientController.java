@@ -79,6 +79,7 @@ public class ClientController {
     @RequestMapping("/logout")
     public String logoutAction(HttpSession session) {
         session.removeAttribute("UserConnected");
+        session.removeAttribute("compteConnected");
         return "redirect:/accueil";
     }
     

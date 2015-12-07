@@ -63,5 +63,10 @@ public class AccueilAdmController {
         return "gestionRegion";
     }
     
+    @RequestMapping(value = "admin")
+    protected String retourAction(Model model) {
+        return "accueilAdm";
+    }
+    
     
 }
