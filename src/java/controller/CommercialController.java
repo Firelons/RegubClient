@@ -34,9 +34,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommercialController {
 
     private final ClientDAO CliBDD = new ClientDAO();
-    
+
     private VideoDAO modif = new VideoDAO();
-    
+
     //recup de l'id du client
     private int cleclient;
 
@@ -82,24 +82,26 @@ public class CommercialController {
     }
 
     @RequestMapping("regub/commercial/contrats/{id}")
-    public String contratsAction(HttpServletRequest request,HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
+    public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
-        
+
         try {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
+            List<Client> lstcli = ClientDAO.Charge(idClient);
+            model.addAttribute("ajout", lstcli.get(0).getSociete());
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "contrats";
     }
-    
+
     @RequestMapping("regub/commercial/contrats/ajoutcontrat")
     String ajoutcontratAction(
             HttpServletRequest request,
-            HttpSession session, 
+            HttpSession session,
             Model model) {
         //Client contrat = contratclient.chargerclient(cleclient);
         List<Client> lst = ClientDAO.Charge(cleclient);
@@ -109,22 +111,22 @@ public class CommercialController {
         model.addAttribute("rayon", listrayon);
         //@PathVariable("id") Integer idContrat
         //session.removeAttribute("UserConnected");
-        
+
         /*try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        } */
+         } catch (Exception e) {
+         e.printStackTrace();
+         } */
         return "formajout";
     }
-    
+
     //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value="regub/commercial/contrats/modifiercontrat/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "regub/commercial/contrats/modifiercontrat/{id}", method = RequestMethod.GET)
     //public @ResponseBody
     void modifiercontratAction(
             HttpServletRequest request,
-            HttpSession session, 
-            @ModelAttribute("video") Video video, 
-            @PathVariable(value="id") Integer id) {
+            HttpSession session,
+            @ModelAttribute("video") Video video,
+            @PathVariable(value = "id") Integer id) {
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         request.setAttribute("Modify", this.modif.modifcontrat(id));
@@ -132,17 +134,17 @@ public class CommercialController {
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         //return "contrats";
     }
-    
+
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
-    public String annulercontratAction(HttpServletRequest request,HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) {
+    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
-        
+
         try {
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "contrats";
     }
-    
+
 }
