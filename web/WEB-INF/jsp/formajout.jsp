@@ -101,104 +101,69 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Frequence(par jour)</label>
                                         <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
                                     </div>
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes)</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
                                     </div>
-                                    <div class="col-xs-4">
-                                        <label class="control-label" >Tarif</label>
-                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
-                                    </div>
-                                    <!-- <div class="col-xs-4 selectContainer">
-                                        <label class="control-label">Genre</label>
-                                        <select class="form-control" name="genre">
-                                            <option value="">Choose a genre</option>
-                                            <option value="action">Action</option>
-                                            <option value="comedy">Comedy</option>
-                                            <option value="horror">Horror</option>
-                                            <option value="romance">Romance</option>
-                                        </select>
-                                    </div> -->
                                 </div>
-                            </div>
-
+                            </div>            
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <input type="text" class="form-control" id="datedebut" name="datedebut" placeholder="datedebut">
                                     </div>
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Fin</label>
                                         <input type="text" class="form-control" id="datefin" name="datefin" placeholder="datefin">
                                     </div>
-                                    <div class="col-xs-3">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Reception</label>
                                         <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
                                     </div>
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Validation</label>
                                         <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
                                     </div>
-                                    <!-- <div class="col-xs-4">
-                                        <label class="control-label">Director</label>
-                                        <input type="text" class="form-control" name="director" />
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <label class="control-label">Writer</label>
-                                        <input type="text" class="form-control" name="writer" />
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <label class="control-label">Producer</label>
-                                        <input type="text" class="form-control" name="producer" />
-                                    </div> -->
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label">Website</label>
-                                        <input type="text" class="form-control" name="website" />
+                                        <label class="control-label" >Tarif</label>
+                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
                                     </div>
-
                                     <div class="col-xs-6">
-                                        <label class="control-label">Youtube trailer</label>
-                                        <input type="text" class="form-control" name="trailer" />
+                                        <label class="control-label ">Statut : </label>
+                                        <div>
+                                            <!-- "rating" valeur d'attribut name du statut choisi -->
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="rating" value="valide" /> Validé
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="rating" value="preparation" /> Préparation
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="rating" value="annule" /> Annulé
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
-
-                            <div class="form-group">
-                                <label class="control-label ">Statut : </label>
-                                <div>
-                                    <!-- "rating" valeur d'attribut name du statut choisi -->
-                                    <label class="radio radio-inline">
-                                        <input type="radio" name="rating" value="valide" /> Validé
-                                    </label>
-                                    <label class="radio radio-inline">
-                                        <input type="radio" name="rating" value="preparation" /> Préparation
-                                    </label>
-                                    <label class="radio radio-inline">
-                                        <input type="radio" name="rating" value="annule" /> Annulé
-                                    </label>
-                                </div>
-                            </div>
-                                        
+                            </div>    
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label">Type De Rayon :</label>
                                         <select multiple class = "form-control">
-                                            <!-- <tr hidden="true">
-                                                <th>ID</th><th>Libelle</th>
-                                            </tr> -->
                                             <c:forEach var="reg" items="${rayon}">
                                                 <option>
                                                     <c:out value="${reg.getLibelle()}"></c:out>
@@ -220,18 +185,10 @@
                             </div>
                             
                             <div class="form-group">
-                                <!-- <div class="row"> -->
-                                    <!--<div class="col-xs-6">-->
-                                        <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
-                                    <!--</div>-->
-                                    <!--<div class="col-xs-6">-->
-                                        <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
-                                            <c:out value=""></c:out>Annuler</a>
-                                    <!--</div>-->
-                                <!--</div> -->
+                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
+                                    <c:out value=""></c:out>Annuler</a>
                             </div>
-                            
-                            <!-- <button type="submit" class="btn btn-info">Ajouter</button> -->
                         </form>
                     </div>        
                 </div>
