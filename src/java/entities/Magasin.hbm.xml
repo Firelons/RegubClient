@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 3 d?c. 2015 16:18:03 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="entities.Magasin" table="magasin" catalog="regub" optimistic-lock="version">
+    <class name="entities.Magasin" table="Magasin" catalog="regub" optimistic-lock="version">
         <id name="idMagasin" type="java.lang.Integer">
             <column name="idMagasin" />
             <generator class="identity" />
