@@ -1,7 +1,7 @@
 <%-- 
     Document   : navAdministrateur
-    Created on : 24 nov. 2015, 21:53:32
-    Author     : batchanou
+    Created on : 18 nov. 2015, 10:08:01
+    Author     : carolle
 --%>
 
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -10,22 +10,22 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">RegubCentral</span>
+                        <span class="sr-only">Regub</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">REGUBCentral</a>
+                    <a class="navbar-brand page-scroll" href="/RegubClient/regub/accueilAdm">ACCUEIL</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a class="page-scroll" href="#applimobile">Application Mobile</a>
+                            <%--${UserConnected.getSociete()}--%>
                         </li>
                         <li>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Paramètres</a>
+                            <a href="#" class="page-scroll" data-toggle="modal" data-target="#myModalParametre">Parametres</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="logout">Deconnexion</a>

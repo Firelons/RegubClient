@@ -4,9 +4,23 @@
     Author     : Mesmerus
 --%>
 
+<%@page import="entities.Typecompte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+    Typecompte tcpt = (Typecompte)session.getAttribute("compteConnected");
+    if(tcpt!=null){
+    if (tcpt.getIdTypeCompte()== 1 ) { %>
+    <c:redirect url="/admin"/>
+    <% }%>
+<%
+    if (tcpt.getIdTypeCompte()== 2 ) { %>
+<c:redirect url="/regub/commercial"/>
+
+<% }}%>
+
 <!DOCTYPE html>
 <html lang="fr">
 
