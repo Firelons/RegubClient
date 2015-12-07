@@ -16,8 +16,28 @@ $('#titre').blur(function(){
    //alert(this.prop3il); 
 });
 
+/*$('input[id=lefile]').change(function() {
+$('#photoCover').val($(this).val());
+});*/
+
+/*$(document).on('btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+}); */
+
 $(function () {
     $('#datetimedebut').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $('#datetimefin').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $('#datetimereception').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $('#datetimevalidation').datepicker({
         format: 'yyyy-mm-dd'
     });
 });

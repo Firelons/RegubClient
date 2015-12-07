@@ -38,42 +38,6 @@
     </head>
     <body id="page-top">
         <jsp:include page="navContrat.jsp" />
-             
-        <!-- <section class="formulaire">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-md-offset-0">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> 
-                                <strong class="">Modifier Contrat</strong>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group last">
-                                        <div class="col-sm-offset-3 col-sm-9">
-                                            <input type="submit" value="Enregistrer" class="btn btn-info">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </section> -->
         
         <section>
             <div class="container">
@@ -114,7 +78,7 @@
                             </div>            
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
                                             <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
@@ -123,7 +87,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-xs-6">
                                         <label class="control-label" >Date De Fin</label>
                                         <div class="input-group date" id="datetimefin">
                                             <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
@@ -134,26 +98,54 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Reception</label>
-                                        <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                        <div class="input-group date" id="datetimereception">
+                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Validation</label>
-                                        <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                        <div class="input-group date" id="datetimevalidation">
+                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
+                                        <label class="control-label" >Fichier(Mp4) :</label>
+                                        <!-- filestyle -->
+                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        <!--<span class="input-group-btn">
+                                            <span class="btn btn-info btn-file">
+                                                Browse&hellip; <input type="file" multiple>
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" readonly> -->
+                                        <!--<input id="lefile" type="file" style="display:none">
+                                        <div class="input-group date">
+                                            <input id="photoCover" class="form-control filestyle" type="text">
+                                            <!--<a class="btn" onclick="$('input[id=lefile]').click();">Browse</a>
+                                            <span class="input-group-addon" onclick="$('input[id=lefile]').click();">
+                                                <i class="glyphicon glyphicon glyphicon-folder-open"></i>
+                                            </span>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>
                                         <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-4">
                                         <label class="control-label ">Statut : </label>
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
@@ -284,6 +276,8 @@
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
+        <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
+        
         <script src="<c:url value="/resources/js/formajout.js"/>"></script> 
         
     </body>
