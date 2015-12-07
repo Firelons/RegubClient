@@ -18,6 +18,7 @@ import model.dao.ClientDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClientController {
 
     private final ClientDAO CliBDD = new ClientDAO();
+    private VideoDAO modif = new VideoDAO();
 
     @RequestMapping(value = "/client", method = RequestMethod.GET)
     protected String listVideoAction(HttpSession session, Model model) {
@@ -79,6 +81,20 @@ public class ClientController {
         session.removeAttribute("UserConnected");
         session.removeAttribute("compteConnected");
         return "redirect:/accueil";
+    }
+    
+    @RequestMapping(value="/modifiercontrat", method = RequestMethod.GET)
+    //public @ResponseBody
+    String modifiercontratAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) {
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "cliEditContrat";
     }
 
 }
