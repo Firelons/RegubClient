@@ -3,7 +3,7 @@
     Created on : 23 nov. 2015, 14:22:47
     Author     : loïc
 --%>
-
+<%@page import="entities.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -60,7 +60,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading"> Liste des Contrats pour un Client</h2>
+                        <h2 class="section-heading"> Liste des Contrats pour ${ajout} </h2>
                         <hr class="primary">
                     </div>
                 </div>
