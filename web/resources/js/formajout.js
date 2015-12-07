@@ -16,6 +16,12 @@ $('#titre').blur(function(){
    //alert(this.prop3il); 
 });
 
+$(function () {
+    $('#datetimedebut').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+});
+
 /* $(document).ready(function() {
     $('#FormulaireAjout').formValidation({
         //framework: 'bootstrap',

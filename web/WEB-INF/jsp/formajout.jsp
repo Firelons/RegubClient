@@ -33,6 +33,7 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
         <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
 
     </head>
     <body id="page-top">
@@ -113,13 +114,23 @@
                             </div>            
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-md-6">
                                         <label class="control-label" >Date De Debut</label>
-                                        <input type="text" class="form-control" id="datedebut" name="datedebut" placeholder="datedebut">
+                                        <div class="input-group date" id="datetimedebut">
+                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-md-6">
                                         <label class="control-label" >Date De Fin</label>
-                                        <input type="text" class="form-control" id="datefin" name="datefin" placeholder="datefin">
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -272,6 +283,7 @@
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         
+        <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/formajout.js"/>"></script> 
         
     </body>
