@@ -16,6 +16,18 @@ $('#titre').blur(function(){
    //alert(this.prop3il); 
 });
 
+$('#fichier').blur(function(){
+    if(this.value !==""){
+        //this.estValide = false;color: red
+        //$('p.erreur-form').css('color: red');
+        $('p.erreur-form').html(this.value);
+        //$(this).addClass('invalide');
+    }
+    else {
+    }
+   //alert(this.prop3il); 
+});
+
 /*$('input[id=lefile]').change(function() {
 $('#photoCover').val($(this).val());
 });*/

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -25,9 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class RegubController {
      private final AdministrateurDAO auth = new AdministrateurDAO();
-
-     
-    @RequestMapping(value = "admconnect",method = RequestMethod.POST)
+ 
+    @RequestMapping(value = "/admconnect",method = RequestMethod.POST)
     public @ResponseBody String login(HttpServletRequest request,
             @RequestParam("login") String login,
             @RequestParam("password") String password,
