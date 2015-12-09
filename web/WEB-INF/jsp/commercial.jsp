@@ -9,11 +9,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<% Typecompte tcpt = (Typecompte)session.getAttribute("compteConnected");
-    
-    if(tcpt==null){ %>
-    <c:redirect url="/regub"/>
-   <% }%>
+<% Typecompte tcpt = (Typecompte) session.getAttribute("compteConnected");
+
+    if (tcpt == null) { %>
+<c:redirect url="/regub"/>
+<% }%>
 
 <html lang="fr">
     <head>
@@ -24,8 +24,8 @@
         <meta name="author" content="">
 
         <title>Bienvenue [Commercial] | Regub</title>
-        
-         <!-- Bootstrap Core CSS -->
+
+        <!-- Bootstrap Core CSS -->
 
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
 
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section>
             <div class="container">
                 <div class="row">
@@ -68,19 +68,19 @@
                     <div class="col-lg-12">
                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
                                 <c:out value=""></c:out>Ajouter</a>
-                        </td>
+                            </td>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
-                <div class="table-responsive">          
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nom</th><th>Adresse</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div class="container">
+                    <div class="table-responsive">          
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th><th>Adresse</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <c:forEach var="cli" items="${client}">
                                 <tr>
                                     <td>
@@ -89,11 +89,12 @@
                                         <td>
                                         <c:out value="${cli.getAddrLigne1()}"></c:out>
                                         </td>
-                                        
+
                                         <td><a href="/RegubClient/regub/commercial/contrats/${cli.getIdClient()}" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                        <td>
+                                            <a id="modifbutton" href="/RegubClient/regub/commercial/modifierclient/${cli.getIdClient()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
@@ -106,7 +107,7 @@
                 </div>
             </div>
         </section>
-        
+
         <jsp:include page="foot.jsp" />
         <!-- Modal Ajouter -->
         <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -166,7 +167,6 @@
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
                         </form>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -206,13 +206,13 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Ancien mot de passe</label>
+                                        <label>Ancien mot de passe</label>
                                         <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Mot de passe*(8 caractères min)</label>
+                                        <label>Mot de passe*(8 caractères min)</label>
                                         <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
@@ -242,56 +242,59 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Modifier</h4>
                     </div>
-                    <div class="modal-body">
-                        <form role="form">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Nom*</label>
-                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()}"required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <label>Telephone*</label>
-                                    <div class="form-group">
-                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${UserConnected.getTelephone()}" required>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="modal-body">  
+                        <form id="modifierClient" role="form">
 
-                            <div class="form-group">
-                                <label>E-mail*</label>
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${UserConnected.getEmail()}" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Ligne1*</label>
-                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${UserConnected.getAddrLigne1()}" required>
+                            <c:if test="${ClientModif!=null}"> 
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Nom*</label>
+                                            <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${Clientmodif.getSociete()}"required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <label>Telephone*</label>
+                                        <div class="form-group">
+                                            <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${Clientmodif.getTelephone()}" required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>ligne2 (facultatif)</label>
-                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>code postal*</label>
-                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Ville*</label>
-                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${UserConnected.getVille()}" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
-                        </form>
+                                <div class="form-group">
+                                    <label>E-mail*</label>
+                                    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${ClientModif.getEmail()}" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Ligne1*</label>
+                                            <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${ClientModif.getAddrLigne1()}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>ligne2 (facultatif)</label>
+                                            <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${ClientModif.getAddrLigne2()}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>code postal*</label>
+                                            <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${ClientModif.getCodePostal()}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label>Ville*</label>
+                                            <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${ClientModif.getVille()}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+
+                            </c:if>    
+                        </form>         
 
                     </div>
                     <div class="modal-footer">

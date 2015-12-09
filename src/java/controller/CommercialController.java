@@ -65,7 +65,16 @@ public class CommercialController {
         listClientAction(session, model);
         return "commercial";
     }
-
+    
+    @RequestMapping(value = "/regub/commercial/modifierclient/{id}", method = RequestMethod.GET)
+    public @ResponseBody String  Afficherformmodif (HttpServletRequest request,
+            @PathVariable("id")Integer IdClient, HttpSession session , Model model) {
+        Client cli = ClientDAO.getClient(IdClient);
+        session.setAttribute("ClientModif", cli); 
+        return "Client added!";
+    }
+    
+    
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         System.out.println("test " + IdClient);
