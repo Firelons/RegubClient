@@ -41,12 +41,12 @@
         
         <section>
             <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> 
+                <div class="panel panel-default container">
+                    <div class="panel-heading">
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="" role="form" class="form-horizontal">
+                            <form id="FormulaireAjout" method="post" action="" role="form" class="form-horizontal">
                             <div class="form-group">
                                 <p class="erreur-form"/>
                             </div>
@@ -192,7 +192,7 @@
                                 <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
-                        </form>
+                        </form>    
                     </div>        
                 </div>
             </div>
