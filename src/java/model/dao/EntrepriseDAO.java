@@ -5,15 +5,8 @@
  */
 package model.dao;
 
-import entities.Client;
 import entities.Entreprise;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import model.util.HibernateUtil;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 
