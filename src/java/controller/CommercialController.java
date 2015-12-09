@@ -42,7 +42,6 @@ public class CommercialController {
 
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpSession session, Model model) {
-        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
 
         try {
             List<Client> lst = ClientDAO.listclient();
@@ -90,7 +89,7 @@ public class CommercialController {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
             List<Client> lstcli = ClientDAO.Charge(idClient);
-            model.addAttribute("ajout", lstcli.get(0).getSociete());
+            model.addAttribute("nom", lstcli.get(0).getSociete());
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();
