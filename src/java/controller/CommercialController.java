@@ -89,7 +89,7 @@ public class CommercialController {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
             List<Client> lstcli = ClientDAO.Charge(idClient);
-            model.addAttribute("nom", lstcli.get(0).getSociete());
+            model.addAttribute("ajout", lstcli.get(0).getSociete());
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();
