@@ -16,21 +16,17 @@ $('#titre').blur(function(){
    //alert(this.prop3il); 
 });
 
-$('#fichier').blur(function(){
-    if(this.value !==""){
+$('#input-id').blur(function(){
+    if(this.value !==null){
         //this.estValide = false;color: red
         //$('p.erreur-form').css('color: red');
         $('p.erreur-form').html(this.value);
         //$(this).addClass('invalide');
     }
-    else {
-    }
-   //alert(this.prop3il); 
 });
 
-/*$('input[id=lefile]').change(function() {
-$('#photoCover').val($(this).val());
-});*/
+
+
 
 /*$(document).on('btn-file :file', function() {
   var input = $(this),

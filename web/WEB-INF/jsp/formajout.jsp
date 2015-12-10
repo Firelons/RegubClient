@@ -32,9 +32,11 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
+        
+        <!-- Css add by T.serge -->
         <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
-
+        
     </head>
     <body id="page-top">
         <jsp:include page="navContrat.jsp" />
@@ -48,7 +50,7 @@
                     <div class="panel-body">
                             <form id="FormulaireAjout" method="post" action="" role="form" class="form-horizontal">
                             <div class="form-group">
-                                <p class="erreur-form"/>
+                                <p class="erreur-form" id="para"/>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -126,6 +128,7 @@
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle -->
                                         <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        
                                         <!--<span class="input-group-btn">
                                             <span class="btn btn-info btn-file">
                                                 Browse&hellip; <input type="file" multiple>
@@ -275,10 +278,10 @@
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         
+        <!-- Javascript add by T.serge -->
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
-        
-        <script src="<c:url value="/resources/js/formajout.js"/>"></script> 
+        <script src="<c:url value="/resources/js/formajout.js"/>"></script>
         
     </body>
 </html>
