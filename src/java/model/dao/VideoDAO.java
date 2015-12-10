@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import entities.Region;
 import entities.Typerayon;
 import entities.Video;
 import java.util.List;
@@ -33,7 +34,7 @@ public class VideoDAO {
         return lst;
     }
     
-    public static List<Typerayon> layDS() {
+    public static List<Typerayon> Rayonliste() {
 
         List<Typerayon> listrayon = null;
         try {
@@ -45,6 +46,20 @@ public class VideoDAO {
             e.printStackTrace();
         }
         return listrayon;
+    }
+    
+    public static List<Region> Regionliste() {
+
+        List<Region> listregion = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Region";
+            Query query = session.createQuery(hql);
+            listregion = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listregion;
     }
     
     public Video modifcontrat(Integer idContrat) {

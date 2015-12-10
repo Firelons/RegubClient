@@ -25,15 +25,19 @@ $('#input-id').blur(function(){
     }
 });
 
-
-
-
-/*$(document).on('btn-file :file', function() {
-  var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-  input.trigger('fileselect', [numFiles, label]);
-}); */
+$(document).ready(function () {
+    $('.selectrayon').SumoSelect({
+         placeholder: 'Choississez un ou plusieurs rayons',
+         csvDispCount: 5
+         //selectAll: true //fait apparaitre la case select all pour selectionner tous les rayons
+    });
+    
+    $('.selectregion').SumoSelect({
+         placeholder: 'Choississez une ou plusieurs region',
+         csvDispCount: 5
+    });
+    
+});
 
 $(function () {
     $('#datetimedebut').datepicker({

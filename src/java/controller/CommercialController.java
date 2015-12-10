@@ -113,17 +113,9 @@ public class CommercialController {
             Model model) {
         //Client contrat = contratclient.chargerclient(cleclient);
         List<Client> lst = ClientDAO.Charge(cleclient);
-        List<Typerayon> listrayon = VideoDAO.layDS();
+        //List<Typerayon> listrayon = VideoDAO.layDS();
         model.addAttribute("ajout", lst.get(0).getSociete());
         model.addAttribute("cleclient", cleclient);
-        model.addAttribute("rayon", listrayon);
-        //@PathVariable("id") Integer idContrat
-        //session.removeAttribute("UserConnected");
-
-        /*try {
-         } catch (Exception e) {
-         e.printStackTrace();
-         } */
         return "formajout";
     }
 

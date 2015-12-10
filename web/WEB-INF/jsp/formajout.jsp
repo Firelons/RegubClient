@@ -4,10 +4,19 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
+<%@page import="entities.Typerayon"%>
+<%@page import="entities.Region"%>
+<%@page import="model.dao.VideoDAO"%>
+<%
+    List<Typerayon> listrayon = VideoDAO.Rayonliste();
+    List<Region> listregion = VideoDAO.Regionliste();
+%>
 
 <html lang="fr">
     <head>
@@ -35,7 +44,8 @@
         
         <!-- Css add by T.serge -->
         <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
-        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">sumoselect
+        <link rel="stylesheet" href="<c:url value="/resources/css/sumoselect.css"/>" type="text/css">
         
     </head>
     <body id="page-top">
@@ -128,21 +138,6 @@
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle -->
                                         <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
-                                        
-                                        <!--<span class="input-group-btn">
-                                            <span class="btn btn-info btn-file">
-                                                Browse&hellip; <input type="file" multiple>
-                                            </span>
-                                        </span>
-                                        <input type="text" class="form-control" readonly> -->
-                                        <!--<input id="lefile" type="file" style="display:none">
-                                        <div class="input-group date">
-                                            <input id="photoCover" class="form-control filestyle" type="text">
-                                            <!--<a class="btn" onclick="$('input[id=lefile]').click();">Browse</a>
-                                            <span class="input-group-addon" onclick="$('input[id=lefile]').click();">
-                                                <i class="glyphicon glyphicon glyphicon-folder-open"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                     <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>
@@ -168,23 +163,31 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label">Type De Rayon :</label>
-                                        <select multiple class = "form-control">
-                                            <c:forEach var="reg" items="${rayon}">
-                                                <option>
-                                                    <c:out value="${reg.getLibelle()}"></c:out>
-                                                </option> 
-                                            </c:forEach>
+                                        <label class="control-label">Type De Rayon :</label></BR>
+                                        <select class="selectrayon form-control" multiple="multiple">
+                                            <%
+                                                    for(int i=0; i<listrayon.size(); i++){
+                                            %>   
+                                            <option value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                                <%=listrayon.get(i).getLibelle() %>
+                                            </option> 
+                                                <%
+                                              }
+                                            %>
                                         </select> 
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label">Regions :</label>
-                                        <select multiple class = "form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <label class="control-label">Regions :</label></BR>
+                                        <select multiple class = "selectregion form-control">
+                                            <%
+                                                    for(int i=0; i<listregion.size(); i++){
+                                            %>   
+                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                                <%=listregion.get(i).getLibelle() %>
+                                            </option> 
+                                                <%
+                                              }
+                                            %>
                                         </select>
                                     </div>
                                 </div>
@@ -282,6 +285,7 @@
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
         <script src="<c:url value="/resources/js/formajout.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>
 </html>
