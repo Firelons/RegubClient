@@ -116,7 +116,7 @@ public class CommercialController {
         //List<Typerayon> listrayon = VideoDAO.layDS();
         model.addAttribute("ajout", lst.get(0).getSociete());
         model.addAttribute("cleclient", cleclient);
-        return "formajout";
+        return "comformajoutcontrat";
     }
 
     //action de chargement ds données pr le click du bouton modifier

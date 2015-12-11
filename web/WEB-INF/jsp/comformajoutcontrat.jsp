@@ -43,7 +43,7 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
         
         <!-- Css add by T.serge -->
-        <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">sumoselect
         <link rel="stylesheet" href="<c:url value="/resources/css/sumoselect.css"/>" type="text/css">
         
@@ -284,7 +284,7 @@
         <!-- Javascript add by T.serge -->
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
-        <script src="<c:url value="/resources/js/formajout.js"/>"></script>
+        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>
