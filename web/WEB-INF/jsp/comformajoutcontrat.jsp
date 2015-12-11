@@ -43,8 +43,8 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
         
         <!-- Css add by T.serge -->
-        <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
-        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">sumoselect
+        <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
         <link rel="stylesheet" href="<c:url value="/resources/css/sumoselect.css"/>" type="text/css">
         
     </head>
@@ -58,7 +58,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                            <form id="FormulaireAjout" method="post" action="" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -71,16 +71,16 @@
                                         </div> 
                                     </fieldset>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Titre</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
+                                        <label class="control-label" >Frequence(par jour)</label>
+                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Frequence(par jour)</label>
-                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
+                                        <label class="control-label" >Titre</label>
+                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes)</label>
@@ -100,9 +100,9 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Fin</label>
-                                        <div class="input-group date" id="datetimefin">
-                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
+                                        <label class="control-label" >Date De Reception</label>
+                                        <div class="input-group date" id="datetimereception">
+                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -112,10 +112,11 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
+                                    
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Reception</label>
-                                        <div class="input-group date" id="datetimereception">
-                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                        <label class="control-label" >Date De Fin</label>
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -168,9 +169,10 @@
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
-                                            <option value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                             
+                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
                                                 <%=listrayon.get(i).getLibelle() %>
-                                            </option> 
+                                            </option>
                                                 <%
                                               }
                                             %>
@@ -284,7 +286,7 @@
         <!-- Javascript add by T.serge -->
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
-        <script src="<c:url value="/resources/js/formajout.js"/>"></script>
+        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>

@@ -70,7 +70,7 @@
                     <div class="col-lg-12">
                         <!-- <a href="/RegubClient/regub/commercial/contrats/ajoutcontrat" class="btn btn-primary" data-toggle="modal"> -->
                         <!-- data-target="#myModalAjouter" -->
-                        <td><a href="/RegubClient/regub/commercial/contrats/ajoutcontrat" class="btn btn-primary" data-toggle="modal">
+                        <td><a href="/RegubClient/regub/commercial/contrats/comformajoutcontrat" class="btn btn-primary" data-toggle="modal">
                                 <c:out value=""></c:out>Ajouter</a>
                         </td>
                     </div>
@@ -123,7 +123,7 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="regub/commercial/contrats/modifiercontrat/{$vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                            <a href="regub/commercial/contrats/commmodifiercontrat/{$vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
