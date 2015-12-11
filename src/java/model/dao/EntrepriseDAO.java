@@ -19,7 +19,6 @@ public class EntrepriseDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try{
              Entreprise ent = (Entreprise) session.load(Entreprise.class, new Integer(1));
-             
              return ent;
         }catch (Exception e) {
             e.printStackTrace();

@@ -39,6 +39,9 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
+         <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/commercial.js"/>"></script>
+
 
     </head>
     <body id="page-top">
@@ -89,13 +92,14 @@
                                         <td>
                                         <c:out value="${cli.getAddrLigne1()}"></c:out>
                                         </td>
-
                                         <td><a href="/RegubClient/regub/commercial/contrats/${cli.getIdClient()}" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
-                                        </td>
+                                        </td> 
                                         <td>
-                                            <a id="modifbutton" href="/RegubClient/regub/commercial/modifierclient/${cli.getIdClient()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
-                                            <c:out value=""></c:out>Modifier</a>
+                                            <form id="modifbutton" role="form" >
+                                                <input type="hidden" id="id" name="id" value="48" class="form-control" >
+                                                <button class="btn btn-primary" type="submit">modifier</button>
+                                            </form>
                                         </td>
                                         <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
@@ -316,5 +320,9 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
+
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/commercial.js"/>"></script>
+
     </body>
 </html>

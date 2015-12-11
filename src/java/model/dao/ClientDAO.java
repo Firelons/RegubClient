@@ -137,9 +137,15 @@ public class ClientDAO {
 
     public static Client getClient(Integer IdClient) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Client cli = (Client) session.load(Client.class, IdClient);
+        try {
+            Client cli = (Client) session.load(Client.class, IdClient);
+            return cli;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         session.close();
-        return cli;
+        HibernateUtil.getSessionFactory().close();
+        return null;
     }
 
     public void activerClient(Integer IdClient) {
@@ -149,14 +155,14 @@ public class ClientDAO {
             Client updcli = (Client) session.load(Client.class, IdClient);
             updcli.setValide(true);
             session.update(updcli);
-            session.getTransaction().commit(); 
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-            session.close();
+        session.close();
     }
-    
+
     //modif T.serge
     public static List<Client> Charge(Integer idclient) {
 
