@@ -106,8 +106,8 @@ public class CommercialController {
         return "contrats";
     }
 
-    @RequestMapping("regub/commercial/contrats/ajoutcontrat")
-    String ajoutcontratAction(
+    @RequestMapping("regub/commercial/contrats/comformajoutcontrat")
+    String formajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
             Model model) {
@@ -118,9 +118,23 @@ public class CommercialController {
         model.addAttribute("cleclient", cleclient);
         return "comformajoutcontrat";
     }
-
+    
+    //action appelée après saisie des infos dans le formulaire d'ajout d'un contrat
+    @RequestMapping("regub/commercial/contrats/comajoutcontrat")
+    String ajoutcontratAction(
+            HttpServletRequest request,
+            HttpSession session,
+            Model model) {
+        String [] choix = request.getParameterValues("rayon");
+        List<Client> lst = ClientDAO.Charge(cleclient);
+        //List<Typerayon> listrayon = VideoDAO.layDS();
+        model.addAttribute("ajout", lst.get(0).getSociete());
+        model.addAttribute("cleclient", cleclient);
+        return "test";
+    }
+    
     //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value = "regub/commercial/contrats/modifiercontrat/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat/{id}", method = RequestMethod.GET)
     //public @ResponseBody
     void modifiercontratAction(
             HttpServletRequest request,
@@ -132,7 +146,7 @@ public class CommercialController {
         request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        //return "contrats";
+        //return "comformmodifiercontrat";
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")

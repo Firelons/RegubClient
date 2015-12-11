@@ -16,15 +16,6 @@ $('#titre').blur(function(){
    //alert(this.prop3il); 
 });
 
-$('#input-id').blur(function(){
-    if(this.value !==null){
-        //this.estValide = false;color: red
-        //$('p.erreur-form').css('color: red');
-        $('p.erreur-form').html(this.value);
-        //$(this).addClass('invalide');
-    }
-});
-
 $(document).ready(function () {
     $('.selectrayon').SumoSelect({
          placeholder: 'Choississez un ou plusieurs rayons',
@@ -36,7 +27,13 @@ $(document).ready(function () {
          placeholder: 'Choississez une ou plusieurs region',
          csvDispCount: 5
     });
-    
+   
+});
+
+$('#rayon').blur(function(){
+    if(this.value !==null){
+        alert(this.value);
+    }
 });
 
 $(function () {
