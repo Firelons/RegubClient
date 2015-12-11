@@ -42,9 +42,9 @@ public class AccueilAdmController {
         return "compteUtilisateur";   
     }
     
-    @RequestMapping(value = "retour")
+    @RequestMapping(value = "retour")   // retour vers la page accueil
     protected String retourAccueilAction(Model model) {
-        return "accueilAdm";
+        return "redirect:accueilAdm";
     }
     @RequestMapping(value = "creer")
     protected String creerUserAction(Model model) {

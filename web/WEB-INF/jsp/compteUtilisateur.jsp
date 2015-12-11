@@ -40,9 +40,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
+    <jsp:include page="navAdministrateur.jsp"/>
     <body> 
-        <jsp:include page="navAdministrateur.jsp"/>
-        
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -53,9 +52,8 @@
         </div>
         <div class="container">
             <div class="table-responsive">    
-                
                 <form class="" action="creer" method="get">
-                    <button class="btn  btn-default " type="submit"><strong>Ajouter</strong></button>
+                    <button class="btn btn-info" type="submit"><strong>Ajouter</strong></button>
                 </form> 
                 <form action="user" method="post">
                     <!-- 1ere facon de faire le tableau -->
@@ -79,7 +77,7 @@
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
                                 <td><a href="#" class="btn btn-primary">Voir</a></td>
-                                <td><a href="#" class="btn btn-info">Voir</a></td>
+                                <td><a href="#" class="btn btn-primary">Suppr</a></td>
                             </tr>
                             <%
                                 }
@@ -87,10 +85,11 @@
                         </tbody>
                     </table>
                 </form>
-                
-
             </div>
         </div>  
+    
+    <footer>
         <jsp:include page="foot.jsp" />   
+    </footer>
     </body>
 </html>

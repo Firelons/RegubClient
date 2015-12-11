@@ -54,16 +54,19 @@
                     <h1>REGUB Accueil</h1><br/>
         
                     <form class="form" action="user" method="get">    
-                        <a><button class="btn btn-lg btn-primary car " type="submit"><strong>Gestion des comptes</strong></button><br/><br/></a>
+                        <a><button class="btn btn-lg btn-primary car " type="submit"><strong>Gestion des Comptes</strong></button><br/><br/></a>
                     </form>
                     <form class="form-signin" action="region" method="get">
-                        <button class="btn btn-lg btn-primary  car" type="submit"><strong>Gestion des régions</strong></button><br/><br/>
+                        <button class="btn btn-lg btn-primary  car" type="submit"><strong>Gestion de Régions</strong></button><br/><br/>
                     </form>
                     <form class="form-signin" action="magasin" method="get">
-                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion des magasins</strong></button><br/><br/>
+                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion de Magasins</strong></button><br/><br/>
                     </form>
                     <form class="form-signin" action="" method="get">
-                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion des types de rayons</strong></button>
+                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion de Type Rayons</strong></button><br/><br/>
+                    </form>
+                    <form class="form-signin" action="" method="get">
+                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Entreprises</strong></button>
                     </form>
                 </div>
             </div>

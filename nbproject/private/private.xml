@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/loïc/Documents/NetBeansProjects/RegubClient/src/java/controller/CommercialController.java</file>
-            <file>file:/C:/Users/loïc/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/contrats.jsp</file>
-            <file>file:/C:/Users/loïc/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/commercial.jsp</file>
-            <file>file:/C:/Users/loïc/Documents/NetBeansProjects/RegubClient/web/WEB-INF/jsp/client.jsp</file>
+            <file>file:/C:/Users/batchanou/Documents/NetBeansProjects/RegubClient/src/java/controller/RegubController.java</file>
+            <file>file:/C:/Users/batchanou/Documents/NetBeansProjects/RegubClient/src/java/controller/ClientController.java</file>
+            <file>file:/C:/Users/batchanou/Documents/NetBeansProjects/RegubClient/.gitignore</file>
         </group>
     </open-files>
 </project-private>
