@@ -97,7 +97,7 @@
                                         </td> 
                                         <td>
                                             <form id="modifbutton" role="form" >
-                                                <input type="hidden" id="id" name="id" value="48" class="form-control" >
+                                                <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
                                                 <button class="btn btn-primary" type="submit">modifier</button>
                                             </form>
                                         </td>
@@ -122,7 +122,7 @@
                         <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
                     </div>
                     <div class="modal-body" >
-                        <form role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
+                        <form id="azert" role="form" method="post" action="/RegubClient/regub/commercial/ajoutclient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
@@ -248,19 +248,17 @@
                     </div>
                     <div class="modal-body">  
                         <form id="modifierClient" role="form">
-
-                            <c:if test="${ClientModif!=null}"> 
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label>Nom*</label>
-                                            <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${Clientmodif.getSociete()}"required>
+                                            <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${ClientModif.getSociete()}"required>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <label>Telephone*</label>
                                         <div class="form-group">
-                                            <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${Clientmodif.getTelephone()}" required>
+                                            <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${ClientModif.getTelephone()}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -297,7 +295,6 @@
                                 </div>
                                 <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
-                            </c:if>    
                         </form>         
 
                     </div>

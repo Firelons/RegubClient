@@ -66,27 +66,18 @@ public class CommercialController {
         return "commercial";
     }
     
-    @RequestMapping(value = "/regub/commercial/modifierclient/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/regub/commercial/modifierclient", method = RequestMethod.POST)
     public @ResponseBody String  Afficherformmodif (HttpServletRequest request,
-            @PathVariable("id")Integer IdClient, HttpSession session , Model model) {
+            @RequestParam("id")Integer IdClient, HttpSession session , Model model) {
         Client cli = ClientDAO.getClient(IdClient);
         session.setAttribute("ClientModif", cli); 
-        return "Client added!";
+        return "mod succeed";
     }
-    
     
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
-        System.out.println("test " + IdClient);
         CliBDD.deleteClient(IdClient);
-        retouraccueil(session, model);
-        return "redirect:/regub/commercial/accueil";
-    }
-
-    @RequestMapping("/regub/commercial/accueil")
-    public String retouraccueil(HttpSession session, Model model) {
-        listClientAction(session, model);
-        return "commercial";
+        return "redirect:/regub/commercial/";
     }
 
     @RequestMapping("regub/commercial/contrats/{id}")

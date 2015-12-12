@@ -26,7 +26,7 @@
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="regub">Autre connection</a>
+                    <a class="page-scroll" href="regub">Autre connexion</a>
                 </li>
             </ul>
         </div>

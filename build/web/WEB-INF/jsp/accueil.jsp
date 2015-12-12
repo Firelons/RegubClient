@@ -81,7 +81,6 @@
                     </div>
                 </div>
         </header>
-        <jsp:include page="foot.jsp"/>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -183,7 +182,7 @@
                                 <label>Mot de passe*</label>
                                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
                                 <br><a href="#">Mot de passe oublié ?</a><br>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+                                <a class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#myModal"type="submit">Se connecter</a>
                             </form>
                             <br>
                             <p id ="info" class="text-success"></p>
