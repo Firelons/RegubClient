@@ -25,34 +25,35 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class RegubController {
-     private final AdministrateurDAO auth = new AdministrateurDAO();
- 
-    @RequestMapping(value = "/admconnect",method = RequestMethod.POST)
-    public @ResponseBody String login(HttpServletRequest request,
+
+    private final AdministrateurDAO auth = new AdministrateurDAO();
+
+    @RequestMapping(value = "/admconnect", method = RequestMethod.POST)
+    public @ResponseBody
+    String login(HttpServletRequest request,
             @RequestParam("login") String login,
             @RequestParam("password") String password,
             HttpSession session,
             Model model) {
         try {
-            if(auth.connexion(login, password) != null){ 
+            if (auth.connexion(login, password) != null) {
                 session.setAttribute("compteConnected", auth.connexion(login, password).getTypecompte());
-                if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==1){
+                if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 1) {
                     return "admin";
-                }else if(auth.connexion(login, password).getTypecompte().getIdTypeCompte()==2){
+                } else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 2) {
                     return "commercial";
                 }
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         model.addAttribute("Err", "Erreur");
         return "regub";
     }
-    
-    @RequestMapping(value = "/regub",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/regub", method = RequestMethod.GET)
     protected String regubAction(Model model) {
         return "regub";
     }
 }
-

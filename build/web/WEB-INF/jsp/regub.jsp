@@ -17,7 +17,7 @@
     <% }%>
 <%
     if (tcpt.getIdTypeCompte()== 2 ) { %>
-<c:redirect url="/regub/commercial"/>
+<c:redirect url="/regub/commercial/"/>
 
 <% }}%>
 

@@ -17,9 +17,11 @@ $(document).ready(function () {
                 alert("Erreur accès au reseau");
             }
         });
+       $(window).bind("load", function () {
+    $('#myModalModifier').modal('show');
+}); 
     });
 });
 
-$(window).bind("load", function () {
-    $('#myModalModifier').modal('show');
-});
+
+
