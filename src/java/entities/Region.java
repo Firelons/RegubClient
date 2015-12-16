@@ -9,7 +9,6 @@ import java.util.Set;
  */
 public class Region  implements java.io.Serializable {
 
-
      private Integer idRegion;
      private String libelle;
      private Set magasins = new HashSet(0);
