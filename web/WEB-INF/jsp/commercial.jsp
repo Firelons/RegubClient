@@ -10,7 +10,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <% Typecompte tcpt = (Typecompte) session.getAttribute("compteConnected");
-
     if (tcpt == null) { %>
 <c:redirect url="/regub"/>
 <% }%>
@@ -39,7 +38,7 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
-         <!--App JavaScript-->
+        <!--App JavaScript-->
         <script src="<c:url value="/resources/app/commercial.js"/>"></script>
 
 
@@ -71,6 +70,8 @@
                     <div class="col-lg-12">
                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
                                 <c:out value=""></c:out>Ajouter</a>
+                                <button onclick="" id="modifbuton" class="btn btn-primary">
+                                <c:out value=""></c:out>Json</button>
                             </td>
                         </div>
                     </div>
@@ -98,10 +99,10 @@
                                         <td>
                                             <form id="modifbutton" role="form" >
                                                 <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
-                                                <button class="btn btn-primary" type="submit">modifier</button>
-                                            </form>
-                                        </td>
-                                        <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
+                                            <button class="btn btn-primary" type="submit">modifier</button>
+                                        </form>
+                                    </td>
+                                    <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
                                         </td>
                                     </tr>
@@ -248,55 +249,54 @@
                     </div>
                     <div class="modal-body">  
                         <form id="modifierClient" role="form">
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Nom*</label>
-                                            <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${ClientModif.getSociete()}"required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <label>Telephone*</label>
-                                        <div class="form-group">
-                                            <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${ClientModif.getTelephone()}" required>
-                                        </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Nom*</label>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${ClientModif.getSociete()}"required>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>E-mail*</label>
-                                    <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${ClientModif.getEmail()}" required>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Ligne1*</label>
-                                            <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${ClientModif.getAddrLigne1()}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>ligne2 (facultatif)</label>
-                                            <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${ClientModif.getAddrLigne2()}">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>code postal*</label>
-                                            <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${ClientModif.getCodePostal()}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label>Ville*</label>
-                                            <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${ClientModif.getVille()}" required>
-                                        </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <label>Telephone*</label>
+                                    <div class="form-group">
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${ClientModif.getTelephone()}" required>
                                     </div>
                                 </div>
-                                <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+                            </div>
 
-                        </form>         
+                            <div class="form-group">
+                                <label>E-mail*</label>
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${ClientModif.getEmail()}" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ligne1*</label>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${ClientModif.getAddrLigne1()}" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>ligne2 (facultatif)</label>
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${ClientModif.getAddrLigne2()}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>code postal*</label>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${ClientModif.getCodePostal()}" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ville*</label>
+                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${ClientModif.getVille()}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

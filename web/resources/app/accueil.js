@@ -23,7 +23,7 @@ $(document).ready(function () {
                     window.location.replace('' + response.toString()); //redirection
                 } 
                 else if (response === "accueil") {//test si response est accueil.jsp
-                    $('#error').html("Errr email / mot de passe");
+                    $('#error').html("Erreur email / mot de passe");
                     $('#info').html("");
                 }
             },

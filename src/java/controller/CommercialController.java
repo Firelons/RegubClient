@@ -51,7 +51,7 @@ public class CommercialController {
         }
         return "commercial";
     }
-
+    
     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
     public String ajoutclient(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, HttpSession session, Model model) {
@@ -65,7 +65,6 @@ public class CommercialController {
         listClientAction(session, model);
         return "commercial";
     }
-    
     @RequestMapping(value = "/regub/commercial/modifierclient", method = RequestMethod.POST)
     public @ResponseBody String  Afficherformmodif (HttpServletRequest request,
             @RequestParam("id")Integer IdClient, HttpSession session , Model model) {
@@ -73,7 +72,17 @@ public class CommercialController {
         session.setAttribute("ClientModif", cli); 
         return "mod succeed";
     }
-    
+    @RequestMapping(value = "/regub/commercial/modcli", method = RequestMethod.GET)
+    protected String AfficherFormmodif(HttpSession session, Model model) {
+        try {
+            List<Client> lst = ClientDAO.listclient();
+            model.addAttribute("client", lst);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "commercial";
+    }
+   
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         CliBDD.deleteClient(IdClient);
@@ -84,7 +93,6 @@ public class CommercialController {
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
-
         try {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
