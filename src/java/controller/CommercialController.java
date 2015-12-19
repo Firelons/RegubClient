@@ -15,6 +15,7 @@ import entities.ClientConnecte;
 import entities.Typerayon;
 import entities.Video;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import model.dao.ClientDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,7 @@ public class CommercialController {
         }
         return "commercial";
     }
-    
+
     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
     public String ajoutclient(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, HttpSession session, Model model) {
@@ -65,13 +66,16 @@ public class CommercialController {
         listClientAction(session, model);
         return "commercial";
     }
+
     @RequestMapping(value = "/regub/commercial/modifierclient", method = RequestMethod.POST)
-    public @ResponseBody String  Afficherformmodif (HttpServletRequest request,
-            @RequestParam("id")Integer IdClient, HttpSession session , Model model) {
-        Client cli = ClientDAO.getClient(IdClient);
-        session.setAttribute("ClientModif", cli); 
-        return "mod succeed";
+    public @ResponseBody
+    String Afficherformmodif(@RequestParam("id") Integer id) {
+        System.out.println("svfkfDFHEAFUNaefebnfuANEFUNafuneaFUNaenfANEFaunefANUEFUanefuNEAFUNZEUNZFNUZQEFNZQEFUEFZ"+id);
+        Client cli = ClientDAO.getClient(id);
+        
+         return "[{id : 1}]";
     }
+
     @RequestMapping(value = "/regub/commercial/modcli", method = RequestMethod.GET)
     protected String AfficherFormmodif(HttpSession session, Model model) {
         try {
@@ -82,7 +86,7 @@ public class CommercialController {
         }
         return "commercial";
     }
-   
+
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         CliBDD.deleteClient(IdClient);
@@ -117,21 +121,21 @@ public class CommercialController {
         model.addAttribute("cleclient", cleclient);
         return "comformajoutcontrat";
     }
-    
+
     //action appelée après saisie des infos dans le formulaire d'ajout d'un contrat
     @RequestMapping("regub/commercial/contrats/comajoutcontrat")
     String ajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
             Model model) {
-        String [] choix = request.getParameterValues("rayon");
+        String[] choix = request.getParameterValues("rayon");
         List<Client> lst = ClientDAO.Charge(cleclient);
         //List<Typerayon> listrayon = VideoDAO.layDS();
         model.addAttribute("ajout", lst.get(0).getSociete());
         model.addAttribute("cleclient", cleclient);
         return "test";
     }
-    
+
     //action de chargement ds données pr le click du bouton modifier
     @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat/{id}", method = RequestMethod.GET)
     //public @ResponseBody
