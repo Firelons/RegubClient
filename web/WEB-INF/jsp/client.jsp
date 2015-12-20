@@ -184,7 +184,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Ancien mot de passe</label>
-                                        <input type="password" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" value="${UserConnected.getMotDePasse()}" required Autofocus>
+                                        <input type="password" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" value="***********" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">

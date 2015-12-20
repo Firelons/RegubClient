@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 07 Décembre 2015 à 12:36
--- Version du serveur :  5.6.20
--- Version de PHP :  5.5.15
+-- Généré le :  Dim 20 Décembre 2015 à 19:55
+-- Version du serveur :  5.6.21
+-- Version de PHP :  5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -70,14 +70,14 @@ CREATE TABLE IF NOT EXISTS `client` (
   `mot_de_passe` varchar(64) NOT NULL,
   `salt` char(32) NOT NULL,
   `valide` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=104 ;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`, `salt`, `valide`) VALUES
-(1, 'TF1', '0624912564', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'ebb918fc66572e10029d05e49cc2b2256d7728e7a985c740805d110fc0f5189e', 'ec746e58619f5c757d1eb91e4eb10571', 1),
+(1, 'TF1      ', '0624912564', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'ebb918fc66572e10029d05e49cc2b2256d7728e7a985c740805d110fc0f5189e', 'ec746e58619f5c757d1eb91e4eb10571', 1),
 (3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
 (45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
 (46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `salt` char(32) NOT NULL,
   `creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idTypeCompte` int(8) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `compte`
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `diffusions` (
   `idMagasin` int(8) NOT NULL,
   `idTypeRayon` int(8) NOT NULL,
   `dateDiffusion` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `diffusions`
@@ -272,21 +272,20 @@ INSERT INTO `diffusionstypesrayons` (`idVideo`, `idTypeRayon`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `entreprise` (
-  `idEntreprise` int(8) NOT NULL,
+`idEntreprise` int(8) NOT NULL,
   `nom` varchar(64) CHARACTER SET utf8 NOT NULL,
   `adresse` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
   `code` char(5) CHARACTER SET utf8 NOT NULL,
   `ville` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
   `telephone` varchar(10) CHARACTER SET utf8 NOT NULL,
   `mail` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `entreprise`
 --
 
 INSERT INTO `entreprise` (`idEntreprise`, `nom`, `adresse`, `code`, `ville`, `telephone`, `mail`) VALUES
-(1, 'HYPERMARCHE', '22 Avenue Lelons', '75000', 'Paris', '0555662020', 'regub@gmail.com'),
 (1, 'HYPERMARCHE', '22 Avenue Lelons', '75000', 'Paris', '0555662020', 'regub@gmail.com');
 
 -- --------------------------------------------------------
@@ -303,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `magasin` (
   `code_postal` char(5) NOT NULL,
   `idRegion` int(8) NOT NULL,
   `ville` varchar(64) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `magasin`
@@ -362,7 +361,7 @@ INSERT INTO `rayons` (`idMagasin`, `idTypeRayon`) VALUES
 CREATE TABLE IF NOT EXISTS `region` (
 `idRegion` int(8) NOT NULL,
   `libelle` varchar(32) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `region`
@@ -409,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `typecompte` (
   `libelle` varchar(32) NOT NULL,
   `dblogin` varchar(64) NOT NULL,
   `dbpassword` varchar(64) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typecompte`
@@ -429,7 +428,7 @@ INSERT INTO `typecompte` (`idTypeCompte`, `libelle`, `dblogin`, `dbpassword`) VA
 CREATE TABLE IF NOT EXISTS `typerayon` (
 `idTypeRayon` int(8) NOT NULL,
   `libelle` varchar(32) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typerayon`
@@ -465,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   `statut` int(1) NOT NULL,
   `idCommercial` int(8) NOT NULL,
   `idClient` int(8) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `video`
@@ -515,6 +514,12 @@ ALTER TABLE `diffusions`
 --
 ALTER TABLE `diffusionstypesrayons`
  ADD PRIMARY KEY (`idVideo`,`idTypeRayon`), ADD KEY `fk_typerayon` (`idTypeRayon`);
+
+--
+-- Index pour la table `entreprise`
+--
+ALTER TABLE `entreprise`
+ ADD PRIMARY KEY (`idEntreprise`), ADD UNIQUE KEY `idEntreprise` (`idEntreprise`);
 
 --
 -- Index pour la table `magasin`
@@ -571,6 +576,11 @@ MODIFY `idCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 ALTER TABLE `diffusions`
 MODIFY `idDiffusion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `entreprise`
+--
+ALTER TABLE `entreprise`
+MODIFY `idEntreprise` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `magasin`
 --
