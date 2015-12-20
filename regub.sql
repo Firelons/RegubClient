@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 09 Décembre 2015 à 12:35
+-- Généré le :  Lun 07 Décembre 2015 à 12:36
 -- Version du serveur :  5.6.20
 -- Version de PHP :  5.5.15
 
@@ -70,57 +70,26 @@ CREATE TABLE IF NOT EXISTS `client` (
   `mot_de_passe` varchar(64) NOT NULL,
   `salt` char(32) NOT NULL,
   `valide` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=104 ;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`, `salt`, `valide`) VALUES
+(1, 'TF1', '0624912564', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'ebb918fc66572e10029d05e49cc2b2256d7728e7a985c740805d110fc0f5189e', 'ec746e58619f5c757d1eb91e4eb10571', 1),
+(3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
+(47, 'Intermarche', '0800008180', 'landryl@yahoo.com', '24 rue Auguste Chabrieres ', '', ' Paris', '75737', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
 (48, 'Leclerc', '0800865286', 'Francklin@yahoo.com', 'Rue Henri Giffard', '', 'Limoges', '87280', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
 (50, 'lagoma', '55222', 'fjkd@kdokdlm.com', 'rueee', NULL, 'jiji', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
 (52, 'mesmer', '0625649875', 'm@g.fr', '45 rue fjknlk', NULL, 'l,lfsk', '05611', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
 (57, 'yu', 'yu', 'yu@ft.fop', 'yu', 'yu', 'yu', 'yuyyu', '79c1d49d56ec48dafc5bb45bb7c777309a1e1a98553e5e112414644cc6521b91', '05620579050a1f4486f3effd7e50426e', 0),
 (58, 'Messy', '0624912407', 'mesmerloic@gmail.com', '185 avenue Alber thomas', '', 'Limoges', '87100', 'c63d9e996e6d8c43185a1842e815c1a9ea2c3689936b5694738af4512f01d742', '0cf186aef6c797ce83e8f09b49d2b3d3', 0),
 (59, 'Messy', '0624912407', 'mesmerloic@gmail.com', '185 avenue Alber thomas', '', 'Limoges', '87100', 'e57950c5706f6486834bd5532d3b0cad63d94080cc5143fc679b3f1eb5fdfc68', 'f1c7d90b33dcb48cf956b921933b4030', 0),
-(60, 'op', 'op', 'op@gmail.com', 'op', 'op', 'op', 'op', '8a5deecd85f788492c5876676eea3afa2d4160f47c0fe24f96795ccc8a745e3d', 'a2ae490cf648b79f9bb3dd55d40817c5', 0),
-(61, 'op', 'op', 'op@gmail.com', 'op', 'op', 'op', 'op', 'ef96fbccb164717c3128e6c9c0338407ce9c13d7ef9943674ab93d00fe07fa46', '51f44a7f737579757f76e6b7f2d7310c', 0),
-(62, 'op', 'op', 'op@gmail.com', 'op', 'op', 'op', 'op', '350d267df9639cc2e4207ba8b773b3ddea1902c175d99227feab12ed68e6762c', 'a13a3d31c131147afdb556b251d12698', 0),
-(63, 'op', 'op', 'op@gmail.com', 'op', 'op', 'op', 'op', 'c0fe5819d99e4b5e5d44078a937194fec12e3115691f96c801e628ec8726f4d1', '86797ead88197e30acd58c0f331881d5', 0),
-(64, 'ty', 'ty', 'ty@ty.try', 'ty', 'ty', 'rt', 'ty', '8f0c62fd2c0f7ab0a9c480d035d45b81abfc148bcd893dd39aad41957f7350ca', 'e36f47213965f325ac8f1d1107b37d05', 0),
-(65, 'op', 'op', 'op@gmail.com', 'po', 'op', 'op', 'op', '67f97bc99357fb94984ba6a820fed05f1a4e0a1b6e8e2edf5a59e55c89d1ad4a', '7de266039bc0f4b8b5df40894d6d88f8', 0),
-(67, 'toto', 'ty', 'ty@ty.try', 'ty', 're', 'ze', 'ze', 'e5793d0801ea8b26eb0fae1638df14bc96e996abc6eac76a5ac0ba5cf250127c', '3a586af791428b09dd899578326529aa', 0),
-(68, 'titi', 'titi', 'ty@ty.try', 'ty', 'y', 'rt', 'ty', 'f937294f02a5e19b916ef5073ed3603da22728fb66ad8cca2980357586a28704', '2e5e8ad86bdc1a42dbbff1f47ffed86f', 0),
-(69, 'Client', '06255', 'cli@gmail.com', 'rue', 'ligne2', 'Limoges', '8700', '3584a748e52457ba99d38d761ead3fc77fdcdffe21ba189bc08dc9442226e7c4', '6ec42fe6ed6f68cd9e04855c1072dd6d', 0),
-(70, 'x', 'x', 'x@jk.fr', 'x', 'x', 'x', 'x', '065a252626bea321ee864437e7857ef47c3e95b1a9858ea462d015e2f11770f1', 'dbce6ae7a359d0bdcff12eec6c3a59fd', 0),
-(71, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'ccff517607f10a6e47ce9e33690c3043b4faf323ca6a6ac6045a849f873593b8', '9fcb5d0db322ad58c6c9aa3cf880e7a0', 0),
-(72, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '25935f441941a0a4e2530b06dd62c2ebd7d115c86e634e2e68ff457c3c818a04', '2877aa1aaec2c700c069d2f543f305f8', 0),
-(73, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'd2c323e16b2a6a8b1765a73543a4d02b5415f2076bebd34036c1d666a813bef9', '06b1f056edb14805c4369ddff72ac401', 0),
-(74, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '85f82836b828c8e101ef7acdc13ccc3683f85a0d3f9255d9a82a7ce788f6f88f', '65ddd77f724e3d1a06fe7ce8b03864c1', 0),
-(75, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'e06c1cd2e105a1ad37eb870da0b60b2cbfeaeb85ab232fbe2b1178c5fa799330', '1a90202ebe639f300538758000c59385', 0),
-(76, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'cca9477eb3f3f7cac60b7bc50be256b34ffaf10d998aeb516c58b54f7609b3ef', 'eb6307bfd02ecf93caadf2eac410a896', 0),
-(77, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '4e41dda9025678a8c5f17204375eb895b717c42ebbf956f74715a0877cfcc905', '9e26832cb4fe34b66163437ebf15b3ab', 0),
-(78, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'c36bb1ce08b853fbd98a333533b6f3206fe535b4414a2996a087053860228d95', '8acc577da97f6ad8b741462eb17b0e46', 0),
-(79, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '6da987480c656caac3def7f3d8377646b6e14fbe7779e2f8494b2d723724b412', '852601f3f98ae1286db4f9ca8c3a3470', 0),
-(80, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'f1eb1e871e912d8661dec5c722e0567a2e3b546b9fb77d81da084ef639f4e472', '186876aaa044d83699fc479e1187a2b0', 0),
-(81, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '26a77bc3516dd7f985ac72eb7d8e85748999e115b373aa8396a79db0cb607df2', '74b6ecbe57762862738289b247ca679f', 0),
-(82, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '1cdec8eb08c9cde36f4227da81d701bc0fceb27105f7fcb535b700faabc81f1f', 'fa8aaa5820dad01a078405acb52a09b8', 0),
-(83, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '809ed292e40e5480b3d626f8fe5c308bf632395ae380b92599055984febad13f', 'cbc4933b55c4ed68d6ff938057f224ad', 0),
-(84, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', 'e8c7d1131ee4d367dd11d9d496c12647d4a93e89275c33b6430ca40e0d27b785', '0b9c993950da2e8348e2d649313f6314', 0),
-(85, 'sdfsdf', 'sdfsdf', 'sdfsdf@ffsd', 'sdf', 'sdf', 'sdf', 'sdf', '0f1a462076efe06d7f6276cac50e05eda1c8ae9370d07ffd3f42cdb720f3de06', '11078f9280223b62c20cac690ad4408e', 0),
-(86, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', 'cb68429267a5af48d42a1dbff47496883b00a7800b1a5be822e403cd57c100d5', 'bdd4673b050282838ab1f0abab850f09', 0),
-(87, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', '13bc5d08f3c5004de6892d974cbc217a72ef8eedb3552c6acd50ad551b2a3b11', '8ba6a76e8f71b7eef8bb611388822a7e', 0),
-(88, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', '8c6bd553f32d1aa8aaf2928c9e47473d4c5db9849169f3ece597cbb867bef91b', 'cfa7e082094b6a2f653d027fe996308a', 0),
-(89, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', 'ae6d41a667f803c10e549311570e8a7a2f59d6d3e0889cf140d8101b47a447a0', '223b9b26db2cb3cc6a9b2bcbfcf06ad9', 0),
-(90, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', '484a7d22abdae8afca237b5c6253d6c9362f57ab110126dd6b21428d91ef53a9', 'bd579254b749f04a8a73bbd1574132de', 0),
-(91, 'dfg', 'dfg', 'ty@glm.fr', 'dfg', 'dfg', 'dfg', 'dfg', '5bba07ab59136c7ec46a160b09a9d08121a10e6de21c32ec7f1676032e3ebdf9', 'c280206afd7db7958d93d34523a0f328', 0),
-(92, 'tytyt', 'tr', 'ytr@gh', 'yr', 'r', 'ytr', 'yr', '55c3684332f33cff2bfbf9577f485d696d8769efb3c0668bd179a851314c1440', '36ed6b3479fc11238fc32c9243bc942e', 0),
-(93, 'rrtete', 'ertert', 'ertee@eze', 'ertert', 'ert', 'ert', 'ert', '227cab511d35e20be0280c74c1f1b08d0e23cf5bdef6f62cac9357861ede0600', '0cfbd4e959aacf3febf860cb7bb53c49', 0),
-(94, 'test', 'test', 'test@fr', 'test', 'test', 'test', 'test', '49e89331e6fee4da9be6bcec1cf1637348fb63041ea165a57d747fa71fb9b194', '98fec7dce8d5d6ac248a9c573ed77309', 0),
-(95, 'toto', 'toto', 'toto@gmail.com', 'toto', 'toto', 'toto', 'toto', 'df7d4471b7425c412c88d1e2e81cb4512cfd4b456c6db1257fb0e9be83bc7851', '71342ef222dd6869f8ba9f6ed3d62561', 0),
-(96, ' aaaz', 'az', 'a@fgh.Fr', 'az', 'az', 'z', 'aza', '460815d2ea72bd0215edff3b89aaa54078d22cde9ce0c04a8719848a7eba11e9', 'bdb432820970731ba5a0a8efd9b42b24', 0),
-(97, 'rt', 'rt', 'rt@jk', 'rt', 'rt', 'rt', 'rt', 'da3b7748501a9edfce92fcd500c91cf44f940a41da4e6c7fd9e3ece9c0fdf6d4', '612f774132e6dc04411ef1bcca5ad332', 0),
-(98, 'tyuy', 'tr', 'trt@ty', 'rtrt', 'er', 'tr', 'tyr', 'fb87a45d10f4aeeaa2e5513c25cb2ea8d7d1e3ab876924eff183fbe04e3ca03e', 'c86cad28ba8459fba0d0043e11e1f6bd', 0);
+(102, 'uy', 'yu', 'mesmerloic@gmail.com', 'yu', 'yuy', 'yu', 'u', '4d5654297c1bd3ff0c816ba419c312008e183ce5d381ee628fa06babc85d585e', 'c0eb6706f4274c91ee69b97de8968d0a', 1),
+(103, 'io', 'io', 'mesmerloic@gmail.com', 'io', 'io', 'io', 'io', 'b489116259ca531e15f8e3687f58fd9bdf870ff0210cdd8a9afc8ad6595cf457', '27c4341f2c1824ac1f06b344e04c0d06', 0);
 
 --
 -- Déclencheurs `client`
@@ -303,20 +272,21 @@ INSERT INTO `diffusionstypesrayons` (`idVideo`, `idTypeRayon`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `entreprise` (
-`idEntreprise` int(8) NOT NULL,
+  `idEntreprise` int(8) NOT NULL,
   `nom` varchar(64) CHARACTER SET utf8 NOT NULL,
   `adresse` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
   `code` char(5) CHARACTER SET utf8 NOT NULL,
   `ville` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
   `telephone` varchar(10) CHARACTER SET utf8 NOT NULL,
   `mail` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `entreprise`
 --
 
 INSERT INTO `entreprise` (`idEntreprise`, `nom`, `adresse`, `code`, `ville`, `telephone`, `mail`) VALUES
+(1, 'HYPERMARCHE', '22 Avenue Lelons', '75000', 'Paris', '0555662020', 'regub@gmail.com'),
 (1, 'HYPERMARCHE', '22 Avenue Lelons', '75000', 'Paris', '0555662020', 'regub@gmail.com');
 
 -- --------------------------------------------------------
@@ -547,12 +517,6 @@ ALTER TABLE `diffusionstypesrayons`
  ADD PRIMARY KEY (`idVideo`,`idTypeRayon`), ADD KEY `fk_typerayon` (`idTypeRayon`);
 
 --
--- Index pour la table `entreprise`
---
-ALTER TABLE `entreprise`
- ADD PRIMARY KEY (`idEntreprise`);
-
---
 -- Index pour la table `magasin`
 --
 ALTER TABLE `magasin`
@@ -596,7 +560,7 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-MODIFY `idClient` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=99;
+MODIFY `idClient` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=104;
 --
 -- AUTO_INCREMENT pour la table `compte`
 --
@@ -607,11 +571,6 @@ MODIFY `idCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 ALTER TABLE `diffusions`
 MODIFY `idDiffusion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT pour la table `entreprise`
---
-ALTER TABLE `entreprise`
-MODIFY `idEntreprise` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `magasin`
 --
