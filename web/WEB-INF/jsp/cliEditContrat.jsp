@@ -1,25 +1,40 @@
 <%-- 
-    Document   : testajout
-    Created on : 5 déc. 2015, 12:50:51
-    Author     : TOUANI Serge
+    Document   : client
+    Created on : 9 nov. 2015, 13:50:37
+    Author     : Mesmerus
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="entities.ClientConnecte"%>
+<%@page import="entities.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<c:if test="${UserConnected==null}">
+    <c:redirect url="accueil"/>
+</c:if>
 
+<%@page import="entities.Typerayon"%>
+<%@page import="entities.Region"%>
+<%@page import="model.dao.VideoDAO"%>
+<%
+    List<Typerayon> listrayon = VideoDAO.Rayonliste();
+    List<Region> listregion = VideoDAO.Regionliste();
+%>
+
+<!DOCTYPE html>
 <html lang="fr">
     <head>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Test| Regub</title>
-        
-         <!-- Bootstrap Core CSS -->
+        <title>Bienvenue ${UserConnected.getSociete()} | RegubClient</title>
+
+        <!-- Bootstrap Core CSS -->
+
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
 
         <!-- Custom Fonts -->
@@ -32,117 +47,131 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
-        <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
     </head>
     <body id="page-top">
-        <jsp:include page="navContrat.jsp" />
-             
-        <!-- <section class="formulaire">
+        <jsp:include page="navClient.jsp" />
+        <section class="bg-primary">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 col-md-offset-0">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> 
-                                <strong class="">Modifier Contrat</strong>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group last">
-                                        <div class="col-sm-offset-3 col-sm-9">
-                                            <input type="submit" value="Enregistrer" class="btn btn-info">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading"> ${UserConnected.getSociete()}</h2>
+                        <hr class="light">
                     </div>
                 </div>
             </div>
-            
-        </section> -->
-        
+        </section>
+
         <section>
             <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> 
+                <div class="panel panel-default container">
+                    <div class="panel-heading">
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
                             <div class="form-group">
-                                <p class="erreur-form"/>
+                                <p class="erreur-form" id="para"/>
                             </div>
+                            
                             <div class="form-group">
                                 <div class="row">
-                                    <fieldset disabled="true" class="col-xs-6">
-                                        <div>
-                                           <label class="control-label" >Client</label> 
-                                           <input type="text" class="form-control" name="client" value="${ajout}">
-                                        </div> 
-                                    </fieldset>
+                                   
                                     <div class="col-xs-6">
+                                        
+                                   
                                         <label class="control-label" >Titre</label>
                                         <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-xs-6">
+                                    
                                         <label class="control-label" >Frequence(par jour)</label>
                                         <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
-                                    </div>
-                                    <div class="col-xs-6">
+                                    
+                                        <label class="control-label" >Fichier(Mp4) :</label>
+                                        <!-- filestyle -->
+                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                   
+                                        
                                         <label class="control-label" >Durée(en secondes)</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
-                                    </div>
-                                </div>
-                            </div>            
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-xs-6">
+                                  
                                         <label class="control-label" >Date De Debut</label>
-                                        <input type="text" class="form-control" id="datedebut" name="datedebut" placeholder="datedebut">
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Date De Fin</label>
-                                        <input type="text" class="form-control" id="datefin" name="datefin" placeholder="datefin">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-xs-6">
+                                        <div class="input-group date" id="datetimedebut">
+                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                   
                                         <label class="control-label" >Date De Reception</label>
-                                        <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
-                                    </div>
-                                    <div class="col-xs-6">
+                                        <div class="input-group date" id="datetimereception">
+                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                   
+                            
+                                        <label class="control-label" >Date De Fin</label>
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    
+                                        
                                         <label class="control-label" >Date De Validation</label>
-                                        <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                        <div class="input-group date" id="datetimevalidation">
+                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <label class="control-label" >Tarif (à la seconde)</label>
+                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="Tarif à la seconde">
+                                   
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Tarif</label>
-                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
-                                    </div>
-                                    <div class="col-xs-6">
+                                        </BR>
+                                        </BR>
+                                        </BR>
+                                        <label class="control-label">Type De Rayon :</label></BR>
+                                        <select class="selectrayon form-control" multiple="multiple" size="7.5">
+                                            <%
+                                                    for(int i=0; i<listrayon.size(); i++){
+                                            %>   
+                                             
+                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                                <%=listrayon.get(i).getLibelle() %>
+                                            </option>
+                                                <%
+                                              }
+                                            %>
+                                        </select>
+                                        </BR>
+                                        </BR>
+                                        </BR>
+                                        <label class="control-label">Regions :</label></BR>
+                                        <select multiple class = "selectregion form-control" size="7">
+                                            <%
+                                                    for(int i=0; i<listregion.size(); i++){
+                                            %>   
+                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                                <%=listregion.get(i).getLibelle() %>
+                                            </option> 
+                                                <%
+                                              }
+                                            %>
+                                        </select>
+                                        </BR>
+                                        
                                         <label class="control-label ">Statut : </label>
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
@@ -156,68 +185,57 @@
                                                 <input type="radio" name="rating" value="annule" /> Annulé
                                             </label>
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
-                            </div>    
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
                             <div class="form-group">
                                 <div class="row">
+                                   
                                     <div class="col-xs-6">
-                                        <label class="control-label">Type De Rayon :</label>
-                                        <select multiple class = "form-control">
-                                            <c:forEach var="reg" items="${rayon}">
-                                                <option>
-                                                    <c:out value="${reg.getLibelle()}"></c:out>
-                                                </option> 
-                                            </c:forEach>
-                                        </select> 
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <label class="control-label">Regions :</label>
-                                        <select multiple class = "form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label class="control-label" >Montant</label>
+                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="Montant">
                                     </div>
                                 </div>
                             </div>
+                             
                             
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
                                 <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
-                        </form>
+                        </form>    
                     </div>        
                 </div>
             </div>
         </section>
-        
-        <!-- <jsp:include page="foot.jsp" /> -->
-        
-        <!-- Modal Paramètre -->
-        <div class="modal fade" id="myModalParametre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <jsp:include page="foot.jsp" />
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Paramètre</h4>
+                        <h4 class="modal-title" id="myModalLabel">Paramètres</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" id="modifClient">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
+                                        <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <label>Prenom*</label>
+                                    <label>Telephone*</label>
                                     <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone"value="${UserConnected.getTelephone()}" required>
                                     </div>
                                 </div>
                             </div>
@@ -229,14 +247,40 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Ancien mot de passe</label>
-                                        <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
+                                        <label>Ligne1*</label>
+                                        <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue"value="${UserConnected.getAddrLigne1()}" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                         <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
+                                        <label>ligne2 (facultatif)</label>
+                                        <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${UserConnected.getAddrLigne2()}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>code postal*</label>
+                                        <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${UserConnected.getCodePostal()}" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ville*</label>
+                                        <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${UserConnected.getVille()}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Ancien mot de passe</label>
+                                        <input type="password" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" value="***********" required Autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Mot de passe*(8 caractères min)</label>
+                                        <input type="password" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -244,8 +288,29 @@
                                         <label>Confirmation*</label>
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
                                     </div>
+                                    <p id ="infomod" class="text-success"></p>
+                                    <p id ="errormod" class="text-danger"></p>
                                 </div>
                             </div>
+                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter un Contrat</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
 
                         </form>
@@ -257,7 +322,6 @@
                 </div>
             </div>
         </div>
-        
         <!-- jQuery -->
         <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
@@ -271,10 +335,9 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
-        
-        <script src="<c:url value="/resources/js/formajout.js"/>"></script> 
-        
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/client.js"/>"></script>
+
     </body>
+
 </html>
-
-
