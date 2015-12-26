@@ -15,10 +15,11 @@
 
 <%@page import="entities.Typerayon"%>
 <%@page import="entities.Region"%>
-<%@page import="model.dao.VideoDAO"%>
+<%@page import="model.dao.RegionDAO"%>
+<%@page import="model.dao.TypeRayonDAO"%>
 <%
-    List<Typerayon> listrayon = VideoDAO.Rayonliste();
-    List<Region> listregion = VideoDAO.Regionliste();
+    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+    List<Region> listregion = RegionDAO.Regionliste();
 %>
 
 <!DOCTYPE html>
