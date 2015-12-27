@@ -1,11 +1,16 @@
 <%-- 
     Document   : client
     Created on : 9 nov. 2015, 13:50:37
-    Author     : Mesmerus
+    Author     : Lons
 --%>
 <%@page import="java.util.List"%>
 <%@page import="entities.ClientConnecte"%>
 <%@page import="entities.Client"%>
+<%@page import="entities.Typerayon"%>
+<%@page import="entities.Region"%>
+<%@page import="model.dao.RegionDAO"%>
+<%@page import="model.dao.TypeRayonDAO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,10 +18,7 @@
     <c:redirect url="accueil"/>
 </c:if>
 
-<%@page import="entities.Typerayon"%>
-<%@page import="entities.Region"%>
-<%@page import="model.dao.RegionDAO"%>
-<%@page import="model.dao.TypeRayonDAO"%>
+
 <%
     List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
     List<Region> listregion = RegionDAO.Regionliste();
@@ -45,9 +47,10 @@
 
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/animate.min.css"/>" type="text/css">
-
+<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,47 +105,40 @@
                                         <label class="control-label" >Durée(en secondes)</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
                                   
+                                        <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
-                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                            <input type="date" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            
                                         </div>
-                                   
                                         <label class="control-label" >Date De Reception</label>
                                         <div class="input-group date" id="datetimereception">
-                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                            <input type="date" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            
+                                        </div>
+                                         
+                                        </div>
+                                        
+                                        <label class="control-label" >Date De Fin</label>
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="date" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            
                                         </div>
                                    
                             
-                                        <label class="control-label" >Date De Fin</label>
-                                        <div class="input-group date" id="datetimefin">
-                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
-                                        </div>
-                                    
+                                       
                                         
                                         <label class="control-label" >Date De Validation</label>
                                         <div class="input-group date" id="datetimevalidation">
-                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                            <input type="date" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            
                                         </div>
                                         <label class="control-label" >Tarif (à la seconde)</label>
                                         <input type="text" class="form-control" id="frequence" name="frequence" placeholder="Tarif à la seconde">
                                    
                                     </div>
                                     <div class="col-xs-6">
-                                        </BR>
-                                        </BR>
-                                        </BR>
+                                        
                                         <label class="control-label">Type De Rayon :</label></BR>
                                         <select class="selectrayon form-control" multiple="multiple" size="7.5">
                                             <%
@@ -156,9 +152,7 @@
                                               }
                                             %>
                                         </select>
-                                        </BR>
-                                        </BR>
-                                        </BR>
+                                        
                                         <label class="control-label">Regions :</label></BR>
                                         <select multiple class = "selectregion form-control" size="7">
                                             <%
@@ -338,7 +332,7 @@
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         <!--App JavaScript-->
         <script src="<c:url value="/resources/app/client.js"/>"></script>
-
+        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
     </body>
 
 </html>
