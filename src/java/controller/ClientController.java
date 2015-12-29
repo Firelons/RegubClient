@@ -61,6 +61,26 @@ public class ClientController {
         }
         return "client";
     }
+    
+    @RequestMapping(value = "/modifiercontrat", method = RequestMethod.POST)
+    protected String DetailVideoAction(HttpSession session, Model model,HttpServletRequest request) {
+        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        if(VideoDAO.modifcontrat(idvideo)==null){
+            System.out.println("Not good");
+        }else{
+            System.out.println("Good");
+        }
+        
+        try {
+            model.addAttribute("video", VideoDAO.modifcontrat(idvideo));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return "cliModifContrat";
+    }
 
     @RequestMapping(value = "/modifierclient", method = RequestMethod.POST)
     public @ResponseBody
@@ -94,19 +114,7 @@ public class ClientController {
         return "redirect:/accueil";
     }
     
-    @RequestMapping(value="/modifiercontrat", method = RequestMethod.GET)
-    //public @ResponseBody
-    String modifiercontratAction(
-            HttpServletRequest request,
-            HttpSession session, 
-            Model model) {
-        //if(request.getSession()){
-        //int test = Integer.parseInt(request.getParameter("select")) ;
-        //request.setAttribute("Modify", this.modif.modifcontrat(id));
-        //}
-        //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "cliEditContrat";
-    }
+ 
     @RequestMapping(value="/ajoutercontrat", method = RequestMethod.POST)
     //public @ResponseBody
     String ajoutercontratAction(
@@ -114,6 +122,7 @@ public class ClientController {
             Model model,
             HttpSession session
              ) throws ParseException, InterruptedException {
+        
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
@@ -183,5 +192,7 @@ public class ClientController {
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         return "cliEditContrat";
     }
+    
+    
 
 }
