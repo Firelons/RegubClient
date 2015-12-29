@@ -90,6 +90,7 @@ public class ClientController {
     public String logoutAction(HttpSession session) {
         session.removeAttribute("UserConnected");
         session.removeAttribute("compteConnected");
+        session.removeAttribute("CommercialConnected");
         return "redirect:/accueil";
     }
     
