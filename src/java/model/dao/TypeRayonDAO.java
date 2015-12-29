@@ -30,5 +30,21 @@ public class TypeRayonDAO {
         }
         return listrayon;
     }
+        
+         public static List<Typerayon> RayonPrec(String tr) {
+        
+        int typerayon = Integer.parseInt(tr);
+        List<Typerayon> listrayons = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Typerayon as Re where idTypeRayon= ? ";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, typerayon);
+            listrayons = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listrayons;
+    }
     
 }
