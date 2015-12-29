@@ -43,6 +43,9 @@ public class RegubController {
                 } else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 2) {
                     return "commercial";
                 }
+                else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 3) {
+                    return "gestionnaire";
+                }
             }
 
         } catch (Exception e) {

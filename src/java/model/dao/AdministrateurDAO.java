@@ -6,9 +6,11 @@
 package model.dao;
 
 import entities.Compte;
+import entities.Typecompte;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,9 +51,6 @@ public class AdministrateurDAO {
 
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
-
-            /*Query query = session.createQuery("select cpt.nom, cpt.prenom, cpt.login, tcpt.libelle "
-             + "from compte as cpt inner join typecompte as tcpt on cpt.IdTypeCompte=tcpt.IdTypeCompte");*/
             Query query = session.createQuery("from Compte");
 
             list = (ArrayList<Compte>) query.list();
@@ -65,10 +64,26 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-
-    public String encode(String sel) {
-
-        return sha256(" ".concat(sel));
+    /*public List<Typecompte> typeCompteUser(){
+        ArrayList<Typecompte> list = new ArrayList<Typecompte>();
+        
+        try{
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from typecompte");
+            list = (ArrayList<Typecompte>) query.list();
+            
+            if (list.size() > 0) {
+                return list;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }*/
+   
+ 
+    public String encode(String mdp) {
+        return sha256(mdp);
     }
 
     public static String sha256(String base) {
@@ -90,4 +105,22 @@ public class AdministrateurDAO {
             throw new RuntimeException(ex);
         }
     }
+    
+    public boolean addCompte(Compte compte){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(compte);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    
+    }
 }
+

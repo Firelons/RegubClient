@@ -93,7 +93,7 @@
                     <div class="modal-body">
                         <div class="modal-body">
 
-                            <form class="form-signin"action="admconnect" method="POST">
+                            <form id="comptelogin" class="form-signin">
                                 <label>Login*</label>
                                 <input type="login" id="login" name="login" class="form-control" placeholder="login" required autofocus>
                                 <br>
@@ -102,7 +102,9 @@
                                 <br><a href="#">Mot de passe oublié ?</a><br>
                                 <button class="btn btn-lg btn-block" type="submit">Se connecter</button>
                             </form>
-
+<br>
+                            <p id ="info" class="text-success"></p>
+                            <p id ="error" class="text-danger"></p>
                             <br><br>
                         </div>
                     </div>
@@ -125,6 +127,7 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        <script src="<c:url value="/resources/app/regub.js"/>"></script>
 
     </body>
 
