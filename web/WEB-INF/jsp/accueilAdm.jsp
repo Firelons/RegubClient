@@ -53,9 +53,8 @@
                 <div class="header-content-inner">
                     <h1>REGUB Accueil</h1><br/>
         
-                    <form class="form" action="user" method="get">    
-                        <a><button class="btn btn-lg btn-primary car " type="submit"><strong>Gestion des Comptes</strong></button><br/><br/></a>
-                    </form>
+                    
+                    <a class="btn btn-lg btn-primary car " href="user"><strong>Gestion des Comptes</strong></a><br/><br/>
                     <form class="form-signin" action="region" method="get">
                         <button class="btn btn-lg btn-primary  car" type="submit"><strong>Gestion de Régions</strong></button><br/><br/>
                     </form>

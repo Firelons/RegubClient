@@ -82,7 +82,6 @@ public class AccueilAdmController {
     
     @RequestMapping(value = "CreationUser", method = RequestMethod.POST)
     protected String boutonCreationUserAction(HttpServletRequest request, Model model) {
-        
         String nom = request.getParameter("Nom");
         String prenom = request.getParameter("Prenom");
         String login = request.getParameter("Login");
@@ -90,41 +89,32 @@ public class AccueilAdmController {
         int typec = Integer.parseInt(request.getParameter("Compte"));
         boolean ajout = true;
         
-        
         try {
             if(nom!=null && prenom!=null && login!=null && mdp!=null && typec!=0){
                Typecompte tcpt = new Typecompte();
                tcpt.setIdTypeCompte(typec);
-              /* byte[] bSalt = new byte[8];
-               random.nextBytes(bSalt);
-               String sSalt = byteToBase64(bSalt);*/
-               int nb = (int)Math.random()*10000+255;
-               String salt = Integer.toBinaryString(nb);
-               salt= auth.encode(salt);
-               salt= Functions.substring(salt, 0, 31);
-               mdp = auth.encode(mdp.concat(salt));
+              
                SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
                Date date = new Date();
                System.out.println(formater.format(date));
                
-               adm = new Compte(tcpt, nom, prenom, login, mdp, salt, date );
-               //adm1 = new Compte(tcpt, nom, prenom, login, mdp, salt, null);
-                System.out.println("nom:"+ nom);
+               adm = new Compte(tcpt, nom, prenom, login, mdp, "sel", date );
+               
+                /*System.out.println("nom:"+ nom);
                 System.out.println("prenom:"+prenom);
                 System.out.println("login:"+login);
                 System.out.println("mdp:"+mdp);
                 System.out.println("typec:"+typec);
-                System.out.println("salt:"+salt);
-                System.out.println("date:"+date);
+                System.out.println("date:"+date);*/
                 ajout = auth.addCompte(adm);
-                System.out.println("ajout:"+ajout); 
+                //System.out.println("ajout:"+ajout); 
 
             }else{
                 /*String st = "Tous les champs ne sont pas renseignés";
                     JOptionPane.showMessageDialog(null,st);*/
                 System.out.println("veuillez renseigner tous les champs");
             }
-            return "test";   
+            return userAction(request, model);   
         }catch (Exception e) {
             System.out.println("catch du controller");   
             e.printStackTrace();   

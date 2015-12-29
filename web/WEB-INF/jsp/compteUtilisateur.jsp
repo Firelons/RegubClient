@@ -40,8 +40,19 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <jsp:include page="navAdministrateur.jsp"/>
+    
     <body> 
+        <jsp:include page="navAdministrateur.jsp"/>
+           <section class="bg-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <hr class="light">
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -52,9 +63,8 @@
         </div>
         <div class="container">
             <div class="table-responsive">    
-                <form class="" action="creer" method="get">
-                    <button class="btn btn-info" type="submit"><strong>Ajouter</strong></button>
-                </form> 
+                 
+                <a class="btn btn-info" href="Ajoutuser"><strong>Ajouter</a></button>
                 <form action="user" method="post">
                     <!-- 1ere facon de faire le tableau -->
                     <table class="table">

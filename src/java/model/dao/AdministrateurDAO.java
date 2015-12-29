@@ -107,52 +107,13 @@ public class AdministrateurDAO {
     }
     
     public boolean addCompte(Compte compte){
-    
-        /*try{
-            this.session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            String hql = "INSERT INTO compte(nom, prenom, login, password, idTypeCompte) "  + 
-             "SELECT nom, prenom, login, password, idTypeCompte FROM compte where nom=?, prenom=?, login=?, password=?, idTypeCompte=?";
-            Query query = session.createQuery(hql);
-            
-            query.setString(1, compte.getNom());
-            query.setString(2, compte.getPrenom());
-            query.setString(3, compte.getLogin());
-            query.setString(4, compte.getPassword());
-            query.setInteger(5, compte.getTypecompte().getIdTypeCompte());
-            int result = query.executeUpdate();
-            session.getTransaction().commit();
-            return true;
-        }catch(Exception e){
-            System.out.println("echec de connexion");
-            e.printStackTrace();
-        }
-        session.close();
-        HibernateUtil.getSessionFactory().close();
-        return false;*/
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            System.out.println("test 1");
-            //compte.setSalt("sel");
-            
             session.beginTransaction();
-           
-            System.out.println("nom:"+compte.getNom());
-            System.out.println("prenom:"+compte.getPrenom());
-            System.out.println("login:"+compte.getLogin());
-            System.out.println("mdp:"+compte.getPassword());
-            System.out.println("date:"+compte.getCreation());
-            System.out.println("sel:"+compte.getSalt());
-            System.out.println("compte:"+compte.getTypecompte().getIdTypeCompte());
-            //session.persist(compte);
-            //session.update(compte);
             session.save(compte);
-            System.out.println("test 3");
             session.getTransaction().commit();
-            System.out.println("dans le try du dao");
             return true;
         } catch (Exception e) {
-            System.out.println("catch du dao"); 
             e.printStackTrace();
         }
         session.close();
