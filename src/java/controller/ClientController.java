@@ -11,14 +11,20 @@ import model.dao.VideoDAO;
 import entities.Client;
 import entities.ClientConnecte;
 import entities.Compte;
+import entities.Region;
+import entities.Typerayon;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.RegionDAO;
+import model.dao.TypeRayonDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -113,11 +119,26 @@ public class ClientController {
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         
+         Set<Region> regions = new HashSet<>();
+         Set<Typerayon> typerayons = new HashSet<>();
+         
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
         List<Compte> listCompte= CompteDAO.RegionCompte();
         
+        String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixregion = request.getParameterValues("region");
+        
+        for(int i=0; i< choixrayon.length; i++){
+            typerayons.add(TypeRayonDAO.RayonPrec(choixrayon[i]).get(0));
+            System.out.println(choixrayon[i]);
+        }
+        for(int i=0; i< choixregion.length; i++){
+            regions.add(RegionDAO.RegionPrec(choixregion[i]).get(0));
+           
+            System.out.println(choixregion[i]);
+        }
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
@@ -134,6 +155,9 @@ public class ClientController {
                  sdf.parse(datedebutcontrat),  sdf.parse(datefincontrat), 
                  sdf.parse(daterecepcontrat),  sdf.parse(datevalidcontrat), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+        
+        vid.setRegions(regions);
+        vid.setTyperayons(typerayons);
         
         if(vidBDD.addcliVideo(vid)){
             return "redirect:/client";
