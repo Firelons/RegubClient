@@ -60,7 +60,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading"> Liste des Contrats pour ${ajout} </h2>
+                        <h2 class="section-heading"> Liste des Contrats pour ${nomclient} </h2>
                         <hr class="primary">
                     </div>
                 </div>
@@ -289,13 +289,13 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
+                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${compte.getNom()} "required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Prenom*</label>
                                     <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${compte.getPrenom()}" required>
                                     </div>
                                 </div>
                             </div>

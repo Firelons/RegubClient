@@ -64,7 +64,7 @@ public class ClientController {
             @RequestParam("password_confirmation") String confirmation,
             @RequestParam("oldpassword") String oldmotdepasse) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
-        if (!cli.getMotDePasse().equals(confirmation)) {
+        if (!cli.getMotDePasse().equals(oldmotdepasse)) {
             System.out.println("mdp:" + cl.getCli().getMotDePasse() + " et " + CliBDD.encode(oldmotdepasse, cl.getCli().getSalt()));
             return "erroroldmdp";
         } else if (!cli.getMotDePasse().equals(confirmation)) {

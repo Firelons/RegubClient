@@ -5,6 +5,7 @@
  */
 package controller;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import entities.Client;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -14,10 +15,17 @@ import entities.Typecompte;
 import entities.ClientConnecte;
 import entities.Typerayon;
 import entities.Video;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
+import model.dao.CompteDAO;
 import org.springframework.stereotype.Controller;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,14 +43,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommercialController {
 
     private final ClientDAO CliBDD = new ClientDAO();
-
+    //private final AdministrateurDAO auth = new AdministrateurDAO();
+    //private final Compte adm = new Compte();
     private VideoDAO modif = new VideoDAO();
 
     //recup de l'id du client
     private int cleclient;
 
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
-    protected String listClientAction(HttpSession session, Model model) {
+    protected String listClientAction(HttpServletRequest request, HttpSession session, Model model) {
 
         try {
             List<Client> lst = ClientDAO.listclient();
@@ -51,6 +60,31 @@ public class CommercialController {
             e.printStackTrace();
         }
         return "commercial";
+    }
+    
+    @RequestMapping(value = "/regub/commercial/paramCommercial", method = RequestMethod.POST)
+    public @ResponseBody
+    String modifparam(
+            HttpSession session,
+            @ModelAttribute("com") Compte com,
+            @RequestParam("password_confirmation") String confirmation,
+            @RequestParam("oldpassword") String oldmotdepasse) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        Compte cpt = (Compte) session.getAttribute("CommercialConnected");
+         if (!cpt.getPassword().equals(CompteDAO.encode(oldmotdepasse, cpt.getSalt()))) {
+            return "erroroldmdp";
+        } else if (!com.getPassword().equals(confirmation)) {
+            return "errorconfirm";
+        } else {
+            cpt.setNom(com.getNom());
+            cpt.setPrenom(com.getPrenom());
+            cpt.setLogin(com.getLogin());
+            cpt.setPassword(com.getPassword());
+            if (CompteDAO.updateCommercial(cpt)!=null) {
+                session.setAttribute("CommercialConnected", CompteDAO.updateCommercial(cpt));
+                return "success";
+            }
+        }
+        return "error";
     }
 
     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
@@ -63,7 +97,7 @@ public class CommercialController {
             model.addAttribute("msg", "Erreur inscription");
         }
         //model.addAttribute("societe", cli.getSociete());
-        listClientAction(session, model);
+        listClientAction(request, session, model);
         return "commercial";
     }
 
@@ -101,7 +135,7 @@ public class CommercialController {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
             List<Client> lstcli = ClientDAO.Charge(idClient);
-            model.addAttribute("ajout", lstcli.get(0).getSociete());
+            model.addAttribute("nomclient", lstcli.get(0).getSociete());
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();

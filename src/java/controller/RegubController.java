@@ -41,6 +41,7 @@ public class RegubController {
                 if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 1) {
                     return "admin";
                 } else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 2) {
+                    session.setAttribute("CommercialConnected", auth.connexion(login, password));
                     return "commercial";
                 }
                 else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 3) {

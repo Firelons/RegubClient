@@ -22,7 +22,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue [Commercial] | Regub</title>
+        <title>Bienvenue ${CommercialConnected.getNom()} | Regub</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Bienvenue Commercial<%--${UserConnected.getSociete()}--%></h2>
+                        <h2 class="section-heading">Bienvenue ${CommercialConnected.getNom()}</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -188,25 +188,24 @@
                         <h4 class="modal-title" id="myModalLabel">Paramètre</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form">
+                        <form id="paramCommercial" role="form" method="post">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${UserConnected.getSociete()} "required>
+                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${CommercialConnected.getNom()} "required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Prenom*</label>
                                     <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${UserConnected.getTelephone()}" required>
+                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${CommercialConnected.getPrenom()}" required>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label>E-mail*</label>
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${UserConnected.getEmail()}" required>
+                                <label>login*</label>
+                                <input type="login" name="login" id="login" class="form-control input-sm" placeholder="login" value="${CommercialConnected.getLogin()}" required>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -217,8 +216,8 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
+                                        <label>Mot de passe*</label>
+                                        <input type="password" name="password" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -226,10 +225,11 @@
                                         <label>Confirmation*</label>
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
                                     </div>
+                                    <p id ="infomod" class="text-success"></p>
+                                    <p id ="errormod" class="text-danger"></p>
                                 </div>
                             </div>
                             <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
-
                         </form>
 
                     </div>
