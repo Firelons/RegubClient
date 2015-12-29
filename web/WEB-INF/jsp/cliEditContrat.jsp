@@ -14,6 +14,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:if test="${UserConnected==null}">
     <c:redirect url="accueil"/>
 </c:if>
@@ -80,7 +81,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -90,12 +91,14 @@
                                    
                                     <div class="col-xs-6">
                                         
+                                        <input type="hidden" path="idCommercial" name="idCommercial" value="3">
+                                        <input type="hidden" path="idClient" name="idClient" value="3">
                                    
                                         <label class="control-label" >Titre</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
+                                        <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre">
                                     
                                         <label class="control-label" >Frequence(par jour)</label>
-                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
+                                        <input type="text" class="form-control" id="frequence" name="frequence" path="frequence" placeholder="frequence">
                                     
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle -->
@@ -103,17 +106,17 @@
                                    
                                         
                                         <label class="control-label" >Durée(en secondes)</label>
-                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
+                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree">
                                   
                                         <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
-                                            <input type="date" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" placeholder="datedebut">
                                             
                                         </div>
                                         <label class="control-label" >Date De Reception</label>
                                         <div class="input-group date" id="datetimereception">
-                                            <input type="date" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception">
                                             
                                         </div>
                                          
@@ -121,7 +124,7 @@
                                         
                                         <label class="control-label" >Date De Fin</label>
                                         <div class="input-group date" id="datetimefin">
-                                            <input type="date" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            <input type="date" class="form-control" id="" path="dateFin" name="dateFin" placeholder="datefin">
                                             
                                         </div>
                                    
@@ -130,11 +133,11 @@
                                         
                                         <label class="control-label" >Date De Validation</label>
                                         <div class="input-group date" id="datetimevalidation">
-                                            <input type="date" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            <input type="date" class="form-control" id="datevalidation" path="dateValidation" name="dateValidation" placeholder="datevalidation">
                                             
                                         </div>
                                         <label class="control-label" >Tarif (à la seconde)</label>
-                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="Tarif à la seconde">
+                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde">
                                    
                                     </div>
                                     <div class="col-xs-6">
@@ -171,13 +174,13 @@
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="valide" /> Validé
+                                                <input type="radio" name="statur" value="1" /> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="preparation" /> Préparation
+                                                <input type="radio" name="statut" value="2" checked="true" /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="annule" /> Annulé
+                                                <input type="radio" name="statut" value="3" /> Annulé
                                             </label>
                                         </div>
                                         
@@ -193,7 +196,7 @@
                                    
                                     <div class="col-xs-6">
                                         <label class="control-label" >Montant</label>
-                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="Montant">
+                                        <input type="text" class="form-control"  placeholder="Montant">
                                     </div>
                                 </div>
                             </div>

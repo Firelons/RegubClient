@@ -10,13 +10,18 @@ import javax.servlet.http.HttpSession;
 import model.dao.VideoDAO;
 import entities.Client;
 import entities.ClientConnecte;
+import entities.Compte;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import model.dao.ClientDAO;
+import model.dao.CompteDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +36,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ClientController {
 
     private final ClientDAO CliBDD = new ClientDAO();
-    private VideoDAO modif = new VideoDAO();
+    private VideoDAO vidBDD = new VideoDAO();
+    private final CompteDAO ComBDD = new CompteDAO();
 
     @RequestMapping(value = "/client", method = RequestMethod.GET)
     protected String listVideoAction(HttpSession session, Model model) {
@@ -87,6 +93,64 @@ public class ClientController {
             HttpServletRequest request,
             HttpSession session, 
             Model model) {
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "cliEditContrat";
+    }
+    @RequestMapping(value="/ajoutercontrat", method = RequestMethod.POST)
+    //public @ResponseBody
+    String ajoutercontratAction(
+            HttpServletRequest request,
+            Model model,
+            HttpSession session
+             ) throws ParseException, InterruptedException {
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        
+        List<Compte> listCompte= CompteDAO.RegionCompte();
+        
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("dateDebut");  
+        String datefincontrat = request.getParameter("dateFin");
+        String daterecepcontrat = request.getParameter("dateReception");
+        String datevalidcontrat = request.getParameter("dateValidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        Video vid = new Video(cl.getCli()
+                ,listCompte.get(0), titrecontrat, 
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
+                 sdf.parse(datedebutcontrat),  sdf.parse(datefincontrat), 
+                 sdf.parse(daterecepcontrat),  sdf.parse(datevalidcontrat), 
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+        
+        if(vidBDD.addcliVideo(vid)){
+            return "redirect:/client";
+          }else{
+            return "cliEditContrat";
+            }
+        
+    }
+     @RequestMapping(value="/ajoutercontrat", method = RequestMethod.GET)
+    //public @ResponseBody
+    String contratAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) {
+        
+        final Video form = new Video();
+       model.addAttribute("vid", form);
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));

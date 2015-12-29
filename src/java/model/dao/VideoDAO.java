@@ -5,9 +5,11 @@
  */
 package model.dao;
 
+import entities.Client;
 import entities.Region;
 import entities.Typerayon;
 import entities.Video;
+import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
@@ -73,5 +75,23 @@ public class VideoDAO {
         session.close();
         HibernateUtil.getSessionFactory().close();
         return null;
+    }
+    // Ajouté par Aurélien Touche pas Serge
+        public boolean addcliVideo(Video vid) {
+        System.out.println("TST:");
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            
+            session.beginTransaction();
+            session.save(vid);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false;
     }
 }

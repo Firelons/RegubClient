@@ -91,5 +91,4 @@ public class AccueilController {
         model.addAttribute("info", "Votre compte a été activé ! ");
         return "activerClient";
     }
-
 }

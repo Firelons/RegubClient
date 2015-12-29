@@ -72,7 +72,7 @@
             </div>
             <div class="container">
                 <div class="table-responsive">  
-                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModalAjouter" >Ajouter</a>             
+                    <a href="ajoutercontrat" class="btn btn-info"  >Ajouter</a>             
                     <table class="table">
                         <thead>
                             <tr>
