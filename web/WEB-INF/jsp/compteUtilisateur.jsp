@@ -16,7 +16,7 @@
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Création des Comptes</title>
+        <title>Liste des Comptes</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -64,7 +64,7 @@
         <div class="container">
             <div class="table-responsive">    
                  
-                <a class="btn btn-info" href="Ajoutuser"><strong>Ajouter</a></button>
+                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
                 <form action="user" method="post">
                     <!-- 1ere facon de faire le tableau -->
                     <table class="table">
@@ -86,15 +86,15 @@
                                 <td><%=list.get(j).getPrenom()%></td>
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
-                                <td><a href="#" class="btn btn-primary">Voir</a></td>
-                                <td><a href="#" class="btn btn-primary">Suppr</a></td>
+                                <td><a href="ModifCompte" class="btn btn-primary" >Modifier</a></td>
+                                <td><a href="SuppCompte" class="btn btn-primary" >Supprimer</a></td>
                             </tr>
                             <%
                                 }
                             %>
                         </tbody>
                     </table>
-                </form>
+                </form><br><br><br><br>
             </div>
         </div>  
     

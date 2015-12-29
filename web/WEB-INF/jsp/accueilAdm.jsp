@@ -53,20 +53,16 @@
                 <div class="header-content-inner">
                     <h1>REGUB Accueil</h1><br/>
         
+                    <a href="user" class="btn btn-lg btn-primary car "><strong>Gestion des Comptes</strong></a><br/><br/>
                     
-                    <a class="btn btn-lg btn-primary car " href="user"><strong>Gestion des Comptes</strong></a><br/><br/>
-                    <form class="form-signin" action="region" method="get">
-                        <button class="btn btn-lg btn-primary  car" type="submit"><strong>Gestion de Régions</strong></button><br/><br/>
-                    </form>
-                    <form class="form-signin" action="magasin" method="get">
-                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion de Magasins</strong></button><br/><br/>
-                    </form>
-                    <form class="form-signin" action="" method="get">
-                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Gestion de Type Rayons</strong></button><br/><br/>
-                    </form>
-                    <form class="form-signin" action="" method="get">
-                        <button class="btn btn-lg btn-primary car" type="submit"><strong>Entreprises</strong></button>
-                    </form>
+                    <a href="region" class="btn btn-lg btn-primary  car"><strong>Gestion de Régions</strong></a><br/><br/>
+                    
+                    <a href="magasin" class="btn btn-lg btn-primary car"><strong>Gestion de Magasins</strong></a><br/><br/>
+                    
+                    <a href="" class="btn btn-lg btn-primary car"><strong>Gestion de Type Rayons</strong></a><br/><br/>
+                    
+                    <a href="" class="btn btn-lg btn-primary car"><strong>Entreprises</strong></a>
+                    
                 </div>
             </div>
          </header>

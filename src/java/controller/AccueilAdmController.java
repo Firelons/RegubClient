@@ -56,16 +56,16 @@ public class AccueilAdmController {
     protected String retourAccueilAction(Model model) {
         return "redirect:accueilAdm";
     }
-    @RequestMapping(value = "Ajoutuser")
-    protected String creerUserAction(Model model) {
+    @RequestMapping(value = "ajoutCompte")
+    protected String ajoutCompteAction(Model model) {
         return "creerUtilisateur";
     }
-    @RequestMapping(value = "update")
-    protected String modifierUserAction(Model model) {
+    @RequestMapping(value = "ModifCompte")
+    protected String modifierCompteAction(Model model) {
         return "modifierUtilisateur";
     }  
-    @RequestMapping(value = "delete")
-    protected String deleteUserAction(Model model) {
+    @RequestMapping(value = "SuppCompte")
+    protected String supprimerCompteAction(Model model) {
         return "";
     }
     @RequestMapping(value = "region")
@@ -78,10 +78,10 @@ public class AccueilAdmController {
         return "accueilAdm";
     }
     
-    //traitement de la page creation du client   
+    //traitement de la page creation du compte   
     
     @RequestMapping(value = "CreationUser", method = RequestMethod.POST)
-    protected String boutonCreationUserAction(HttpServletRequest request, Model model) {
+    protected String creationCompteAction(HttpServletRequest request, Model model) {
         String nom = request.getParameter("Nom");
         String prenom = request.getParameter("Prenom");
         String login = request.getParameter("Login");
@@ -120,11 +120,23 @@ public class AccueilAdmController {
             e.printStackTrace();   
            
         }
-        return "compteUtilisateur";
+        return userAction(request, model);
     }
     
-    @RequestMapping(value = "AnnuleCreationUser", method = RequestMethod.POST)
-    protected String annuleCreationUserAction(Model model) {
-        return "compteUtilisateur";
+    @RequestMapping(value = "AnnuleCreationUser")
+    protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
+        return userAction(request, model);
+    }
+    
+    //traitement de la page modification du compte
+    
+    @RequestMapping(value = "ModifDataCompte")
+    protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
+        String nom = request.getParameter("Nom");
+        String prenom = request.getParameter("Prenom");
+        String login = request.getParameter("Login");
+        String mdp = request.getParameter("Motdepasse");
+        int typec = Integer.parseInt(request.getParameter("Compte"));
+        return userAction(request, model);
     }
 }
