@@ -27,4 +27,20 @@ public class RegionDAO {
         }
         return listregion;
     }
+    
+    public static List<Region> RegionPrec(String reg) {
+        
+        int region = Integer.parseInt(reg);
+        List<Region> listregion = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Region as Re where IdRegion= ? ";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, region);
+            listregion = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listregion;
+    }
 }

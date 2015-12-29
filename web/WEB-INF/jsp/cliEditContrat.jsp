@@ -143,7 +143,7 @@
                                     <div class="col-xs-6">
                                         
                                         <label class="control-label">Type De Rayon :</label></BR>
-                                        <select class="selectrayon form-control" multiple="multiple" size="7.5">
+                                        <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5">
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
@@ -157,7 +157,7 @@
                                         </select>
                                         
                                         <label class="control-label">Regions :</label></BR>
-                                        <select multiple class = "selectregion form-control" size="7">
+                                        <select multiple class = "selectregion form-control" size="7" name="region">
                                             <%
                                                     for(int i=0; i<listregion.size(); i++){
                                             %>   
