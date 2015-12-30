@@ -66,12 +66,14 @@ public class AccueilAdmController {
         Compte cpt = new Compte();
         cpt = (Compte) session.getAttribute("cpt");
         
-       // String modif = request.getParameter("ModifCompte");
+        String modif = request.getParameter("ModifCompte");
        // int modif = Integer.parseInt(request.getParameter("ModifCompte"));
-        //System.out.println("nom:"+cpt.getNom());
-        System.out.println("prenom:"+cpt.getPrenom());
-        System.out.println("login:"+cpt.getPrenom());
+        
+       // System.out.println("nom:"+cpt.getNom());
+       // System.out.println("prenom:"+cpt.getPrenom());
+        //System.out.println("login:"+cpt.getLogin());
         System.out.println("modif:"+cpt.getIdCompte());
+        System.out.println("modif:"+modif);
        /*try {
             if(){
             }

@@ -90,13 +90,14 @@
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
                                 <td><input type="hidden" name="ModifCompte"  value="<%=list.get(j).getIdCompte()%>"/>
-                                    <a  href="ModifCompte" class="btn btn-primary" >Modifier</a>
+                                    <a href="ModifCompte" onclick="get(<%=list.get(j).getIdCompte()%>)"ng-click=" get(<%=list.get(j).getIdCompte()%>)" class="btn btn-primary" >Modifier</a>
+                                    
                                 </td>
                                 <!--<td><form id="modifbutton" role="form" >
                                                 <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
                                             <button class="btn btn-primary" type="submit">modifier</button>
                                         </form></td>-->
-                                <td><input type="button" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
+                                <td><input type="button" class="btn btn-primary" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
                                     <a  href="SuppCompte" class="btn btn-primary" >Supprimer</a>
                                 </td>
                             </tr>
