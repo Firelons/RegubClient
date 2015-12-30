@@ -75,6 +75,9 @@ public class ClientController {
     protected String DetailVideoAction(HttpSession session, Model model,HttpServletRequest request) {
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
+        List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+        List<Region> listregion = RegionDAO.Regionliste();
+        
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
         if(VideoDAO.modifcontrat(idvideo)==null){
             System.out.println("Not good");
@@ -84,6 +87,8 @@ public class ClientController {
         
         try {
             model.addAttribute("video", VideoDAO.modifcontrat(idvideo));
+            model.addAttribute("listrayon", listrayon);
+            model.addAttribute("listregion", listregion);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +119,7 @@ public class ClientController {
         }else{
             System.out.println("Good");
         }
+        
         vid.setTitre(titrecontrat);
         vid.setFrequence(Integer.parseInt(freqcontrat));
         

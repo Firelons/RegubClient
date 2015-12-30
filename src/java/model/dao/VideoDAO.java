@@ -49,6 +49,21 @@ public class VideoDAO {
         }
         return listrayon;
     }
+    public static List<Typerayon> RayonSelect(Video vid) {
+        
+        
+        List<Typerayon> listrayons = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "select distinct f.typerayons from Video f where f.idVideo=?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, vid.getIdVideo());
+            listrayons = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listrayons;
+    }
     
     public static List<Region> Regionliste() {
     Session session = HibernateUtil.getSessionFactory().openSession();
