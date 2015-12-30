@@ -86,7 +86,7 @@ public class ClientController {
         }
         
         try {
-            model.addAttribute("video", VideoDAO.modifcontrat(idvideo));
+            model.addAttribute("video", vidBDD.modifcontrat(idvideo));
             model.addAttribute("listrayon", listrayon);
             model.addAttribute("listregion", listregion);
         } catch (Exception e) {
