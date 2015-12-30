@@ -23,13 +23,13 @@ $(function () {
         format: 'd-m-yyyy'
     });
     $('#datetimefin').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'd-m-yyyy'
     });
     $('#datetimereception').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'd-m-yyyy'
     });
     $('#datetimevalidation').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'd-m-yyyy'
     });
 });
 
@@ -61,7 +61,7 @@ function validateComFormulaireAjoutContrat() {
     /*if (x1 === null || x1 === "") {
         $('p.erreur-form').html("Vous devez fournir un titre");
         return false;
-    }*/
+    }
     
     if (x2 === null || x2 === "") {
         $('p.erreur-form').html("Vous devez fournir une fréquence");

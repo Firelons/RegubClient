@@ -165,12 +165,12 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label">Type De Rayon :</label></BR>
-                                        <select class="selectrayon form-control" multiple="multiple">
+                                        <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
                                              
-                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
                                                 <%=listrayon.get(i).getLibelle() %>
                                             </option>
                                                 <%
@@ -180,7 +180,7 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label">Regions :</label></BR>
-                                        <select multiple class = "selectregion form-control">
+                                        <select name="region" multiple class = "selectregion form-control">
                                             <%
                                                     for(int i=0; i<listregion.size(); i++){
                                             %>   
