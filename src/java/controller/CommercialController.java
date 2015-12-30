@@ -9,6 +9,7 @@ import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import entities.Client;
 import entities.ClientConnecte;
 import entities.Compte;
+import entities.Region;
 import entities.Typecompte;
 import entities.Typerayon;
 import entities.Video;
@@ -188,12 +189,24 @@ public class CommercialController {
         methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
         en une liste d'entiers de type Set 
     */
-    protected Set tableau( String [] lst) {
+    protected Set tableaureg( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
-        //Set<Integer> numbers = new HashSet<Integer>();
-        Set numbers = new HashSet();
+        Set<Region> numbers = new HashSet<>();
+        //Set numbers = new HashSet();
         for (Integer m : array) {
-            numbers.add(m);
+            Region reg = new Region(m);
+            numbers.add(reg);
+        }
+        return numbers;
+    }
+    
+    protected Set tableauray( String [] lst) {
+        int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
+        Set<Typerayon> numbers = new HashSet<>();
+        //Set numbers = new HashSet();
+        for (Integer m : array) {
+            Typerayon reg = new Typerayon(m);
+            numbers.add(reg);
         }
         return numbers;
     }
@@ -232,8 +245,8 @@ public class CommercialController {
         System.out.println(mySetregion);
         System.out.println(mySetrayon);*/
         //System.out.println(tableau(choixrayon));
-        Set mySetregion = tableau(choixregion);
-        Set mySettyperayon = tableau(choixrayon);
+        Set mySetregion = tableaureg(choixregion);
+        Set mySettyperayon = tableauray(choixrayon);
         System.out.println(mySettyperayon);
         
         Client client = ClientDAO.getClient(id);
@@ -244,7 +257,7 @@ public class CommercialController {
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
-                mySetregion, mySettyperayon);
+                mySetregion);
         
         /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
         Client client = ClientDAO.getClient(id);
