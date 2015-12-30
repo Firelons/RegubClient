@@ -4,18 +4,6 @@
  * and open the template in the editor.
  */
 
-$('#titre').blur(function(){
-    if(this.value.trim() ===""){
-        //this.estValide = false;color: red
-        //$('p.erreur-form').css('color: red');
-        $('p.erreur-form').html("Vous devez fournir un titre");
-        //$(this).addClass('invalide');
-    }
-    else {
-    }
-   //alert(this.prop3il); 
-});
-
 $(document).ready(function () {
     $('.selectrayon').SumoSelect({
          placeholder: 'Choississez un ou plusieurs rayons',
@@ -30,15 +18,9 @@ $(document).ready(function () {
    
 });
 
-$('#rayon').blur(function(){
-    if(this.value !==null){
-        alert(this.value);
-    }
-});
-
 $(function () {
     $('#datetimedebut').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'd-m-yyyy'
     });
     $('#datetimefin').datepicker({
         format: 'yyyy-mm-dd'
@@ -51,120 +33,114 @@ $(function () {
     });
 });
 
-/* $(document).ready(function() {
-    $('#FormulaireAjout').formValidation({
-        //framework: 'bootstrap',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            client: {
-                row: '.col-xs-6',
-                validators: {
-                    notEmpty: {
-                      
-                    }
-                }
-            },
-            //pr le titre
-            titre: {
-                row: '.col-xs-6',
-                validators: {
-                    notEmpty: {
-                        message: 'Un titre est requis svp'
-                    },
-                    stringLength: {
-                        max: 2,
-                        message: 'Le nombre de caractères maximum est de 200 pr le titre'
-                    }
-                }
-            },
-            genre: {
-                row: '.col-xs-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The genre is required'
-                    }
-                }
-            },
-            director: {
-                row: '.col-xs-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The director name is required'
-                    },
-                    stringLength: {
-                        max: 80,
-                        message: 'The director name must be less than 80 characters long'
-                    }
-                }
-            },
-            writer: {
-                row: '.col-xs-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The writer name is required'
-                    },
-                    stringLength: {
-                        max: 80,
-                        message: 'The writer name must be less than 80 characters long'
-                    }
-                }
-            },
-            producer: {
-                row: '.col-xs-4',
-                validators: {
-                    notEmpty: {
-                        message: 'The producer name is required'
-                    },
-                    stringLength: {
-                        max: 80,
-                        message: 'The producer name must be less than 80 characters long'
-                    }
-                }
-            },
-            website: {
-                row: '.col-xs-6',
-                validators: {
-                    notEmpty: {
-                        message: 'The website address is required'
-                    },
-                    uri: {
-                        message: 'The website address is not valid'
-                    }
-                }
-            },
-            trailer: {
-                row: '.col-xs-6',
-                validators: {
-                    notEmpty: {
-                        message: 'The trailer link is required'
-                    },
-                    uri: {
-                        message: 'The trailer link is not valid'
-                    }
-                }
-            },
-            review: {
-                // The group will be set as default (.form-group)
-                validators: {
-                    stringLength: {
-                        max: 500,
-                        message: 'The review must be less than 500 characters long'
-                    }
-                }
-            },
-            rating: {
-                // The group will be set as default (.form-group)
-                validators: {
-                    notEmpty: {
-                        message: 'The rating is required'
-                    }
-                }
-            }
-        }
-    });
-});
-*/
+//peut aussi etre utilisé pr le type string
+ function isInteger(x) {
+        return Math.round(x) === x;
+    }
+
+function validateComFormulaireAjoutContrat() {
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+    var date = year+"-"+month+"-"+day;
+    
+    var x1 = document.forms["ComFormulaireAjoutContrat"]["titre"].value;
+    var x2 = document.forms["ComFormulaireAjoutContrat"]["frequence"].value;
+    var x3 = document.forms["ComFormulaireAjoutContrat"]["rayon"].value;
+    var x4 = document.forms["ComFormulaireAjoutContrat"]["datedebut"].value;
+    var x5 = document.forms["ComFormulaireAjoutContrat"]["datefin"].value;
+    var x6 = document.forms["ComFormulaireAjoutContrat"]["datereception"].value;
+    var x7 = document.forms["ComFormulaireAjoutContrat"]["datevalidation"].value;
+    var x8 = document.forms["ComFormulaireAjoutContrat"]["fichier"].value;
+    var x9 = document.forms["ComFormulaireAjoutContrat"]["statut"].value;
+    var x10 = document.forms["ComFormulaireAjoutContrat"]["region"].value;
+    var x11 = document.forms["ComFormulaireAjoutContrat"]["tarif"].value;
+    var x12 = document.forms["ComFormulaireAjoutContrat"]["duree"].value;
+    
+    /*if (x1 === null || x1 === "") {
+        $('p.erreur-form').html("Vous devez fournir un titre");
+        return false;
+    }*/
+    
+    if (x2 === null || x2 === "") {
+        $('p.erreur-form').html("Vous devez fournir une fréquence");
+        return false;
+    }
+    if (isNaN(x2)) {
+        $('p.erreur-form').html("La fréquence doit être un chiffe ou un nombre");
+        return false;
+    }
+    if (isInteger(x2) === false) {
+        $('p.erreur-form').html("La fréquence doit être un entier");
+        return false;
+    }
+    
+    /*if (x12 === null || x12 === "") {
+        $('p.erreur-form').html("Vous devez fournir une durée");
+        return false;
+    }
+    if (isNaN(x12)) {
+        $('p.erreur-form').html("La durée doit être un chiffe ou un nombre");
+        return false;
+    }
+    
+    if (x3 === null || x3 === "") {
+        $('p.erreur-form').html("Vous devez choisir un rayon");
+        return false;
+    }
+    
+    if (x4 === null || x4 === "") {
+        $('p.erreur-form').html("Vous devez choisir une date de debut");
+        return false;
+    }
+    if (x4<date) {
+        $('p.erreur-form').html("La date de debut doit être supérieur à la date du jour");
+        return false;
+    }
+    
+    if (x5 === null || x5 === "") {
+        $('p.erreur-form').html("Vous devez choisir une date de fin");
+        return false;
+    }
+    if (x5<x4) {
+        $('p.erreur-form').html("La date de fin doit être supérieure à la date de debut");
+        return false;
+    }
+    
+    if (x6 === null || x6 === "") {
+        $('p.erreur-form').html("Vous devez choisir une date de reception");
+        return false;
+    }
+    
+    if (x7 === null || x7 === "") {
+        $('p.erreur-form').html("Vous devez choisir une date de validation");
+        return false;
+    }
+    
+    if (x8 === null || x8 === "") {
+        $('p.erreur-form').html("Vous devez choisir un fichier");
+        return false;
+    }
+    
+    if (x9 === null || x9 === "") {
+        $('p.erreur-form').html("Vous devez choisir un statut");
+        return false;
+    }*/
+    
+    /*if (x10 === null || x10 === "") {
+        $('p.erreur-form').html("Vous devez choisir une ou plusieurs regions");
+        return false;
+    }
+    
+    if (x11 === null || x11 === "") {
+        $('p.erreur-form').html("Vous devez fournir un tarif");
+        return false;
+    }
+    if (isNaN(x11)) {
+        $('p.erreur-form').html("Le tarif doit être un chiffe ou un nombre");
+        return false;
+    }
+     */
+    
+}

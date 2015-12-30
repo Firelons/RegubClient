@@ -66,7 +66,22 @@ public class VideoDAO {
         
     }
     
-    public static Video modifcontrat(Integer idContrat) {
+    public void addComContrat(Video vid) {
+        System.out.println("TST: ouverture session");
+        
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(vid);
+            session.getTransaction().commit();
+            //System.out.println("TST: ajout effectué");;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //System.out.println("TST: fermeture session");
+    }
+    
+    public Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Video modif = (Video) session.load(Video.class, idContrat);

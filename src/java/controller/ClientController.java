@@ -76,14 +76,14 @@ public class ClientController {
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
-        if(VideoDAO.modifcontrat(idvideo)==null){
+        if(vidBDD.modifcontrat(idvideo)==null){
             System.out.println("Not good");
         }else{
             System.out.println("Good");
         }
         
         try {
-            model.addAttribute("video", VideoDAO.modifcontrat(idvideo));
+            model.addAttribute("video", vidBDD.modifcontrat(idvideo));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +108,10 @@ public class ClientController {
         String tarifcontrat = request.getParameter("tarif");
         String choixstatut = request.getParameter("statut");
         
-        Video vid =VideoDAO.modifcontrat(idvideo);
+        //vidBDD.modifcontrat(idvideo)
+        Video vid = vidBDD.modifcontrat(idvideo);
+        //Video vid = new Video();
+                
         if(vid==null){
             System.out.println("Not good");
         }else{

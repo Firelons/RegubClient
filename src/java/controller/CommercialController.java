@@ -7,22 +7,31 @@ package controller;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import entities.Client;
-import java.util.List;
-import javax.servlet.http.HttpSession;
-import model.dao.VideoDAO;
+import entities.ClientConnecte;
 import entities.Compte;
 import entities.Typecompte;
-import entities.ClientConnecte;
 import entities.Typerayon;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.VideoDAO;
 import org.springframework.stereotype.Controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
@@ -45,7 +54,7 @@ public class CommercialController {
     private final ClientDAO CliBDD = new ClientDAO();
     //private final AdministrateurDAO auth = new AdministrateurDAO();
     //private final Compte adm = new Compte();
-    private VideoDAO modif = new VideoDAO();
+    private VideoDAO VidBDD = new VideoDAO();
 
     //recup de l'id du client
     private int cleclient;
@@ -155,18 +164,110 @@ public class CommercialController {
         model.addAttribute("cleclient", cleclient);
         return "comformajoutcontrat";
     }
-
+    
+    //By T.Serge
+    //methode utilisée pour convertir la date au format date de sql pr la BDD
+    public java.sql.Date ConvertToSqlDate(String date){
+        //System.out.println(""+date);
+        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        Date d = null;
+        try {
+            d = dateformat.parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(CommercialController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(""+dateformat.format(d));
+        
+        java.sql.Date sqldate = new java.sql.Date(d.getTime());
+        //System.out.println(""+sqldate);
+        return sqldate;
+    }
+    
+    /*
+        Modif T.serge
+        methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
+        en une liste d'entiers de type Set 
+    */
+    protected Set tableau( String [] lst) {
+        int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
+        //Set<Integer> numbers = new HashSet<Integer>();
+        Set numbers = new HashSet();
+        for (Integer m : array) {
+            numbers.add(m);
+        }
+        return numbers;
+    }
+    
     //action appelée après saisie des infos dans le formulaire d'ajout d'un contrat
     @RequestMapping("regub/commercial/contrats/comajoutcontrat")
-    String ajoutcontratAction(
+    public String ajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
-            Model model) {
-        String[] choix = request.getParameterValues("rayon");
-        List<Client> lst = ClientDAO.Charge(cleclient);
-        //List<Typerayon> listrayon = VideoDAO.layDS();
-        model.addAttribute("ajout", lst.get(0).getSociete());
-        model.addAttribute("cleclient", cleclient);
+            Model model) throws ParseException, InterruptedException {
+        //Pour pouvoir conserver l'Id du client pour lequel 
+        //l'ajout du contrat est fait
+        int id = cleclient;
+        
+        String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixregion = request.getParameterValues("region");
+        
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("datedebut");  
+        String datefincontrat = request.getParameter("datefin");
+        String daterecepcontrat = request.getParameter("datereception");
+        String datevalidcontrat = request.getParameter("datevalidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        //int[] arrayrayon = Arrays.asList(choixrayon).stream().mapToInt(Integer::parseInt).toArray();
+        //Set<Integer> mySet = new HashSet<Integer>();
+        //Set<Integer> numbers = new HashSet<Integer>();
+        //numbers.addAll(Arrays.asList(arrayrayon));
+        //Set<Integer> mySet = new HashSet<Integer>(Arrays.asList(arrayrayon));
+        //System.out.println(arrayrayon);
+        /*Set<String> mySetrayon = new HashSet<String>(Arrays.asList(choixrayon));
+        Set<String> mySetregion = new HashSet<String>(Arrays.asList(choixregion));
+        System.out.println(mySetregion);
+        System.out.println(mySetrayon);*/
+        //System.out.println(tableau(choixrayon));
+        Set mySetregion = tableau(choixregion);
+        Set mySettyperayon = tableau(choixrayon);
+        System.out.println(mySettyperayon);
+        
+        Client client = ClientDAO.getClient(id);
+        Compte cmpt = (Compte)session.getAttribute("compteConnected");
+        
+        Video vid = new Video(client, cmpt, titrecontrat, 
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
+                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
+                mySetregion, mySettyperayon);
+        
+        /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
+        Client client = ClientDAO.getClient(id);
+        Compte cmpt = (Compte)session.getAttribute("compteConnected");
+        
+        Video vid = new Video(client, cmpt, titrecontrat, 
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
+                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+        */
+        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        
+        //System.out.println("TST: Debut pause");
+        //Thread.sleep(5000);
+        //System.out.println("TST: Fin pause");
+        
+        /*List<Video> lst = VideoDAO.layDS(id);
+        List<Client> lstcli = ClientDAO.Charge(id);
+        model.addAttribute("nomclient", lstcli.get(0).getSociete());
+        model.addAttribute("video", lst);
+        return "contrats";*/
+        //return contratsAction(request, session, model, client, id);
         return "test";
     }
 
@@ -180,7 +281,7 @@ public class CommercialController {
             @PathVariable(value = "id") Integer id) {
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
-        request.setAttribute("Modify", this.modif.modifcontrat(id));
+        request.setAttribute("Modify", this.VidBDD.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         //return "comformmodifiercontrat";
