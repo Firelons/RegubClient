@@ -46,7 +46,12 @@ public class ClientController {
     private final CompteDAO ComBDD = new CompteDAO();
 
     @RequestMapping(value = "/client", method = RequestMethod.GET)
-    protected String listVideoAction(HttpSession session, Model model) {
+    protected String listVideoAction(HttpSession session, Model model) throws ParseException {
+        //Pour désactiver ou activer les boutons de visibilités des factures par Lons
+        SimpleDateFormat sdf= new SimpleDateFormat( "dd/MM/yy" ); 
+        java.util.Date date = new java.util.Date(); 
+        model.addAttribute("now",sdf.parse(sdf.format(date)));
+        
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         try {
             model.addAttribute("usr", cli.getCli().getSociete());
@@ -59,6 +64,10 @@ public class ClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        //Verouillage des champs
+        
+        
         return "client";
     }
     
@@ -116,7 +125,7 @@ public class ClientController {
         vid.setStatut(Integer.parseInt(choixstatut));
         vid.setTarif(Double.parseDouble(tarifcontrat));
         try {
-            VideoDAO.updCliVideo(vid);
+            this.vidBDD.updCliVideo(vid);
         } catch (Exception e) {
             e.printStackTrace();
         }

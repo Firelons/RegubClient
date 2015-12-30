@@ -111,13 +111,13 @@
                                         <td><a href="#" class="btn btn-primary">
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-info">
-                                            <c:out value=""></c:out>Voir</a>
+                                        <td><a href="#" class="btn ">
+                                            <button type="submit" <c:if test="${now lt vid.getDateFin()}">disabled</c:if> class="btn btn-info">Voir</button>
                                         </td>
                                         <td>
                                                 <form method="post" action="modifiercontrat">
                                                     <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                    <button type="submit" class="btn btn-primary">Modifier</button>
+                                                <button type="submit"  class="btn btn-primary">Modifier</button>
                                                 </form>                                          
                                             
                                         
