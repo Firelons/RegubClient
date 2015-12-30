@@ -53,7 +53,7 @@
             <div class="table-responsive ">    
                 <br><br><br>
                 <form action="ModifDataCompte" method="post">
-                    
+                   
                     <label>Nom :
                     <input type="text" name="Nom" value="<%%>"/>
                     </label><br><br>

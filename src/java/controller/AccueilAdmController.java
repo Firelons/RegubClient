@@ -60,8 +60,23 @@ public class AccueilAdmController {
     protected String ajoutCompteAction(Model model) {
         return "creerUtilisateur";
     }
-    @RequestMapping(value = "ModifCompte")
-    protected String modifierCompteAction(Model model) {
+    @RequestMapping(value = "ModifCompte", method = RequestMethod.GET)
+    protected String modifierCompteAction(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Compte cpt = new Compte();
+        cpt = (Compte) session.getAttribute("cpt");
+        
+       // String modif = request.getParameter("ModifCompte");
+       // int modif = Integer.parseInt(request.getParameter("ModifCompte"));
+        //System.out.println("nom:"+cpt.getNom());
+        System.out.println("prenom:"+cpt.getPrenom());
+        System.out.println("login:"+cpt.getPrenom());
+        System.out.println("modif:"+cpt.getIdCompte());
+       /*try {
+            if(){
+            }
+        } catch (Exception e) {
+        }*/
         return "modifierUtilisateur";
     }  
     @RequestMapping(value = "SuppCompte")

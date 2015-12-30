@@ -80,17 +80,25 @@
                                 list = (ArrayList<Compte>) request.getAttribute("compte");
                                 int j = 0;
                                 Compte cpt = new Compte();
-                                
-                                for (j = 0; j < list.size(); j++) {
-                                    cpt.setLogin(list.get(j).getLogin());
+                                for (j = 0; j < list.size(); j++) { 
+                                  cpt = list.get(j);
+                                  session.setAttribute("cpt", cpt);
                             %>
                             <tr>
                                 <td><%=list.get(j).getNom()%></td>
                                 <td><%=list.get(j).getPrenom()%></td>
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
-                                <td><a href="ModifCompte" class="btn btn-primary"  >Modifier</a></td>
-                                <td><a href="SuppCompte" class="btn btn-primary" >Supprimer</a></td>
+                                <td><input type="hidden" name="ModifCompte"  value="<%=list.get(j).getIdCompte()%>"/>
+                                    <a  href="ModifCompte" class="btn btn-primary" >Modifier</a>
+                                </td>
+                                <!--<td><form id="modifbutton" role="form" >
+                                                <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
+                                            <button class="btn btn-primary" type="submit">modifier</button>
+                                        </form></td>-->
+                                <td><input type="button" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
+                                    <a  href="SuppCompte" class="btn btn-primary" >Supprimer</a>
+                                </td>
                             </tr>
                             <%
                                 }

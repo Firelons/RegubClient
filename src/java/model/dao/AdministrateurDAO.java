@@ -139,11 +139,14 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-    public boolean updateCompte(Compte compte){
+    public boolean updateCompte(int id){
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Compte cpt = new Compte();
+        
         try {
             session.beginTransaction();
-            session.update(compte);
+            cpt.setIdCompte(id);
+            session.update(cpt);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
