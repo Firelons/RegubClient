@@ -64,7 +64,7 @@ public class VideoDAO {
         return listregion;
     }
     
-    public Video modifcontrat(Integer idContrat) {
+    public static Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Video modif = (Video) session.load(Video.class, idContrat);

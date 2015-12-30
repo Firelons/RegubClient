@@ -1,17 +1,29 @@
 <%-- 
     Document   : client
     Created on : 9 nov. 2015, 13:50:37
-    Author     : Mesmerus
+    Author     : Lons
 --%>
-
+<%@page import="java.util.List"%>
 <%@page import="entities.ClientConnecte"%>
 <%@page import="entities.Client"%>
+<%@page import="entities.Typerayon"%>
+<%@page import="entities.Region"%>
+<%@page import="model.dao.RegionDAO"%>
+<%@page import="model.dao.TypeRayonDAO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:if test="${UserConnected==null}">
     <c:redirect url="accueil"/>
 </c:if>
+
+
+<%
+    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+    List<Region> listregion = RegionDAO.Regionliste();
+%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -36,9 +48,10 @@
 
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/animate.min.css"/>" type="text/css">
-
+<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +67,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Bienvenue ${UserConnected.getSociete()}</h2>
+                        <h2 class="section-heading"> ${UserConnected.getSociete()}</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -63,69 +76,137 @@
 
         <section>
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading"> Liste des Contrats</h2>
-                        <hr class="primary">
+                <div class="panel panel-default container">
+                    <div class="panel-heading">
+                        <strong class="">Ajouter Contrat</strong>
                     </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="table-responsive">  
-                    <a href="ajoutercontrat" class="btn btn-info"  >Ajouter</a>             
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="vid" items="${video}">
-                                <tr>
-                                    <td>
-                                        <c:if test="${vid.getStatut()==1}">
-                                            <c:out value="Validé">
-                                            </c:out>
-                                        </c:if>
-                                        <c:if test="${vid.getStatut()==2}">
-                                            <c:out value="En preparation">
-                                            </c:out>
-                                        </c:if>
-                                        <c:if test="${vid.getStatut()==3}">
-                                            <c:out value="Annulé">
-                                            </c:out>
-                                        </c:if>
-                                    </td>
-                                    <td>
-                                        <c:out value="${vid.getTitre()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDuree()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDateDebut()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <c:out value="${vid.getDateFin()}"></c:out>
-                                        </td>
-                                        <td><a href="#" class="btn btn-primary">
-                                            <c:out value=""></c:out>Voir</a>
-                                        </td>
-                                        <td><a href="#" class="btn btn-info">
-                                            <c:out value=""></c:out>Voir</a>
-                                        </td>
-                                        <td>
-                                                <form method="post" action="modifiercontrat">
-                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                    <button type="submit" class="btn btn-primary">Modifier</button>
-                                                </form>                                          
-                                            
+                    <div class="panel-body">
+                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
+                            <div class="form-group">
+                                <p class="erreur-form" id="para"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="row">
+                                   
+                                    <div class="col-xs-6">
                                         
-                                        </td>
-                                    </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                        
+                                        <label class="control-label" >Titre</label>
+                                        <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre" value="${video.getTitre()}">
+                                    
+                                        <label class="control-label" >Frequence(par jour)</label>
+                                        <input type="text" class="form-control" id="frequence" name="frequence" path="frequence" placeholder="frequence" value="${video.getFrequence()}">
+                                    
+                                        <label class="control-label" >Fichier(Mp4) :</label>
+                                        <!-- filestyle -->
+                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                   
+                                        
+                                        <label class="control-label" >Durée(en secondes)</label>
+                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree" value="${video.getDuree()}">
+                                  
+                                        <div class="col-xs-6">
+                                        <label class="control-label" >Date De Debut</label>
+                                        <div class="input-group date" id="datetimedebut">
+                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" placeholder="datedebut" value="${video.getDateDebut()}">
+                                            
+                                        </div>
+                                        <label class="control-label" >Date De Reception</label>
+                                        <div class="input-group date" id="datetimereception">
+                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception" value="${video.getDateReception()}">
+                                            
+                                        </div>
+                                         
+                                        </div>
+                                        
+                                        <label class="control-label" >Date De Fin</label>
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="date" class="form-control" id="" path="dateFin" name="dateFin" placeholder="datefin" value="${video.getDateFin()}">
+                                            
+                                        </div>
+                                   
+                            
+                                       
+                                        
+                                        <label class="control-label" >Date De Validation</label>
+                                        <div class="input-group date" id="datetimevalidation">
+                                            <input type="date" class="form-control" id="datevalidation" path="dateValidation" name="dateValidation" placeholder="datevalidation" value="${video.getDateValidation()}">
+                                            
+                                        </div>
+                                        <label class="control-label" >Tarif (à la seconde)</label>
+                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde" value="${video.getTarif()}">
+                                   
+                                    </div>
+                                    <div class="col-xs-6">
+                                        
+                                        <label class="control-label">Type De Rayon :</label></BR>
+                                        <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5">
+                                            <%
+                                                    for(int i=0; i<listrayon.size(); i++){
+                                            %>   
+                                             
+                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                                <%=listrayon.get(i).getLibelle() %>
+                                            </option>
+                                                <%
+                                              }
+                                            %>
+                                        </select>
+                                        
+                                        <label class="control-label">Regions :</label></BR>
+                                        <select multiple class = "selectregion form-control" size="7" name="region">
+                                            <%
+                                                    for(int i=0; i<listregion.size(); i++){
+                                            %>   
+                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                                <%=listregion.get(i).getLibelle() %>
+                                            </option> 
+                                                <%
+                                              }
+                                            %>
+                                        </select>
+                                        </BR>
+                                        
+                                        <label class="control-label ">Statut : </label>
+                                        <div>
+                                            <!-- "rating" valeur d'attribut name du statut choisi -->
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statur" value="1" /> Validé
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="2" checked="true" /> Préparation
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="3" /> Annulé
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                   
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Montant</label>
+                                        <input type="text" class="form-control"  placeholder="Montant">
+                                    </div>
+                                </div>
+                            </div>
+                             
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
+                                    <c:out value=""></c:out>Annuler</a>
+                            </div>
+                        </form>    
+                    </div>        
                 </div>
             </div>
         </section>
@@ -252,7 +333,7 @@
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         <!--App JavaScript-->
         <script src="<c:url value="/resources/app/client.js"/>"></script>
-
+        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
     </body>
 
 </html>
