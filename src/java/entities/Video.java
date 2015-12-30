@@ -60,6 +60,23 @@ public class Video  implements java.io.Serializable {
        this.regions = regions;
        this.typerayons = typerayons;
     }
+    
+    //By T.Serge
+    //constructeur ajouté
+    public Video(Client client, Compte compte, String titre, int frequence, int duree, Date dateDebut, Date dateFin, Date dateReception, Date dateValidation, double tarif, int statut, Set regions) {
+       this.client = client;
+       this.compte = compte;
+       this.titre = titre;
+       this.frequence = frequence;
+       this.duree = duree;
+       this.dateDebut = dateDebut;
+       this.dateFin = dateFin;
+       this.dateReception = dateReception;
+       this.dateValidation = dateValidation;
+       this.tarif = tarif;
+       this.statut = statut;
+       this.regions = regions;
+    }
    
     public Integer getIdVideo() {
         return this.idVideo;

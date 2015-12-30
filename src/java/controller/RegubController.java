@@ -37,7 +37,7 @@ public class RegubController {
             Model model) {
         try {
             if (auth.connexion(login, password) != null) {
-                session.setAttribute("compteConnected", auth.connexion(login, password).getTypecompte());
+                session.setAttribute("compteConnected", auth.connexion(login, password));
                 if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 1) {
                     return "admin";
                 } else if (auth.connexion(login, password).getTypecompte().getIdTypeCompte() == 2) {

@@ -79,7 +79,7 @@ public class ClientController {
         List<Region> listregion = RegionDAO.Regionliste();
         
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
-        if(VideoDAO.modifcontrat(idvideo)==null){
+        if(vidBDD.modifcontrat(idvideo)==null){
             System.out.println("Not good");
         }else{
             System.out.println("Good");
@@ -113,7 +113,10 @@ public class ClientController {
         String tarifcontrat = request.getParameter("tarif");
         String choixstatut = request.getParameter("statut");
         
-        Video vid =VideoDAO.modifcontrat(idvideo);
+        //vidBDD.modifcontrat(idvideo)
+        Video vid = vidBDD.modifcontrat(idvideo);
+        //Video vid = new Video();
+                
         if(vid==null){
             System.out.println("Not good");
         }else{

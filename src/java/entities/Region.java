@@ -16,7 +16,11 @@ public class Region  implements java.io.Serializable {
 
     public Region() {
     }
-
+    
+    //Ajouté par T.serge
+    public Region(int id) {
+        this.idRegion = id;
+    }
 	
     public Region(String libelle) {
         this.libelle = libelle;
