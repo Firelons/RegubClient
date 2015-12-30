@@ -81,6 +81,49 @@ public class ClientController {
         
         return "cliModifContrat";
     }
+    @RequestMapping(value = "/modifycontrat", method = RequestMethod.POST)
+    protected String UpdateVideoAction(HttpSession session,
+            Model model,
+            HttpServletRequest request) throws ParseException, InterruptedException {
+        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("dateDebut");  
+        String datefincontrat = request.getParameter("dateFin");
+        String daterecepcontrat = request.getParameter("dateReception");
+        String datevalidcontrat = request.getParameter("dateValidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        Video vid =VideoDAO.modifcontrat(idvideo);
+        if(vid==null){
+            System.out.println("Not good");
+        }else{
+            System.out.println("Good");
+        }
+        vid.setTitre(titrecontrat);
+        vid.setFrequence(Integer.parseInt(freqcontrat));
+        
+        vid.setDuree(Integer.parseInt(durecontrat));
+        vid.setDateDebut(sdf.parse(datedebutcontrat));
+        vid.setDateFin(sdf.parse(datefincontrat));
+        vid.setDateReception(sdf.parse(daterecepcontrat));
+        vid.setDateValidation(sdf.parse(datevalidcontrat));
+        vid.setStatut(Integer.parseInt(choixstatut));
+        vid.setTarif(Double.parseDouble(tarifcontrat));
+        try {
+            VideoDAO.updCliVideo(vid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+     
+            return "redirect:/client";
+          
+    }
 
     @RequestMapping(value = "/modifierclient", method = RequestMethod.POST)
     public @ResponseBody

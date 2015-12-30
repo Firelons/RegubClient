@@ -81,7 +81,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
+                        <form id="FormulaireAjout" method="post" action="modifycontrat"  role="form" class="form-horizontal" modelAttribute="vid">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -91,7 +91,7 @@
                                    
                                     <div class="col-xs-6">
                                         
-                                        
+                                        <input type="hidden" name="idvideo" value="${video.getIdVideo()}">
                                         <label class="control-label" >Titre</label>
                                         <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre" value="${video.getTitre()}">
                                     

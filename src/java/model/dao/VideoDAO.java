@@ -94,4 +94,19 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return false;
     }
+        
+        public static void updCliVideo(Video vid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(vid);
+            session.getTransaction().commit();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+    }
 }
