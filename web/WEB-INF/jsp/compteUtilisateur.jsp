@@ -79,14 +79,17 @@
 
                                 list = (ArrayList<Compte>) request.getAttribute("compte");
                                 int j = 0;
+                                Compte cpt = new Compte();
+                                
                                 for (j = 0; j < list.size(); j++) {
+                                    cpt.setLogin(list.get(j).getLogin());
                             %>
                             <tr>
                                 <td><%=list.get(j).getNom()%></td>
                                 <td><%=list.get(j).getPrenom()%></td>
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
-                                <td><a href="ModifCompte" class="btn btn-primary" >Modifier</a></td>
+                                <td><a href="ModifCompte" class="btn btn-primary"  >Modifier</a></td>
                                 <td><a href="SuppCompte" class="btn btn-primary" >Supprimer</a></td>
                             </tr>
                             <%
@@ -98,8 +101,8 @@
             </div>
         </div>  
     
-    <footer>
+   
         <jsp:include page="foot.jsp" />   
-    </footer>
+        
     </body>
 </html>

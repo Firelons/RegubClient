@@ -50,9 +50,10 @@
             </div>
         </div>
         <div class="container">
-            <div class="table-responsive">    
+            <div class="table-responsive ">    
                 <br><br><br>
                 <form action="ModifDataCompte" method="post">
+                    
                     <label>Nom :
                     <input type="text" name="Nom" value="<%%>"/>
                     </label><br><br>

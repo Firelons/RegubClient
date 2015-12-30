@@ -122,5 +122,52 @@ public class AdministrateurDAO {
         return false;
     
     }
+    public Compte selectCompte(String login){
+         ArrayList<Compte> list = new ArrayList<Compte>();
+
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from Compte as cpt where cpt.login=?");
+            query.setParameter(0, login);
+            list = (ArrayList<Compte>) query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if ((list.size() > 0)) {
+            return list.get(0);
+        }
+        session.close();
+        return null;
+    }
+    public boolean updateCompte(Compte compte){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(compte);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    }
+    public boolean deleteCompte(Compte compte){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.delete(compte);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    }
 }
 
