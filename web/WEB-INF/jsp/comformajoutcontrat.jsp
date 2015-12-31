@@ -149,13 +149,13 @@
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="valide" /> Validé
+                                                <input type="radio" name="statut" value="1" /> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="preparation" /> Préparation
+                                                <input type="radio" name="statut" value="2" /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="annule" /> Annulé
+                                                <input type="radio" name="statut" value="3" /> Annulé
                                             </label>
                                         </div>
                                     </div>

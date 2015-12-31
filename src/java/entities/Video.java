@@ -63,7 +63,7 @@ public class Video  implements java.io.Serializable {
     
     //By T.Serge
     //constructeur ajouté
-    public Video(Client client, Compte compte, String titre, int frequence, int duree, Date dateDebut, Date dateFin, Date dateReception, Date dateValidation, double tarif, int statut, Set regions) {
+    public Video(Client client, Compte compte, String titre, int frequence, int duree, Date dateDebut, Date dateFin, Date dateReception, Date dateValidation, double tarif, int statut, Set typerayons) {
        this.client = client;
        this.compte = compte;
        this.titre = titre;
@@ -75,7 +75,7 @@ public class Video  implements java.io.Serializable {
        this.dateValidation = dateValidation;
        this.tarif = tarif;
        this.statut = statut;
-       this.regions = regions;
+       this.typerayons = typerayons;
     }
    
     public Integer getIdVideo() {

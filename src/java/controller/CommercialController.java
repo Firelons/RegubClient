@@ -23,6 +23,7 @@ import java.util.Arrays;
 import static java.util.Collections.list;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -192,29 +193,22 @@ public class CommercialController {
     */
     protected Set tableaureg( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
-        /*for(int i=0;i<lst.length;i++){
-            System.out.println(lst[i]);
-        }*/
-        //Set<Region> numbers = new HashSet<>();
-        Set numbers = new HashSet();
+        Set<Region> numbers = new HashSet<>();
+        //Set numbers = new HashSet();
         for (Integer m : array) {
-            //Region reg = new Region(m);
-            numbers.add(m);
-        }
-        /*for(int i=0;i<lst.length;i++){
-            Region reg = new Region(Integer.parseInt(lst[i]));
+            Region reg = new Region(m);
             numbers.add(reg);
-        }*/
+        }
         return numbers;
     }
     
     protected Set tableauray( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
-        //Set<Typerayon> numbers = new HashSet<>();
-        Set numbers = new HashSet();
+        Set<Typerayon> numbers = new HashSet<>();
+        //Set numbers = new HashSet();
         for (Integer m : array) {
-            //Typerayon reg = new Typerayon(m);
-            numbers.add(m);
+            Typerayon ray = new Typerayon(m);
+            numbers.add(ray);
         }
         return numbers;
     }
@@ -238,7 +232,7 @@ public class CommercialController {
         else{
             System.out.println("non vide");
         }
-        /*String titrecontrat = request.getParameter("titre");
+        String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
         String datedebutcontrat = request.getParameter("datedebut");  
@@ -246,7 +240,7 @@ public class CommercialController {
         String daterecepcontrat = request.getParameter("datereception");
         String datevalidcontrat = request.getParameter("datevalidation");
         String tarifcontrat = request.getParameter("tarif");
-        String choixstatut = request.getParameter("statut");*/
+        String choixstatut = request.getParameter("statut");
         
         //int[] arrayrayon = Arrays.asList(choixrayon).stream().mapToInt(Integer::parseInt).toArray();
         //Set<Integer> mySet = new HashSet<Integer>();
@@ -254,25 +248,27 @@ public class CommercialController {
         //numbers.addAll(Arrays.asList(arrayrayon));
         //Set<Integer> mySet = new HashSet<Integer>(Arrays.asList(arrayrayon));
         //System.out.println(arrayrayon);
-        Set<String> mySetrayon = new HashSet<String>(Arrays.asList(choixrayon));
+        //Set<String> mySetrayon = new HashSet<String>(Arrays.asList(choixrayon));
         //Set<String> mySetregion = new HashSet<String>(Arrays.asList(choixregion));
         //System.out.println(mySetregion);
-        System.out.println(mySetrayon);
+        //System.out.println(mySetrayon);
         //System.out.println(tableau(choixrayon));
-        /*Set mySetregion = tableaureg(choixregion);
+        //Set mySetregion = tableaureg(choixregion);
         Set mySettyperayon = tableauray(choixrayon);
-        System.out.println(mySettyperayon);*/
+        /*for (Iterator it = mySettyperayon.iterator(); it.hasNext();) {
+            Typerayon obj = (Typerayon) it.next();
+            System.out.println(obj.getIdTypeRayon());
+        }*/
         
         Client client = ClientDAO.getClient(id);
         Compte cmpt = (Compte)session.getAttribute("compteConnected");
         
-        /*Video vid = new Video(client, cmpt, titrecontrat, 
+        Video vid = new Video(client, cmpt, titrecontrat, 
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
-                mySetregion);
-        */
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+        
         /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
         Client client = ClientDAO.getClient(id);
         Compte cmpt = (Compte)session.getAttribute("compteConnected");
@@ -283,7 +279,7 @@ public class CommercialController {
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
         */
-        //VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
         
         //System.out.println("TST: Debut pause");
         //Thread.sleep(5000);

@@ -83,9 +83,9 @@ public class VideoDAO {
     
     public void addComContrat(Video vid) {
         System.out.println("TST: ouverture session");
-        
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
+            
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
@@ -93,6 +93,8 @@ public class VideoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        session.close();
+        //HibernateUtil.getSessionFactory().close();
         //System.out.println("TST: fermeture session");
     }
     
@@ -108,6 +110,7 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return null;
     }
+    
     // Ajouté par Aurélien Touche pas Serge
         public boolean addcliVideo(Video vid) {
         System.out.println("TST:");
