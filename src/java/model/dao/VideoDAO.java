@@ -94,8 +94,8 @@ public class VideoDAO {
             e.printStackTrace();
         }
         session.close();
-        //HibernateUtil.getSessionFactory().close();
-        //System.out.println("TST: fermeture session");
+        HibernateUtil.getSessionFactory().close();
+        System.out.println("TST: fermeture session");
     }
     
     public Video modifcontrat(Integer idContrat) {

@@ -146,8 +146,9 @@ public class CommercialController {
         try {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
-            List<Client> lstcli = ClientDAO.Charge(idClient);
-            model.addAttribute("nomclient", lstcli.get(0).getSociete());
+            //List<Client> lstcli = ClientDAO.Charge(idClient);
+            Client lstcli = ClientDAO.getClient(idClient);
+            model.addAttribute("nomclient", lstcli.getSociete());
             model.addAttribute("video", lst);
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,9 +162,10 @@ public class CommercialController {
             HttpSession session,
             Model model) {
         //Client contrat = contratclient.chargerclient(cleclient);
-        List<Client> lst = ClientDAO.Charge(cleclient);
+        //List<Client> lst = ClientDAO.Charge(cleclient);
+        Client lst = ClientDAO.getClient(cleclient);
         //List<Typerayon> listrayon = VideoDAO.layDS();
-        model.addAttribute("ajout", lst.get(0).getSociete());
+        model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
         return "comformajoutcontrat";
     }
@@ -254,7 +256,7 @@ public class CommercialController {
         //System.out.println(mySetrayon);
         //System.out.println(tableau(choixrayon));
         //Set mySetregion = tableaureg(choixregion);
-        Set mySettyperayon = tableauray(choixrayon);
+        //Set mySettyperayon = tableauray(choixrayon);
         /*for (Iterator it = mySettyperayon.iterator(); it.hasNext();) {
             Typerayon obj = (Typerayon) it.next();
             System.out.println(obj.getIdTypeRayon());
