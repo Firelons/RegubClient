@@ -4,6 +4,8 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="model.dao.TypeRayonDAO"%>
+<%@page import="model.dao.RegionDAO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -14,8 +16,8 @@
 <%@page import="entities.Region"%>
 <%@page import="model.dao.VideoDAO"%>
 <%
-    List<Typerayon> listrayon = VideoDAO.Rayonliste();
-    List<Region> listregion = VideoDAO.Regionliste();
+    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+    List<Region> listregion = RegionDAO.Regionliste();
 %>
 
 <html lang="fr">
