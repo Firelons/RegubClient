@@ -61,7 +61,9 @@ public class CommercialController {
 
     //recup de l'id du client
     private int cleclient;
-
+    
+    private Compte cpt;
+    
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpServletRequest request, HttpSession session, Model model) {
 

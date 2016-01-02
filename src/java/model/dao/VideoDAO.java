@@ -85,7 +85,8 @@ public class VideoDAO {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            
+            //Session session = HibernateUtil.getSessionFactory().openSession();
+            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
@@ -93,8 +94,10 @@ public class VideoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        session.close();
-        HibernateUtil.getSessionFactory().close();
+          finally {
+            session.close();
+        }
+        //HibernateUtil.getSessionFactory().close();
         System.out.println("TST: fermeture session");
     }
     
