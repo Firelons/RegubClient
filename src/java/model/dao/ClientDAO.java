@@ -165,7 +165,7 @@ public class ClientDAO {
     }
 
     //modif T.serge
-    /*public static List<Client> Charge(Integer idclient) {
+    public static List<Client> Charge(Integer idclient) {
 
         List<Client> lst = null;
         try {
@@ -178,6 +178,6 @@ public class ClientDAO {
             e.printStackTrace();
         }
         return lst;
-    }*/
+    }
 
 }

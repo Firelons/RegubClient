@@ -14,6 +14,7 @@ import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
 
 /**
  *
@@ -86,7 +87,9 @@ public class VideoDAO {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            
+            /*if(session.isOpen() || session.isConnected()){
+                session.merge(vid);
+            }*/
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
