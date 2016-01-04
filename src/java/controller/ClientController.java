@@ -46,7 +46,12 @@ public class ClientController {
     private final CompteDAO ComBDD = new CompteDAO();
 
     @RequestMapping(value = "/client", method = RequestMethod.GET)
-    protected String listVideoAction(HttpSession session, Model model) {
+    protected String listVideoAction(HttpSession session, Model model) throws ParseException {
+        //Pour désactiver ou activer les boutons de visibilités des factures par Lons
+        SimpleDateFormat sdf= new SimpleDateFormat( "dd/MM/yy" ); 
+        java.util.Date date = new java.util.Date(); 
+        model.addAttribute("now",sdf.parse(sdf.format(date)));
+        
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         try {
             model.addAttribute("usr", cli.getCli().getSociete());
@@ -59,6 +64,10 @@ public class ClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        //Verouillage des champs
+        
+        
         return "client";
     }
     
@@ -66,20 +75,72 @@ public class ClientController {
     protected String DetailVideoAction(HttpSession session, Model model,HttpServletRequest request) {
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
+        List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+        List<Region> listregion = RegionDAO.Regionliste();
+        
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
-        if(VideoDAO.modifcontrat(idvideo)==null){
+        if(vidBDD.modifcontrat(idvideo)==null){
             System.out.println("Not good");
         }else{
             System.out.println("Good");
         }
         
         try {
-            model.addAttribute("video", VideoDAO.modifcontrat(idvideo));
+            model.addAttribute("video", vidBDD.modifcontrat(idvideo));
+            model.addAttribute("listrayon", listrayon);
+            model.addAttribute("listregion", listregion);
         } catch (Exception e) {
             e.printStackTrace();
         }
         
         return "cliModifContrat";
+    }
+    @RequestMapping(value = "/modifycontrat", method = RequestMethod.POST)
+    protected String UpdateVideoAction(HttpSession session,
+            Model model,
+            HttpServletRequest request) throws ParseException, InterruptedException {
+        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("dateDebut");  
+        String datefincontrat = request.getParameter("dateFin");
+        String daterecepcontrat = request.getParameter("dateReception");
+        String datevalidcontrat = request.getParameter("dateValidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        //vidBDD.modifcontrat(idvideo)
+        Video vid = vidBDD.modifcontrat(idvideo);
+        //Video vid = new Video();
+                
+        if(vid==null){
+            System.out.println("Not good");
+        }else{
+            System.out.println("Good");
+        }
+        
+        vid.setTitre(titrecontrat);
+        vid.setFrequence(Integer.parseInt(freqcontrat));
+        
+        vid.setDuree(Integer.parseInt(durecontrat));
+        vid.setDateDebut(sdf.parse(datedebutcontrat));
+        vid.setDateFin(sdf.parse(datefincontrat));
+        vid.setDateReception(sdf.parse(daterecepcontrat));
+        vid.setDateValidation(sdf.parse(datevalidcontrat));
+        vid.setStatut(Integer.parseInt(choixstatut));
+        vid.setTarif(Double.parseDouble(tarifcontrat));
+        try {
+            this.vidBDD.updCliVideo(vid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+     
+            return "redirect:/client";
+          
     }
 
     @RequestMapping(value = "/modifierclient", method = RequestMethod.POST)

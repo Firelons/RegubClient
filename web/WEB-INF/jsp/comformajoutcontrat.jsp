@@ -4,6 +4,8 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="model.dao.TypeRayonDAO"%>
+<%@page import="model.dao.RegionDAO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -14,8 +16,8 @@
 <%@page import="entities.Region"%>
 <%@page import="model.dao.VideoDAO"%>
 <%
-    List<Typerayon> listrayon = VideoDAO.Rayonliste();
-    List<Region> listregion = VideoDAO.Regionliste();
+    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+    List<Region> listregion = RegionDAO.Regionliste();
 %>
 
 <html lang="fr">
@@ -149,13 +151,13 @@
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="valide" /> Validé
+                                                <input type="radio" name="statut" value="1" /> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="preparation" /> Préparation
+                                                <input type="radio" name="statut" value="2" /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="rating" value="annule" /> Annulé
+                                                <input type="radio" name="statut" value="3" /> Annulé
                                             </label>
                                         </div>
                                     </div>
@@ -165,12 +167,12 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label">Type De Rayon :</label></BR>
-                                        <select class="selectrayon form-control" multiple="multiple">
+                                        <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
                                              
-                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
                                                 <%=listrayon.get(i).getLibelle() %>
                                             </option>
                                                 <%
@@ -180,7 +182,7 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label">Regions :</label></BR>
-                                        <select multiple class = "selectregion form-control">
+                                        <select name="region" multiple class = "selectregion form-control">
                                             <%
                                                     for(int i=0; i<listregion.size(); i++){
                                             %>   

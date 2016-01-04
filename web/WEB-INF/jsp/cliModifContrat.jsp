@@ -81,7 +81,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
+                        <form id="FormulaireAjout" method="post" action="modifycontrat"  role="form" class="form-horizontal" modelAttribute="vid">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -91,7 +91,7 @@
                                    
                                     <div class="col-xs-6">
                                         
-                                        
+                                        <input type="hidden" name="idvideo" value="${video.getIdVideo()}">
                                         <label class="control-label" >Titre</label>
                                         <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre" value="${video.getTitre()}">
                                     
@@ -142,29 +142,24 @@
                                         
                                         <label class="control-label">Type De Rayon :</label></BR>
                                         <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5">
-                                            <%
-                                                    for(int i=0; i<listrayon.size(); i++){
-                                            %>   
                                              
-                                            <option  name="rayon" id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
-                                                <%=listrayon.get(i).getLibelle() %>
+                                            <c:forEach var="lr" items="${listrayon}">
+                                            <option  name="rayon" id="rayon" value="${lr.getIdTypeRayon()}">
+                                                ${lr.getLibelle()}
                                             </option>
-                                                <%
-                                              }
-                                            %>
+                                            </c:forEach>
+                                             
                                         </select>
                                         
                                         <label class="control-label">Regions :</label></BR>
                                         <select multiple class = "selectregion form-control" size="7" name="region">
-                                            <%
-                                                    for(int i=0; i<listregion.size(); i++){
-                                            %>   
-                                            <option value="<%= listregion.get(i).getIdRegion() %>">
-                                                <%=listregion.get(i).getLibelle() %>
+                                            
+                                            <c:forEach var="lr" items="${listregion}">
+                                            <option value="${lr.getIdRegion()}" >
+                                                ${lr.getLibelle()}
                                             </option> 
-                                                <%
-                                              }
-                                            %>
+                                            </c:forEach>
+                                             
                                         </select>
                                         </BR>
                                         

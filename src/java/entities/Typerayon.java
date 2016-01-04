@@ -18,7 +18,11 @@ public class Typerayon  implements java.io.Serializable {
 
     public Typerayon() {
     }
-
+    
+    //Ajouté par T.serge
+    public Typerayon(int id) {
+        this.idTypeRayon = id;
+    }
 	
     public Typerayon(String libelle) {
         this.libelle = libelle;

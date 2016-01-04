@@ -14,6 +14,7 @@ import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
 
 /**
  *
@@ -36,7 +37,7 @@ public class VideoDAO {
         return lst;
     }
     
-    public static List<Typerayon> Rayonliste() {
+    /*public static List<Typerayon> Rayonliste() {
 
         List<Typerayon> listrayon = null;
         try {
@@ -48,23 +49,60 @@ public class VideoDAO {
             e.printStackTrace();
         }
         return listrayon;
-    }
+    }*/
     
-    public static List<Region> Regionliste() {
-
-        List<Region> listregion = null;
+    public static List<Typerayon> RayonSelect(Video vid) {
+        
+        
+        List<Typerayon> listrayons = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "select distinct f.typerayons from Video f where f.idVideo=?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, vid.getIdVideo());
+            listrayons = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listrayons;
+    }
+    
+    /*public static List<Region> Regionliste() {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Region> listregion = null;
+        try {
+            
             String hql = "from Region";
             Query query = session.createQuery(hql);
             listregion = query.list();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        session.close();
         return listregion;
+        
+    }*/
+    
+    public void addComContrat(Video vid) {
+        System.out.println("TST: ouverture session");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            /*if(session.isOpen() || session.isConnected()){
+                session.merge(vid);
+            }*/
+            session.beginTransaction();
+            session.save(vid);
+            session.getTransaction().commit();
+            //return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        System.out.println("TST: fermeture session");
     }
     
-    public static Video modifcontrat(Integer idContrat) {
+    public Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Video modif = (Video) session.load(Video.class, idContrat);
@@ -76,6 +114,7 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return null;
     }
+    
     // Ajouté par Aurélien Touche pas Serge
         public boolean addcliVideo(Video vid) {
         System.out.println("TST:");
@@ -94,4 +133,22 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return false;
     }
+        
+        public  void updCliVideo(Video vid) {
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+           
+            session.beginTransaction();
+            session.update(vid);
+            session.getTransaction().commit();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+    }
+        
+        
 }
