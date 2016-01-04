@@ -35,6 +35,7 @@ import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.VideoDAO;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
@@ -264,10 +265,11 @@ public class CommercialController {
             System.out.println(obj.getIdTypeRayon());
         }*/
         
-        Client client = ClientDAO.getClient(id);
-        Compte cmpt = (Compte)session.getAttribute("compteConnected");
+        //Client client = ClientDAO.getClient(id);
+        Client client = ClientDAO.Charge(id).get(0);
+        Compte comcompt = (Compte)session.getAttribute("compteConnected");
         
-        Video vid = new Video(client, cmpt, titrecontrat, 
+        Video vid = new Video(client, comcompt, titrecontrat, 
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
@@ -283,6 +285,7 @@ public class CommercialController {
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
         */
+        
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
         
         //System.out.println("TST: Debut pause");

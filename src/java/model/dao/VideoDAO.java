@@ -14,6 +14,7 @@ import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.orm.hibernate4.SessionFactoryUtils;
 
 /**
  *
@@ -36,7 +37,7 @@ public class VideoDAO {
         return lst;
     }
     
-    public static List<Typerayon> Rayonliste() {
+    /*public static List<Typerayon> Rayonliste() {
 
         List<Typerayon> listrayon = null;
         try {
@@ -48,7 +49,8 @@ public class VideoDAO {
             e.printStackTrace();
         }
         return listrayon;
-    }
+    }*/
+    
     public static List<Typerayon> RayonSelect(Video vid) {
         
         
@@ -65,7 +67,7 @@ public class VideoDAO {
         return listrayons;
     }
     
-    public static List<Region> Regionliste() {
+    /*public static List<Region> Regionliste() {
     Session session = HibernateUtil.getSessionFactory().openSession();
         List<Region> listregion = null;
         try {
@@ -79,25 +81,24 @@ public class VideoDAO {
         session.close();
         return listregion;
         
-    }
+    }*/
     
     public void addComContrat(Video vid) {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            //Session session = HibernateUtil.getSessionFactory().openSession();
-            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            /*if(session.isOpen() || session.isConnected()){
+                session.merge(vid);
+            }*/
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
-            //System.out.println("TST: ajout effectué");;
+            //return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-          finally {
-            session.close();
-        }
-        //HibernateUtil.getSessionFactory().close();
+        session.close();
+        HibernateUtil.getSessionFactory().close();
         System.out.println("TST: fermeture session");
     }
     
