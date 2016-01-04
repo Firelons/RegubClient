@@ -142,23 +142,35 @@
                                         
                                         <label class="control-label">Type De Rayon :</label></BR>
                                         <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5">
-                                             
+                                             <c:set var="Select" value="false"/>
                                             <c:forEach var="lr" items="${listrayon}">
-                                            <option  name="rayon" id="rayon" value="${lr.getIdTypeRayon()}">
-                                                ${lr.getLibelle()}
-                                            </option>
+                                                ${Select = false}
+                                                <c:forEach var="lre" items="${video.getTyperayons()}">
+                                                    <c:if test="${lr.getIdTypeRayon() == lre.getIdTypeRayon()}">${Select = true}</c:if> 
+                                                    
+                                                </c:forEach>
+                                                <option  name="rayon" id="rayon" value="${lr.getIdTypeRayon()}" <c:if test="${Select == true}">selected</c:if>  >
+                                                        ${lr.getLibelle()}
+                                                    </option>
                                             </c:forEach>
                                              
                                         </select>
                                         
                                         <label class="control-label">Regions :</label></BR>
                                         <select multiple class = "selectregion form-control" size="7" name="region">
-                                            
+                                             <c:set var="Selectr" value="false"/>
                                             <c:forEach var="lr" items="${listregion}">
-                                            <option value="${lr.getIdRegion()}" >
-                                                ${lr.getLibelle()}
-                                            </option> 
+                                                ${Selectr = false}
+                                                <c:forEach var="lre" items="${video.getRegions()}">
+                                                    <c:if test="${lr.getIdRegion() == lre.getIdRegion()}">${Selectr = true}</c:if> 
+                                                    
+                                                </c:forEach>
+                                                <option  name="region" id="rayon" value="${lr.getIdRegion()}" <c:if test="${Selectr == true}">selected</c:if>  >
+                                                        ${lr.getLibelle()}
+                                                    </option>
                                             </c:forEach>
+                                            
+                                           
                                              
                                         </select>
                                         </BR>
