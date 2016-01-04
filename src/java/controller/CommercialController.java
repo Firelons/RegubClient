@@ -292,6 +292,7 @@ public class CommercialController {
         //return "redirect:/regub/commercial";
         //listClientAction(HttpServletRequest request, HttpSession session, Model model)
         return listClientAction(request, session, model);
+        //
         //return "commercial";
         ///regub/commercial
         //return contratsAction(request, session, model, client, id);
