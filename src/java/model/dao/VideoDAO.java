@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate4.SessionFactoryUtils;
 public class VideoDAO {
 
     public static List<Video> layDS(Integer idClient) {
-
+        //Session session = HibernateUtil.getSessionFactory().openSession();
         List<Video> lst = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -34,6 +34,7 @@ public class VideoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //session.close();
         return lst;
     }
     
@@ -87,13 +88,9 @@ public class VideoDAO {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            /*if(session.isOpen() || session.isConnected()){
-                session.merge(vid);
-            }*/
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
-            //return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

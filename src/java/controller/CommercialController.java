@@ -47,6 +47,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 /**
  *
@@ -149,10 +152,12 @@ public class CommercialController {
         try {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
-            //List<Client> lstcli = ClientDAO.Charge(idClient);
-            Client lstcli = ClientDAO.getClient(idClient);
-            model.addAttribute("nomclient", lstcli.getSociete());
             model.addAttribute("video", lst);
+            List<Client> lstcli = ClientDAO.Charge(idClient);
+            //Client client = ClientDAO.Charge(idClient).get(0); //lstcli.get(0)
+            //Client lstcli = ClientDAO.getClient(idClient); 
+            model.addAttribute("nomclient", lstcli.get(0).getSociete());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -196,7 +201,7 @@ public class CommercialController {
         methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
         en une liste d'entiers de type Set 
     */
-    protected Set tableaureg( String [] lst) {
+    protected Set<Region> tableaureg( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Region> numbers = new HashSet<>();
         //Set numbers = new HashSet();
@@ -207,7 +212,7 @@ public class CommercialController {
         return numbers;
     }
     
-    protected Set tableauray( String [] lst) {
+    protected Set<Typerayon> tableauray( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Typerayon> numbers = new HashSet<>();
         //Set numbers = new HashSet();
@@ -247,23 +252,8 @@ public class CommercialController {
         String tarifcontrat = request.getParameter("tarif");
         String choixstatut = request.getParameter("statut");
         
-        //int[] arrayrayon = Arrays.asList(choixrayon).stream().mapToInt(Integer::parseInt).toArray();
-        //Set<Integer> mySet = new HashSet<Integer>();
-        //Set<Integer> numbers = new HashSet<Integer>();
-        //numbers.addAll(Arrays.asList(arrayrayon));
-        //Set<Integer> mySet = new HashSet<Integer>(Arrays.asList(arrayrayon));
-        //System.out.println(arrayrayon);
-        //Set<String> mySetrayon = new HashSet<String>(Arrays.asList(choixrayon));
-        //Set<String> mySetregion = new HashSet<String>(Arrays.asList(choixregion));
-        //System.out.println(mySetregion);
-        //System.out.println(mySetrayon);
-        //System.out.println(tableau(choixrayon));
-        //Set mySetregion = tableaureg(choixregion);
-        //Set mySettyperayon = tableauray(choixrayon);
-        /*for (Iterator it = mySettyperayon.iterator(); it.hasNext();) {
-            Typerayon obj = (Typerayon) it.next();
-            System.out.println(obj.getIdTypeRayon());
-        }*/
+        Set<Region> mySetregion = tableaureg(choixregion);
+        Set<Typerayon> mySettyperayon = tableauray(choixrayon);
         
         //Client client = ClientDAO.getClient(id);
         Client client = ClientDAO.Charge(id).get(0);
@@ -273,7 +263,8 @@ public class CommercialController {
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
+                mySetregion, mySettyperayon);
         
         /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
         Client client = ClientDAO.getClient(id);
@@ -289,16 +280,18 @@ public class CommercialController {
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
         
         //System.out.println("TST: Debut pause");
-        //Thread.sleep(5000);
+        //Thread.sleep(3000);
         //System.out.println("TST: Fin pause");
         
         /*List<Video> lst = VideoDAO.layDS(id);
-        List<Client> lstcli = ClientDAO.Charge(id);
-        model.addAttribute("nomclient", lstcli.get(0).getSociete());
-        model.addAttribute("video", lst);
-        return "contrats";*/
+        //List<Client> lstcli = ClientDAO.Charge(id);
+        model.addAttribute("nomclient", client.getSociete());
+        model.addAttribute("video", lst);*/
+        //return "redirect:/regub/commercial/contrats/"+id;
+        return "redirect:/regub/commercial";
+        ///regub/commercial
         //return contratsAction(request, session, model, client, id);
-        return "test";
+        //return "test";
     }
 
     //action de chargement ds données pr le click du bouton modifier
