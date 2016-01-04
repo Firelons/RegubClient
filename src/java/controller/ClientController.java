@@ -249,6 +249,7 @@ public class ClientController {
             Model model) {
         
         final Video form = new Video();
+        
        model.addAttribute("vid", form);
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
@@ -257,7 +258,7 @@ public class ClientController {
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         return "cliEditContrat";
     }
-    /*@RequestMapping(value="/devis", method = RequestMethod.POST)
+    @RequestMapping(value="/devis", method = RequestMethod.POST)
     //public @ResponseBody
     String devisAction(
             HttpServletRequest request,
@@ -273,7 +274,7 @@ public class ClientController {
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         return "cliEditContrat";
     }
-    */
+    
     
 
 }
