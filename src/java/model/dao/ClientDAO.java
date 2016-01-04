@@ -73,6 +73,7 @@ public class ClientDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //session.close();
         return lst;
     }
 
@@ -166,7 +167,7 @@ public class ClientDAO {
 
     //modif T.serge
     public static List<Client> Charge(Integer idclient) {
-
+        //Session session = HibernateUtil.getSessionFactory().openSession();
         List<Client> lst = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -177,6 +178,7 @@ public class ClientDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //session.close();
         return lst;
     }
 

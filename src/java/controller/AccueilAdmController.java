@@ -8,18 +8,21 @@ package controller;
 
 import entities.Compte;
 import entities.Typecompte;
+import entities.Typerayon;
 import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
+import model.dao.TypeRayonDAO;
 import org.apache.taglibs.standard.functions.Functions;
 import static org.apache.tomcat.jni.OS.random;
 import org.springframework.http.HttpRequest;
@@ -139,4 +142,11 @@ public class AccueilAdmController {
         int typec = Integer.parseInt(request.getParameter("Compte"));
         return userAction(request, model);
     }
+    
+    @RequestMapping(value = "rayon", method = RequestMethod.POST)
+    protected String rayonAction() {
+        
+        return "typeRayon";   
+    }
+    
 }
