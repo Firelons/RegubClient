@@ -64,16 +64,16 @@ public class ClientDAO {
     public static List<Client> listclient() {
 
         List<Client> lst = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            //Session session = HibernateUtil.getSessionFactory().openSession();
+            Session session = HibernateUtil.getSessionFactory().openSession();
             String hql = "from Client";
             Query query = session.createQuery(hql);
             lst = query.list();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        session.close();
+        //session.close();
         return lst;
     }
 

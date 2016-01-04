@@ -288,7 +288,10 @@ public class CommercialController {
         model.addAttribute("nomclient", client.getSociete());
         model.addAttribute("video", lst);*/
         //return "redirect:/regub/commercial/contrats/"+id;
-        return "redirect:/regub/commercial";
+        //return "redirect:/regub/commercial";
+        //listClientAction(HttpServletRequest request, HttpSession session, Model model)
+        return listClientAction(request, session, model);
+        //return "commercial";
         ///regub/commercial
         //return contratsAction(request, session, model, client, id);
         //return "test";
