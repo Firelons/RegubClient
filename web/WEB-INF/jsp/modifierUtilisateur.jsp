@@ -52,29 +52,46 @@
         <div class="container">
             <div class="table-responsive ">    
                 <br><br><br>
+                <% 
+                      Compte  compte = new Compte();
+                      compte = (Compte)request.getAttribute("compte");
+                    %>
                 <form action="ModifDataCompte" method="post">
-                   
+                    
                     <label>Nom :
-                    <input type="text" name="Nom" value="<%%>"/>
+                    <input type="text" name="nom" value="<%=compte.getNom() %>"/>
                     </label><br><br>
                     <label>Prenom :
-                    <input type="text" name="Prenom" value="<%%>"/>
+                    <input type="text" name="prenom" value="<%=compte.getPrenom() %>"/>
                     </label><br><br>
                     <label>Login :
-                    <input type="text" name="Login" value="<%%>"/>
+                    <input type="text" name="login" value="<%=compte.getLogin() %>"/>
                     </label><br><br>
-                    <label>Mot de passe :
-                    <input type="password" name="Motdepasse" value="<%%>"/>
-                    </label><br><br>
+                    <!--<label>Mot de passe :
+                    <input type="password" name="Motdepasse" value="<%=compte.getPassword() %>"/>
+                    </label><br><br>-->
                    
                     <label>Type de Compte :</label>
-                    <select name="Compte">
-                        <option value=" "> </option>
-                        <% %>
-                    <option value= "1">Administrateur </option>
-                    <option value= "2">Commercial </option>
-                    <option value= "3">Gestionnaire</option>
-                   
+                    <select name="typecompte">
+                       <%
+                        if(compte.getTypecompte().getIdTypeCompte()==1){
+                            %>
+                            <option value= "1" selected="selected">Administrateur </option>
+                            <option value= "2">Commercial </option>
+                            <option value= "3">Gestionnaire</option>
+                        %>
+                        <%}else if(compte.getTypecompte().getIdTypeCompte()==2){
+                            %>
+                            <option value= "1" >Administrateur </option>
+                            <option value= "2"selected="selected">Commercial </option>
+                            <option value= "3">Gestionnaire</option>
+                            <%}else if(compte.getTypecompte().getIdTypeCompte()==3){
+                            %>
+                            <option value= "1" >Administrateur </option>
+                            <option value= "2">Commercial </option>
+                            <option value= "3"selected="selected">Gestionnaire</option>
+                            <%}%>
+                        
                     </select><br><br><br>
 
                     <input type="submit" name="valider" value="Valider" class="btn btn-primary"/>

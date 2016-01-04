@@ -25,6 +25,8 @@ import static org.apache.tomcat.jni.OS.random;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,25 +62,15 @@ public class AccueilAdmController {
     protected String ajoutCompteAction(Model model) {
         return "creerUtilisateur";
     }
-    @RequestMapping(value = "ModifCompte", method = RequestMethod.GET)
-    protected String modifierCompteAction(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        Compte cpt = new Compte();
-        cpt = (Compte) session.getAttribute("cpt");
-        
-        String modif = request.getParameter("ModifCompte");
-       // int modif = Integer.parseInt(request.getParameter("ModifCompte"));
-        
-       // System.out.println("nom:"+cpt.getNom());
-       // System.out.println("prenom:"+cpt.getPrenom());
-        //System.out.println("login:"+cpt.getLogin());
-        System.out.println("modif:"+cpt.getIdCompte());
-        System.out.println("modif:"+modif);
-       /*try {
-            if(){
-            }
+    @RequestMapping(value = "ModifCompte/{id}", method = RequestMethod.GET)
+    protected String modifierCompteAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
+       
+       try {
+            if(auth.selectCompte(id)!=null){
+                request.setAttribute("compte", auth.selectCompte(id));   
+            }  
         } catch (Exception e) {
-        }*/
+        }
         return "modifierUtilisateur";
     }  
     @RequestMapping(value = "SuppCompte")
@@ -147,13 +139,23 @@ public class AccueilAdmController {
     
     //traitement de la page modification du compte
     
-    @RequestMapping(value = "ModifDataCompte")
-    protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
-        String nom = request.getParameter("Nom");
-        String prenom = request.getParameter("Prenom");
-        String login = request.getParameter("Login");
-        String mdp = request.getParameter("Motdepasse");
-        int typec = Integer.parseInt(request.getParameter("Compte"));
+    @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
+    protected String modifierDataCompteAction(HttpServletRequest request, Model model, @ModelAttribute("cpt") Compte cpt) {
+         boolean modif=false;
+        //Compte cpt1 = new Compte();
+         /*cpt1.setNom(request.getParameter("Nom"));
+         cpt1.setPrenom(request.getParameter("Prenom"));
+         cpt1.setLogin(request.getParameter("Login"));
+         cpt1.getTypecompte().setLibelle(request.getParameter("Compte"));
+         cpt1.setIdCompte(id);*/
+         try {
+             System.out.println(modif); 
+            modif = auth.updateCompte(cpt);
+            System.out.println(modif); 
+        } catch (Exception e) {
+        }
+         
+         System.out.println(modif);       
         return userAction(request, model);
     }
 }

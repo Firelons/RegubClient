@@ -122,13 +122,13 @@ public class AdministrateurDAO {
         return false;
     
     }
-    public Compte selectCompte(String login){
+    public Compte selectCompte(int id){
          ArrayList<Compte> list = new ArrayList<Compte>();
 
         try {
             this.session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from Compte as cpt where cpt.login=?");
-            query.setParameter(0, login);
+            Query query = session.createQuery("from Compte as cpt where cpt.idCompte=?");
+            query.setParameter(0, id);
             list = (ArrayList<Compte>) query.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,17 +139,19 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-    public boolean updateCompte(int id){
+    public boolean updateCompte(Compte cpt){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Compte cpt = new Compte();
         
         try {
             session.beginTransaction();
-            cpt.setIdCompte(id);
+            session.load(Compte.class, cpt.getIdCompte());
+            System.out.println("ce compte n'existe pas"); 
             session.update(cpt);
+            System.out.println("session.update effectué");
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
+            System.out.println("dans le catch");
             e.printStackTrace();
         }
         session.close();
