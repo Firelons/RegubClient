@@ -36,6 +36,7 @@ import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.VideoDAO;
 import org.hibernate.Hibernate;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
