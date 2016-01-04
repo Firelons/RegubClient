@@ -26,7 +26,6 @@ import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
-import model.util.Devis;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
