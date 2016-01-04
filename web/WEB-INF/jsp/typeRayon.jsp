@@ -1,29 +1,24 @@
 <%-- 
-    Document   : accueil
-    Created on : 18 nov. 2015, 10:05:14
+    Document   : compteUtilisateur
+    Created on : 24 nov. 2015, 22:31:59
     Author     : batchanou
 --%>
 
+
+
+<%@page import="java.util.ArrayList"%>
 <%@page import="entities.Compte"%>
-<%@page import="entities.Typecompte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-    Compte tcpt = (Compte)session.getAttribute("compteConnected");
-    if(tcpt==null){ %>
-    <c:redirect url="/regub"/>
-    <% }else if(tcpt.getTypecompte().getIdTypeCompte()!=1){ %>
-    <c:redirect url="/regub"/>
-    }%>
-
-<% }%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Accueil</title>
-         <!-- Bootstrap Core CSS -->
+        <title>Liste des Comptes</title>
+
+        <!-- Bootstrap Core CSS -->
 
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
 
@@ -44,28 +39,48 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
     </head>
-    <body>
-         <jsp:include page="navAdministrateur.jsp"/>
-          
-         <header>
-            <div class="header-content">
-                <div class="header-content-inner">
-                    <h1>REGUB Accueil</h1><br/>
-        
-                    <a href="user" class="btn btn-lg btn-primary car "><strong>Gestion des Comptes</strong></a><br/><br/>
-                    
-                    <a href="region" class="btn btn-lg btn-primary  car"><strong>Gestion de Régions</strong></a><br/><br/>
-                    
-                    <a href="magasin" class="btn btn-lg btn-primary car"><strong>Gestion de Magasins</strong></a><br/><br/>
-                    
-                    <a href="rayon" class="btn btn-lg btn-primary car"><strong>Gestion de Type Rayons</strong></a><br/><br/>
-                    
-                    <a href="" class="btn btn-lg btn-primary car"><strong>Entreprises</strong></a>
-                    
+    
+    <body> 
+        <jsp:include page="navAdministrateur.jsp"/>
+           <section class="bg-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <hr class="light">
+                    </div>
                 </div>
             </div>
-         </header>
+        </section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="section-heading"> Type des Rayons</h1>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-responsive">    
+                 
+                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
+                <form action="user" method="post">
+                    <!-- 1ere facon de faire le tableau -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom du type rayon</th><th>Modifier</th><th>Supprimer</th>
+                            </tr>
+                        </thead>
+                       
+                    </table>
+                </form><br><br><br><br>
+            </div>
+        </div>  
+    
+   
+        <jsp:include page="foot.jsp" />   
+        
     </body>
 </html>
