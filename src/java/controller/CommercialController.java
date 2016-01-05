@@ -120,16 +120,6 @@ public class CommercialController {
          return "[{id : 1}]";
     }
 
-    @RequestMapping(value = "/regub/commercial/modcli", method = RequestMethod.GET)
-    protected String AfficherFormmodif(HttpSession session, Model model) {
-        try {
-            List<Client> lst = ClientDAO.listclient();
-            model.addAttribute("client", lst);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "commercial";
-    }
 
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
@@ -137,7 +127,7 @@ public class CommercialController {
         return "redirect:/regub/commercial/";
     }
     
-    @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/regub/commercial/modif/{id}", method = RequestMethod.GET)
     public String modifierlient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         cli =  CliBDD.getClient(IdClient);
         model.addAttribute("cli",cli);
