@@ -99,6 +99,21 @@ public class VideoDAO {
         System.out.println("TST: fermeture session");
     }
     
+    public void updComContrat(Video vid) {
+        System.out.println("TST: ouverture update session");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.update(vid);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        //HibernateUtil.getSessionFactory().close();
+        System.out.println("TST: fermeture update session");
+    }
+    
     public Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

@@ -185,9 +185,4 @@ public class Video  implements java.io.Serializable {
         this.typerayons = typerayons;
     }
 
-
-
-
 }
-
-
