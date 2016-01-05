@@ -4,10 +4,21 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="model.dao.TypeRayonDAO"%>
+<%@page import="model.dao.RegionDAO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
+<%@page import="entities.Typerayon"%>
+<%@page import="entities.Region"%>
+<%@page import="model.dao.VideoDAO"%>
+<%
+    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
+    List<Region> listregion = RegionDAO.Regionliste(); 
+%>
 
 <html lang="fr">
     <head>
@@ -32,56 +43,169 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
-        <link rel="stylesheet" href="<c:url value="/resources/css/form.css"/>" type="text/css">
-
+        
+        <!-- Css add by T.serge -->
+        <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/sumoselect.css"/>" type="text/css">
+        
     </head>
     <body id="page-top">
         <jsp:include page="navContrat.jsp" />
         
-        <!-- <section class="bg-primary"> -->
-            <!-- <div class="container"> -->
-                <!-- <div class="row"> -->
-                    <!-- <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <!-- <h2 class="section-heading"></h2> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-            <!-- </div> -->
-        <!-- </section> -->
-        
-        <section id="Form" class="formulaire">
+        <section>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-md-offset-0">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> 
-                                <strong class="">Modifier Contrat</strong>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group last">
-                                        <div class="col-sm-offset-3 col-sm-9">
-                                            <input type="submit" value="Enregistrer" class="btn btn-info">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                <div class="panel panel-default container">
+                    <div class="panel-heading">
+                        <strong class="">Modifier Contrat</strong>
                     </div>
+                    <div class="panel-body">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
+                            <div class="form-group">
+                                <p class="erreur-form" id="para"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                           <label class="control-label" >Client</label> 
+                                           <input type="text" class="form-control" name="client" value="${ajout}">
+                                        </div> 
+                                    </fieldset>
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Frequence(par jour)</label>
+                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Titre</label>
+                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Durée(en secondes)</label>
+                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
+                                    </div>
+                                </div>
+                            </div>            
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Date De Debut</label>
+                                        <div class="input-group date" id="datetimedebut">
+                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Date De Reception</label>
+                                        <div class="input-group date" id="datetimereception">
+                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Date De Fin</label>
+                                        <div class="input-group date" id="datetimefin">
+                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label" >Date De Validation</label>
+                                        <div class="input-group date" id="datetimevalidation">
+                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <label class="control-label" >Fichier(Mp4) :</label>
+                                        <!-- filestyle -->
+                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label class="control-label" >Tarif</label>
+                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label class="control-label ">Statut : </label>
+                                        <div>
+                                            <!-- "rating" valeur d'attribut name du statut choisi -->
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="1" /> Validé
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="2" /> Préparation
+                                            </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="3" /> Annulé
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label class="control-label">Type De Rayon :</label></BR>
+                                        <select name="rayon" class="selectrayon form-control" multiple="multiple">
+                                            <%
+                                                    for(int i=0; i<listrayon.size(); i++){
+                                            %>   
+                                             
+                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                                <%=listrayon.get(i).getLibelle() %>
+                                            </option>
+                                                <%
+                                              }
+                                            %>
+                                        </select> 
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label">Regions :</label></BR>
+                                        <select name="region" multiple class = "selectregion form-control">
+                                            <%
+                                                    for(int i=0; i<listregion.size(); i++){
+                                            %>   
+                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                                <%=listregion.get(i).getLibelle() %>
+                                            </option> 
+                                                <%
+                                              }
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
+                                    <c:out value=""></c:out>Annuler</a>
+                            </div>
+                        </form>    
+                    </div>        
                 </div>
             </div>
-            
         </section>
         
         <!-- <jsp:include page="foot.jsp" /> -->
@@ -160,6 +284,12 @@
 
         <!-- Custom Theme JavaScript -->
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        
+        <!-- Javascript add by T.serge -->
+        <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
+        <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
+        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
+        
     </body>
 </html>
-

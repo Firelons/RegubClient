@@ -264,13 +264,30 @@ public class CommercialController {
         return listClientAction(request, session, model);
         
     }
-
-    //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat/{id}", method = RequestMethod.GET)
-    //public @ResponseBody
-    void modifiercontratAction(
+    
+    //Action exec lorsk un com modifie un contrat d'un client
+    @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
+    String formmodifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
+            Model model,
+            @PathVariable("id") Integer idContrat) {
+        //Client contrat = contratclient.chargerclient(cleclient);
+        //List<Client> lst = ClientDAO.Charge(cleclient);
+        Client lst = ClientDAO.getClient(cleclient);
+        //List<Typerayon> listrayon = VideoDAO.layDS();
+        model.addAttribute("ajout", lst.getSociete());
+        model.addAttribute("cleclient", cleclient);
+        return "comformmodifiercontrat";
+    }
+
+    //action de chargement ds données pr le click du bouton modifier
+    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat", method = RequestMethod.GET)
+    //public @ResponseBody
+    String modifiercontratAction(
+            HttpServletRequest request,
+            HttpSession session,
+            Model model,
             @ModelAttribute("video") Video video,
             @PathVariable(value = "id") Integer id) {
         //if(request.getSession()){
@@ -279,6 +296,36 @@ public class CommercialController {
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         //return "comformmodifiercontrat";
+        int idContrat = id;
+        
+        String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixregion = request.getParameterValues("region");
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("datedebut");  
+        String datefincontrat = request.getParameter("datefin");
+        String daterecepcontrat = request.getParameter("datereception");
+        String datevalidcontrat = request.getParameter("datevalidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        Set<Region> mySetregion = tableaureg(choixregion);
+        Set<Typerayon> mySettyperayon = tableauray(choixrayon);
+        
+        Client client = ClientDAO.Charge(id).get(0);
+        Compte comcompt = (Compte)session.getAttribute("compteConnected");
+        
+        Video vid = new Video(client, comcompt, titrecontrat, 
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
+                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
+                mySetregion, mySettyperayon);
+        
+        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        //Thread.sleep(3000);
+        return listClientAction(request, session, model);
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")

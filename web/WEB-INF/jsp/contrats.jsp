@@ -91,6 +91,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${video}">
+                                <% %>
                                 <tr>
                                     <td>
                                         <c:out value="${vid.getTitre()}"></c:out>
@@ -128,7 +129,7 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="regub/commercial/contrats/commmodifiercontrat/{$vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                            <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/{vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
