@@ -71,8 +71,6 @@
                     <div class="col-lg-12">
                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
                                 <c:out value=""></c:out>Ajouter</a>
-                                <button onclick="test()" id="modifbuton" class="btn btn-primary">
-                                <c:out value=""></c:out>Json</button>
                             </td>
                         </div>
                     </div>
