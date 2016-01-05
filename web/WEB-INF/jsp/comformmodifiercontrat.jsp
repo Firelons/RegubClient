@@ -60,7 +60,7 @@
                         <strong class="">Modifier Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/commmodifiercontrat" role="form" class="form-horizontal">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -80,10 +80,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Titre</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
-                                    </div>
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                            <label class="control-label" >Titre</label>
+                                            <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" value="${contratselected.getTitre()}">
+                                        </div>
+                                    </fieldset>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes)</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
@@ -198,7 +200,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <button type="submit" class="btn btn-info col-xs-6">Modifier</button>
                                 <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>

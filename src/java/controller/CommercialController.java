@@ -272,10 +272,13 @@ public class CommercialController {
             HttpSession session,
             Model model,
             @PathVariable("id") Integer idContrat) {
-        //Client contrat = contratclient.chargerclient(cleclient);
-        //List<Client> lst = ClientDAO.Charge(cleclient);
         Client lst = ClientDAO.getClient(cleclient);
-        //List<Typerayon> listrayon = VideoDAO.layDS();
+        
+        //recup des infos du contrat selectionné
+        Video vid = VidBDD.modifcontrat(idContrat);
+        
+        model.addAttribute("contratselected", vid);
+                
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
         return "comformmodifiercontrat";
