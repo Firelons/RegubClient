@@ -11,6 +11,7 @@ import entities.ClientConnecte;
 import entities.Compte;
 import entities.Region;
 import entities.Typecompte;
+
 import entities.Typerayon;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
