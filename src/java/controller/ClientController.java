@@ -240,6 +240,7 @@ public class ClientController {
             }
         
     }
+    
      @RequestMapping(value="/ajoutercontrat", method = RequestMethod.GET)
     //public @ResponseBody
     String contratAction(

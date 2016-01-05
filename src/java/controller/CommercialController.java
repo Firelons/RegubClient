@@ -236,13 +236,6 @@ public class CommercialController {
         
         String [] choixrayon = request.getParameterValues("rayon");
         String [] choixregion = request.getParameterValues("region");
-        
-        if(choixrayon==null){
-            System.out.println("vide");
-        }
-        else{
-            System.out.println("non vide");
-        }
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
@@ -256,7 +249,6 @@ public class CommercialController {
         Set<Region> mySetregion = tableaureg(choixregion);
         Set<Typerayon> mySettyperayon = tableauray(choixrayon);
         
-        //Client client = ClientDAO.getClient(id);
         Client client = ClientDAO.Charge(id).get(0);
         Compte comcompt = (Compte)session.getAttribute("compteConnected");
         
@@ -267,36 +259,10 @@ public class CommercialController {
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
         
-        /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
-        Client client = ClientDAO.getClient(id);
-        Compte cmpt = (Compte)session.getAttribute("compteConnected");
-        
-        Video vid = new Video(client, cmpt, titrecontrat, 
-                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
-                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
-        */
-        
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
-        
-        //System.out.println("TST: Debut pause");
         //Thread.sleep(3000);
-        //System.out.println("TST: Fin pause");
-        
-        /*List<Video> lst = VideoDAO.layDS(id);
-        //List<Client> lstcli = ClientDAO.Charge(id);
-        model.addAttribute("nomclient", client.getSociete());
-        model.addAttribute("video", lst);*/
-        //return "redirect:/regub/commercial/contrats/"+id;
-        //return "redirect:/regub/commercial";
-        //listClientAction(HttpServletRequest request, HttpSession session, Model model)
         return listClientAction(request, session, model);
-        //
-        //return "commercial";
-        ///regub/commercial
-        //return contratsAction(request, session, model, client, id);
-        //return "test";
+        
     }
 
     //action de chargement ds données pr le click du bouton modifier
