@@ -129,7 +129,7 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/{vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
+                                            <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
