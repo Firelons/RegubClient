@@ -264,8 +264,7 @@ public class ClientController {
             HttpSession session, 
             Model model) throws IOException {
         
-       Devis devis = new Devis();
-       devis.Consulter();
+       
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
