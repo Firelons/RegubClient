@@ -56,7 +56,7 @@
                       Compte  compte = new Compte();
                       compte = (Compte)request.getAttribute("compte");
                     %>
-                <form action="ModifDataCompte" method="post">
+                <form action="/RegubClient/ModifDataCompte" method="post">
                     
                     <label>Nom :
                     <input type="text" name="nom" value="<%=compte.getNom() %>"/>
@@ -95,7 +95,7 @@
                     </select><br><br><br>
 
                     <input type="submit" name="valider" value="Valider" class="btn btn-primary"/>
-                    <a href="AnnuleCreationUser" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">Annuler</a>
+                    <a href="/RegubClient/AnnuleCreationUser" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">Annuler</a>
                 </form> <br><br>    
             </div>
         </div>  

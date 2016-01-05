@@ -43,6 +43,7 @@ public class AccueilAdmController {
     
     private final AdministrateurDAO auth = new AdministrateurDAO();
     private Compte adm ;
+    protected int id = 0;
     
     @RequestMapping(value = "user", method = RequestMethod.GET)
     protected String userAction(HttpServletRequest request, Model model) {
@@ -67,7 +68,7 @@ public class AccueilAdmController {
     }
     @RequestMapping(value = "ModifCompte/{id}", method = RequestMethod.GET)
     protected String modifierCompteAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
-       
+       this.id = id;
        try {
             if(auth.selectCompte(id)!=null){
                 request.setAttribute("compte", auth.selectCompte(id));   
@@ -76,9 +77,15 @@ public class AccueilAdmController {
         }
         return "modifierUtilisateur";
     }  
-    @RequestMapping(value = "SuppCompte")
-    protected String supprimerCompteAction(Model model) {
-        return "";
+    @RequestMapping(value = "SuppCompte/{id}", method = RequestMethod.GET)
+    protected String supprimerCompteAction(HttpServletRequest request, Model model, @PathVariable(value = "id") Integer ide) {
+        try {
+             boolean suppr = auth.deleteCompte(ide);
+             System.out.println(suppr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userAction(request, model);
     }
     @RequestMapping(value = "region")
     protected String regionAction(Model model) {
@@ -143,22 +150,24 @@ public class AccueilAdmController {
     //traitement de la page modification du compte
     
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
-    protected String modifierDataCompteAction(HttpServletRequest request, Model model, @ModelAttribute("cpt") Compte cpt) {
+    protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
          boolean modif=false;
-        //Compte cpt1 = new Compte();
-         /*cpt1.setNom(request.getParameter("Nom"));
-         cpt1.setPrenom(request.getParameter("Prenom"));
-         cpt1.setLogin(request.getParameter("Login"));
-         cpt1.getTypecompte().setLibelle(request.getParameter("Compte"));
-         cpt1.setIdCompte(id);*/
-         try {
-             System.out.println(modif); 
-            modif = auth.updateCompte(cpt);
-            System.out.println(modif); 
-        } catch (Exception e) {
-        }
+       
+         String nom = request.getParameter("nom");
+         String prenom = request.getParameter("prenom");
+         String login = request.getParameter("login");
+         int tcpt = Integer.parseInt(request.getParameter("typecompte"));
+         //int id = auth.selectCompte1(login).getIdCompte();
          
-         System.out.println(modif);       
+         try {
+             System.out.println(this.id);
+             System.out.println(nom);
+             modif = auth.updateCompte(this.id, nom, prenom, login, tcpt);
+            System.out.println(modif); 
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }       
         return userAction(request, model);
     }
     

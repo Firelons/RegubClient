@@ -139,15 +139,37 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-    public boolean updateCompte(Compte cpt){
+    public Compte selectCompte1(String log){
+         ArrayList<Compte> list = new ArrayList<Compte>();
+
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from Compte as cpt where cpt.login=?");
+            query.setParameter(0, log);
+            list = (ArrayList<Compte>) query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if ((list.size() > 0)) {
+            return list.get(0);
+        }
+        session.close();
+        return null;
+    }
+    public boolean updateCompte(int id, String nom, String prenom, String login, int tcpt){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try {
             session.beginTransaction();
-            session.load(Compte.class, cpt.getIdCompte());
-            System.out.println("ce compte n'existe pas"); 
+            Compte cpt = (Compte)session.load(Compte.class, id);
+            cpt.setNom(nom);
+            cpt.setPrenom(prenom);
+            cpt.setLogin(login);
+            System.out.println(cpt.getTypecompte().getIdTypeCompte());
+            //System.out.println(tcpt);
+            cpt.getTypecompte().setIdTypeCompte(tcpt);
+             System.out.println("khgu: "+cpt.getTypecompte().getIdTypeCompte());
             session.update(cpt);
-            System.out.println("session.update effectué");
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -155,22 +177,23 @@ public class AdministrateurDAO {
             e.printStackTrace();
         }
         session.close();
-        HibernateUtil.getSessionFactory().close();
+        //HibernateUtil.getSessionFactory().close();
         
         return false;
     }
-    public boolean deleteCompte(Compte compte){
+    public boolean deleteCompte(Integer id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            Compte cpt = (Compte)session.load(Compte.class, id);
             session.beginTransaction();
-            session.delete(compte);
+            session.delete(cpt);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
-        HibernateUtil.getSessionFactory().close();
+       HibernateUtil.getSessionFactory().close();
         
         return false;
     }

@@ -79,10 +79,8 @@
 
                                 list = (ArrayList<Compte>) request.getAttribute("compte");
                                 int j = 0;
-                                Compte cpt = new Compte();
                                 for (j = 0; j < list.size(); j++) { 
-                                  cpt = list.get(j);
-                                  session.setAttribute("cpt", cpt);
+                                
                             %>
                             <tr>
                                 <td><%=list.get(j).getNom()%></td>
@@ -90,11 +88,11 @@
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
                                 <td><input type="hidden" name="ModifCompte"  value="<%=list.get(j).getIdCompte()%>"/>
-                                    <a href="ModifCompte"<%=list.get(j).getIdCompte()%> class="btn btn-primary" >Modifier</a>
+                                    <a href="ModifCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Modifier</a>
                                     
                                 </td>
-                                <td><input type="button" class="btn btn-primary" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
-                                    <a  href="SuppCompte" class="btn btn-primary" >Supprimer</a>
+                                <td><input type="hidden" class="btn btn-primary" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
+                                    <a  href="SuppCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Supprimer</a>
                                 </td>
                             </tr>
                             <%
