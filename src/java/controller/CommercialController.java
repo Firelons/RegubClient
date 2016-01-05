@@ -5,12 +5,10 @@
  */
 package controller;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+
 import entities.Client;
-import entities.ClientConnecte;
 import entities.Compte;
 import entities.Region;
-import entities.Typecompte;
 import entities.Typerayon;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
@@ -18,28 +16,22 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import static java.util.Collections.list;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.RegionDAO;
+import model.dao.TypeRayonDAO;
 import model.dao.VideoDAO;
-import org.hibernate.Hibernate;
-import org.springframework.http.HttpMethod;
+import model.util.sendEmail;
 import org.springframework.stereotype.Controller;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,10 +39,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 /**
  *
@@ -66,6 +54,9 @@ public class CommercialController {
 
     //recup de l'id du client
     private int cleclient;
+    
+    //recup de l'id du contrat selectionné qui est à modifier
+    private int clecontrat;
     
     private Compte cpt;
     
@@ -109,11 +100,16 @@ public class CommercialController {
     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
     public String ajoutclient(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, HttpSession session, Model model) {
-        cli.setMotDePasse("");
+        cli.setMotDePasse("comajoutcli");
         if (CliBDD.addClient(cli)) {
-            model.addAttribute("msg", "Enregistrement effectué");
+            model.addAttribute("msg", "Enregistrement effectuÃ©");
         } else {
             model.addAttribute("msg", "Erreur inscription");
+        }
+        try {
+            sendEmail.sendpass(cli);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         //model.addAttribute("societe", cli.getSociete());
         listClientAction(request, session, model);
@@ -129,23 +125,21 @@ public class CommercialController {
          return "[{id : 1}]";
     }
 
-    @RequestMapping(value = "/regub/commercial/modcli", method = RequestMethod.GET)
-    protected String AfficherFormmodif(HttpSession session, Model model) {
-        try {
-            List<Client> lst = ClientDAO.listclient();
-            model.addAttribute("client", lst);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "commercial";
-    }
 
     @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
     public String deleteclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         CliBDD.deleteClient(IdClient);
         return "redirect:/regub/commercial/";
     }
-
+    
+    @RequestMapping(value = "/regub/commercial/modif/{id}", method = RequestMethod.GET)
+    public String modifierlient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
+        cli =  CliBDD.getClient(IdClient);
+        model.addAttribute("cli",cli);
+        return "modifierUtil";
+    }
+    
+    
     @RequestMapping("regub/commercial/contrats/{id}")
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
@@ -203,23 +197,29 @@ public class CommercialController {
         en une liste d'entiers de type Set 
     */
     protected Set<Region> tableaureg( String [] lst) {
-        int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
+        //int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Region> numbers = new HashSet<>();
         //Set numbers = new HashSet();
-        for (Integer m : array) {
-            Region reg = new Region(m);
-            numbers.add(reg);
+        /*for (Integer m : array) {
+        Region reg = new Region(m);
+        numbers.add(reg);
+        }*/
+        for (String lst1 : lst) {
+            numbers.add(RegionDAO.RegionPrec(lst1).get(0));
         }
         return numbers;
     }
     
     protected Set<Typerayon> tableauray( String [] lst) {
-        int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
+        //int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Typerayon> numbers = new HashSet<>();
         //Set numbers = new HashSet();
-        for (Integer m : array) {
-            Typerayon ray = new Typerayon(m);
-            numbers.add(ray);
+        /*for (Integer m : array) {
+        Typerayon ray = new Typerayon(m);
+        numbers.add(ray);
+        }*/
+        for (String lst1 : lst) {
+            numbers.add(TypeRayonDAO.RayonPrec(lst1).get(0));
         }
         return numbers;
     }
@@ -265,6 +265,14 @@ public class CommercialController {
         
     }
     
+    //By T.serge
+    //Méthode utilisée pour convertir la date du format sql au format 'dd-mm-yyyy'
+    public String ConvertToDate(Date date){
+        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        String d = dateformat.format(date);
+        return d;
+    }
+    
     //Action exec lorsk un com modifie un contrat d'un client
     @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
     String formmodifiercontratAction(
@@ -272,35 +280,41 @@ public class CommercialController {
             HttpSession session,
             Model model,
             @PathVariable("id") Integer idContrat) {
-        //Client contrat = contratclient.chargerclient(cleclient);
-        //List<Client> lst = ClientDAO.Charge(cleclient);
         Client lst = ClientDAO.getClient(cleclient);
-        //List<Typerayon> listrayon = VideoDAO.layDS();
+        clecontrat = idContrat;
+        //recup des infos du contrat selectionné
+        Video vid = VidBDD.modifcontrat(idContrat);
+        
+        model.addAttribute("contratselected", vid);
+        
+        model.addAttribute("datedebut", ConvertToDate(vid.getDateDebut()) );
+        model.addAttribute("datereception", ConvertToDate(vid.getDateReception()) );
+        model.addAttribute("datefin", ConvertToDate(vid.getDateFin()) );
+        model.addAttribute("datevalidation", ConvertToDate(vid.getDateValidation()) );
+        
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
+        
         return "comformmodifiercontrat";
     }
 
     //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat", method = RequestMethod.GET)
-    //public @ResponseBody
+    @RequestMapping("regub/commercial/contrats/commodifiercontrat")
     String modifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
-            Model model,
-            @ModelAttribute("video") Video video,
-            @PathVariable(value = "id") Integer id) {
+            Model model) throws InterruptedException {
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
-        request.setAttribute("Modify", this.VidBDD.modifcontrat(id));
+        //request.setAttribute("Modify", this.VidBDD.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         //return "comformmodifiercontrat";
-        int idContrat = id;
+        int idContrat = clecontrat;
         
         String [] choixrayon = request.getParameterValues("rayon");
         String [] choixregion = request.getParameterValues("region");
-        String titrecontrat = request.getParameter("titre");
+        //String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
         String datedebutcontrat = request.getParameter("datedebut");  
@@ -313,19 +327,26 @@ public class CommercialController {
         Set<Region> mySetregion = tableaureg(choixregion);
         Set<Typerayon> mySettyperayon = tableauray(choixrayon);
         
-        Client client = ClientDAO.Charge(id).get(0);
-        Compte comcompt = (Compte)session.getAttribute("compteConnected");
+        //Chargement des infos liées au contrat qui se sera modifié
+        Video vid = VidBDD.modifcontrat(idContrat);
         
-        Video vid = new Video(client, comcompt, titrecontrat, 
-                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
-                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
-                mySetregion, mySettyperayon);
+        vid.setFrequence(Integer.parseInt(freqcontrat));
+        vid.setDuree(Integer.parseInt(durecontrat));
+        vid.setDateDebut(ConvertToSqlDate(datedebutcontrat));
+        vid.setDateFin(ConvertToSqlDate(datefincontrat));
+        vid.setDateReception(ConvertToSqlDate(daterecepcontrat));
+        vid.setDateValidation(ConvertToSqlDate(datevalidcontrat));
+        vid.setStatut(Integer.parseInt(choixstatut));
+        vid.setTarif(Double.parseDouble(tarifcontrat));
+        vid.setRegions(mySetregion);
+        vid.setTyperayons(mySettyperayon);
         
-        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
-        //Thread.sleep(3000);
+        Thread.sleep(2000);
+        
+        VidBDD.updComContrat(vid);
+        
         return listClientAction(request, session, model);
+        //return contratsAction(request, session, model, cli, idClient);
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")

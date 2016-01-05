@@ -60,7 +60,7 @@
                         <strong class="">Modifier Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/commodifiercontrat" role="form" class="form-horizontal">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -74,19 +74,21 @@
                                     </fieldset>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Frequence(par jour)</label>
-                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
+                                        <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence" value="${contratselected.getFrequence()}">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Titre</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
-                                    </div>
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                            <label class="control-label" >Titre</label>
+                                            <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" value="${contratselected.getTitre()}">
+                                        </div>
+                                    </fieldset>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes)</label>
-                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
+                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree" value="${contratselected.getDuree()}">
                                     </div>
                                 </div>
                             </div>            
@@ -95,7 +97,7 @@
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
-                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
+                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut" value="${datedebut}">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -104,7 +106,7 @@
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Reception</label>
                                         <div class="input-group date" id="datetimereception">
-                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
+                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception" value="${datereception}">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -118,7 +120,7 @@
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Fin</label>
                                         <div class="input-group date" id="datetimefin">
-                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
+                                            <input type="text" class="form-control" id="" name="datefin" placeholder="datefin" value="${datefin}">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -127,7 +129,7 @@
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Validation</label>
                                         <div class="input-group date" id="datetimevalidation">
-                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation" value="${datevalidation}">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-calendar"></i>
                                             </span>
@@ -144,7 +146,7 @@
                                     </div>
                                     <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>
-                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
+                                        <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif" value="${contratselected.getTarif()}">
                                     </div>
                                     <div class="col-xs-4">
                                         <label class="control-label ">Statut : </label>
@@ -198,7 +200,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <button type="submit" class="btn btn-info col-xs-6">Modifier</button>
                                 <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
