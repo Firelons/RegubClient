@@ -23,7 +23,7 @@ import org.springframework.orm.hibernate4.SessionFactoryUtils;
 public class VideoDAO {
 
     public static List<Video> layDS(Integer idClient) {
-
+        //Session session = HibernateUtil.getSessionFactory().openSession();
         List<Video> lst = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -34,6 +34,7 @@ public class VideoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //session.close();
         return lst;
     }
     
@@ -87,18 +88,14 @@ public class VideoDAO {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            /*if(session.isOpen() || session.isConnected()){
-                session.merge(vid);
-            }*/
             session.beginTransaction();
             session.save(vid);
             session.getTransaction().commit();
-            //return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
-        HibernateUtil.getSessionFactory().close();
+        //HibernateUtil.getSessionFactory().close();
         System.out.println("TST: fermeture session");
     }
     
@@ -134,21 +131,29 @@ public class VideoDAO {
         return false;
     }
         
-        public  void updCliVideo(Video vid) {
+        public  Video updCliVideo(Video vid) {
          Session session = HibernateUtil.getSessionFactory().openSession();
         try {
            
             session.beginTransaction();
-            session.update(vid);
+            Video updvid = (Video) session.load(Video.class, vid.getIdVideo());
+            updvid.setTitre(vid.getTitre());
+            updvid.setFrequence(vid.getFrequence());
+            updvid.setDuree(vid.getDuree());
+            updvid.setDateDebut(vid.getDateDebut());
+            updvid.setDateFin(vid.getDateFin());
+            updvid.setDateReception(vid.getDateReception());
+            updvid.setDateValidation(vid.getDateValidation());
+            updvid.setStatut(vid.getStatut());
+            updvid.setTarif(vid.getTarif());
+            session.update(updvid);
             session.getTransaction().commit();
-            
+            return updvid;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
         HibernateUtil.getSessionFactory().close();
-        
-    }
-        
-        
+        return null;
+    }       
 }

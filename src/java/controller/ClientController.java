@@ -14,6 +14,7 @@ import entities.Compte;
 import entities.Region;
 import entities.Typerayon;
 import entities.Video;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -138,9 +139,11 @@ public class ClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-     
-            return "redirect:/client";
-          
+        if (vidBDD.updCliVideo(vid)!=null) {
+                return "redirect:/client";
+            }
+            
+           return "error";
     }
 
     @RequestMapping(value = "/modifierclient", method = RequestMethod.POST)
@@ -237,6 +240,7 @@ public class ClientController {
             }
         
     }
+    
      @RequestMapping(value="/ajoutercontrat", method = RequestMethod.GET)
     //public @ResponseBody
     String contratAction(
@@ -245,7 +249,23 @@ public class ClientController {
             Model model) {
         
         final Video form = new Video();
+        
        model.addAttribute("vid", form);
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "cliEditContrat";
+    }
+    @RequestMapping(value="/devis", method = RequestMethod.POST)
+    //public @ResponseBody
+    String devisAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+       
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));

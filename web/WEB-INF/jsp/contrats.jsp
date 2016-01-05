@@ -3,12 +3,17 @@
     Created on : 23 nov. 2015, 14:22:47
     Author     : loïc
 --%>
+<%@page import="entities.Compte"%>
 <%@page import="entities.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+<% Compte tcpt = (Compte) session.getAttribute("compteConnected");
+    if (tcpt == null) { %>
+<c:redirect url="/regub"/>
+<% }%>
 <html lang="fr">
     <head>
 
@@ -18,7 +23,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Bienvenue [Commercial] | Regub</title>
+        <title>Bienvenue ${CommercialConnected.getNom()} | Regub</title>
 
         <!-- Bootstrap Core CSS -->
 
@@ -49,7 +54,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Bienvenue Commercial</h2>
+                        <h2 class="section-heading">Bienvenue ${CommercialConnected.getNom()}</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -86,6 +91,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${video}">
+                                <% %>
                                 <tr>
                                     <td>
                                         <c:out value="${vid.getTitre()}"></c:out>
@@ -123,7 +129,7 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="regub/commercial/contrats/commmodifiercontrat/{$vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal" data-target="#myModalModifier">
+                                            <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/{vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
@@ -274,67 +280,6 @@
             </div>
         </div>
         
-        
-        <!-- Modal Paramètre -->
-        <div class="modal fade" id="myModalParametre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Paramètre</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${compte.getNom()} "required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <label>Prenom*</label>
-                                    <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${compte.getPrenom()}" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>E-mail*</label>
-                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${UserConnected.getEmail()}" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                         <label>Ancien mot de passe</label>
-                                        <input type="oldpassword" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                         <label>Mot de passe*(8 caractères min)</label>
-                                        <input type="newpassword" name="motDePasse" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Confirmation*</label>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
-
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <!-- jQuery -->
         <script src="<c:url value="/resources/js/jquery.js"/>"></script>

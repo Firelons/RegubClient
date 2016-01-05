@@ -109,7 +109,11 @@
                                         <c:out value="${vid.getDateFin()}"></c:out>
                                         </td>
                                         <td><a href="#" class="btn btn-primary">
-                                            <c:out value=""></c:out>Voir</a>
+                                            <form method="post" action="devis">
+                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"  class="btn btn-primary">Voir</button>
+                                                </form>                                          
+                                            
                                         </td>
                                         <td><a href="#" class="btn ">
                                             <button type="submit" <c:if test="${now lt vid.getDateFin()}">disabled</c:if> class="btn btn-info">Voir</button>

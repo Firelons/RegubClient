@@ -19,7 +19,7 @@ public class RegionDAO {
         List<Region> listregion = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Region as Re WHERE EXISTS ( FROM Magasin as Ma WHERE Ma.region = Re) ";
+            String hql = "from Region as Re WHERE EXISTS ( FROM Magasin as Ma WHERE Ma.region = Re ) ";
             Query query = session.createQuery(hql);
             listregion = query.list();
         } catch (Exception e) {

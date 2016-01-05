@@ -71,8 +71,6 @@
                     <div class="col-lg-12">
                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
                                 <c:out value=""></c:out>Ajouter</a>
-                                <button onclick="test()" id="modifbuton" class="btn btn-primary">
-                                <c:out value=""></c:out>Json</button>
                             </td>
                         </div>
                     </div>
@@ -180,66 +178,7 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Paramètre -->
-        <div class="modal fade" id="myModalParametre" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Paramètre</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="paramCommercial" role="form" method="post">
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${CommercialConnected.getNom()} "required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <label>Prenom*</label>
-                                    <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${CommercialConnected.getPrenom()}" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>login*</label>
-                                <input type="login" name="login" id="login" class="form-control input-sm" placeholder="login" value="${CommercialConnected.getLogin()}" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Ancien mot de passe</label>
-                                        <input type="password" name="oldpassword" id="oldpassword" class="form-control input-sm" placeholder="Ancien mot de passe" required Autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Mot de passe*</label>
-                                        <input type="password" name="password" id="newpassword" class="form-control input-sm" placeholder="Nouveau mot de passe" required Autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Confirmation*</label>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="confirmation" required Autofocus>
-                                    </div>
-                                    <p id ="infomod" class="text-success"></p>
-                                    <p id ="errormod" class="text-danger"></p>
-                                </div>
-                            </div>
-                            <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- Modal Modifier -->
         <div class="modal fade" id="myModalModifier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">

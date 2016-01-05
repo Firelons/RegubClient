@@ -36,6 +36,7 @@ import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.VideoDAO;
 import org.hibernate.Hibernate;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
@@ -47,6 +48,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 /**
  *
@@ -149,10 +153,12 @@ public class CommercialController {
         try {
             cleclient = idClient;
             List<Video> lst = VideoDAO.layDS(idClient);
-            //List<Client> lstcli = ClientDAO.Charge(idClient);
-            Client lstcli = ClientDAO.getClient(idClient);
-            model.addAttribute("nomclient", lstcli.getSociete());
             model.addAttribute("video", lst);
+            List<Client> lstcli = ClientDAO.Charge(idClient);
+            //Client client = ClientDAO.Charge(idClient).get(0); //lstcli.get(0)
+            //Client lstcli = ClientDAO.getClient(idClient); 
+            model.addAttribute("nomclient", lstcli.get(0).getSociete());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -196,7 +202,7 @@ public class CommercialController {
         methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
         en une liste d'entiers de type Set 
     */
-    protected Set tableaureg( String [] lst) {
+    protected Set<Region> tableaureg( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Region> numbers = new HashSet<>();
         //Set numbers = new HashSet();
@@ -207,7 +213,7 @@ public class CommercialController {
         return numbers;
     }
     
-    protected Set tableauray( String [] lst) {
+    protected Set<Typerayon> tableauray( String [] lst) {
         int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Typerayon> numbers = new HashSet<>();
         //Set numbers = new HashSet();
@@ -230,13 +236,6 @@ public class CommercialController {
         
         String [] choixrayon = request.getParameterValues("rayon");
         String [] choixregion = request.getParameterValues("region");
-        
-        if(choixrayon==null){
-            System.out.println("vide");
-        }
-        else{
-            System.out.println("non vide");
-        }
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
@@ -247,25 +246,9 @@ public class CommercialController {
         String tarifcontrat = request.getParameter("tarif");
         String choixstatut = request.getParameter("statut");
         
-        //int[] arrayrayon = Arrays.asList(choixrayon).stream().mapToInt(Integer::parseInt).toArray();
-        //Set<Integer> mySet = new HashSet<Integer>();
-        //Set<Integer> numbers = new HashSet<Integer>();
-        //numbers.addAll(Arrays.asList(arrayrayon));
-        //Set<Integer> mySet = new HashSet<Integer>(Arrays.asList(arrayrayon));
-        //System.out.println(arrayrayon);
-        //Set<String> mySetrayon = new HashSet<String>(Arrays.asList(choixrayon));
-        //Set<String> mySetregion = new HashSet<String>(Arrays.asList(choixregion));
-        //System.out.println(mySetregion);
-        //System.out.println(mySetrayon);
-        //System.out.println(tableau(choixrayon));
-        //Set mySetregion = tableaureg(choixregion);
-        //Set mySettyperayon = tableauray(choixrayon);
-        /*for (Iterator it = mySettyperayon.iterator(); it.hasNext();) {
-            Typerayon obj = (Typerayon) it.next();
-            System.out.println(obj.getIdTypeRayon());
-        }*/
+        Set<Region> mySetregion = tableaureg(choixregion);
+        Set<Typerayon> mySettyperayon = tableauray(choixrayon);
         
-        //Client client = ClientDAO.getClient(id);
         Client client = ClientDAO.Charge(id).get(0);
         Compte comcompt = (Compte)session.getAttribute("compteConnected");
         
@@ -273,40 +256,38 @@ public class CommercialController {
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
                 ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
-        
-        /*System.out.println(""+ConvertToSqlDate(datedebutcontrat));
-        Client client = ClientDAO.getClient(id);
-        Compte cmpt = (Compte)session.getAttribute("compteConnected");
-        
-        Video vid = new Video(client, cmpt, titrecontrat, 
-                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
-                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
-        */
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
+                mySetregion, mySettyperayon);
         
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        //Thread.sleep(3000);
+        return listClientAction(request, session, model);
         
-        //System.out.println("TST: Debut pause");
-        //Thread.sleep(5000);
-        //System.out.println("TST: Fin pause");
-        
-        /*List<Video> lst = VideoDAO.layDS(id);
-        List<Client> lstcli = ClientDAO.Charge(id);
-        model.addAttribute("nomclient", lstcli.get(0).getSociete());
-        model.addAttribute("video", lst);
-        return "contrats";*/
-        //return contratsAction(request, session, model, client, id);
-        return "test";
+    }
+    
+    //Action exec lorsk un com modifie un contrat d'un client
+    @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
+    String formmodifiercontratAction(
+            HttpServletRequest request,
+            HttpSession session,
+            Model model,
+            @PathVariable("id") Integer idContrat) {
+        //Client contrat = contratclient.chargerclient(cleclient);
+        //List<Client> lst = ClientDAO.Charge(cleclient);
+        Client lst = ClientDAO.getClient(cleclient);
+        //List<Typerayon> listrayon = VideoDAO.layDS();
+        model.addAttribute("ajout", lst.getSociete());
+        model.addAttribute("cleclient", cleclient);
+        return "comformmodifiercontrat";
     }
 
     //action de chargement ds données pr le click du bouton modifier
-    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "regub/commercial/contrats/commmodifiercontrat", method = RequestMethod.GET)
     //public @ResponseBody
-    void modifiercontratAction(
+    String modifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
+            Model model,
             @ModelAttribute("video") Video video,
             @PathVariable(value = "id") Integer id) {
         //if(request.getSession()){
@@ -315,6 +296,36 @@ public class CommercialController {
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
         //return "comformmodifiercontrat";
+        int idContrat = id;
+        
+        String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixregion = request.getParameterValues("region");
+        String titrecontrat = request.getParameter("titre");
+        String freqcontrat = request.getParameter("frequence");
+        String durecontrat = request.getParameter("duree");
+        String datedebutcontrat = request.getParameter("datedebut");  
+        String datefincontrat = request.getParameter("datefin");
+        String daterecepcontrat = request.getParameter("datereception");
+        String datevalidcontrat = request.getParameter("datevalidation");
+        String tarifcontrat = request.getParameter("tarif");
+        String choixstatut = request.getParameter("statut");
+        
+        Set<Region> mySetregion = tableaureg(choixregion);
+        Set<Typerayon> mySettyperayon = tableauray(choixrayon);
+        
+        Client client = ClientDAO.Charge(id).get(0);
+        Compte comcompt = (Compte)session.getAttribute("compteConnected");
+        
+        Video vid = new Video(client, comcompt, titrecontrat, 
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
+                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
+                mySetregion, mySettyperayon);
+        
+        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        //Thread.sleep(3000);
+        return listClientAction(request, session, model);
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
