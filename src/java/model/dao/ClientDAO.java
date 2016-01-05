@@ -138,15 +138,18 @@ public class ClientDAO {
     }
 
     public static Client getClient(Integer IdClient) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
             Client cli = (Client) session.load(Client.class, IdClient);
+
+            session.close();
+            System.out.println(cli);
             return cli;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        session.close();
-        HibernateUtil.getSessionFactory().close();
+
         return null;
     }
 

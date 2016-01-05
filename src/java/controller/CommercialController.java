@@ -145,7 +145,15 @@ public class CommercialController {
         CliBDD.deleteClient(IdClient);
         return "redirect:/regub/commercial/";
     }
-
+    
+    @RequestMapping(value = "/regub/commercial/{id}", method = RequestMethod.GET)
+    public String modifierlient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
+        cli =  CliBDD.getClient(IdClient);
+        model.addAttribute("cli",cli);
+        return "modifierUtil";
+    }
+    
+    
     @RequestMapping("regub/commercial/contrats/{id}")
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
