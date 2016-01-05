@@ -84,6 +84,7 @@ public class VideoDAO {
         
     }*/
     
+    //
     public void addComContrat(Video vid) {
         System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
