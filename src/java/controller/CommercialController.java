@@ -5,13 +5,10 @@
  */
 package controller;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+
 import entities.Client;
-import entities.ClientConnecte;
 import entities.Compte;
 import entities.Region;
-import entities.Typecompte;
-
 import entities.Typerayon;
 import entities.Video;
 import java.io.UnsupportedEncodingException;
@@ -19,28 +16,20 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import static java.util.Collections.list;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.VideoDAO;
-import org.hibernate.Hibernate;
-import org.springframework.http.HttpMethod;
+import model.util.sendEmail;
 import org.springframework.stereotype.Controller;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,10 +37,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 /**
  *
@@ -110,11 +95,16 @@ public class CommercialController {
     @RequestMapping(value = "/regub/commercial/ajoutclient", method = RequestMethod.POST)
     public String ajoutclient(HttpServletRequest request,
             @ModelAttribute("cli") Client cli, HttpSession session, Model model) {
-        cli.setMotDePasse("");
+        cli.setMotDePasse("comajoutcli");
         if (CliBDD.addClient(cli)) {
-            model.addAttribute("msg", "Enregistrement effectué");
+            model.addAttribute("msg", "Enregistrement effectuÃ©");
         } else {
             model.addAttribute("msg", "Erreur inscription");
+        }
+        try {
+            sendEmail.sendpass(cli);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         //model.addAttribute("societe", cli.getSociete());
         listClientAction(request, session, model);

@@ -74,15 +74,21 @@ public class ClientDAO {
             e.printStackTrace();
         }
         //session.close();
+        
         return lst;
     }
 
     public boolean addClient(Client cli) {
-        System.out.println("TST:");
+         System.out.println("TST:");
         List<Client> list = new ArrayList<Client>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            cli.setSalt("sel");
+            if(cli.getMotDePasse().equals("comajoutcli")){
+                cli.setSalt(cli.getSociete()+cli.getIdClient()+cli.getVille());
+                cli.setValide(true);
+            }else{
+                cli.setSalt("sel");
+            }
             session.beginTransaction();
             session.save(cli);
             session.getTransaction().commit();
@@ -91,7 +97,6 @@ public class ClientDAO {
             e.printStackTrace();
         }
         session.close();
-        HibernateUtil.getSessionFactory().close();
         return false;
     }
 
