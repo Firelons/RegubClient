@@ -372,13 +372,13 @@ public class CommercialController {
         
         //Raccourci la date de validation du contrat à la date courante
         if(dcourante.after(ddebut) || dcourante.equals(ddebut)){
-            System.out.println("Date courant sup ou egale à celle du cntrat");
+            //System.out.println("Date courant sup ou egale à celle du cntrat");
             vid.setDateFin(ConvertToSqlDate(datecourante));
             VidBDD.updComContrat(vid,"annuler");
         }
         else{
             //supprime le contrat si il n'est pas commencé
-            System.out.println("Date courant inf à celle du cntrat");
+            //System.out.println("Date courant inf à celle du cntrat");
             VidBDD.deleteComContrat(idContrat);
         }
         
