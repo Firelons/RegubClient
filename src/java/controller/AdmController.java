@@ -49,13 +49,8 @@ public class AdmController {
     private Compte adm ;
     protected int id = 0;
     
-    // traitement du bouton accueil de la navigation
-    @RequestMapping(value = "admin")
-    protected String retourAction(Model model) {
-        return "admAccueil";
-    }
-    
-    // traitement du lien GESTION DES COMPTES de la page admAccueil
+   
+    // 1- lien GESTION DES COMPTES de la page admAccueil
     @RequestMapping(value = "user", method = RequestMethod.GET)
     protected String userAction(HttpServletRequest request, Model model) {
         try{
@@ -69,12 +64,49 @@ public class AdmController {
         return "admCompteUtilisateur";   
     }
     
+    //  2- lien GESTION DES RAYONS de la page admAccueil
+     @RequestMapping(value = "rayon", method = RequestMethod.POST)
+    protected String rayonAction() {
+        
+        return "typeRayon";   
+    }
+    
+    //  3- lien GESTION DES MAGASINS de la page admAccueil
+     @RequestMapping(value = "magasin", method = RequestMethod.GET)
+    protected String magasinAction(HttpServletRequest request, Model model) { 
+        try {
+             if(auth.magasin()!=null){
+                 request.setAttribute("magasin", auth.magasin());
+             }
+             
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+        return "admGestionMagasin";   
+    }
+    
+    // 4- lien GESTION DES REGIONS de la page admAccueil
+     @RequestMapping(value = "region")
+    protected String regionAction(Model model) {
+        return "gestionRegion";
+    }
+    
+    
+    
+    //  bouton ajout de la page compte utilisateur
     @RequestMapping(value = "ajoutCompte")
     protected String ajoutCompteAction(Model model) {
         return "admCreerUtilisateur";
     }
     
-    @RequestMapping(value = "ModifCompte/{id}", method = RequestMethod.GET)
+     //  bouton ajout de la page magasin
+    @RequestMapping(value = "ajoutMagasin")
+    protected String ajoutMagasinAction(Model model) {
+        return "admCreerMagasin";
+    }
+    
+     //  bouton modifier de la page compte utilisateur
+    @RequestMapping(value = "ModifCompte{id}", method = RequestMethod.GET)
     protected String modifierCompteAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
        this.id = id;
        try {
@@ -86,24 +118,61 @@ public class AdmController {
         return "admModifierUtilisateur";
     } 
     
-    @RequestMapping(value = "SuppCompte/{id}", method = RequestMethod.GET)
+     //  bouton modifier de la page magasin
+    @RequestMapping(value = "ModifMagasin{id}", method = RequestMethod.GET)
+    protected String modifierMagasinAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
+       /*this.id = id;
+       try {
+            if(auth.selectCompte(id)!=null){
+                request.setAttribute("compte", auth.selectCompte(id));   
+            }  
+        } catch (Exception e) {
+        }*/
+        return "admModifierMagasin";
+    } 
+    
+    
+    //  bouton supprimer de la page compte utilisateur
+    @RequestMapping(value = "SuppCompte{id}", method = RequestMethod.GET)
     protected String supprimerCompteAction(HttpServletRequest request, Model model, @PathVariable(value = "id") Integer ide) {
+        boolean suppr = false;
         try {
-             boolean suppr = auth.deleteCompte(ide);
-             System.out.println(suppr);
+            if(auth.selectCompte(ide)!=null){
+                suppr = auth.deleteCompte(ide);
+                System.out.println(suppr);
+            }   
         } catch (Exception e) {
             e.printStackTrace();
         }
         return userAction(request, model);
     }
     
-    @RequestMapping(value = "region")
-    protected String regionAction(Model model) {
-        return "gestionRegion";
+     //  bouton supprimer de la page compte utilisateur
+    @RequestMapping(value = "SuppMagasin{id}", method = RequestMethod.GET)
+    protected String supprimerMagasinAction(HttpServletRequest request, Model model, @PathVariable(value = "id") Integer ide) {
+       /*boolean suppr = false;
+        try {
+            if(auth.selectCompte(ide)!=null){
+                suppr = auth.deleteCompte(ide);
+                System.out.println(suppr);
+            }   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        return userAction(request, model);
     }
     
     
-    //traitement de la page creation du compte  
+     //bouton annuler du compte utilsateur
+    @RequestMapping(value = "AnnuleCreationUser")
+    protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
+        return userAction(request, model);
+    }
+    
+    
+    
+    
+     // traitement de la page creation du compte  
     @RequestMapping(value = "CreationUser", method = RequestMethod.POST)
     protected String creationCompteAction(HttpServletRequest request, Model model) {
         String nom = request.getParameter("Nom");
@@ -147,13 +216,7 @@ public class AdmController {
         return userAction(request, model);
     }
     
-     //traitement de la suppression du compte 
-    @RequestMapping(value = "AnnuleCreationUser")
-    protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
-        return userAction(request, model);
-    }
-    
-    //traitement de la page modification du compte
+    // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
          boolean modif=false;
@@ -177,14 +240,22 @@ public class AdmController {
         return userAction(request, model);
     }
     
-    @RequestMapping(value = "rayon", method = RequestMethod.POST)
-    protected String rayonAction() {
-        
-        return "typeRayon";   
+    
+    
+    
+   
+   
+    
+    
+     // bouton accueil de la navigation
+    @RequestMapping(value = "admin")
+    protected String retourAction(Model model) {
+        return "admAccueil";
     }
     
-    // traitement de du parametre nav admin
-     @RequestMapping(value = "/RegubClient/paramAdminitrateur/", method = RequestMethod.POST)
+   
+    //  bouton parametre de la navigation
+    @RequestMapping(value = "RegubClient/admin/paramAdminitrateur/", method = RequestMethod.POST)
     public @ResponseBody
     String modifparam(
             HttpSession session,
