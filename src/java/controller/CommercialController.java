@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -295,6 +296,15 @@ public class CommercialController {
         
         //recup des infos du contrat selectionné
         Video vid = VidBDD.modifcontrat(idContrat);
+        
+        request.setAttribute("regselected", vid.getRegions());//recup des régions déjà selectionné correspondant au contrat à modifier
+        request.setAttribute("rayselected", vid.getTyperayons());
+        
+        System.out.println(""+vid.getRegions().size());
+        Set<Region> lt = vid.getRegions();
+        lt.stream().forEach((str) -> {
+            System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+        });
         
         model.addAttribute("contratselected", vid);
         

@@ -4,6 +4,7 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page import="model.dao.TypeRayonDAO"%>
 <%@page import="model.dao.RegionDAO"%>
 <%@page import="java.util.List"%>
@@ -18,6 +19,8 @@
 <%
     List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
     List<Region> listregion = RegionDAO.Regionliste(); 
+    Set<Typerayon> oldrayon = (Set)request.getAttribute("rayselected");
+    Set<Region>  oldregion = (Set)request.getAttribute("regselected");
 %>
 
 <html lang="fr">
@@ -171,14 +174,14 @@
                                         <label class="control-label">Type De Rayon :</label></BR>
                                         <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
-                                                    for(int i=0; i<listrayon.size(); i++){
+                                                for(int i=0; i<listrayon.size(); i++){
                                             %>   
                                              
                                             <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
                                                 <%=listrayon.get(i).getLibelle() %>
                                             </option>
-                                                <%
-                                              }
+                                            <%
+                                                }
                                             %>
                                         </select> 
                                     </div>
