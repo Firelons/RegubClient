@@ -47,7 +47,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <h2 class="section-heading">Adminitrateur ${compteConnected.getNom()}</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="section-heading"> Compte Uilisateurs</h1>
+                    <h2 class="section-heading"> Compte Uilisateurs</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -64,8 +64,8 @@
         <div class="container">
             <div class="table-responsive">    
                  
-                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
-                <form action="user" method="post">
+                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a>
+                
                     <!-- 1ere facon de faire le tableau -->
                     <table class="table">
                         <thead>
@@ -87,23 +87,35 @@
                                 <td><%=list.get(j).getPrenom()%></td>
                                 <td><%=list.get(j).getTypecompte().getLibelle()%></td>
                                 <td><%=list.get(j).getLogin()%></td>
-                                <td><input type="hidden" name="ModifCompte"  value="<%=list.get(j).getIdCompte()%>"/>
-                                    <a href="ModifCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Modifier</a>
-                                    
-                                </td>
-                                <td><a  href="SuppCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Supprimer</a></td>
+                                <td><a href="ModifCompte<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Modifier</a></td>
+                                <td><a  href="/RegubClient/SuppCompte<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Supprimer</a></td>
                             </tr>
                             <%
                                 }
                             %>
                         </tbody>
                     </table>
-                </form><br><br><br><br>
+                <br><br><br><br>
             </div>
         </div>  
     
    
         <jsp:include page="foot.jsp" />   
         
+        <!-- jQuery -->
+        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
+        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/client.js"/>"></script>
     </body>
 </html>
