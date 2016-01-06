@@ -88,7 +88,7 @@ public class AdmController {
     // 4- lien GESTION DES REGIONS de la page admAccueil
      @RequestMapping(value = "region")
     protected String regionAction(Model model) {
-        return "gestionRegion";
+        return "admRegionUtilisateur";
     }
     
     

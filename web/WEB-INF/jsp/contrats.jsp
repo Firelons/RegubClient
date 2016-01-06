@@ -132,7 +132,7 @@
                                             <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
                                             <c:out value=""></c:out>Modifier</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-primary">
+                                        <td><a href="/RegubClient/regub/commercial/contrats/annulercontrat/${vid.getIdVideo()}" class="btn btn-primary">
                                             <c:out value=""></c:out>Annuler</a>
                                         
                                     </td>

@@ -186,7 +186,7 @@ public class CommercialController {
         } catch (ParseException ex) {
             Logger.getLogger(CommercialController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(""+dateformat.format(d));
+        //System.out.println(""+dateformat.format(datecourante));
         
         java.sql.Date sqldate = new java.sql.Date(d.getTime());
         
@@ -196,7 +196,7 @@ public class CommercialController {
     /*
         Modif T.serge
         methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
-        en une liste d'entiers de type Set 
+        en une liste datecourante'entiers de type Set 
     */
     protected Set<Region> tableaureg( String [] lst) {
         //int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
@@ -226,7 +226,7 @@ public class CommercialController {
         return numbers;
     }
     
-    //action appelée après saisie des infos dans le formulaire d'ajout d'un contrat
+    //action appelée après saisie des infos dans le formulaire datecourante'ajout datecourante'un contrat
     @RequestMapping("regub/commercial/contrats/comajoutcontrat")
     public String ajoutcontratAction(
             HttpServletRequest request,
@@ -277,7 +277,7 @@ public class CommercialController {
     }
     
     //By T.serge
-    //Action exec lorsk un com modifie un contrat d'un client
+    //Action exec lorsk un com modifie un contrat datecourante'un client
     @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
     String formmodifiercontratAction(
             HttpServletRequest request,
@@ -345,21 +345,44 @@ public class CommercialController {
         
         //Thread.sleep(2000);
         
-        VidBDD.updComContrat(vid);
+        VidBDD.updComContrat(vid,"modifier");
         
         return listClientAction(request, session, model);
     }
 
+    
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
-    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) {
+    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) throws ParseException {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
-
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
+        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        
+        Video vid = VidBDD.modifcontrat(idContrat);
+        
+        String datedebut = ConvertToDate(vid.getDateDebut());
+        Date ddebut = dateformat.parse(datedebut);
+        //System.out.println(""+datedebut);
+        //System.out.println("Con De type Date:"+ddebut);
+        
+        Date currentDate = new Date();
+        String datecourante = dateformat.format(currentDate);
+        Date dcourante = dateformat.parse(datecourante);
+        //System.out.println(""+datecourante);
+        //System.out.println("Cu De type Date:"+dcourante);
+        
+        //Raccourci la date de validation du contrat à la date courante
+        if(dcourante.after(ddebut) || dcourante.equals(ddebut)){
+            System.out.println("Date courant sup ou egale à celle du cntrat");
+            vid.setDateFin(ConvertToSqlDate(datecourante));
+            VidBDD.updComContrat(vid,"annuler");
         }
-        return "contrats";
+        else{
+            //supprime le contrat si il n'est pas commencé
+            System.out.println("Date courant inf à celle du cntrat");
+            VidBDD.deleteComContrat(idContrat);
+        }
+        
+        return listClientAction(request, session, model);
     }
 
 }
