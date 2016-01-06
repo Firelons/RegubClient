@@ -169,7 +169,7 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label">Type De Rayon :</label></BR>
-                                        <select name="rayon" class="selectrayon form-control col-xs-6" multiple="multiple">
+                                        <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
