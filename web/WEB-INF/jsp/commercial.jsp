@@ -95,7 +95,7 @@
                                         <td><a href="/RegubClient/regub/commercial/contrats/${cli.getIdClient()}" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td> 
-                                        <td><a href="/RegubClient/regub/commercial/modif/${cli.getIdClient()}" class="btn btn-info"x>
+                                        <td><a href="/RegubClient/regub/commercial/modif/${cli.getIdClient()}" class="btn btn-primary"x>
                                             <c:out value=""></c:out>Modifier</a>
                                         </form>
                                     </td>

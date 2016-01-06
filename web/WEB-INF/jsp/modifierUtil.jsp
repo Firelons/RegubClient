@@ -61,49 +61,50 @@
                     <h4 class="modal-title" id="myModalLabel">Modifier</h4>
                 </div>
                 <div class="modal-body">  
-                    <form id="modifierClient" role="form">
+                    <form action="/RegubClient/regub/commercial/commodifcli" method="POST" role="form">
+                        <input type="hidden" name="idClient" value="${cli.getIdClient()}">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label>${cli.getSociete()}</label>
-                                    <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                                    <label>Nom</label>
+                                    <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value="${cli.getSociete()}"required>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                <label>Telephone*</label>
+                                <label>Telephone</label>
                                 <div class="form-group">
-                                    <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                    <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="${cli.getTelephone()}" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>E-mail*</label>
-                            <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="" required>
+                            <label>Email</label>
+                            <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="${cli.getEmail()}" required>
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Ligne1*</label>
-                                    <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
+                                    <label>rue</label>
+                                    <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="${cli.getAddrLigne1() }" required>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label>ligne2 (facultatif)</label>
-                                    <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
+                                    <label>compléments</label>
+                                    <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="${cli.getAddrLigne2()}">
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label>code postal*</label>
-                                    <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
+                                    <label>code postal</label>
+                                    <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="${cli.getCodePostal()}" required>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Ville*</label>
-                                    <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
+                                    <label>Ville</label>
+                                    <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="${cli.getVille()}" required>
                                 </div>
                             </div>
                         </div>

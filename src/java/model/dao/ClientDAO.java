@@ -130,7 +130,9 @@ public class ClientDAO {
             updcli.setSociete(cli.getSociete());
             updcli.setTelephone(cli.getTelephone());
             updcli.setVille(cli.getVille());
-            updcli.setMotDePasse(cli.getMotDePasse());
+            if(cli.getMotDePasse()!= null){
+                updcli.setMotDePasse(cli.getMotDePasse());
+            }
             session.update(updcli);
             session.getTransaction().commit();
             return updcli;
@@ -138,7 +140,6 @@ public class ClientDAO {
             e.printStackTrace();
         }
         session.close();
-        HibernateUtil.getSessionFactory().close();
         return null;
     }
 
@@ -147,8 +148,6 @@ public class ClientDAO {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             Client cli = (Client) session.load(Client.class, IdClient);
-
-            session.close();
             System.out.println(cli);
             return cli;
         } catch (Exception e) {

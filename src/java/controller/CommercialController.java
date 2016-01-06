@@ -133,12 +133,17 @@ public class CommercialController {
     }
     
     @RequestMapping(value = "/regub/commercial/modif/{id}", method = RequestMethod.GET)
-    public String modifierlient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
+    public String afficherpagemodifclient(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer IdClient) {
         cli =  CliBDD.getClient(IdClient);
         model.addAttribute("cli",cli);
         return "modifierUtil";
     }
-    
+    @RequestMapping(value = "/regub/commercial/commodifcli", method = RequestMethod.POST)
+    public String modifierclient(@ModelAttribute("cli") Client cli) {
+        System.out.println("ce cli : "+ cli.getSociete() + cli.getEmail()+cli.getTelephone());
+        CliBDD.updClient(cli);
+        return "redirect:/regub/commercial/";
+    }
     
     @RequestMapping("regub/commercial/contrats/{id}")
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
