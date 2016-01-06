@@ -79,7 +79,11 @@ public class AccueilController {
     }
 
     @RequestMapping(value = "/accueil", method = RequestMethod.GET)
-    protected String accAction(Model model) {
+    protected String accmodif(Model model) {
+        return "accueil";
+    }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    protected String defaultAction(Model model) {
         return "accueil";
     }
 
