@@ -1,5 +1,5 @@
 <%-- 
-    Document   : compteUtilisateur
+    Document   : admCompteUtilisateur
     Created on : 24 nov. 2015, 22:31:59
     Author     : batchanou
 --%>
@@ -91,9 +91,7 @@
                                     <a href="ModifCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Modifier</a>
                                     
                                 </td>
-                                <td><input type="hidden" class="btn btn-primary" name="SuppCompte" value="<%=list.get(j).getIdCompte()%>" />
-                                    <a  href="SuppCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Supprimer</a>
-                                </td>
+                                <td><a  href="SuppCompte/<%=list.get(j).getIdCompte()%>" class="btn btn-primary" >Supprimer</a></td>
                             </tr>
                             <%
                                 }

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : creerUtilisateur
+    Document   : admModifierUtilisateur
     Created on : 28 nov. 2015, 21:29:18
     Author     : batchanou
 --%>
@@ -41,6 +41,17 @@
     </head>
     
      <body> 
+         <jsp:include page="navAdministrateur.jsp"/>
+           <section class="bg-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <hr class="light">
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
