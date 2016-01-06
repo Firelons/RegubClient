@@ -6,6 +6,8 @@
 package model.dao;
 
 import entities.Compte;
+import entities.Magasin;
+import entities.Region;
 import entities.Typecompte;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -64,24 +66,45 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-    /*public List<Typecompte> typeCompteUser(){
-        ArrayList<Typecompte> list = new ArrayList<Typecompte>();
-        
-        try{
+    
+    public List<Magasin> magasin(){
+        ArrayList<Magasin> list = new ArrayList<Magasin>();
+
+        try {
             this.session = HibernateUtil.getSessionFactory().openSession();
-            Query query = session.createQuery("from typecompte");
-            list = (ArrayList<Typecompte>) query.list();
-            
+            Query query = session.createQuery("from Magasin");
+
+            list = (ArrayList<Magasin>) query.list();
             if (list.size() > 0) {
+
                 return list;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
-    }*/
-   
- 
+        session.close();
+        return null;
+    }
+    
+       public List<Region> region(){
+        ArrayList<Region> list = new ArrayList<Region>();
+
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from Region");
+
+            list = (ArrayList<Region>) query.list();
+            if (list.size() > 0) {
+
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        return null;
+    }
+    
     public String encode(String mdp) {
         return sha256(mdp);
     }
@@ -122,6 +145,7 @@ public class AdministrateurDAO {
         return false;
     
     }
+    
     public Compte selectCompte(int id){
          ArrayList<Compte> list = new ArrayList<Compte>();
 
@@ -139,6 +163,7 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
+    
     public Compte selectCompte1(String log){
          ArrayList<Compte> list = new ArrayList<Compte>();
 
@@ -156,6 +181,9 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
+    
+ 
+    
     public boolean updateCompte(int id, String nom, String prenom, String login, Typecompte T){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -181,6 +209,7 @@ public class AdministrateurDAO {
         
         return false;
     }
+    
     public boolean deleteCompte(Integer id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

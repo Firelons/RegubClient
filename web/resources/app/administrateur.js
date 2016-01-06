@@ -15,7 +15,7 @@ $(document).ready(function () {
         var $this = $(this);
         //je precise a ajax les params 
         $.ajax({
-            url: '/RegubClient/paramAdminitrateur/', //url qui est liée avec l'action de controller
+            url: 'RegubClient/admin/paramAdminitrateur/', //url qui est liée avec l'action de controller
             data: $this.serialize(), //données 
             type: 'POST', //methode d'envoie de données
             success: function (response) { // response est le type de données de retour. ici la methode du controller retourne un string

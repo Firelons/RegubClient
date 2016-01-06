@@ -157,6 +157,11 @@ public class CommercialController {
             //Client lstcli = ClientDAO.getClient(idClient); 
             model.addAttribute("nomclient", lstcli.get(0).getSociete());
             
+            //Pour désactiver ou activer les boutons de visibilités des factures par Lons
+            SimpleDateFormat sdf= new SimpleDateFormat( "dd/MM/yy" ); 
+            java.util.Date date = new java.util.Date(); 
+            model.addAttribute("now",sdf.parse(sdf.format(date)));
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

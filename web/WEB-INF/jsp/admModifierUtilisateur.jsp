@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <h2 class="section-heading">Adminitrateur ${compteConnected.getNom()}</h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -55,7 +55,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="section-heading">Modifier un compte d'utilisateur</h1>
+                    <h2 class="section-heading">Modifier un compte d'utilisateur</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -106,12 +106,26 @@
                     </select><br><br><br>
 
                     <input type="submit" name="valider" value="Valider" class="btn btn-primary"/>
-                    <a href="/RegubClient/AnnuleCreationUser" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">Annuler</a>
+                    <a href="/RegubClient/AnnuleCreationUser" class="btn btn-primary">Annuler</a>
                 </form> <br><br>    
             </div>
         </div>  
-        <footer>
+        
             <jsp:include page="foot.jsp" />   
-        </footer>
+        <!-- jQuery -->
+        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
+        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        <!--App JavaScript-->
+        <script src="<c:url value="/resources/app/client.js"/>"></script>
     </body>
 </html>

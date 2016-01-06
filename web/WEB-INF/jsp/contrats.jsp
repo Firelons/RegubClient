@@ -274,7 +274,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="button" <c:if test="${now gt vid.getDateFin()}">disabled</c:if>class="btn btn-default" data-dismiss="modal">Annuler</button>
                     </div>
                 </div>
             </div>

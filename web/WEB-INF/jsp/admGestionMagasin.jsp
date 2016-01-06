@@ -1,22 +1,20 @@
 <%-- 
-    Document   : admCreerUtilisateur
-    Created on : 28 nov. 2015, 21:29:18
+    Document   : admGestionMagasin
+    Created on : 6 janv. 2016, 10:49:51
     Author     : batchanou
 --%>
 
-<%@page import="entities.Typecompte"%>
+<%@page import="entities.Magasin"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Compte"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="fr">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Création de Compte</title>
-
+        <title>Gestion des magasins</title>
         <!-- Bootstrap Core CSS -->
 
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
@@ -39,9 +37,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    
-     <body> 
-         <jsp:include page="navAdministrateur.jsp"/>
+    <body> 
+        <jsp:include page="navAdministrateur.jsp"/>
            <section class="bg-primary">
             <div class="container">
                 <div class="row">
@@ -55,46 +52,48 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Ajouter un compte d'utilisateur</h2>
+                    <h2 class="section-heading"> Magasins</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="table-responsive">    
-                <br><br><br>
-                <form action="CreationUser" method="post">
-                    <label>Nom :
-                    <input type="text" name="Nom" value=""/>
-                    </label><br><br>
-                    <label>Prenom :
-                    <input type="text" name="Prenom" value=""/>
-                    </label><br><br>
-                    <label>Login :
-                    <input type="text" name="Login" value=""/>
-                    </label><br><br>
-                    <label>Mot de passe :
-                    <input type="password" name="Motdepasse" value=""/>
-                    </label><br><br>
-                   
-                    <label>Type de Compte :</label>
-                    <select name="Compte">
-                        <option value=" "> </option>
-                        <% %>
-                    <option value= "1">Administrateur </option>
-                    <option value= "2">Commercial </option>
-                    <option value= "3">Gestionnaire</option>
-                   
-                    </select><br><br><br>
+                 
+                <a href="ajoutMagasin" class="btn btn-info"><strong>Ajouter</a><br><br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Code Postal</th><th>Ville</th><th>Nom</th><th>Modifier</th><th>Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                ArrayList<Magasin> list = new ArrayList<Magasin>();
 
-                    <input type="submit" name="valider" value="Valider" class="btn btn-primary"/>
-                    <a href="/RegubClient/AnnuleCreationUser" class="btn btn-primary">Annuler</a>
-                </form> <br><br>    
+                                list = (ArrayList<Magasin>) request.getAttribute("magasin");
+                                int j = 0;
+                                for (j = 0; j < list.size(); j++) { 
+                                
+                            %>
+                            <tr>
+                                <td><%=list.get(j).getCodePostal() %></td>
+                                <td><%=list.get(j).getVille() %></td>
+                                <td><%=list.get(j).getNom() %></td>
+                                <td><a href="ModifMagasin<%=list.get(j).getIdMagasin() %>" class="btn btn-primary" >Modifier</a></td>
+                                <td><a  href="SuppMagasin<%=list.get(j).getIdMagasin() %>" class="btn btn-primary" >Supprimer</a></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </form><br><br><br><br>
             </div>
         </div>  
-        <footer>
-            <jsp:include page="foot.jsp" />   
-        </footer>
+    
+   
+        <jsp:include page="foot.jsp" />   
         <!-- jQuery -->
         <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
