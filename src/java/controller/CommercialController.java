@@ -168,10 +168,9 @@ public class CommercialController {
             HttpServletRequest request,
             HttpSession session,
             Model model) {
-        //Client contrat = contratclient.chargerclient(cleclient);
         //List<Client> lst = ClientDAO.Charge(cleclient);
         Client lst = ClientDAO.getClient(cleclient);
-        //List<Typerayon> listrayon = VideoDAO.layDS();
+        
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
         return "comformajoutcontrat";
@@ -180,7 +179,6 @@ public class CommercialController {
     //By T.Serge
     //methode utilisée pour convertir la date au format date de sql pr la BDD
     public java.sql.Date ConvertToSqlDate(String date){
-        //System.out.println(""+date);
         DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
         Date d = null;
         try {
@@ -191,7 +189,7 @@ public class CommercialController {
         System.out.println(""+dateformat.format(d));
         
         java.sql.Date sqldate = new java.sql.Date(d.getTime());
-        //System.out.println(""+sqldate);
+        
         return sqldate;
     }
     
@@ -234,6 +232,7 @@ public class CommercialController {
             HttpServletRequest request,
             HttpSession session,
             Model model) throws ParseException, InterruptedException {
+        
         //Pour pouvoir conserver l'Id du client pour lequel 
         //l'ajout du contrat est fait
         int id = cleclient;

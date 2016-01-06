@@ -73,7 +73,6 @@ public class VideoDAO {
     //By T.serge
     //Methode effectuant l'update d'un contrat pour un client fait par le com
     public void updComContrat(Video vid) {
-        //System.out.println("TST: ouverture update session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
@@ -96,7 +95,6 @@ public class VideoDAO {
         }
         session.close();
         //HibernateUtil.getSessionFactory().close();
-        //System.out.println("TST: fermeture update session");
     }
     
     public Video modifcontrat(Integer idContrat) {
