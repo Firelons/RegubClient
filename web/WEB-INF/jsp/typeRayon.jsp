@@ -61,9 +61,17 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="table-responsive">  
-               <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
+         <div class="container" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
+                                <c:out value=""></c:out>Ajouter</a>
+                            </td>
+                        </div>
+                    </div>
+                </div>
+              <div class="container">
+              <div class="table-responsive">                
               <table class="table">
                             <thead>
                                 <tr>
@@ -94,6 +102,50 @@
     
    
         <jsp:include page="foot.jsp" />   
+        <!-- Modal Ajouter -->
+        <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter type rayon</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <form id="connectClient" role="form" class="form-signin">
+                                <label>Nom type rayon</label>
+                                <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+                                <br>
+                                
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
+                            </form>
+                            <br>
+                            <p id ="info" class="text-success"></p>
+                            <p id ="error" class="text-danger"></p>
+                            <br><br>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
+        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="<c:url value="/resources/js/creative.js"/>"></script>
+        
         
     </body>
 </html>
