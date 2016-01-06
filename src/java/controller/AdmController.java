@@ -47,12 +47,12 @@ public class AdmController {
         try{
            if(auth.compteUser()!= null){
                request.setAttribute("compte", auth.compteUser());
-               return "compteUtilisateur";
+               return "admCompteUtilisateur";
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        return "compteUtilisateur";   
+        return "admCompteUtilisateur";   
     }
     
     @RequestMapping(value = "retour")   // retour vers la page accueil
@@ -73,7 +73,7 @@ public class AdmController {
     }
     @RequestMapping(value = "region")
     protected String regionAction(Model model) {
-        return "gestionRegion";
+        return "admRegionUtilisateur";
     }
     
     @RequestMapping(value = "admin")
