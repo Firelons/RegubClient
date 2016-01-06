@@ -57,15 +57,15 @@ public class AdmController {
     
     @RequestMapping(value = "retour")   // retour vers la page accueil
     protected String retourAccueilAction(Model model) {
-        return "redirect:accueilAdm";
+        return "redirect:admAccueil";
     }
     @RequestMapping(value = "ajoutCompte")
     protected String ajoutCompteAction(Model model) {
-        return "creerUtilisateur";
+        return "admCreerUtilisateur";
     }
     @RequestMapping(value = "ModifCompte")
     protected String modifierCompteAction(Model model) {
-        return "modifierUtilisateur";
+        return "admModifierUtilisateur";
     }  
     @RequestMapping(value = "SuppCompte")
     protected String supprimerCompteAction(Model model) {
@@ -78,7 +78,7 @@ public class AdmController {
     
     @RequestMapping(value = "admin")
     protected String retourAction(Model model) {
-        return "accueilAdm";
+        return "admAccueil";
     }
     
     //traitement de la page creation du compte   
