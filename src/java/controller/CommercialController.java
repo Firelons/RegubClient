@@ -58,8 +58,6 @@ public class CommercialController {
     //recup de l'id du contrat selectionné qui est à modifier
     private int clecontrat;
     
-    private Compte cpt;
-    
     @RequestMapping(value = "/regub/commercial", method = RequestMethod.GET)
     protected String listClientAction(HttpServletRequest request, HttpSession session, Model model) {
 
@@ -145,6 +143,7 @@ public class CommercialController {
         return "redirect:/regub/commercial/";
     }
     
+    //By T.Serge
     @RequestMapping("regub/commercial/contrats/{id}")
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
@@ -265,7 +264,7 @@ public class CommercialController {
                 mySetregion, mySettyperayon);
         
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
-        //Thread.sleep(3000);
+        
         return listClientAction(request, session, model);
         
     }
@@ -278,6 +277,7 @@ public class CommercialController {
         return d;
     }
     
+    //By T.serge
     //Action exec lorsk un com modifie un contrat d'un client
     @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
     String formmodifiercontratAction(
@@ -285,8 +285,10 @@ public class CommercialController {
             HttpSession session,
             Model model,
             @PathVariable("id") Integer idContrat) {
+        
         Client lst = ClientDAO.getClient(cleclient);
         clecontrat = idContrat;
+        
         //recup des infos du contrat selectionné
         Video vid = VidBDD.modifcontrat(idContrat);
         
@@ -302,19 +304,15 @@ public class CommercialController {
         
         return "comformmodifiercontrat";
     }
-
+    
+    //By T.serge
     //action de chargement ds données pr le click du bouton modifier
     @RequestMapping("regub/commercial/contrats/commodifiercontrat")
     String modifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
             Model model) throws InterruptedException {
-        //if(request.getSession()){
-        //int test = Integer.parseInt(request.getParameter("select")) ;
-        //request.setAttribute("Modify", this.VidBDD.modifcontrat(id));
-        //}
-        //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        //return "comformmodifiercontrat";
+        
         int idContrat = clecontrat;
         
         String [] choixrayon = request.getParameterValues("rayon");
@@ -346,12 +344,11 @@ public class CommercialController {
         vid.setRegions(mySetregion);
         vid.setTyperayons(mySettyperayon);
         
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         
         VidBDD.updComContrat(vid);
         
         return listClientAction(request, session, model);
-        //return contratsAction(request, session, model, cli, idClient);
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
