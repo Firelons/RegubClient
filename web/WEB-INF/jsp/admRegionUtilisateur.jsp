@@ -39,14 +39,14 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    
+
     <body> 
         <jsp:include page="navAdministrateur.jsp"/>
-           <section class="bg-primary">
+        <section class="bg-primary">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <h2 class="section-heading">Administrateur<%--${UserConnected.getSociete()}--%></h2>
                         <hr class="light">
                     </div>
                 </div>
@@ -55,38 +55,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="section-heading"> Liste des Regions</h1>
+                    <h2 class="section-heading"> Liste des Regions</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="table-responsive">    
-                 
-                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
-                <form action="user" method="post">
-                    <!-- 1ere facon de faire le tableau -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nom</th><th>Modifier</th><th>Supprimer</th>
-                            </tr>
-                        </thead>
-    <body>
-          <c:forEach var="reg" items="${region}">
-                                <tr>
-                                    <td>
-                                        <c:out value="${reg.getLibelle()}"></c:out>
-                                        </td>
-                                        <td>
-                                        <td><a href="/RegubClient/regub/administrateur/modif/${reg.getIdRegion()}" class="btn btn-info"x>
-                                            <c:out value=""></c:out>Modifier</a>
-                                        </form>
-                                    </td>
-                                    <td><a href="/RegubClient/regub/administrateur/${reg.getIdRegion()}" class="btn btn-primary">
-                                            <c:out value=""></c:out>Supprimer</a>
-                                        </td>
-                                    </tr>
-                            </c:forEach>
-    </body>
-</html>
+        
+                        <jsp:include page="foot.jsp" />
+                        <!-- jQuery -->
+                        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+
+                        <!-- Bootstrap Core JavaScript -->
+                        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
+                        <!-- Plugin JavaScript -->
+                        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+                        <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
+                        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+
+                        <!-- Custom Theme JavaScript -->
+                        <script src="<c:url value="/resources/js/creative.js"/>"></script>
+
+                        <!--App JavaScript-->
+                        <script src="<c:url value="/resources/app/commercial.js"/>"></script>
+
+                        </body>
+                        </html>
