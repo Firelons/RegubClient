@@ -72,22 +72,28 @@ public class VideoDAO {
     
     //By T.serge
     //Methode effectuant l'update d'un contrat pour un client fait par le com
-    public void updComContrat(Video vid) {
+    public void updComContrat(Video vid, String s) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             Video updcontrat = (Video) session.load(Video.class, vid.getIdVideo());
-            updcontrat.setTitre(vid.getTitre());
-            updcontrat.setFrequence(vid.getFrequence());
-            updcontrat.setDuree(vid.getDuree());
-            updcontrat.setDateDebut(vid.getDateDebut());
-            updcontrat.setDateFin(vid.getDateFin());
-            updcontrat.setDateReception(vid.getDateReception());
-            updcontrat.setDateValidation(vid.getDateValidation());
-            updcontrat.setStatut(vid.getStatut());
-            updcontrat.setTarif(vid.getTarif());
-            updcontrat.setRegions(vid.getRegions());
-            updcontrat.setTyperayons(vid.getTyperayons());
+            if(s.equalsIgnoreCase("modifier")){
+                updcontrat.setTitre(vid.getTitre());
+                updcontrat.setFrequence(vid.getFrequence());
+                updcontrat.setDuree(vid.getDuree());
+                updcontrat.setDateDebut(vid.getDateDebut());
+                updcontrat.setDateFin(vid.getDateFin());
+                updcontrat.setDateReception(vid.getDateReception());
+                updcontrat.setDateValidation(vid.getDateValidation());
+                updcontrat.setStatut(vid.getStatut());
+                updcontrat.setTarif(vid.getTarif());
+                updcontrat.setRegions(vid.getRegions());
+                updcontrat.setTyperayons(vid.getTyperayons());
+            }
+            if(s.equalsIgnoreCase("annuler")){
+                updcontrat.setDateFin(vid.getDateFin());
+            }
+            
             session.update(updcontrat);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -97,6 +103,25 @@ public class VideoDAO {
         //HibernateUtil.getSessionFactory().close();
     }
     
+    public boolean deleteComContrat(Integer idContrat) {
+
+        List<Client> list = new ArrayList<Client>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Video suppcontrat = (Video) session.load(Video.class, idContrat);
+            session.beginTransaction();
+            session.delete(suppcontrat);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false;
+    }
+    
+    //Methode appellée pour charger les infos d'un contrat
     public Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
