@@ -156,7 +156,7 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
-    public boolean updateCompte(int id, String nom, String prenom, String login, int tcpt){
+    public boolean updateCompte(int id, String nom, String prenom, String login, Typecompte T){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try {
@@ -167,7 +167,7 @@ public class AdministrateurDAO {
             cpt.setLogin(login);
             System.out.println(cpt.getTypecompte().getIdTypeCompte());
             //System.out.println(tcpt);
-            cpt.getTypecompte().setIdTypeCompte(tcpt);
+            cpt.setTypecompte(T);
              System.out.println("khgu: "+cpt.getTypecompte().getIdTypeCompte());
             session.update(cpt);
             session.getTransaction().commit();

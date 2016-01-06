@@ -1,5 +1,5 @@
 <%-- 
-    Document   : accueil
+    Document   : admAccueil
     Created on : 18 nov. 2015, 10:05:14
     Author     : batchanou
 --%>
