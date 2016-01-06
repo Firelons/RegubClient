@@ -216,6 +216,18 @@ public class AdmController {
         return userAction(request, model);
     }
     
+     // traitement de la page creation du magasin  
+    @RequestMapping(value = "CreationMagasin", method = RequestMethod.POST)
+    protected String creationMagasinAction(HttpServletRequest request, Model model){
+        try {
+            if(auth.region()!=null){
+                request.setAttribute("regionlist", auth.region());
+            }
+            
+        } catch (Exception e) {
+        }
+    return magasinAction(request, model);
+    }
     // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
@@ -225,7 +237,7 @@ public class AdmController {
          String prenom = request.getParameter("prenom");
          String login = request.getParameter("login");
          int tcpt = Integer.parseInt(request.getParameter("typecompte"));
-         //int id = auth.selectCompte1(login).getIdCompte();
+         
          Typecompte T = new Typecompte();
          T.setIdTypeCompte(tcpt);
          try {
@@ -239,12 +251,7 @@ public class AdmController {
         }       
         return userAction(request, model);
     }
-   
     
-    
-    
-   
-   
     
     
      // bouton accueil de la navigation

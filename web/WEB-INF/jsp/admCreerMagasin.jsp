@@ -4,6 +4,8 @@
     Author     : batchanou
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="entities.Region"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -13,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Création de Magasin</title>
-        
+
         <!-- Bootstrap Core CSS -->
 
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
@@ -38,7 +40,7 @@
     </head>
     <body>
         <jsp:include page="navAdministrateur.jsp"/>
-           <section class="bg-primary">
+        <section class="bg-primary">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -56,14 +58,14 @@
                 </div>
             </div>
         </div>
-       <div class="modal-dialog col-md-12" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel"> AJOUT</h4>
                 </div>
                 <div class="modal-body">  
-                    <form id="modifierClient" role="form">
+                    <form action="/RegubClient/CreationMagasin" method="post">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-9">
                                 <div class="form-group">
@@ -76,7 +78,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-9">
                                 <label>Rue*:</label>
                                 <div class="form-group">
-                                    <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                    <input type="text" name="rue" id="telephone" class="form-control input-sm" placeholder="rue" value="" required>
                                 </div>
                             </div>
                         </div>
@@ -84,66 +86,69 @@
                             <div class="col-xs-6 col-sm-6 col-md-9">
                                 <label>Complément:</label>
                                 <div class="form-group">
-                                    <input type="text" name="telephone" id="telephone" class="form-control input-sm" placeholder="telephone" value="" required>
+                                    <input type="text" name="telephone" id="complement" class="form-control input-sm" placeholder="facultatif" value="" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>E-mail*</label>
-                            <input type="email" name="email" id="email" class="form-control input-sm" placeholder="email" value="" required>
-                        </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-xs-6 col-sm-6 col-md-9">
                                 <div class="form-group">
-                                    <label>Ligne1*</label>
-                                    <input type="text" name="addrLigne1" id="ligne1" class="form-control input-sm" placeholder="rue" value="" required>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label>ligne2 (facultatif)</label>
-                                    <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="compléments" value="">
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label>code postal*</label>
+                                    <label>code postal*:</label>
                                     <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-9">
                                 <div class="form-group">
-                                    <label>Ville*</label>
+                                    <label>Ville*:</label>
                                     <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-9">
+                                <div class="form-group">
+                                    <label>Région</label>
+                                    <select id="region" class="form-control input-sm" required>
+                                        <%
+                                            ArrayList<Region> list = new ArrayList();
+                                            list = (ArrayList<Region>) request.getAttribute("regionlist");
+                                            for (int i = 0; i < list.size(); i++) {
 
+                                        %>
+                                        <option><%= list.get(i).getLibelle()%></option> 
+                                        <% }%>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+                        <a href="annulerMagasin" class="btn btn-default" data-dismiss="modal">Annuler</a>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                </div>
             </div>
+
         </div>
-        
-        <jsp:include page="foot.jsp" />   
-        <!-- jQuery -->
-        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+    </div>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <jsp:include page="foot.jsp" />   
+    <!-- jQuery -->
+    <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
-        <!-- Plugin JavaScript -->
-        <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
-        <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
-        <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="<c:url value="/resources/js/creative.js"/>"></script>
-        <!--App JavaScript-->
-        <script src="<c:url value="/resources/app/client.js"/>"></script>
-    </body>
+    <!-- Plugin JavaScript -->
+    <script src="<c:url value="/resources/js/jquery.easing.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.fittext.js"/>"></script>
+    <script src="<c:url value="/resources/js/wow.min.js"/>"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<c:url value="/resources/js/creative.js"/>"></script>
+    <!--App JavaScript-->
+    <script src="<c:url value="/resources/app/client.js"/>"></script>
+</body>
 </html>

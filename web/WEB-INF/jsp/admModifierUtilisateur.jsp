@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <h2 class="section-heading">Adminitrateur<%--${UserConnected.getSociete()}--%></h2>
+                        <h2 class="section-heading">Adminitrateur ${compteConnected.getNom()}</h2>
                         <hr class="light">
                     </div>
                 </div>
