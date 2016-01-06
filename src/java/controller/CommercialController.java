@@ -143,6 +143,7 @@ public class CommercialController {
         return "redirect:/regub/commercial/";
     }
     
+    //By T.Serge
     @RequestMapping("regub/commercial/contrats/{id}")
     public String contratsAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idClient) {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
@@ -276,6 +277,7 @@ public class CommercialController {
         return d;
     }
     
+    //By T.serge
     //Action exec lorsk un com modifie un contrat d'un client
     @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
     String formmodifiercontratAction(
@@ -302,7 +304,8 @@ public class CommercialController {
         
         return "comformmodifiercontrat";
     }
-
+    
+    //By T.serge
     //action de chargement ds données pr le click du bouton modifier
     @RequestMapping("regub/commercial/contrats/commodifiercontrat")
     String modifiercontratAction(

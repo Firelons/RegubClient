@@ -53,6 +53,7 @@ public class VideoDAO {
         return listrayons;
     }
     
+    //By T.serge
     //Methode effectuant l'insertion d'un contrat effectué par le com pour un client
     public void addComContrat(Video vid) {
         //System.out.println("TST: ouverture session");
@@ -69,6 +70,7 @@ public class VideoDAO {
         //System.out.println("TST: fermeture session");
     }
     
+    //By T.serge
     //Methode effectuant l'update d'un contrat pour un client fait par le com
     public void updComContrat(Video vid) {
         //System.out.println("TST: ouverture update session");
@@ -108,22 +110,6 @@ public class VideoDAO {
         session.close();
         HibernateUtil.getSessionFactory().close();
         return null;
-    }
-    
-    public static List<Video> Charge(Integer idcontrat) {
-        //Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Video> lst = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Video as v where v.idVideo =?";
-            Query query = session.createQuery(hql);
-            query.setParameter(0, idcontrat);
-            lst = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //session.close();
-        return lst;
     }
     
     // Ajouté par Aurélien Touche pas Serge
