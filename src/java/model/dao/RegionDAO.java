@@ -43,4 +43,21 @@ public class RegionDAO {
         }
         return listregion;
     }
+    
+       public static List<Region> listregion() {
+
+        List<Region> lst = null;
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Region";
+            Query query = session.createQuery(hql);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //session.close();
+        
+        return lst;
+    }
 }
