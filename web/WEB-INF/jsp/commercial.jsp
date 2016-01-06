@@ -95,12 +95,13 @@
                                         <td><a href="/RegubClient/regub/commercial/contrats/${cli.getIdClient()}" class="btn btn-info"x>
                                             <c:out value=""></c:out>Contrats</a>
                                         </td> 
-                                        <td><a href="/RegubClient/regub/commercial/modif/${cli.getIdClient()}" class="btn btn-info"x>
+                                        <td><a href="/RegubClient/regub/commercial/modif/${cli.getIdClient()}" class="btn btn-primary"x>
                                             <c:out value=""></c:out>Modifier</a>
                                         </form>
                                     </td>
-                                    <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
+                                    <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" <c:if test="${!empty cli.getVideos() }">disabled </c:if> class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
+                                            
                                         </td>
                                     </tr>
                             </c:forEach>

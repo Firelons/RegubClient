@@ -116,7 +116,7 @@ public class AdmController {
         } catch (Exception e) {
         }
         return "admModifierUtilisateur";
-    } 
+    }
     
      //  bouton modifier de la page magasin
     @RequestMapping(value = "ModifMagasin{id}", method = RequestMethod.GET)
@@ -145,10 +145,10 @@ public class AdmController {
             e.printStackTrace();
         }
         return userAction(request, model);
-    }
+    }  
     
      //  bouton supprimer de la page compte utilisateur
-    @RequestMapping(value = "SuppMagasin{id}", method = RequestMethod.GET)
+     @RequestMapping(value = "SuppMagasin{id}", method = RequestMethod.GET)
     protected String supprimerMagasinAction(HttpServletRequest request, Model model, @PathVariable(value = "id") Integer ide) {
        /*boolean suppr = false;
         try {
@@ -220,7 +220,7 @@ public class AdmController {
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
          boolean modif=false;
-       
+
          String nom = request.getParameter("nom");
          String prenom = request.getParameter("prenom");
          String login = request.getParameter("login");
@@ -233,13 +233,13 @@ public class AdmController {
              System.out.println(nom);
              modif = auth.updateCompte(this.id, nom, prenom, login, T);
             System.out.println(modif); 
-            
+    
         } catch (Exception e) {
             e.printStackTrace();
         }       
         return userAction(request, model);
     }
-    
+   
     
     
     
