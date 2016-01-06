@@ -38,22 +38,7 @@ public class VideoDAO {
         return lst;
     }
     
-    /*public static List<Typerayon> Rayonliste() {
-
-        List<Typerayon> listrayon = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Typerayon";
-            Query query = session.createQuery(hql);
-            listrayon = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listrayon;
-    }*/
-    
     public static List<Typerayon> RayonSelect(Video vid) {
-        
         
         List<Typerayon> listrayons = null;
         try {
@@ -68,25 +53,9 @@ public class VideoDAO {
         return listrayons;
     }
     
-    /*public static List<Region> Regionliste() {
-    Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Region> listregion = null;
-        try {
-            
-            String hql = "from Region";
-            Query query = session.createQuery(hql);
-            listregion = query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        session.close();
-        return listregion;
-        
-    }*/
-    
-    //
+    //Methode effectuant l'insertion d'un contrat effectué par le com pour un client
     public void addComContrat(Video vid) {
-        System.out.println("TST: ouverture session");
+        //System.out.println("TST: ouverture session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
@@ -97,22 +66,35 @@ public class VideoDAO {
         }
         session.close();
         //HibernateUtil.getSessionFactory().close();
-        System.out.println("TST: fermeture session");
+        //System.out.println("TST: fermeture session");
     }
     
+    //Methode effectuant l'update d'un contrat pour un client fait par le com
     public void updComContrat(Video vid) {
-        System.out.println("TST: ouverture update session");
+        //System.out.println("TST: ouverture update session");
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            session.update(vid);
+            Video updcontrat = (Video) session.load(Video.class, vid.getIdVideo());
+            updcontrat.setTitre(vid.getTitre());
+            updcontrat.setFrequence(vid.getFrequence());
+            updcontrat.setDuree(vid.getDuree());
+            updcontrat.setDateDebut(vid.getDateDebut());
+            updcontrat.setDateFin(vid.getDateFin());
+            updcontrat.setDateReception(vid.getDateReception());
+            updcontrat.setDateValidation(vid.getDateValidation());
+            updcontrat.setStatut(vid.getStatut());
+            updcontrat.setTarif(vid.getTarif());
+            updcontrat.setRegions(vid.getRegions());
+            updcontrat.setTyperayons(vid.getTyperayons());
+            session.update(updcontrat);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
         //HibernateUtil.getSessionFactory().close();
-        System.out.println("TST: fermeture update session");
+        //System.out.println("TST: fermeture update session");
     }
     
     public Video modifcontrat(Integer idContrat) {
@@ -126,6 +108,22 @@ public class VideoDAO {
         session.close();
         HibernateUtil.getSessionFactory().close();
         return null;
+    }
+    
+    public static List<Video> Charge(Integer idcontrat) {
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Video> lst = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Video as v where v.idVideo =?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, idcontrat);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //session.close();
+        return lst;
     }
     
     // Ajouté par Aurélien Touche pas Serge
