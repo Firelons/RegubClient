@@ -1,7 +1,7 @@
 <%-- 
     Document   : compteUtilisateur
     Created on : 24 nov. 2015, 22:31:59
-    Author     : batchanou
+    Author     : raghda
 --%>
 
 
@@ -62,20 +62,33 @@
             </div>
         </div>
         <div class="container">
-            <div class="table-responsive">    
-                 
-                <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
-                <form action="user" method="post">
-                    <!-- 1ere facon de faire le tableau -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nom du type rayon</th><th>Modifier</th><th>Supprimer</th>
-                            </tr>
-                        </thead>
-                       
+            <div class="table-responsive">  
+               <a href="ajoutCompte" class="btn btn-info"><strong>Ajouter</a></button>
+              <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom du rayon</th><th>Modifier</th><th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="R" items="${rayon}">
+                                <tr>
+                                    <td>
+                                        <c:out value="${R.getLibelle()}"></c:out>
+                                        </td>
+                                        <td>
+                                            <form id="modifbutton" role="form" >
+                                                <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
+                                                <button class="btn btn-info" type="submit">modifier</button>
+                                            </form>
+                                        </td>
+                                        <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
+                                            <c:out value=""></c:out>Supprimer</a>
+                                        </td>
+                                    </tr>
+                            </c:forEach>
+                        </tbody>
                     </table>
-                </form><br><br><br><br>
             </div>
         </div>  
     
