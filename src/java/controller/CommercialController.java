@@ -302,9 +302,12 @@ public class CommercialController {
         
         System.out.println(""+vid.getRegions().size());
         Set<Region> lt = vid.getRegions();
-        lt.stream().forEach((str) -> {
+        /*lt.stream().forEach((str) -> {
             System.out.println(str.getIdRegion()+" "+ str.getLibelle());
-        });
+        });*/
+        /*for (Region str : lt) {
+	    System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+	}*/
         
         model.addAttribute("contratselected", vid);
         

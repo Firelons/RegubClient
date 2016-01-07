@@ -175,9 +175,20 @@
                                         <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
                                                 for(int i=0; i<listrayon.size(); i++){
+                                                    boolean b = false;
+                                                    for (Typerayon str : oldrayon) {
+                                                        if(str.getIdTypeRayon() == listrayon.get(i).getIdTypeRayon()){
+                                                            b = true;
+                                                            break;
+                                                        }
+                                                    }
                                             %>   
                                              
-                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>"
+                                                    <% if(b==true){ %>
+                                                      selected="selected"
+                                                    <%  }  %>
+                                                >
                                                 <%=listrayon.get(i).getLibelle() %>
                                             </option>
                                             <%
@@ -189,13 +200,24 @@
                                         <label class="control-label">Regions :</label></BR>
                                         <select name="region" multiple class = "selectregion form-control" multiple="multiple">
                                             <%
-                                                    for(int i=0; i<listregion.size(); i++){
+                                                for(int i=0; i<listregion.size(); i++){
+                                                    boolean b = false;
+                                                    for (Region str : oldregion) {
+                                                        if(str.getIdRegion() == listregion.get(i).getIdRegion()){
+                                                            b = true;
+                                                            break;
+                                                        }
+                                                    }
                                             %>   
-                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                            <option value="<%= listregion.get(i).getIdRegion() %>"
+                                                    <% if(b==true){ %>
+                                                      selected="selected"
+                                                    <%  }  %>
+                                                >
                                                 <%=listregion.get(i).getLibelle() %>
                                             </option> 
-                                                <%
-                                              }
+                                            <%
+                                                }
                                             %>
                                         </select>
                                     </div>
