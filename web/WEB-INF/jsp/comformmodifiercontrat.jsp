@@ -198,7 +198,7 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label">Regions :</label></BR>
-                                        <select name="region" multiple class = "selectregion form-control" multiple="multiple">
+                                        <select name="region" class = "selectregion form-control" multiple="multiple">
                                             <%
                                                 for(int i=0; i<listregion.size(); i++){
                                                     boolean b = false;
