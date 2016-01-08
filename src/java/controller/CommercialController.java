@@ -299,8 +299,10 @@ public class CommercialController {
         
         request.setAttribute("regselected", vid.getRegions());//recup des régions déjà selectionné correspondant au contrat à modifier
         request.setAttribute("rayselected", vid.getTyperayons());
+        request.setAttribute("statselected", vid.getStatut());
         
-        System.out.println(""+vid.getRegions().size());
+        //System.out.println(""+vid.getRegions().size());
+        System.out.println(""+vid.getStatut());
         Set<Region> lt = vid.getRegions();
         /*lt.stream().forEach((str) -> {
             System.out.println(str.getIdRegion()+" "+ str.getLibelle());
@@ -352,10 +354,12 @@ public class CommercialController {
         
         vid.setFrequence(Integer.parseInt(freqcontrat));
         vid.setDuree(Integer.parseInt(durecontrat));
-        vid.setDateDebut(ConvertToSqlDate(datedebutcontrat));
+        //System.out.println(""+titrecontrat);
+        System.out.println(""+datedebutcontrat);
+        //vid.setDateDebut(ConvertToSqlDate(datedebutcontrat));
         vid.setDateFin(ConvertToSqlDate(datefincontrat));
-        vid.setDateReception(ConvertToSqlDate(daterecepcontrat));
-        vid.setDateValidation(ConvertToSqlDate(datevalidcontrat));
+        //vid.setDateReception(ConvertToSqlDate(daterecepcontrat));
+        //vid.setDateValidation(ConvertToSqlDate(datevalidcontrat));
         vid.setStatut(Integer.parseInt(choixstatut));
         vid.setTarif(Double.parseDouble(tarifcontrat));
         vid.setRegions(mySetregion);
