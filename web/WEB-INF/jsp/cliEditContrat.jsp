@@ -182,15 +182,16 @@
                                             <label class="radio radio-inline">
                                                 <input type="radio" name="statut" value="3" /> Annulé
                                             </label>
+                                            <label class="radio radio-inline">
+                                                <input type="radio" name="statut" value="3" /> Annulé
+                                            </label>
                                         </div>
                                         
                                     </div>
                                     
                                 </div>
                             </div>
-                            <div class="form-group">
-                                
-                            </div>
+                            
                             <div class="form-group">
                                 <div class="row">
                                    
