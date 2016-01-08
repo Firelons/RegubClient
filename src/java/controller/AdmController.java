@@ -72,7 +72,7 @@ public class AdmController {
     
     //  2- lien GESTION DES RAYONS de la page admAccueil
      @RequestMapping(value = "rayon", method = RequestMethod.GET)
-    protected String rayonAction(Model model) {
+    protected String listRayonAction(Model model) {
        try {
             List<Typerayon> lst = TypeRayonDAO.Rayons();
             model.addAttribute("rayon", lst);
@@ -114,6 +114,14 @@ public class AdmController {
     @RequestMapping(value = "ajoutMagasin")
     protected String ajoutMagasinAction(Model model) {
         return "admCreerMagasin";
+    }
+    
+    //  bouton ajout de la page type rayon
+    @RequestMapping(value = "ajoutrayon",method = RequestMethod.POST )
+    public String ajoutRayonAction(HttpServletRequest request,@RequestParam("ray") Typerayon ray, Model model, HttpSession session) {
+        TypeRayonDAO.addRayon(ray);
+        listRayonAction(model);
+        return "typeRayon";
     }
     
      //  bouton modifier de la page compte utilisateur
@@ -263,12 +271,14 @@ public class AdmController {
     protected String retourAction(Model model) {
         return "admAccueil";
     }
-    @RequestMapping(value = "/regub/administrateur/ajoutrayon", method = RequestMethod.POST)
+    
+    /*@RequestMapping(value = "/regub/administrateur/ajoutrayon", method = RequestMethod.POST)
     protected String ajoutRayonAction(HttpServletRequest request,
             @ModelAttribute("rayon") Typerayon ray, HttpSession session, Model model) {
         RayBDD.addRayon(ray);
-        return "admCreerUtilisateur";
-    }
+        
+        return "typeRayon";
+    }*/
     
    
     //  bouton parametre de la navigation

@@ -6,6 +6,7 @@
 package model.dao;
 
 import entities.Typerayon;
+import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
@@ -16,6 +17,8 @@ import org.hibernate.Session;
  * @author Lons
  */
 public class TypeRayonDAO {
+    
+    
         public static List<Typerayon> Rayonliste() {
 
         List<Typerayon> listrayon = null;
@@ -62,21 +65,20 @@ public class TypeRayonDAO {
         return rayons;
     }  
      
-        public boolean addRayon(Typerayon ray){
+        
+        public static List<Typerayon> addRayon(Typerayon ray) {
+         
+        List<Typerayon> list = new ArrayList<Typerayon>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        
             session.beginTransaction();
             session.save(ray);
             session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            
+       
         session.close();
-        HibernateUtil.getSessionFactory().close();
-        
-        return false;
-    
+        return list;
     }
+        
         
 }
