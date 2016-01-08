@@ -74,4 +74,35 @@ public class RegionDAO {
         session.close();
         return list;
     }
+    
+    public Region updRegion(Integer id, String lib) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Region updreg = (Region) session.load(Region.class, id);
+            updreg.setLibelle(lib);
+            session.update(updreg);
+            session.getTransaction().commit();
+            return updreg;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        return null;
+    }
+     
+      public  Region getRegion(Integer IdRegion) {
+
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Region reg = (Region) session.load(Region.class, IdRegion);
+            System.out.println(reg);
+            return reg;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

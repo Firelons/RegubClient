@@ -8,6 +8,7 @@ package controller;
 
 import entities.Client;
 import entities.Compte;
+import entities.Region;
 import entities.Typecompte;
 import entities.Typerayon;
 import java.io.UnsupportedEncodingException;
@@ -21,12 +22,14 @@ import java.util.Date;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import org.apache.taglibs.standard.functions.Functions;
 import static org.apache.tomcat.jni.OS.random;
@@ -51,6 +54,8 @@ public class AdmController {
     private final AdministrateurDAO auth = new AdministrateurDAO();
     private Compte adm ;
     private final TypeRayonDAO RayBDD = new TypeRayonDAO();
+    private final RegionDAO regBDD = new RegionDAO();
+
 
     protected int id = 0;
 
@@ -306,4 +311,44 @@ public class AdmController {
         }
         return "error";
     }
+    
+    // traitemant region
+    
+    @RequestMapping(value = "region" ,method = RequestMethod.GET)
+    protected String listeregion( Model model) {
+        try {
+            List<Region> regions = RegionDAO.listregion();
+            model.addAttribute("region", regions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admRegionUtilisateur";
+    }
+    
+    @RequestMapping(value = "ajoutregion", method = RequestMethod.POST)
+    public String ajoutregion(HttpServletRequest request,
+            @RequestParam("reg") Region reg,Model model) {
+       
+        RegionDAO.addRegion(reg);
+           
+        //model.addAttribute("societe", cli.getSociete());
+        listeregion(model);
+        return "admRegionUtilisateur";
+    }
+    
+      
+    @RequestMapping(value = "modifierregion-{id}", method = RequestMethod.GET)
+    public String afficherpagemodifregion(HttpServletRequest request, HttpSession session, Model model, Region reg, @PathVariable("id") Integer IdRegion) {
+        reg =  regBDD.getRegion(IdRegion);
+        model.addAttribute("reg",reg);
+        return "admModifierRegion";
+    }
+    @RequestMapping(value = "modifierregion", method = RequestMethod.POST)
+    public String modifierregion(@RequestParam("idRegion") Integer idRegion,
+            @RequestParam("libelle") String lib,Model model) {
+        regBDD.updRegion(idRegion,lib);
+        listeregion(model);
+        return "redirect:/region";
+    }
+
 }
