@@ -21,6 +21,7 @@
     List<Region> listregion = RegionDAO.Regionliste(); 
     Set<Typerayon> oldrayon = (Set)request.getAttribute("rayselected");
     Set<Region>  oldregion = (Set)request.getAttribute("regselected");
+    int oldstatut = (int)request.getAttribute("statselected");
 %>
 
 <html lang="fr">
@@ -69,10 +70,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <fieldset disabled="true" class="col-xs-6">
+                                    <fieldset  class="col-xs-6">
                                         <div>
                                            <label class="control-label" >Client :</label> 
-                                           <input type="text" class="form-control" name="client" value="${ajout}">
+                                           <input disabled="true" type="text" class="form-control" name="client" value="${ajout}">
                                         </div> 
                                     </fieldset>
                                     <div class="col-xs-6">
@@ -86,9 +87,11 @@
                                     <fieldset disabled="true" class="col-xs-6">
                                         <div>
                                             <label class="control-label" >Titre :</label>
-                                            <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" value="${contratselected.getTitre()}">
+                                            <input type="text" class="form-control" id="titre" value="${contratselected.getTitre()}">
                                         </div>
                                     </fieldset>
+                                        <!-- Ce champ caché  -->
+                                            <input type="text" hidden="true" name="titre" value="${contratselected.getTitre()}">
                                     <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes) :</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree" value="${contratselected.getDuree()}">
@@ -97,29 +100,32 @@
                             </div>            
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Date De Debut :</label>
-                                        <div class="input-group date" id="datetimedebut">
-                                            <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut" value="${datedebut}">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                            <label class="control-label" >Date De Debut :</label>
+                                            <!-- <div class="input-group date" id="datetimedebut"> -->
+                                                <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut" value="${datedebut}">
+                                                <!-- <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span> -->
+                                            <!-- </div> -->
                                         </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Date De Reception :</label>
-                                        <div class="input-group date" id="datetimereception">
-                                            <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception" value="${datereception}">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                    </fieldset>
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                            <label class="control-label" >Date De Reception :</label>
+                                            <!-- <div class="input-group date" id="datetimereception"> -->
+                                                <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception" value="${datereception}">
+                                                <!-- <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span> -->
+                                            <!-- </div> -->
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Fin :</label>
                                         <div class="input-group date" id="datetimefin">
@@ -129,15 +135,17 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Date De Validation :</label>
-                                        <div class="input-group date" id="datetimevalidation">
-                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation" value="${datevalidation}">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                    <fieldset disabled="true" class="col-xs-6">       
+                                        <div>
+                                            <label class="control-label" >Date De Validation :</label>
+                                            <!-- <div class="input-group date" id="datetimevalidation"> -->
+                                                <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation" value="${datevalidation}">
+                                            <!--    <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span> -->
+                                            <!-- </div> -->
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -154,15 +162,27 @@
                                     <div class="col-xs-4">
                                         <label class="control-label ">Statut : </label>
                                         <div>
-                                            <!-- "rating" valeur d'attribut name du statut choisi -->
+                                            <!-- "rating" valeur d'attribut name du statut choisi oldstatut -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="1" /> Validé
+                                                <input type="radio" name="statut" value="1" 
+                                                    <% if(oldstatut==1){ %>
+                                                      checked
+                                                    <%  }  %>
+                                                /> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="2" /> Préparation
+                                                <input type="radio" name="statut" value="2" 
+                                                    <% if(oldstatut==2){ %>
+                                                      checked
+                                                    <%  }  %>
+                                                /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="3" /> Annulé
+                                                <input type="radio" name="statut" value="3" 
+                                                    <% if(oldstatut==3){ %>
+                                                      checked
+                                                    <%  }  %>
+                                                /> Annulé
                                             </label>
                                         </div>
                                     </div>
