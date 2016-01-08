@@ -20,11 +20,6 @@
 </c:if>
 
 
-<%
-    List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
-    List<Region> listregion = RegionDAO.Regionliste();
-%>
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -78,7 +73,7 @@
             <div class="container">
                 <div class="panel panel-default container">
                     <div class="panel-heading">
-                        <strong class="">Ajouter Contrat</strong>
+                        <strong class="">Modifier Contrat</strong>
                     </div>
                     <div class="panel-body">
                         <form id="FormulaireAjout" method="post" action="modifycontrat"  role="form" class="form-horizontal" modelAttribute="vid">

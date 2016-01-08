@@ -178,5 +178,35 @@ public class VideoDAO {
         session.close();
         HibernateUtil.getSessionFactory().close();
         return null;
-    }       
+    }
+        public List<Video> VideoPrec(int idvid) {
+        
+        
+        List<Video> listVideo = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Video as Re where idVideo= ? ";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, idvid);
+            listVideo = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listVideo;
+    }
+         public static List<Region> RegionSelect(Video vid) {
+        
+        
+        List<Region> listregions = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "select distinct f.regions from Video f where f.idVideo=?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, vid.getIdVideo());
+            listregions = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listregions;
+    }
 }

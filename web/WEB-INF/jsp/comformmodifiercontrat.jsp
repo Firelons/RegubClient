@@ -4,6 +4,7 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page import="model.dao.TypeRayonDAO"%>
 <%@page import="model.dao.RegionDAO"%>
 <%@page import="java.util.List"%>
@@ -18,6 +19,8 @@
 <%
     List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
     List<Region> listregion = RegionDAO.Regionliste(); 
+    Set<Typerayon> oldrayon = (Set)request.getAttribute("rayselected");
+    Set<Region>  oldregion = (Set)request.getAttribute("regselected");
 %>
 
 <html lang="fr">
@@ -60,7 +63,7 @@
                         <strong class="">Modifier Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/commodifiercontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireModif" method="post" action="/RegubClient/regub/commercial/contrats/commodifiercontrat" role="form" class="form-horizontal">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -68,12 +71,12 @@
                                 <div class="row">
                                     <fieldset disabled="true" class="col-xs-6">
                                         <div>
-                                           <label class="control-label" >Client</label> 
+                                           <label class="control-label" >Client :</label> 
                                            <input type="text" class="form-control" name="client" value="${ajout}">
                                         </div> 
                                     </fieldset>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Frequence(par jour)</label>
+                                        <label class="control-label" >Frequence(par jour) :</label>
                                         <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence" value="${contratselected.getFrequence()}">
                                     </div>
                                 </div>
@@ -82,12 +85,12 @@
                                 <div class="row">
                                     <fieldset disabled="true" class="col-xs-6">
                                         <div>
-                                            <label class="control-label" >Titre</label>
+                                            <label class="control-label" >Titre :</label>
                                             <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" value="${contratselected.getTitre()}">
                                         </div>
                                     </fieldset>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Durée(en secondes)</label>
+                                        <label class="control-label" >Durée(en secondes) :</label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree" value="${contratselected.getDuree()}">
                                     </div>
                                 </div>
@@ -95,7 +98,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Debut</label>
+                                        <label class="control-label" >Date De Debut :</label>
                                         <div class="input-group date" id="datetimedebut">
                                             <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut" value="${datedebut}">
                                             <span class="input-group-addon">
@@ -104,7 +107,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Reception</label>
+                                        <label class="control-label" >Date De Reception :</label>
                                         <div class="input-group date" id="datetimereception">
                                             <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception" value="${datereception}">
                                             <span class="input-group-addon">
@@ -118,7 +121,7 @@
                                 <div class="row">
                                     
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Fin</label>
+                                        <label class="control-label" >Date De Fin :</label>
                                         <div class="input-group date" id="datetimefin">
                                             <input type="text" class="form-control" id="" name="datefin" placeholder="datefin" value="${datefin}">
                                             <span class="input-group-addon">
@@ -127,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Validation</label>
+                                        <label class="control-label" >Date De Validation :</label>
                                         <div class="input-group date" id="datetimevalidation">
                                             <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation" value="${datevalidation}">
                                             <span class="input-group-addon">
@@ -171,28 +174,50 @@
                                         <label class="control-label">Type De Rayon :</label></BR>
                                         <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
-                                                    for(int i=0; i<listrayon.size(); i++){
+                                                for(int i=0; i<listrayon.size(); i++){
+                                                    boolean b = false;
+                                                    for (Typerayon str : oldrayon) {
+                                                        if(str.getIdTypeRayon() == listrayon.get(i).getIdTypeRayon()){
+                                                            b = true;
+                                                            break;
+                                                        }
+                                                    }
                                             %>   
                                              
-                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>">
+                                            <option   id="rayon" value="<%= listrayon.get(i).getIdTypeRayon() %>"
+                                                    <% if(b==true){ %>
+                                                      selected="selected"
+                                                    <%  }  %>
+                                                >
                                                 <%=listrayon.get(i).getLibelle() %>
                                             </option>
-                                                <%
-                                              }
+                                            <%
+                                                }
                                             %>
                                         </select> 
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label">Regions :</label></BR>
-                                        <select name="region" multiple class = "selectregion form-control">
+                                        <select name="region" multiple class = "selectregion form-control" multiple="multiple">
                                             <%
-                                                    for(int i=0; i<listregion.size(); i++){
+                                                for(int i=0; i<listregion.size(); i++){
+                                                    boolean b = false;
+                                                    for (Region str : oldregion) {
+                                                        if(str.getIdRegion() == listregion.get(i).getIdRegion()){
+                                                            b = true;
+                                                            break;
+                                                        }
+                                                    }
                                             %>   
-                                            <option value="<%= listregion.get(i).getIdRegion() %>">
+                                            <option value="<%= listregion.get(i).getIdRegion() %>"
+                                                    <% if(b==true){ %>
+                                                      selected="selected"
+                                                    <%  }  %>
+                                                >
                                                 <%=listregion.get(i).getLibelle() %>
                                             </option> 
-                                                <%
-                                              }
+                                            <%
+                                                }
                                             %>
                                         </select>
                                     </div>
@@ -290,7 +315,7 @@
         <!-- Javascript add by T.serge -->
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
-        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
+        <script src="<c:url value="/resources/js/comformmodifcontrat.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>

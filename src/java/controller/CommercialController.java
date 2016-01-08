@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -296,6 +297,18 @@ public class CommercialController {
         //recup des infos du contrat selectionné
         Video vid = VidBDD.modifcontrat(idContrat);
         
+        request.setAttribute("regselected", vid.getRegions());//recup des régions déjà selectionné correspondant au contrat à modifier
+        request.setAttribute("rayselected", vid.getTyperayons());
+        
+        System.out.println(""+vid.getRegions().size());
+        Set<Region> lt = vid.getRegions();
+        /*lt.stream().forEach((str) -> {
+            System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+        });*/
+        /*for (Region str : lt) {
+	    System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+	}*/
+        
         model.addAttribute("contratselected", vid);
         
         model.addAttribute("datedebut", ConvertToDate(vid.getDateDebut()) );
@@ -377,13 +390,13 @@ public class CommercialController {
         
         //Raccourci la date de validation du contrat à la date courante
         if(dcourante.after(ddebut) || dcourante.equals(ddebut)){
-            System.out.println("Date courant sup ou egale à celle du cntrat");
+            //System.out.println("Date courant sup ou egale à celle du cntrat");
             vid.setDateFin(ConvertToSqlDate(datecourante));
             VidBDD.updComContrat(vid,"annuler");
         }
         else{
             //supprime le contrat si il n'est pas commencé
-            System.out.println("Date courant inf à celle du cntrat");
+            //System.out.println("Date courant inf à celle du cntrat");
             VidBDD.deleteComContrat(idContrat);
         }
         
