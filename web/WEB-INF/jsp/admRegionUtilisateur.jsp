@@ -60,8 +60,77 @@
                 </div>
             </div>
         </div>
-        
+        <div class="container" >
+                <div class="row">
+                    <div class="col-lg-12">
+                        <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
+                                <c:out value=""></c:out>Ajouter</a>
+                            </td>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="table-responsive">          
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="reg" items="${region}">
+                                <tr>
+                                    <td>
+                                        <c:out value="${reg.getLibelle() }"></c:out>
+                                        </td>
+                                        
+                                        <td><a href="/regub/administrateur/modif/${cli.getIdRegion()}" class="btn btn-primary"x>
+                                            <c:out value=""></c:out>Modifier</a>
+                                        </form>
+                                    </td>
+                                    <td><a href="/regub/administrateur/suppr/${cli.getIdRegion()}" class="btn btn-primary"x>
+                                            <c:out value=""></c:out>Supprimer</a>
+                                            
+                                        </td>
+                                    </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
                         <jsp:include page="foot.jsp" />
+                        
+        <!-- Modal Ajouter -->
+        <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Ajouter</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <form id="azerti" role="form" method="post" action="ajoutregion">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Nom*</label>
+                                        <input type="text" name="reg" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                         <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
                         <!-- jQuery -->
                         <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 

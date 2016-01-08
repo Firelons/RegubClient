@@ -5,6 +5,7 @@
  */
 package model.dao;
 import entities.Region;
+import java.util.ArrayList;
 import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
@@ -42,5 +43,35 @@ public class RegionDAO {
             e.printStackTrace();
         }
         return listregion;
+    }
+               public static List<Region> listregion() {
+
+        List<Region> lst = null;
+        //Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Region";
+            Query query = session.createQuery(hql);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //session.close();
+        
+        return lst;
+    }
+       
+    public static List<Region> addRegion(Region reg) {
+         System.out.println("TST:");
+        List<Region> list = new ArrayList<Region>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+            session.beginTransaction();
+            session.save(reg);
+            session.getTransaction().commit();
+            
+       
+        session.close();
+        return list;
     }
 }

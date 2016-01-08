@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
 import model.dao.CompteDAO;
+import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import org.apache.taglibs.standard.functions.Functions;
 import static org.apache.tomcat.jni.OS.random;
@@ -305,4 +306,29 @@ public class AdmController {
         }
         return "error";
     }
+    
+          // traitemant region
+    
+    @RequestMapping(value = "region" ,method = RequestMethod.GET)
+    protected String listeregion(HttpServletRequest request,HttpSession session, Model model) {
+        try {
+            List<Region> regions = RegionDAO.listregion();
+            model.addAttribute("region", regions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admRegionUtilisateur";
+    }
+    
+    @RequestMapping(value = "ajoutregion", method = RequestMethod.POST)
+    public String ajoutregion(HttpServletRequest request,
+            @RequestParam("reg") Region reg, HttpSession session, Model model) {
+       
+        RegionDAO.addRegion(reg);
+           
+        //model.addAttribute("societe", cli.getSociete());
+        listeregion(request, session, model);
+        return "admRegionUtilisateur";
+    }
+    
 }

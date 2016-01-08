@@ -60,7 +60,7 @@ public class Devis {
         net.sf.jasperreports.engine.JasperReport x = null; 
         TableModelData(cli, vid);
         try {
-            x = JasperCompileManager.compileReport("C:/Users/Lons/Documents/NetBeansProjects/RegubClient/reports/devis.jrxml");
+            x = JasperCompileManager.compileReport("resources/reports/devis.jrxml");
             //JasperCompileManager.compileReportToFile("reports/report1.jrxml");
             jasperPrint = JasperFillManager.fillReport(x, parameters,
                     new JRTableModelDataSource(tableModel));
