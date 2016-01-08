@@ -6,9 +6,8 @@
 package controller;
 
 
+import entities.Client;
 import entities.Compte;
-import entities.Magasin;
-import entities.Region;
 import entities.Typecompte;
 import entities.Typerayon;
 import java.io.UnsupportedEncodingException;
@@ -26,8 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
+import model.dao.ClientDAO;
 import model.dao.CompteDAO;
-import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import org.apache.taglibs.standard.functions.Functions;
 import static org.apache.tomcat.jni.OS.random;
@@ -36,6 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +50,10 @@ public class AdmController {
     
     private final AdministrateurDAO auth = new AdministrateurDAO();
     private Compte adm ;
+    private final TypeRayonDAO RayBDD = new TypeRayonDAO();
+
     protected int id = 0;
+
     
    
     // 1- lien GESTION DES COMPTES de la page admAccueil
@@ -68,9 +71,14 @@ public class AdmController {
     }
     
     //  2- lien GESTION DES RAYONS de la page admAccueil
-     @RequestMapping(value = "rayon", method = RequestMethod.POST)
-    protected String rayonAction() {
-        
+     @RequestMapping(value = "rayon", method = RequestMethod.GET)
+    protected String rayonAction(Model model) {
+       try {
+            List<Typerayon> lst = TypeRayonDAO.Rayons();
+            model.addAttribute("rayon", lst);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "typeRayon";   
     }
     
@@ -104,20 +112,7 @@ public class AdmController {
     
      //  bouton ajout de la page magasin
     @RequestMapping(value = "ajoutMagasin")
-    protected String ajoutMagasinAction(HttpServletRequest request, Model model) {
-        try {
-            if(auth.region()!=null){
-                request.setAttribute("regionlist", auth.region());
-                System.out.println(auth.region().get(0).getLibelle());
-            }
-            if(auth.typerayon()!=null){
-                request.setAttribute("trayonlist", auth.typerayon());
-                System.out.println(auth.typerayon().get(0).getLibelle());
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    protected String ajoutMagasinAction(Model model) {
         return "admCreerMagasin";
     }
     
@@ -184,10 +179,7 @@ public class AdmController {
     protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
         return userAction(request, model);
     }
-    @RequestMapping(value = "AnnuleMagasin")
-    protected String annuleMagasinAction(HttpServletRequest request, Model model) {
-        return magasinAction(request, model);
-    }
+    
     
     
     
@@ -211,11 +203,19 @@ public class AdmController {
                System.out.println(formater.format(date));
                
                adm = new Compte(tcpt, nom, prenom, login, mdp, "sel", date );
-               ajout = auth.addCompte(adm);
                
+                /*System.out.println("nom:"+ nom);
+                System.out.println("prenom:"+prenom);
+                System.out.println("login:"+login);
+                System.out.println("mdp:"+mdp);
+                System.out.println("typec:"+typec);
+                System.out.println("date:"+date);*/
+                ajout = auth.addCompte(adm);
+                //System.out.println("ajout:"+ajout); 
+
             }else{
-                String st = "Tous les champs ne sont pas renseignés";
-                    JOptionPane.showMessageDialog(null,st);
+                /*String st = "Tous les champs ne sont pas renseignés";
+                    JOptionPane.showMessageDialog(null,st);*/
                 System.out.println("veuillez renseigner tous les champs");
             }
             return userAction(request, model);   
@@ -227,27 +227,6 @@ public class AdmController {
         return userAction(request, model);
     }
     
-     // traitement de la page creation du magasin  
-    @RequestMapping(value = "CreationMagasin", method = RequestMethod.POST)
-    protected String creationMagasinAction(HttpServletRequest request, Model model, @ModelAttribute("magasin")Magasin magasin){
-       /*String nom = request.getParameter("nom");
-       String rue = request.getParameter("addrLigne1");
-       String complement = request.getParameter("addrLigne2");
-       String codep = request.getParameter("codepostal");
-       String ville = request.getParameter("ville");*/
-       int idregion = Integer.parseInt(request.getParameter("region"));
-       Region R = new Region();
-       R.setIdRegion(idregion);
-        boolean ajout = true;
-        try {
-            magasin.setRegion(R);
-            ajout = auth.addMagasin(magasin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    return magasinAction(request, model);
-    }
-    
     // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
@@ -257,7 +236,7 @@ public class AdmController {
          String prenom = request.getParameter("prenom");
          String login = request.getParameter("login");
          int tcpt = Integer.parseInt(request.getParameter("typecompte"));
-         
+         //int id = auth.selectCompte1(login).getIdCompte();
          Typecompte T = new Typecompte();
          T.setIdTypeCompte(tcpt);
          try {
@@ -271,13 +250,24 @@ public class AdmController {
         }       
         return userAction(request, model);
     }
+   
     
+    
+    
+   
+   
     
     
      // bouton accueil de la navigation
     @RequestMapping(value = "admin")
     protected String retourAction(Model model) {
         return "admAccueil";
+    }
+    @RequestMapping(value = "/regub/administrateur/ajoutrayon", method = RequestMethod.POST)
+    protected String ajoutRayonAction(HttpServletRequest request,
+            @ModelAttribute("rayon") Typerayon ray, HttpSession session, Model model) {
+        RayBDD.addRayon(ray);
+        return "admCreerUtilisateur";
     }
     
    
@@ -306,29 +296,4 @@ public class AdmController {
         }
         return "error";
     }
-    
-          // traitemant region
-    
-    @RequestMapping(value = "region" ,method = RequestMethod.GET)
-    protected String listeregion(HttpServletRequest request,HttpSession session, Model model) {
-        try {
-            List<Region> regions = RegionDAO.listregion();
-            model.addAttribute("region", regions);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "admRegionUtilisateur";
-    }
-    
-    @RequestMapping(value = "ajoutregion", method = RequestMethod.POST)
-    public String ajoutregion(HttpServletRequest request,
-            @RequestParam("reg") Region reg, HttpSession session, Model model) {
-       
-        RegionDAO.addRegion(reg);
-           
-        //model.addAttribute("societe", cli.getSociete());
-        listeregion(request, session, model);
-        return "admRegionUtilisateur";
-    }
-    
 }

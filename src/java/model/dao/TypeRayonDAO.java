@@ -47,4 +47,36 @@ public class TypeRayonDAO {
         return listrayons;
     }
     
+        public static List<Typerayon> Rayons() {
+        
+        
+        List<Typerayon> rayons = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Typerayon as R ";
+            Query query = session.createQuery(hql);
+            rayons = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rayons;
+    }  
+     
+        public boolean addRayon(Typerayon ray){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(ray);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    
+    }
+        
 }

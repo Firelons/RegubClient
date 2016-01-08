@@ -112,9 +112,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-body">
-                            <form id="connectClient" role="form" class="form-signin">
+                            <form id="connectClient" role="form" class="form-signin" method="post" action="/regub/administrateur/ajoutrayon">
                                 <label>Nom type rayon</label>
-                                <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+                                <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom type rayon" value=""required>
                                 <br>
                                 
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
