@@ -26,6 +26,7 @@ import model.dao.ClientDAO;
 import model.dao.CompteDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
+import model.util.Devis;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -74,7 +75,7 @@ public class ClientController {
     
     @RequestMapping(value = "/modifiercontrat", method = RequestMethod.POST)
     protected String DetailVideoAction(HttpSession session, Model model,HttpServletRequest request) {
-        ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        
         
         List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
         List<Region> listregion = RegionDAO.Regionliste();
@@ -103,6 +104,21 @@ public class ClientController {
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+         Set<Region> regions = new HashSet<>();
+         Set<Typerayon> typerayons = new HashSet<>();
+        
+        String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixregion = request.getParameterValues("region");
+        
+        for(int i=0; i< choixrayon.length; i++){
+            typerayons.add(TypeRayonDAO.RayonPrec(choixrayon[i]).get(0));
+            System.out.println(choixrayon[i]);
+        }
+        for(int i=0; i< choixregion.length; i++){
+            regions.add(RegionDAO.RegionPrec(choixregion[i]).get(0));
+           
+            System.out.println(choixregion[i]);
+        }
         
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
@@ -134,6 +150,9 @@ public class ClientController {
         vid.setDateValidation(sdf.parse(datevalidcontrat));
         vid.setStatut(Integer.parseInt(choixstatut));
         vid.setTarif(Double.parseDouble(tarifcontrat));
+        vid.setRegions(regions);
+        vid.setTyperayons(typerayons);
+        
         try {
             this.vidBDD.updCliVideo(vid);
         } catch (Exception e) {
@@ -196,7 +215,7 @@ public class ClientController {
          Set<Region> regions = new HashSet<>();
          Set<Typerayon> typerayons = new HashSet<>();
          
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
         List<Compte> listCompte= CompteDAO.RegionCompte();
@@ -228,7 +247,8 @@ public class ClientController {
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                  sdf.parse(datedebutcontrat),  sdf.parse(datefincontrat), 
                  sdf.parse(daterecepcontrat),  sdf.parse(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut));
+                Double.parseDouble(tarifcontrat),
+                Integer.parseInt(choixstatut));
         
         vid.setRegions(regions);
         vid.setTyperayons(typerayons);
@@ -265,13 +285,16 @@ public class ClientController {
             HttpSession session, 
             Model model) throws IOException {
         
-       
+        Client cli = (Client) session.getAttribute("UserConnected");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Devis devis = new Devis();
+        devis.Consulter(cli,vidBDD.VideoPrec(idvideo).get(0));
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "cliEditContrat";
+        return "redirect:/client";
     }
     
     
