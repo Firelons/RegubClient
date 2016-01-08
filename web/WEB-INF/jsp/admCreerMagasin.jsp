@@ -4,6 +4,7 @@
     Author     : batchanou
 --%>
 
+<%@page import="entities.Typerayon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Region"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -62,77 +63,98 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"> AJOUT</h4>
+                    <h4 class="modal-title" id="myModalLabel">AJOUT</h4>
                 </div>
-                <div class="modal-body">  
-                    <form action="/RegubClient/CreationMagasin" method="post">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <div class="form-group">
-                                    <label>Nom*:</label>
-                                    <input type="text" name="societe" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                <div class="panel-body">  
+                    <form action="CreationMagasin" method="POST" role="form">
+                            <div class="form-group text-center">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>Nom*:</label>
+                                            <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">            
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <label>Rue*:</label>
-                                <div class="form-group">
-                                    <input type="text" name="rue" id="telephone" class="form-control input-sm" placeholder="rue" value="" required>
+                                <div class="row">            
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <label>Rue*:</label>
+                                        <div class="form-group">
+                                            <input type="text" name="addrLigne1" id="telephone" class="form-control input-sm" placeholder="rue" value="" required>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">            
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <label>Complément:</label>
-                                <div class="form-group">
-                                    <input type="text" name="telephone" id="complement" class="form-control input-sm" placeholder="facultatif" value="" required>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <div class="form-group">
-                                    <label>code postal*:</label>
-                                    <input type="text" name="codePostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <div class="form-group">
-                                    <label>Ville*:</label>
-                                    <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-9">
-                                <div class="form-group">
-                                    <label>Région</label>
-                                    <select id="region" class="form-control input-sm" required>
-                                        <%
-                                            ArrayList<Region> list = new ArrayList();
-                                            list = (ArrayList<Region>) request.getAttribute("regionlist");
-                                            for (int i = 0; i < list.size(); i++) {
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>Complément:</label>
+                                            <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="facultatif" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>code postal*:</label>
+                                            <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>Ville*:</label>
+                                            <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
+                                        </div>
+                                    </div>
 
-                                        %>
-                                        <option><%= list.get(i).getLibelle()%></option> 
-                                        <% }%>
-                                    </select>
                                 </div>
-                            </div>
-                        </div>
-                
-                        <input type="submit" value="Enregistrer" class="btn btn-info btn-block">
-                        <a href="annulerMagasin" class="btn btn-default" data-dismiss="modal">Annuler</a>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>Région</label>
+                                            <select id="region" class="form-control input-sm" name="Region" required>
+                                                <option selected>-------------</option>
+                                                <%
+                                                    ArrayList<Region> list = new ArrayList();
+                                                    list = (ArrayList<Region>) request.getAttribute("regionlist");  
+                                                    for(int i=0; i<list.size();i++){
+                                                %>
+
+                                                <option value="<%=list.get(i).getIdRegion() %>"><%= list.get(i).getLibelle() %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                               <!-- <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                        <div class="form-group">
+                                            <label>Type Rayon</label>
+                                            <select id="region" class="form-control input-sm" name="Region" required multiple >
+                                                
+                                                <%
+                                                    ArrayList<Typerayon> rayon = new ArrayList();
+                                                    rayon = (ArrayList<Typerayon>) request.getAttribute("trayonlist");  
+                                                    for(int i=0; i<rayon.size();i++){
+                                                %>
+
+                                                <option value="<%=rayon.get(i).getLibelle() %>"><%= list.get(i).getLibelle() %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                
+                                <br><br><br>
+                                </div>
+                                <input type="submit" value="Enregistrer" class="btn btn-info btn-primary ">
+                    
                     </form>
+                
+                </div>
+                <div class="modal-footer">
+                    <a  href="AnnuleMagasin" class="btn btn-default" data-dismiss="modal">Annuler</a>
                 </div>
             </div>
-
         </div>
-    </div>
 
     <jsp:include page="foot.jsp" />   
     <!-- jQuery -->

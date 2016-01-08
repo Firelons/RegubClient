@@ -7,6 +7,8 @@ package controller;
 
 
 import entities.Compte;
+import entities.Magasin;
+import entities.Region;
 import entities.Typecompte;
 import entities.Typerayon;
 import java.io.UnsupportedEncodingException;
@@ -101,7 +103,20 @@ public class AdmController {
     
      //  bouton ajout de la page magasin
     @RequestMapping(value = "ajoutMagasin")
-    protected String ajoutMagasinAction(Model model) {
+    protected String ajoutMagasinAction(HttpServletRequest request, Model model) {
+        try {
+            if(auth.region()!=null){
+                request.setAttribute("regionlist", auth.region());
+                System.out.println(auth.region().get(0).getLibelle());
+            }
+            if(auth.typerayon()!=null){
+                request.setAttribute("trayonlist", auth.typerayon());
+                System.out.println(auth.typerayon().get(0).getLibelle());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "admCreerMagasin";
     }
     
@@ -168,7 +183,10 @@ public class AdmController {
     protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
         return userAction(request, model);
     }
-    
+    @RequestMapping(value = "AnnuleMagasin")
+    protected String annuleMagasinAction(HttpServletRequest request, Model model) {
+        return magasinAction(request, model);
+    }
     
     
     
@@ -192,19 +210,11 @@ public class AdmController {
                System.out.println(formater.format(date));
                
                adm = new Compte(tcpt, nom, prenom, login, mdp, "sel", date );
+               ajout = auth.addCompte(adm);
                
-                /*System.out.println("nom:"+ nom);
-                System.out.println("prenom:"+prenom);
-                System.out.println("login:"+login);
-                System.out.println("mdp:"+mdp);
-                System.out.println("typec:"+typec);
-                System.out.println("date:"+date);*/
-                ajout = auth.addCompte(adm);
-                //System.out.println("ajout:"+ajout); 
-
             }else{
-                /*String st = "Tous les champs ne sont pas renseignés";
-                    JOptionPane.showMessageDialog(null,st);*/
+                String st = "Tous les champs ne sont pas renseignés";
+                    JOptionPane.showMessageDialog(null,st);
                 System.out.println("veuillez renseigner tous les champs");
             }
             return userAction(request, model);   
@@ -218,16 +228,25 @@ public class AdmController {
     
      // traitement de la page creation du magasin  
     @RequestMapping(value = "CreationMagasin", method = RequestMethod.POST)
-    protected String creationMagasinAction(HttpServletRequest request, Model model){
+    protected String creationMagasinAction(HttpServletRequest request, Model model, @ModelAttribute("magasin")Magasin magasin){
+       /*String nom = request.getParameter("nom");
+       String rue = request.getParameter("addrLigne1");
+       String complement = request.getParameter("addrLigne2");
+       String codep = request.getParameter("codepostal");
+       String ville = request.getParameter("ville");*/
+       int idregion = Integer.parseInt(request.getParameter("region"));
+       Region R = new Region();
+       R.setIdRegion(idregion);
+        boolean ajout = true;
         try {
-            if(auth.region()!=null){
-                request.setAttribute("regionlist", auth.region());
-            }
-            
+            magasin.setRegion(R);
+            ajout = auth.addMagasin(magasin);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     return magasinAction(request, model);
     }
+    
     // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {

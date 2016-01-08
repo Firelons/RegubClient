@@ -58,7 +58,7 @@
                 <div class="header-content-inner">
                     <h1>REGUBClient</h1>
                     <hr>
-                    <p>Bienvenue sur la plateforme Regub dédiée a ses clients</p>
+                    <p>Bienvenue sur la plateforme Regub dédiée à ses clients</p>
                     <button type="button" class="btn btn-primary btn-xl wow tada" data-toggle="modal" data-target="#myModal">
                         S'inscrire
                     </button>
