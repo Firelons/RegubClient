@@ -11,6 +11,9 @@ import entities.Compte;
 import entities.Region;
 import entities.Typerayon;
 import entities.Video;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -40,6 +43,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 
 /**
  *
@@ -234,16 +243,18 @@ public class CommercialController {
     
     //action appelée après saisie des infos dans le formulaire datecourante'ajout datecourante'un contrat
     @RequestMapping("regub/commercial/contrats/comajoutcontrat")
+    @ResponseBody
     public String ajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
-            Model model) throws ParseException, InterruptedException {
+            Model model,
+            @RequestParam("file") MultipartFile file) throws ParseException, InterruptedException {
         
         //Pour pouvoir conserver l'Id du client pour lequel 
         //l'ajout du contrat est fait
         int id = cleclient;
         
-        String [] choixrayon = request.getParameterValues("rayon");
+        /*String [] choixrayon = request.getParameterValues("rayon");
         String [] choixregion = request.getParameterValues("region");
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
@@ -271,7 +282,39 @@ public class CommercialController {
         VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
         
         return listClientAction(request, session, model);
-        
+        */
+        //String namefile = request.getParameter("fichier");
+        //System.out.println(""+namefile);
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+ 
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                System.out.println(""+rootPath+File.separator);
+                System.out.println(""+file.getName());
+                File dir = new File(rootPath + File.separator + "tmpFiles");
+                System.out.println(""+dir.getAbsolutePath());
+                /*if (!dir.exists())
+                    dir.mkdirs(); */
+ 
+                // Create the file on server
+                /*File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + name);
+                
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+                */
+                //return "You successfully uploaded file=" + name;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("You failed to upload ");
+        }
+        return "test";
     }
     
     //By T.serge

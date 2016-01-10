@@ -60,7 +60,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal" ENCTYPE="multipart/form-data">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -139,8 +139,10 @@
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <label class="control-label" >Fichier(Mp4) :</label>
-                                        <!-- filestyle -->
-                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        <!-- filestyle et accept=".mp4"//permet de prendre que des vidéos au format mp4-->
+                                        <!--<input type="file" accept="" class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false" >
+                                        -->
+                                        <input type="file" accept="" name="file">
                                     </div>
                                     <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>
