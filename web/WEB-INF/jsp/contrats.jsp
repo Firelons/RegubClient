@@ -144,7 +144,7 @@
                                             -->
                                             <form method="post" action="modifiercontratcom">
                                                 <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"  class="btn btn-primary">Modifier</button>
+                                                <button type="submit"  class="btn btn-info">Modifier</button>
                                             </form>
                                         </td>
                                         <td>

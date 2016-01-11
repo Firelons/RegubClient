@@ -452,7 +452,7 @@ public class CommercialController {
         return "redirect:/regub/commercial";
     }
     
-    @RequestMapping(value="/deviscom", method = RequestMethod.POST)
+    @RequestMapping(value="regub/commercial/contrats/deviscom", method = RequestMethod.POST)
     //public @ResponseBody
     String devisAction(
             HttpServletRequest request,
@@ -462,32 +462,32 @@ public class CommercialController {
         Client cli = (Client) request.getAttribute("clicom");
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
         Devis devis = new Devis();
-        devis.Consulter(cli,VidBDD.VideoPrec(idvideo).get(0));
+        devis.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0));
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/client";
+        return "redirect:/regub/commercial/contrats";
     }
     
-    @RequestMapping(value="/facturecom", method = RequestMethod.POST)
+    @RequestMapping(value="regub/commercial/contrats/facturecom", method = RequestMethod.POST)
     //public @ResponseBody
     String factureAction(
             HttpServletRequest request,
             HttpSession session, 
             Model model) throws IOException {
         
-        Client cli = (Client) request.getAttribute("clicom");
+        
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
         Facture facture = new Facture();
-        facture.Consulter(cli,VidBDD.VideoPrec(idvideo).get(0));
+        facture.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0));
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/client";
+        return "redirect:/regub/commercial/contrats";
     }
 
 }
