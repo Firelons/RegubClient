@@ -4,6 +4,7 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="entities.Compte"%>
 <%@page import="java.util.Set"%>
 <%@page import="model.dao.TypeRayonDAO"%>
 <%@page import="model.dao.RegionDAO"%>
@@ -16,6 +17,12 @@
 <%@page import="entities.Typerayon"%>
 <%@page import="entities.Region"%>
 <%@page import="model.dao.VideoDAO"%>
+
+<% Compte tcpt = (Compte) session.getAttribute("compteConnected");
+    if (tcpt == null || tcpt.getTypecompte().getIdTypeCompte() != 2) { %>
+<c:redirect url="/regub"/>
+<% }%>
+
 <%
     List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
     List<Region> listregion = RegionDAO.Regionliste(); 
@@ -150,11 +157,13 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-xs-4">
-                                        <label class="control-label" >Fichier(Mp4) :</label>
-                                        <!-- filestyle -->
-                                        <input type="file" class="filestyle" id="fichier" name="" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
-                                    </div>
+                                    <fieldset disabled="true" class="col-xs-4">  
+                                        <div>
+                                            <label class="control-label" >Fichier(Mp4) :</label>
+                                            <!-- filestyle  Choississez un fichier video -->
+                                            <input type="file" class="filestyle" id="fichier" name="" data-placeholder="${contratselected.getTitre()}.mp4" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        </div>
+                                    </fieldset>
                                     <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>
                                         <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif" value="${contratselected.getTarif()}">

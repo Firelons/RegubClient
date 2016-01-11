@@ -393,6 +393,12 @@ public class CommercialController {
         vid.setDateFin(ConvertToSqlDate(datefincontrat));
         //vid.setDateReception(ConvertToSqlDate(daterecepcontrat));
         //vid.setDateValidation(ConvertToSqlDate(datevalidcontrat));
+        if(Integer.parseInt(choixstatut)==1){
+            DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+            Date currentDate = new Date();
+            String datecourante = dateformat.format(currentDate);
+            vid.setDateValidation(ConvertToSqlDate(datecourante));
+        }
         vid.setStatut(Integer.parseInt(choixstatut));
         vid.setTarif(Double.parseDouble(tarifcontrat));
         vid.setRegions(mySetregion);
@@ -400,8 +406,8 @@ public class CommercialController {
 
         //Thread.sleep(2000);
         VidBDD.updComContrat(vid, "modifier");
-
-        return listClientAction(request, session, model);
+        return "redirect:/regub/commercial";
+        //return listClientAction(request, session, model);
     }
 
     @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")

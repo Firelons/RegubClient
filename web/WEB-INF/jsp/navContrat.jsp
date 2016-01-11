@@ -3,6 +3,13 @@
     Created on : 17 nov. 2015, 11:54:12
     Author     : Mesmerus
 --%>
+
+<%@page import="entities.Compte"%>
+<% Compte tcpt = (Compte) session.getAttribute("compteConnected");
+    if (tcpt == null) { %>
+<c:redirect url="/regub"/>
+<% }%>
+
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->

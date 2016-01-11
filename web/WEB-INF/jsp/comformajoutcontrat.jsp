@@ -4,6 +4,7 @@
     Author     : TOUANI Serge
 --%>
 
+<%@page import="entities.Compte"%>
 <%@page import="model.dao.TypeRayonDAO"%>
 <%@page import="model.dao.RegionDAO"%>
 <%@page import="java.util.List"%>
@@ -15,6 +16,12 @@
 <%@page import="entities.Typerayon"%>
 <%@page import="entities.Region"%>
 <%@page import="model.dao.VideoDAO"%>
+
+<% Compte tcpt = (Compte) session.getAttribute("compteConnected");
+    if (tcpt == null || tcpt.getTypecompte().getIdTypeCompte() != 2) { %>
+<c:redirect url="/regub"/>
+<% }%>
+
 <%
     List<Typerayon> listrayon = TypeRayonDAO.Rayonliste();
     List<Region> listregion = RegionDAO.Regionliste();
@@ -68,12 +75,12 @@
                                 <div class="row">
                                     <fieldset disabled="true" class="col-xs-6">
                                         <div>
-                                           <label class="control-label" >Client</label> 
+                                           <label class="control-label" >Client :</label> 
                                            <input type="text" class="form-control" name="client" value="${ajout}">
                                         </div> 
                                     </fieldset>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Frequence(par jour)</label>
+                                        <label class="control-label" >Frequence(par jour) : </label>
                                         <input type="text" class="form-control" id="frequence" name="frequence" placeholder="frequence">
                                     </div>
                                 </div>
@@ -81,11 +88,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Titre</label>
+                                        <label class="control-label" >Titre :</label>
                                         <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Durée(en secondes)</label>
+                                        <label class="control-label" >Durée(en secondes) : </label>
                                         <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
                                     </div>
                                 </div>
@@ -93,7 +100,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Debut</label>
+                                        <label class="control-label" >Date De Debut : </label>
                                         <div class="input-group date" id="datetimedebut">
                                             <input type="text" class="form-control" id="" name="datedebut" placeholder="datedebut">
                                             <span class="input-group-addon">
@@ -102,7 +109,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Reception</label>
+                                        <label class="control-label" >Date De Reception : </label>
                                         <div class="input-group date" id="datetimereception">
                                             <input type="text" class="form-control" id="datereception" name="datereception" placeholder="datereception">
                                             <span class="input-group-addon">
@@ -116,7 +123,7 @@
                                 <div class="row">
                                     
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Fin</label>
+                                        <label class="control-label" >Date De Fin : </label>
                                         <div class="input-group date" id="datetimefin">
                                             <input type="text" class="form-control" id="" name="datefin" placeholder="datefin">
                                             <span class="input-group-addon">
@@ -125,7 +132,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label class="control-label" >Date De Validation</label>
+                                        <label class="control-label" >Date De Validation : </label>
                                         <div class="input-group date" id="datetimevalidation">
                                             <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
                                             <span class="input-group-addon">
@@ -143,7 +150,7 @@
                                         <input type="file" accept=".mp4" class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false" >
                                     </div>
                                     <div class="col-xs-4">
-                                        <label class="control-label" >Tarif</label>
+                                        <label class="control-label" >Tarif :</label>
                                         <input type="text" class="form-control" id="tarif" name="tarif" placeholder="tarif">
                                     </div>
                                     <div class="col-xs-4">
