@@ -11,7 +11,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <% Compte tcpt = (Compte) session.getAttribute("compteConnected");
-    if (tcpt == null) { %>
+    if (tcpt == null || tcpt.getTypecompte().getIdTypeCompte() != 1 ) { %>
 <c:redirect url="/regub"/>
 <% }%>
 

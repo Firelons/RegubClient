@@ -4,6 +4,12 @@
     Author     : loïc
 --%>
 
+<%@page import="entities.Compte"%>
+<% Compte tcpt = (Compte) session.getAttribute("compteConnected");
+    if (tcpt == null) { %>
+<c:redirect url="/regub"/>
+<% }%>
+
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 
             <div class="container-fluid">

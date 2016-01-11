@@ -11,7 +11,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <% Compte tcpt = (Compte) session.getAttribute("compteConnected");
-    if (tcpt == null) { %>
+    if (tcpt == null ) { %>
 <c:redirect url="/regub"/>
 <% }%>
 
@@ -22,7 +22,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>JSP Page</title>
+        <title>Modifier Client</title>
         <!-- Bootstrap Core CSS -->
 
         <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">

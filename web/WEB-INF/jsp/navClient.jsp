@@ -4,6 +4,10 @@
     Author     : Mesmerus
 --%>
 
+<c:if test="${UserConnected==null}">
+    <c:redirect url="accueil"/>
+</c:if>
+
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 
             <div class="container-fluid">
