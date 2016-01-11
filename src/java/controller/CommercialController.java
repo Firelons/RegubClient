@@ -468,7 +468,7 @@ public class CommercialController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/regub/commercial/contrats";
+        return "redirect:/regub/commercial/contrats/1";
     }
     
     @RequestMapping(value="regub/commercial/contrats/facturecom", method = RequestMethod.POST)
@@ -487,7 +487,7 @@ public class CommercialController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/regub/commercial/contrats";
+        return "redirect:/regub/commercial/contrats/1";
     }
 
 }
