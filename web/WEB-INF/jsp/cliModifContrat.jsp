@@ -99,17 +99,19 @@
                                    
                                         
                                         <label class="control-label" >Durée(en secondes)</label>
-                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree" value="${video.getDuree()}">
+                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree" value="${video.getDuree()}" disabled>
                                   
                                         <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
-                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" placeholder="datedebut" value="${video.getDateDebut()}">
+                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" <c:if test="${now ge vid.getDateDebut()}">disabled</c:if> placeholder="datedebut" value="${video.getDateDebut()}">
                                             
                                         </div>
+                                            
+                                             
                                         <label class="control-label" >Date De Reception</label>
                                         <div class="input-group date" id="datetimereception">
-                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception" value="${video.getDateReception()}">
+                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception" value="${video.getDateReception()}" disabled>
                                             
                                         </div>
                                          
@@ -126,12 +128,13 @@
                                         
                                         <label class="control-label" >Date De Validation</label>
                                         <div class="input-group date" id="datetimevalidation">
-                                            <input type="date" class="form-control" id="datevalidation" path="dateValidation" name="dateValidation" placeholder="datevalidation" value="${video.getDateValidation()}">
+                                            <input type="date" class="form-control" id="datevalidation" path="dateValidation" name="dateValidation" placeholder="datevalidation" value="${video.getDateValidation()}" disabled>
                                             
                                         </div>
+                                            
                                         <label class="control-label" >Tarif (à la seconde)</label>
-                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde" value="${video.getTarif()}">
-                                   
+                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde" disabled value="${video.getTarif()}">
+                                        
                                     </div>
                                     <div class="col-xs-6">
                                         
@@ -174,13 +177,13 @@
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statur" value="1" /> Validé
+                                                <input type="radio" name="statur" value="1" disabled  <c:if test="${video.getStatut() == 1}">checked="true"</c:if>/> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="2" checked="true" /> Préparation
+                                                <input type="radio" name="statut" value="2" <c:if test="${video.getStatut() == 2}">checked="true"</c:if>disabled /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="3" /> Annulé
+                                                <input type="radio" name="statut" value="3" <c:if test="${video.getStatut() == 3}">checked="true"</c:if> disabled=""/> Annulé
                                             </label>
                                         </div>
                                         
@@ -191,16 +194,7 @@
                             <div class="form-group">
                                 
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                   
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Montant</label>
-                                        <input type="text" class="form-control"  placeholder="Montant">
-                                    </div>
-                                </div>
-                            </div>
-                             
+                           
                             
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>

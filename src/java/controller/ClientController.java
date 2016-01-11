@@ -17,8 +17,10 @@ import entities.Video;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +54,7 @@ public class ClientController {
     @RequestMapping(value = "/client", method = RequestMethod.GET)
     protected String listVideoAction(HttpSession session, Model model) throws ParseException {
         //Pour désactiver ou activer les boutons de visibilités des factures par Lons
-        SimpleDateFormat sdf= new SimpleDateFormat( "dd/MM/yy" ); 
+        SimpleDateFormat sdf= new SimpleDateFormat( "dd/MM/yyyy" ); 
         java.util.Date date = new java.util.Date(); 
         model.addAttribute("now",sdf.parse(sdf.format(date)));
         
@@ -103,7 +106,12 @@ public class ClientController {
             Model model,
             HttpServletRequest request) throws ParseException, InterruptedException {
         ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
+        SimpleDateFormat sdnow= new SimpleDateFormat( "dd/MM/yy" ); 
+        java.util.Date date = new java.util.Date(); 
+        model.addAttribute("now",sdf.parse(sdf.format(date)));
+        
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
          Set<Region> regions = new HashSet<>();
          Set<Typerayon> typerayons = new HashSet<>();
@@ -216,6 +224,10 @@ public class ClientController {
          Set<Region> regions = new HashSet<>();
          Set<Typerayon> typerayons = new HashSet<>();
          
+         java.util.Date date = new java.util.Date(); 
+        
+        
+         
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         ClientConnecte cl = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         
@@ -247,9 +259,9 @@ public class ClientController {
                 ,listCompte.get(0), titrecontrat, 
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                  sdf.parse(datedebutcontrat),  sdf.parse(datefincontrat), 
-                 sdf.parse(daterecepcontrat),  sdf.parse(datevalidcontrat), 
-                Double.parseDouble(tarifcontrat),
-                Integer.parseInt(choixstatut));
+                 sdf.parse(sdf.format(date)),  sdf.parse(sdf.format(date)), 
+                0,
+                2);
         
         vid.setRegions(regions);
         vid.setTyperayons(typerayons);
@@ -314,6 +326,42 @@ public class ClientController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/client";
+    }
+    
+     @RequestMapping("/annuler")
+    public String annulercontratAction(HttpServletRequest request, HttpSession session) throws ParseException {
+        //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
+        //session.removeAttribute("UserConnected");
+        
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+       
+        
+        Video vid = vidBDD.VideoPrec(idvideo).get(0);
+
+        
+        //System.out.println(""+datedebut);
+        //System.out.println("Con De type Date:"+ddebut);
+
+        Date currentDate = new Date();
+        String datecourante =sdf.format(currentDate);
+        Date dcourante = sdf.parse(datecourante);
+        //System.out.println(""+datecourante);
+        //System.out.println("Cu De type Date:"+dcourante);
+
+        //Raccourci la date de validation du contrat à la date courante
+        if (dcourante.after(vid.getDateDebut()) || dcourante.equals(vid.getDateDebut())) {
+            //System.out.println("Date courant sup ou egale à celle du cntrat");
+            vid.setDateFin(dcourante);
+            this.vidBDD.updComContrat(vid,"annuler");
+        } else {
+            //supprime le contrat si il n'est pas commencé
+            //System.out.println("Date courant inf à celle du cntrat");
+            vidBDD.deleteComContrat(idvideo);
+        }
+
         return "redirect:/client";
     }
     

@@ -116,7 +116,7 @@
                                         </div>
                                         <label class="control-label" >Date De Reception</label>
                                         <div class="input-group date" id="datetimereception">
-                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception">
+                                            <input type="date" class="form-control" id="datereception" path="dateReception" name="dateReception" placeholder="datereception" disabled>
                                             
                                         </div>
                                          
@@ -133,11 +133,11 @@
                                         
                                         <label class="control-label" >Date De Validation</label>
                                         <div class="input-group date" id="datetimevalidation">
-                                            <input type="date" class="form-control" id="datevalidation" path="dateValidation" name="dateValidation" placeholder="datevalidation">
+                                            <input type="date" class="form-control" id="datevalidation" disabled path="dateValidation" name="dateValidation" placeholder="datevalidation">
                                             
                                         </div>
                                         <label class="control-label" >Tarif (à la seconde)</label>
-                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde">
+                                        <input type="text" class="form-control" id="frequence" name="tarif" path="tarif" placeholder="Tarif à la seconde" disabled>
                                    
                                     </div>
                                     <div class="col-xs-6">
@@ -174,17 +174,15 @@
                                         <div>
                                             <!-- "rating" valeur d'attribut name du statut choisi -->
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statur" value="1" /> Validé
+                                                <input type="radio" name="statur" value="1" disabled /> Validé
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="2" checked="true" /> Préparation
+                                                <input type="radio" name="statut" value="2" disabled checked="true" /> Préparation
                                             </label>
                                             <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="3" /> Annulé
+                                                <input type="radio" name="statut" value="3" disabled/> Annulé
                                             </label>
-                                            <label class="radio radio-inline">
-                                                <input type="radio" name="statut" value="3" /> Annulé
-                                            </label>
+                                            
                                         </div>
                                         
                                     </div>
@@ -192,15 +190,7 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <div class="row">
-                                   
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Montant</label>
-                                        <input type="text" class="form-control"  placeholder="Montant">
-                                    </div>
-                                </div>
-                            </div>
+                            
                              
                             
                             <div class="form-group">
