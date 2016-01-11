@@ -237,7 +237,6 @@ public class CommercialController {
 
     //action appelée après saisie des infos dans le formulaire datecourante'ajout datecourante'un contrat
     @RequestMapping("regub/commercial/contrats/comajoutcontrat")
-    @ResponseBody
     public String ajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
@@ -273,42 +272,39 @@ public class CommercialController {
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
         
-        int testid = VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
-        //System.out.println(""+testid);
-        //return listClientAction(request, session, model);
-        return "redirect:/regub/commercial";
-        /*if (!file.isEmpty()) {
+        int videoid = VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video et recup de l'id de l'element qui a été inséré
+        
+        if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
 
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
-                System.out.println(""+rootPath+File.separator);
-                System.out.println(""+file.getOriginalFilename());
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                System.out.println(""+dir.getAbsolutePath());
-                //if (!dir.exists())
-                    //dir.mkdirs();
+                //System.out.println(""+rootPath+File.separator);
+                //System.out.println(""+file.getOriginalFilename());
  
                 // Create the file on server
-                //File serverFile = new File("A:\\test"+ File.separator + file.getOriginalFilename());//ça marche
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
+                //file.getOriginalFilename() permet de recup le nom du fichier original selectionné
+                //Mon chemein de test
+                //File serverFile = new File("A:\\test"+ File.separator + 20 + ".mp4");//ça marche
+                //Chemin officiel du serveur
+                File serverFile = new File(rootPath + File.separator + "webapps"+ File.separator + "manager" 
+                        + File.separator + "videos" + File.separator + videoid + ".mp4");
                 System.out.println(""+serverFile);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
                 
-                //return "You successfully uploaded file=" + name;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("You failed to upload ");
         }
-        return "test";
-        */
+        
+        return "redirect:/regub/commercial";
+        
     }
 
     //By T.serge
