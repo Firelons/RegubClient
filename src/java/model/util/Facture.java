@@ -49,6 +49,9 @@ public class Facture {
     private Map parameters;
     private String [][] data = new String [100][4];
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private int nbrregions=0;
+    private int nbrrayons=0;
+    
      
       public Facture() {
     }
@@ -136,36 +139,42 @@ public class Facture {
         diff=vid.getDateFin().getTime()-vid.getDateDebut().getTime();
 		diffInDays = (int) ((diff) / (1000 * 60 * 60 * 24))+1;
         int i=0;
-        Magasin mare;
+       int  nbrra = 0;
+       int nbrre=0;
         Magasin mara;
          parameters.put("Titre",vid.getTitre());
          parameters.put("Duree",Integer.toString(vid.getDuree()));
          parameters.put("Debut",df.format(vid.getDateDebut()));
          parameters.put("Fin",df.format(vid.getDateFin()));
-         parameters.put("Frequence", Integer.toString(vid.getFrequence()));
+         parameters.put("Frequence", Double.toString(vid.getDiffusionses().size()/diffInDays));
          parameters.put("Tarif",Double.toString(vid.getTarif()));
-         
-         
-         
-         
-         parameters.put("Regions", Integer.toString(vid.getRegions().size()));
-         parameters.put("Rayons",  Integer.toString(vid.getTyperayons().size()));
          
          for(Diffusions dif : liste_diff){
              
                      
-                     data[i][0]=dif.getMagasin().getRegion().getLibelle();
+                    data[i][0]=dif.getMagasin().getRegion().getLibelle();
                     data[i][1]=dif.getMagasin().getNom();
                     data[i][2]=dif.getTyperayon().getLibelle();
                     data[i][3]=dif.getDateDiffusion().toString();
                         this.nombremagasin++;
                         i++;
+                        for(Typerayon tr : listrayon){
+                            if(dif.getTyperayon().getIdTypeRayon()==tr.getIdTypeRayon())
+                                nbrra++;
+                        }
+                        for(Region re : listregion){
+                            if(re.getIdRegion()==dif.getMagasin().getRegion().getIdRegion())
+                                nbrre++;
+                        }
                  }             
            
          for(int k=this.nombremagasin;k<100;k++)
                     for (int j=0;j<4;j++)
                          data[k][j]="";
-
+         /*
+         parameters.put("Regions", Integer.toString(nbrre));
+         parameters.put("Rayons",  Integer.toString(nbrra));
+         */
          parameters.put("Magasins", Integer.toString(vid.getDiffusionses().size()));
          parameters.put("Prix_Unitaire", Double.toString(vid.getTarif()*vid.getDuree()));
          parameters.put("Nombre_Diff", Integer.toString(vid.getDiffusionses().size()));
