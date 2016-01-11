@@ -14,6 +14,9 @@ import entities.Compte;
 import entities.Region;
 import entities.Typerayon;
 import entities.Video;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -204,8 +208,8 @@ public class ClientController {
     String ajoutercontratAction(
             HttpServletRequest request,
             Model model,
-            HttpSession session
-             ) throws ParseException, InterruptedException {
+            HttpSession session,
+            @RequestParam("file") MultipartFile file ) throws ParseException, InterruptedException {
         
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
@@ -254,11 +258,36 @@ public class ClientController {
         vid.setRegions(regions);
         vid.setTyperayons(typerayons);
         
-        if(vidBDD.addcliVideo(vid)){
-            return "redirect:/client";
-          }else{
-            return "cliEditContrat";
+        int i = vidBDD.addcliVideo(vid);
+        
+        if( i !=0){
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+
+                    // Creating the directory to store file
+                    String rootPath = System.getProperty("catalina.home");
+                    
+                    // Create the file on server
+                    //Chemin officiel du serveur
+                    File serverFile = new File(rootPath + File.separator + "webapps"+ File.separator + "manager" 
+                            + File.separator + "videos" + File.separator + i + ".mp4");
+                    System.out.println(""+serverFile);
+                    BufferedOutputStream stream = new BufferedOutputStream(
+                            new FileOutputStream(serverFile));
+                    stream.write(bytes);
+                    stream.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("You failed to upload ");
             }
+            return "redirect:/client";
+        }else{
+            return "cliEditContrat";
+        }
         
     }
     

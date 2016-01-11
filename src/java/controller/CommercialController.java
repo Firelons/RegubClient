@@ -265,10 +265,14 @@ public class CommercialController {
         Client client = ClientDAO.Charge(id).get(0);
         Compte comcompt = (Compte)session.getAttribute("compteConnected");
         
+        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        Date currentDate = new Date();
+        String datecourante = dateformat.format(currentDate);
+        
         Video vid = new Video(client, comcompt, titrecontrat, 
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datecourante), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
         
@@ -317,14 +321,14 @@ public class CommercialController {
 
     //By T.serge
     //Action exec lorsk un com modifie un contrat datecourante'un client
-    @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
+    @RequestMapping(value="regub/commercial/contrats/modifiercontratcom", method = RequestMethod.POST)
     String formmodifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
-            Model model,
-            @PathVariable("id") Integer idContrat) {
+            Model model) {
 
         Client lst = ClientDAO.getClient(cleclient);
+        int idContrat = Integer.parseInt(request.getParameter("idvideo"));
         clecontrat = idContrat;
 
         //recup des infos du contrat selectionné
@@ -353,7 +357,7 @@ public class CommercialController {
 
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
-
+        
         return "comformmodifiercontrat";
     }
 
@@ -410,10 +414,11 @@ public class CommercialController {
         //return listClientAction(request, session, model);
     }
 
-    @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
-    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) throws ParseException {
+    @RequestMapping(value="regub/commercial/contrats/annulercontratcom", method = RequestMethod.POST)
+    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model) throws ParseException {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
+        int idContrat = Integer.parseInt(request.getParameter("idvideo"));
         DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 
         Video vid = VidBDD.modifcontrat(idContrat);
@@ -440,7 +445,8 @@ public class CommercialController {
             VidBDD.deleteComContrat(idContrat);
         }
 
-        return listClientAction(request, session, model);
+        //return listClientAction(request, session, model);
+        return "redirect:/regub/commercial";
     }
 
 }

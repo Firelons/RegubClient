@@ -129,11 +129,22 @@
                                             <c:out value=""></c:out>Voir</a>
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
-                                            <c:out value=""></c:out>Modifier</a>
+                                            <!--<a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
+                                            
+                                            -->
+                                            <form method="post" action="modifiercontratcom">
+                                                <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"  class="btn btn-primary">Modifier</button>
+                                            </form>
                                         </td>
-                                        <td><a href="/RegubClient/regub/commercial/contrats/annulercontrat/${vid.getIdVideo()}" class="btn btn-primary">
-                                            <c:out value=""></c:out>Annuler</a>
+                                        <td>
+                                            <!--<a href="/RegubClient/regub/commercial/contrats/annulercontrat/${vid.getIdVideo()}" class="btn btn-primary">
+                                            <c:out value=""></c:out></a>
+                                            -->
+                                            <form method="post" action="annulercontratcom">
+                                                <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"  class="btn btn-primary">Annuler</button>
+                                            </form>
                                         
                                     </td>
                                 </tr>
