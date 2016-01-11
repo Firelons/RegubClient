@@ -122,11 +122,21 @@
                                             </c:out>
                                         </c:if>
                                     </td>
-                                    <td><a href="#" class="btn btn-primary">
-                                            <c:out value=""></c:out>Voir</a>
+                                    <td>
+                                            <form method="post" action="deviscom">
+                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                        <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                            <button type="submit"  class="btn btn-info">Voir</button>
+                                                </form>
+                                           
                                         </td>
-                                        <td><a href="#" class="btn btn-info">
-                                            <c:out value=""></c:out>Voir</a>
+                                        <td>
+                                            <form method="post" action="facturecom">
+                                                <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"   class="btn btn-primary">Voir</button>
+                                                </form>                                          
+                                            
                                         </td>
                                         <td><!-- <a href="#" class="btn btn-primary"> -->
                                             <a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">

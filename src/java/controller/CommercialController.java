@@ -13,6 +13,7 @@ import entities.Video;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -33,6 +34,8 @@ import model.dao.CompteDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import model.dao.VideoDAO;
+import model.util.Devis;
+import model.util.Facture;
 import model.util.sendEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -441,6 +444,44 @@ public class CommercialController {
         }
 
         return listClientAction(request, session, model);
+    }
+    
+    @RequestMapping(value="/deviscom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String devisAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+        Client cli = (Client) request.getAttribute("clicom");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Devis devis = new Devis();
+        devis.Consulter(cli,VidBDD.VideoPrec(idvideo).get(0));
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/client";
+    }
+    
+    @RequestMapping(value="/facturecom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String factureAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+        Client cli = (Client) request.getAttribute("clicom");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Facture facture = new Facture();
+        facture.Consulter(cli,VidBDD.VideoPrec(idvideo).get(0));
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/client";
     }
 
 }
