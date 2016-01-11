@@ -27,6 +27,7 @@ import model.dao.CompteDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import model.util.Devis;
+import model.util.Facture;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -297,6 +298,24 @@ public class ClientController {
         return "redirect:/client";
     }
     
+    @RequestMapping(value="/facture", method = RequestMethod.POST)
+    //public @ResponseBody
+    String factureAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+        Client cli = (Client) session.getAttribute("UserConnected");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Facture facture = new Facture();
+        facture.Consulter(cli,vidBDD.VideoPrec(idvideo).get(0));
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/client";
+    }
     
 
 }
