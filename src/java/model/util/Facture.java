@@ -181,8 +181,6 @@ public class Facture {
          parameters.put("Duree_Diff", Double.toString(diffInDays));
          parameters.put("montant",Double.toString(vid.getTarif()*vid.getDuree()*vid.getDiffusionses().size()));    
         
-    }
-   
-    
+    }    
 }
 

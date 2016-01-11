@@ -76,7 +76,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>modifier</th>
+                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Devis</th><th>Facture</th><th>Modifier</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,14 +111,14 @@
                                         <td>
                                             <form method="post" action="devis">
                                                     <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                 <button type="submit" <c:if test="${now lt vid.getDateFin()}">disabled</c:if> class="btn btn-info">Voir</button>
+                                                 <button type="submit" <c:if test="${ vid.getTarif()==0}">disabled</c:if> class="btn btn-info">Voir</button>
                                                 </form>
                                            
                                         </td>
                                         <td>
                                             <form method="post" action="facture">
                                                     <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"  class="btn btn-primary">Voir</button>
+                                                <button type="submit"  <c:if test="${now lt vid.getDateFin()}">disabled</c:if> class="btn btn-primary">Voir</button>
                                                 </form>                                          
                                             
                                         </td>
@@ -126,11 +126,17 @@
                                         <td>
                                                 <form method="post" action="modifiercontrat">
                                                     <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"  class="btn btn-primary">Modifier</button>
+                                                <button type="submit"  class="btn btn-info">Modifier</button>
                                                 </form>                                          
-                                            
-                                        
+
                                         </td>
+                                        <td>
+                                            <form method="post" action="annuler">
+                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"  class="btn btn-primary" <c:if test="${now gt vid.getDateFin()}">disabled</c:if>>Annuler</button>
+                                                </form> 
+                                        
+                                    </td>
                                     </tr>
                             </c:forEach>
                         </tbody>
