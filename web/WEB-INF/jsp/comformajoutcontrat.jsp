@@ -140,9 +140,9 @@
                                     <div class="col-xs-4">
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle et accept=".mp4"//permet de prendre que des vidéos au format mp4-->
-                                        <!--<input type="file" accept="" class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false" >
-                                        -->
-                                        <input type="file" accept="" name="file">
+                                        <input type="file" accept="" class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false" >
+                                        
+                                        <!-- <input type="file" accept="" name="file"> -->
                                     </div>
                                     <div class="col-xs-4">
                                         <label class="control-label" >Tarif</label>

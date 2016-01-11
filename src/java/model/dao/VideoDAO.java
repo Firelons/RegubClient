@@ -55,17 +55,20 @@ public class VideoDAO {
     
     //By T.serge
     //Methode effectuant l'insertion d'un contrat effectué par le com pour un client
-    public void addComContrat(Video vid) {
+    public int addComContrat(Video vid) {
         //System.out.println("TST: ouverture session");
+        int testid = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            session.save(vid);
+            testid = (int) session.save(vid);
             session.getTransaction().commit();
+            return testid;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
+        return testid;
         //HibernateUtil.getSessionFactory().close();
         //System.out.println("TST: fermeture session");
     }

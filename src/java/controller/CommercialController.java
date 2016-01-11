@@ -254,7 +254,7 @@ public class CommercialController {
         //l'ajout du contrat est fait
         int id = cleclient;
         
-        /*String [] choixrayon = request.getParameterValues("rayon");
+        String [] choixrayon = request.getParameterValues("rayon");
         String [] choixregion = request.getParameterValues("region");
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
@@ -279,34 +279,33 @@ public class CommercialController {
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
         
-        VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
-        
-        return listClientAction(request, session, model);
-        */
-        //String namefile = request.getParameter("fichier");
-        //System.out.println(""+namefile);
-        if (!file.isEmpty()) {
+        int testid = VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video
+        //System.out.println(""+testid);
+        //return listClientAction(request, session, model);
+        return "redirect:/regub/commercial";
+        /*if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
  
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
                 System.out.println(""+rootPath+File.separator);
-                System.out.println(""+file.getName());
+                System.out.println(""+file.getOriginalFilename());
                 File dir = new File(rootPath + File.separator + "tmpFiles");
                 System.out.println(""+dir.getAbsolutePath());
-                /*if (!dir.exists())
-                    dir.mkdirs(); */
+                //if (!dir.exists())
+                    //dir.mkdirs();
  
                 // Create the file on server
-                /*File serverFile = new File(dir.getAbsolutePath()
+                //File serverFile = new File("A:\\test"+ File.separator + file.getOriginalFilename());//ça marche
+                File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + name);
-                
+                System.out.println(""+serverFile);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                */
+                
                 //return "You successfully uploaded file=" + name;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -315,6 +314,7 @@ public class CommercialController {
             System.out.println("You failed to upload ");
         }
         return "test";
+        */
     }
     
     //By T.serge
