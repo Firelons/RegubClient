@@ -8,6 +8,7 @@ package controller;
 
 import entities.Client;
 import entities.Compte;
+import entities.Magasin;
 import entities.Region;
 import entities.Typecompte;
 import entities.Typerayon;
@@ -29,6 +30,7 @@ import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.MagasinDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import org.apache.taglibs.standard.functions.Functions;
@@ -350,5 +352,21 @@ public class AdmController {
         listeregion(model);
         return "redirect:/region";
     }
-
+   
+    @RequestMapping(value = "supprimerregion-{id}", method = RequestMethod.GET)
+    public String deleteregion(HttpServletRequest request, HttpSession session, Model model, Region reg, @PathVariable("id") Integer IdRegion) {
+        regBDD.deleteRegion(IdRegion);
+        return "redirect:/region";
+    }
+    
+    @RequestMapping(value = "magasinsregion-{id}", method = RequestMethod.GET)
+    public String listmagasins(HttpServletRequest request, HttpSession session, Model model, Region reg, @PathVariable("id") Integer IdRegion) {
+         Compte cpt = (Compte) session.getAttribute("AdministrateurConnected");
+        List<Magasin> listmagasins = MagasinDAO.getmagasins(IdRegion);
+        model.addAttribute("magasins",listmagasins);
+        Region region = RegionDAO.getRegion(IdRegion);
+        String nameregion = region.getLibelle();
+         model.addAttribute("nomregion",nameregion);
+        return "admMagasinsRegion";
+    }
 }

@@ -6,6 +6,7 @@
 package model.util;
 
 import entities.Client;
+import entities.Diffusions;
 import entities.Entreprise;
 import entities.Magasin;
 import entities.Region;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -40,30 +42,31 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Lons
  */
-public class Devis {
+public class Facture {
     
     private int nombremagasin=0;
     DefaultTableModel tableModel;
     private Map parameters;
-    private String [][] data = new String [100][3];
+    private String [][] data = new String [100][4];
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private int nbrregions=0;
+    private int nbrrayons=0;
+    
      
-      public Devis() {
+      public Facture() {
     }
 
     public  void Consulter(Client cli, Video vid) throws IOException {
         String curDir = System.getProperty("user.dir");
     System.out.println ("Le répertoire courant est: "+curDir);
       
-
-
-        
+     
        
         JasperPrint jasperPrint = null;
         net.sf.jasperreports.engine.JasperReport x = null; 
         TableModelData(cli, vid);
         try {
-            x = JasperCompileManager.compileReport("C:/Users/Lons/Documents/NetBeansProjects/RegubClient/reports/devis.jrxml");
+            x = JasperCompileManager.compileReport("C:/Users/Lons/Documents/NetBeansProjects/RegubClient/reports/facture.jrxml");
             //JasperCompileManager.compileReportToFile("reports/report1.jrxml");
             jasperPrint = JasperFillManager.fillReport(x, parameters,
                     new JRTableModelDataSource(tableModel));
@@ -85,7 +88,7 @@ public class Devis {
             
          
         
-        String[] columnNames = {"Nom", "Adresse", "Code"};
+        String[] columnNames = {"Nom", "Adresse", "Code", "Diffusions"};
         String[][] data = {{"test"},{"test"},{"test"}
             //Pour le client
         };
@@ -129,52 +132,55 @@ public class Devis {
          
         List<Typerayon> listrayon = VideoDAO.RayonSelect(vid);
         List<Region> listregion = VideoDAO.RegionSelect(vid);
+        Set<Diffusions> liste_diff ;
+        liste_diff = (Set) vid.getDiffusionses();
         long diff;
         int diffInDays;
         diff=vid.getDateFin().getTime()-vid.getDateDebut().getTime();
 		diffInDays = (int) ((diff) / (1000 * 60 * 60 * 24))+1;
         int i=0;
-        Magasin mare;
+       int  nbrra = 0;
+       int nbrre=0;
         Magasin mara;
          parameters.put("Titre",vid.getTitre());
          parameters.put("Duree",Integer.toString(vid.getDuree()));
          parameters.put("Debut",df.format(vid.getDateDebut()));
          parameters.put("Fin",df.format(vid.getDateFin()));
-         parameters.put("Frequence", Integer.toString(vid.getFrequence()));
+         parameters.put("Frequence", Double.toString(vid.getDiffusionses().size()/diffInDays));
          parameters.put("Tarif",Double.toString(vid.getTarif()));
          
-         
-         
-         
-         parameters.put("Regions", Integer.toString(vid.getRegions().size()));
-         parameters.put("Rayons", Integer.toString(vid.getTyperayons().size()));
-         
-         for(Typerayon ra : listrayon){
-             for(Region re : listregion){
-                 ra.getMagasins().iterator().next();
-                 mare = (Magasin) re.getMagasins().iterator().next();
-                 mara = (Magasin) ra.getMagasins().iterator().next();
-                 if(mara.getIdMagasin()==mare.getIdMagasin()){
+         for(Diffusions dif : liste_diff){
+             
                      
-                     data[i][0]=re.getLibelle();
-                    data[i][1]=mara.getNom();
-                    data[i][2]=ra.getLibelle();
+                    data[i][0]=dif.getMagasin().getRegion().getLibelle();
+                    data[i][1]=dif.getMagasin().getNom();
+                    data[i][2]=dif.getTyperayon().getLibelle();
+                    data[i][3]=dif.getDateDiffusion().toString();
                         this.nombremagasin++;
                         i++;
+                        for(Typerayon tr : listrayon){
+                            if(dif.getTyperayon().getIdTypeRayon()==tr.getIdTypeRayon())
+                                nbrra++;
+                        }
+                        for(Region re : listregion){
+                            if(re.getIdRegion()==dif.getMagasin().getRegion().getIdRegion())
+                                nbrre++;
+                        }
                  }             
-            }
-         }
+           
          for(int k=this.nombremagasin;k<100;k++)
-                    for (int j=0;j<3;j++)
+                    for (int j=0;j<4;j++)
                          data[k][j]="";
-
-         parameters.put("Magasins", Integer.toString(this.nombremagasin));
+         /*
+         parameters.put("Regions", Integer.toString(nbrre));
+         parameters.put("Rayons",  Integer.toString(nbrra));
+         */
+         parameters.put("Magasins", Integer.toString(vid.getDiffusionses().size()));
          parameters.put("Prix_Unitaire", Double.toString(vid.getTarif()*vid.getDuree()));
-         parameters.put("Nombre_Diff", Double.toString(diffInDays*vid.getFrequence()*this.nombremagasin));
+         parameters.put("Nombre_Diff", Integer.toString(vid.getDiffusionses().size()));
          parameters.put("Duree_Diff", Double.toString(diffInDays));
-         parameters.put("montant", Double.toString(vid.getFrequence() * vid.getDuree()* vid.getTarif() * diffInDays*this.nombremagasin));    
-         
-
+         parameters.put("montant",Double.toString(vid.getTarif()*vid.getDuree()*vid.getDiffusionses().size()));    
+        
     }
    
     

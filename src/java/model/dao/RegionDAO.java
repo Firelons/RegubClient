@@ -91,7 +91,7 @@ public class RegionDAO {
         return null;
     }
      
-      public  Region getRegion(Integer IdRegion) {
+      public static Region getRegion(Integer IdRegion) {
 
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -104,5 +104,23 @@ public class RegionDAO {
 
         return null;
     }
+    
+      
+      public boolean deleteRegion(Integer idReg) {
 
+        List<Region> list = new ArrayList<Region>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Region suppreg = (Region) session.load(Region.class, idReg);
+            session.beginTransaction();
+            session.delete(suppreg);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false;
+    }
 }
