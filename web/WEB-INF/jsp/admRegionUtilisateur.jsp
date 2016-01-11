@@ -88,7 +88,12 @@
                                         <c:out value=""></c:out>Modifier</a>
 
                                     </td>
-                                    <td><a href="supprimerregion-${reg.getIdRegion()}" class="btn btn-primary"x>
+                                    
+                                    <td><a href="magasinsregion-${reg.getIdRegion()}" <c:if test="${empty reg.getMagasins() }">disabled </c:if>  class="btn btn-info"x>
+                                        <c:out value=""></c:out>Magasins</a>
+
+                                    </td>
+                                    <td><a href="supprimerregion-${reg.getIdRegion()}" <c:if test="${!empty reg.getMagasins() }">disabled </c:if>  class="btn btn-primary"x>
                                         <c:out value=""></c:out>Supprimer</a>
 
                                     </td>
