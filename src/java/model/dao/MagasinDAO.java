@@ -33,4 +33,19 @@ public class MagasinDAO {
         }
         return listMag;
     }
+
+    public static List<Magasin> getmagasins(int id) {
+         List<Magasin> lst = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Magasin as mag where mag.region.idRegion =?";
+            Query query = session.createQuery(hql);
+            query.setParameter(0, id);
+            lst = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //session.close();
+        return lst; 
+    }
 }
