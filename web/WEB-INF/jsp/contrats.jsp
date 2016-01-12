@@ -94,13 +94,27 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif</th><th>Statut(Contrat)</th><th>Devis</th><th>Facture</th>
+                                <th>Statut(Contrat)</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif</th><th>Devis</th><th>Facture</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${video}">
                                 <%%>
                                 <tr>
+                                     <td>
+                                        <c:if test="${vid.getStatut()==1}">
+                                            <c:out value="Validé">
+                                            </c:out>
+                                        </c:if>
+                                        <c:if test="${vid.getStatut()==2}">
+                                            <c:out value="En preparation">
+                                            </c:out>
+                                        </c:if>
+                                        <c:if test="${vid.getStatut()==3}">
+                                            <c:out value="Annulé">
+                                            </c:out>
+                                        </c:if>
+                                    </td>
                                     <td>
                                         <c:out value="${vid.getTitre()}"></c:out>
                                         </td>
@@ -116,20 +130,7 @@
                                         <td>
                                         <c:out value="${vid.getTarif()}"></c:out>
                                         </td>
-                                        <td>
-                                        <c:if test="${vid.getStatut()==1}">
-                                            <c:out value="Validé">
-                                            </c:out>
-                                        </c:if>
-                                        <c:if test="${vid.getStatut()==2}">
-                                            <c:out value="En preparation">
-                                            </c:out>
-                                        </c:if>
-                                        <c:if test="${vid.getStatut()==3}">
-                                            <c:out value="Annulé">
-                                            </c:out>
-                                        </c:if>
-                                    </td>
+                                       
                                     <td>
                                         <form method="post" action="deviscom">
                                             <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
