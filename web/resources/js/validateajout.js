@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-$('#sub').click(function(){
+/*$('#sub').click(function(){
     $('p.erreur-form').html("Veuillez renseigner les champs");
 });
-
+*/
 $('#frequence').blur(function(){
     if(this.value.trim() ===""){
         $('p.erreur-form').html("Vous devez fournir une frequence");
