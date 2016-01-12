@@ -19,7 +19,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">REGUBClient</a>
+                    <a class="navbar-brand page-scroll" href="/RegubClient/">REGUBClient</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
