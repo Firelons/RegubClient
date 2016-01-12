@@ -198,7 +198,7 @@
                             
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
-                                <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
+                                <a href="/RegubClient/client" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
                         </form>    

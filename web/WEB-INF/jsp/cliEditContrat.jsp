@@ -81,7 +81,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
+                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid" ENCTYPE="multipart/form-data">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -102,7 +102,7 @@
                                     
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle -->
-                                        <input type="file" class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        <input type="file" accept=".mp4"class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
                                    
                                         
                                         <label class="control-label" >Durée(en secondes)</label>
@@ -195,7 +195,7 @@
                             
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
-                                <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
+                                <a href="/RegubClient/client" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
                         </form>    

@@ -58,7 +58,7 @@ function validateComFormulaireAjoutContrat() {
     var x11 = document.forms["ComFormulaireAjoutContrat"]["tarif"].value;
     var x12 = document.forms["ComFormulaireAjoutContrat"]["duree"].value;
     
-    /*if (x1 === null || x1 === "") {
+    if (x1 === null || x1 === "") {
         $('p.erreur-form').html("Vous devez fournir un titre");
         return false;
     }
@@ -76,7 +76,7 @@ function validateComFormulaireAjoutContrat() {
         return false;
     }
     
-    /*if (x12 === null || x12 === "") {
+    if (x12 === null || x12 === "") {
         $('p.erreur-form').html("Vous devez fournir une durée");
         return false;
     }
@@ -126,9 +126,9 @@ function validateComFormulaireAjoutContrat() {
     if (x9 === null || x9 === "") {
         $('p.erreur-form').html("Vous devez choisir un statut");
         return false;
-    }*/
+    }
     
-    /*if (x10 === null || x10 === "") {
+    if (x10 === null || x10 === "") {
         $('p.erreur-form').html("Vous devez choisir une ou plusieurs regions");
         return false;
     }
@@ -141,6 +141,6 @@ function validateComFormulaireAjoutContrat() {
         $('p.erreur-form').html("Le tarif doit être un chiffe ou un nombre");
         return false;
     }
-     */
+     
     
 }

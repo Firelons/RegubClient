@@ -106,6 +106,8 @@
                                         <c:out value="${vid.getDateDebut()}"></c:out>
                                         </td>
                                         <td>
+                                            <fmt:parseDate value="${vid.getDateFin()}" var="parsedDateFin" 
+                              pattern="dd-MM-yyyy" />
                                         <c:out value="${vid.getDateFin()}"></c:out>
                                         </td>
                                         <td>
