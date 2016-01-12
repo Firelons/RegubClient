@@ -77,7 +77,8 @@ public class Facture {
             //JasperViewer jasperViewer = new JasperViewer(jasperPrint);
             //jasperViewer.setVisible(true);
           
-           JasperViewer.viewReport(jasperPrint, false);
+           //JasperViewer.viewReport(jasperPrint, false);
+           
             OutputStream output = new FileOutputStream(new File(appPath+"\\resources\\reports\\facture.pdf"));
             JasperExportManager.exportReportToPdfStream(jasperPrint, output);
         } catch (JRException ex) {

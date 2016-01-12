@@ -74,7 +74,7 @@ public class Devis {
             //JasperViewer jasperViewer = new JasperViewer(jasperPrint);
             //jasperViewer.setVisible(true);
 
-            JasperViewer.viewReport(jasperPrint, false);
+            //JasperViewer.viewReport(jasperPrint, false);
 
             OutputStream output = new FileOutputStream(new File(appPath+"\\resources\\reports\\devis.pdf"));
             JasperExportManager.exportReportToPdfStream(jasperPrint, output);
