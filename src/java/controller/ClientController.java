@@ -290,10 +290,10 @@ public class ClientController {
                     File serverFile = new File(rootPath + File.separator + "webapps"+ File.separator + "manager" 
                             + File.separator + "videos" + File.separator + i + ".mp4");
                     System.out.println(""+serverFile);
-                    BufferedOutputStream stream = new BufferedOutputStream(
-                            new FileOutputStream(serverFile));
-                    stream.write(bytes);
-                    stream.close();
+                    try (BufferedOutputStream stream = new BufferedOutputStream(
+                            new FileOutputStream(serverFile))) {
+                        stream.write(bytes);
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
