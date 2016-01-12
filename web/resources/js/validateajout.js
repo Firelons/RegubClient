@@ -8,6 +8,8 @@
     $('p.erreur-form').html("Veuillez renseigner les champs");
 });
 */
+
+/*
 $('#frequence').blur(function(){
     if(this.value.trim() ===""){
         $('p.erreur-form').html("Vous devez fournir une frequence");
@@ -18,3 +20,4 @@ $('#frequence').blur(function(){
     }
    //alert(this.prop3il); 
 });
+*/

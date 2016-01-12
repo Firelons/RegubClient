@@ -69,7 +69,7 @@
                     <div class="panel-body">
                         <!-- /RegubClient/regub/commercial/contrats/  return ( validateComFormulaireAjoutContrat() ); -->
                         <form id="FormulaireAjout" name="FormulaireAjout" method="post" action="comajoutcontrat" 
-                            role="form" class="form-horizontal" onsubmit="" ENCTYPE="multipart/form-data">
+                            role="form" class="form-horizontal" onsubmit="return ( validateComFormulaireAjoutContrat() );" ENCTYPE="multipart/form-data">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
