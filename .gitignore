@@ -3,3 +3,4 @@
 build.xml
 /dist/
 /build/
+src/java/hibernate.cfg.xml

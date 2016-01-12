@@ -199,6 +199,23 @@ public class AdministrateurDAO {
         session.close();
         return null;
     }
+    public Magasin selectMagasin(int id){
+         ArrayList<Magasin> list = new ArrayList<Magasin>();
+
+        try {
+            this.session = HibernateUtil.getSessionFactory().openSession();
+            Query query = session.createQuery("from Magasin as mag where mag.idMagasin=?");
+            query.setParameter(0, id);
+            list = (ArrayList<Magasin>) query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if ((list.size() > 0)) {
+            return list.get(0);
+        }
+        session.close();
+        return null;
+    }
     
     public Compte selectCompte1(String log){
          ArrayList<Compte> list = new ArrayList<Compte>();
@@ -245,6 +262,23 @@ public class AdministrateurDAO {
         
         return false;
     }
+    public boolean updateMagasin(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            session.beginTransaction();
+           
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println("dans le catch");
+            e.printStackTrace();
+        }
+        session.close();
+        //HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    }
     
     public boolean deleteCompte(Integer id){
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -252,6 +286,22 @@ public class AdministrateurDAO {
             Compte cpt = (Compte)session.load(Compte.class, id);
             session.beginTransaction();
             session.delete(cpt);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+       HibernateUtil.getSessionFactory().close();
+        
+        return false;
+    }
+     public boolean deleteMagasin(Integer id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Magasin mag = (Magasin)session.load(Magasin.class, id);
+            session.beginTransaction();
+            session.delete(mag);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {

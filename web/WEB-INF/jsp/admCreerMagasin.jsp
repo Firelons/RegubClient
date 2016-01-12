@@ -4,6 +4,7 @@
     Author     : batchanou
 --%>
 
+<%@page import="entities.Compte"%>
 <%@page import="entities.Typerayon"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.Region"%>
@@ -11,6 +12,15 @@
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    Compte tcpt = (Compte)session.getAttribute("compteConnected");
+    if(tcpt==null){ %>
+    <c:redirect url="/regub"/>
+    <% }else if(tcpt.getTypecompte().getIdTypeCompte()!=1){ %>
+    <c:redirect url="/regub"/>
+    }%>
+
+<% }%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,18 +68,20 @@
                     <hr class="primary">
                 </div>
             </div>
-        </div>
+        </div> <!-- Modal ajout -->
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">AJOUT</h4>
                 </div>
-                <div class="panel-body">  
+                <div class="panel-body col-lg-12">  
                     <form action="CreationMagasin" method="POST" role="form">
-                            <div class="form-group text-center">
+                        <div class="">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group ">
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label>Nom*:</label>
                                             <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value=""required>
@@ -77,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="row">            
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <label>Rue*:</label>
                                         <div class="form-group">
                                             <input type="text" name="addrLigne1" id="telephone" class="form-control input-sm" placeholder="rue" value="" required>
@@ -86,19 +98,19 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label>Complément:</label>
-                                            <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="facultatif" value="">
+                                            <input type="text" name="addrLigne2" id="ligne2" class="form-control input-sm" placeholder="facultatif" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label>code postal*:</label>
                                             <input type="text" name="codepostal" id="codepostal" class="form-control input-sm" placeholder="code postal" value="" required>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label>Ville*:</label>
                                             <input type="text" name="ville" id="ville" class="form-control input-sm" placeholder="ville" value="" required>
@@ -107,11 +119,11 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <label>Région</label>
-                                            <select id="region" class="form-control input-sm" name="Region" required>
-                                                <option selected>-------------</option>
+                                            <label>Région*:</label>
+                                            <select id="region" class="form-control input-sm" name="Region" placeholder="region" value="" required>
+                                                <option value="" hidden selected>--------------</option>
                                                 <%
                                                     ArrayList<Region> list = new ArrayList();
                                                     list = (ArrayList<Region>) request.getAttribute("regionlist");  
@@ -120,33 +132,34 @@
 
                                                 <option value="<%=list.get(i).getIdRegion() %>"><%= list.get(i).getLibelle() %></option>
                                                 <% } %>
-                                            </select>
+                                            </select> <br>
                                         </div>
                                     </div>
                                 </div>
-                               <!-- <div class="row">
-                                    <div class="col-xs-6 col-sm-6 col-md-9">
+                                
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label>Type Rayon</label>
-                                            <select id="region" class="form-control input-sm" name="Region" required multiple >
+                                            <select id="typereyon" class="form-control input-sm" name="typerayon" size="18" multiple required  >
                                                 
                                                 <%
-                                                    ArrayList<Typerayon> rayon = new ArrayList();
+                                                    ArrayList<Typerayon> rayon = new ArrayList<Typerayon>();
                                                     rayon = (ArrayList<Typerayon>) request.getAttribute("trayonlist");  
                                                     for(int i=0; i<rayon.size();i++){
                                                 %>
 
-                                                <option value="<%=rayon.get(i).getLibelle() %>"><%= list.get(i).getLibelle() %></option>
+                                                <option value="<%=rayon.get(i).getLibelle() %>"><%= rayon.get(i).getLibelle() %></option>
                                                 <% } %>
                                             </select>
+                                            
                                         </div>
-                                    </div>
-                                </div>-->
-                                
-                                <br><br><br>
+                            </div> 
+                            </div> <br>
+                                <div class=" col-xs-12 col-sm-12 col-md-12  text-center">
+                                    <input type="submit" value="Enregistrer" class="btn btn-info btn-primary col-md-8" >
                                 </div>
-                                <input type="submit" value="Enregistrer" class="btn btn-info btn-primary ">
-                    
                     </form>
                 
                 </div>

@@ -8,7 +8,6 @@ package controller;
 
 import entities.Client;
 import entities.Compte;
-import entities.Entreprise;
 import entities.Magasin;
 import entities.Region;
 import entities.Typecompte;
@@ -19,9 +18,12 @@ import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 
@@ -31,7 +33,6 @@ import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
-import model.dao.EntrepriseDAO;
 import model.dao.MagasinDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
@@ -121,7 +122,20 @@ public class AdmController {
     
      //  bouton ajout de la page magasin
     @RequestMapping(value = "ajoutMagasin")
-    protected String ajoutMagasinAction(Model model) {
+    protected String ajoutMagasinAction(HttpServletRequest request, Model model) {
+        try {
+            if(auth.region()!=null){
+                request.setAttribute("regionlist", auth.region());
+                //System.out.println(auth.region().get(0).getLibelle());
+            }
+            if(auth.typerayon()!=null){
+                request.setAttribute("trayonlist", auth.typerayon());
+                //System.out.println(auth.typerayon().get(0).getLibelle());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "admCreerMagasin";
     }
     
@@ -149,13 +163,13 @@ public class AdmController {
      //  bouton modifier de la page magasin
     @RequestMapping(value = "ModifMagasin{id}", method = RequestMethod.GET)
     protected String modifierMagasinAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
-       /*this.id = id;
+       this.id = id;
        try {
-            if(auth.selectCompte(id)!=null){
-                request.setAttribute("compte", auth.selectCompte(id));   
+            if(auth.selectMagasin(id)!=null){
+                request.setAttribute("magasin", auth.selectMagasin(id));   
             }  
         } catch (Exception e) {
-        }*/
+        }
         return "admModifierMagasin";
     } 
     
@@ -178,16 +192,16 @@ public class AdmController {
      //  bouton supprimer de la page compte utilisateur
      @RequestMapping(value = "SuppMagasin{id}", method = RequestMethod.GET)
     protected String supprimerMagasinAction(HttpServletRequest request, Model model, @PathVariable(value = "id") Integer ide) {
-       /*boolean suppr = false;
+       boolean suppr = false;
         try {
-            if(auth.selectCompte(ide)!=null){
-                suppr = auth.deleteCompte(ide);
-                System.out.println(suppr);
+            if(auth.selectMagasin(ide)!=null){
+                suppr = auth.deleteMagasin(ide);
+                //System.out.println(suppr);
             }   
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-        return userAction(request, model);
+        }
+        return magasinAction(request, model);
     }
     
     
@@ -244,6 +258,33 @@ public class AdmController {
         return userAction(request, model);
     }
     
+
+     // traitement de la page creation du magasin  
+    @RequestMapping(value = "CreationMagasin", method = RequestMethod.POST)
+    protected String creationMagasinAction(HttpServletRequest request, Model model){
+       String nom = request.getParameter("nom");
+       String rue = request.getParameter("addrLigne1");
+       String complement = request.getParameter("addrLigne2");
+       String codep = request.getParameter("codepostal");
+       String ville = request.getParameter("ville");
+       int idregion = Integer.parseInt(request.getParameter("Region"));
+        String[] trayon = request.getParameterValues("typerayon");
+       Region R = new Region();
+       R.setIdRegion(idregion);
+       //Set<String> typeR =  new HashSet<String>() ;
+     //System.out.println(trayon.toString());
+        boolean ajout = true;
+        try {
+            Magasin magasin = new Magasin(R, nom, rue, complement, codep, ville);
+            ajout = auth.addMagasin(magasin);
+            System.out.println(ajout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return magasinAction(request, model);
+    }
+    
+
     // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataCompte", method=RequestMethod.POST)
     protected String modifierDataCompteAction(HttpServletRequest request, Model model) {
@@ -269,10 +310,36 @@ public class AdmController {
     }
    
     
+
+     // traitement de la page modification du compte utilisateur
+    @RequestMapping(value = "ModifDataMagasin", method=RequestMethod.POST)
+    protected String modifierDataMagasinAction(HttpServletRequest request, Model model) {
+         boolean modif=false;
+
+         String nom = request.getParameter("nom");
+       String rue = request.getParameter("addrLigne1");
+       String complement = request.getParameter("addrLigne2");
+       String codep = request.getParameter("codepostal");
+       String ville = request.getParameter("ville");
+       int idregion = Integer.parseInt(request.getParameter("Region"));
+         
+         Region R = new Region();
+         R.setIdRegion(idregion);
+         try {
+             
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }       
+        return magasinAction(request, model);
+    }
+    
+
     
     
    
    
+
     
     
      // bouton accueil de la navigation
@@ -370,13 +437,5 @@ public class AdmController {
         String nameregion = region.getLibelle();
          model.addAttribute("nomregion",nameregion);
         return "admMagasinsRegion";
-    }
-    
-    // bouton enregistrer de entreprise
-    @RequestMapping(value = "entrepriseenregistrer", method = RequestMethod.POST)
-    @ResponseBody
-    public String modifiEntreprise(@ModelAttribute("ent") Entreprise ent, HttpSession session) {
-        EntrepriseDAO.enregistrerEntreprise(ent);   
-        return "regub"; //facultatif géré ds la js administrateur
     }
 }

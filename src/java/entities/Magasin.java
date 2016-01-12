@@ -24,9 +24,11 @@ public class Magasin  implements java.io.Serializable {
     }
 
 	
-    public Magasin(Region region, String nom, String codePostal, String ville) {
+    public Magasin(Region region, String nom, String addrLigne1, String addrLigne2, String codePostal, String ville) {
         this.region = region;
         this.nom = nom;
+         this.addrLigne1 = addrLigne1;
+       this.addrLigne2 = addrLigne2;
         this.codePostal = codePostal;
         this.ville = ville;
     }

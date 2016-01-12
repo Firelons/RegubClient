@@ -4,12 +4,22 @@
     Author     : batchanou
 --%>
 
+<%@page import="entities.Compte"%>
 <%@page import="entities.Magasin"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    Compte tcpt = (Compte)session.getAttribute("compteConnected");
+    if(tcpt==null){ %>
+    <c:redirect url="/regub"/>
+    <% }else if(tcpt.getTypecompte().getIdTypeCompte()!=1){ %>
+    <c:redirect url="/regub"/>
+    }%>
+
+<% }%>
 <!DOCTYPE html>
 <html>
     <head>
