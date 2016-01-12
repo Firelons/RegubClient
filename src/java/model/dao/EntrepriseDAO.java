@@ -27,4 +27,34 @@ public class EntrepriseDAO {
         HibernateUtil.getSessionFactory().close();
         return null;
     }
+    
+    public static Entreprise enregistrerEntreprise(Entreprise ent) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        if (ent.getNom() == null) {
+            session.beginTransaction();
+            session.save(ent);
+            session.getTransaction().commit();
+        } else {
+            try {
+                session.beginTransaction();
+                Entreprise entreprise = (Entreprise) session.load(Entreprise.class, 1);
+                entreprise.setNom(ent.getNom());
+                entreprise.setAdresse(ent.getAdresse());
+                entreprise.setCode(ent.getCode());
+                entreprise.setVille(ent.getVille());
+                entreprise.setTelephone(ent.getTelephone());
+                entreprise.setMail(ent.getMail());
+                session.update(entreprise);
+                session.getTransaction().commit();
+                return entreprise;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        }
+        session.close();
+        return null;
+    }
+
 }
