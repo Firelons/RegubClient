@@ -121,7 +121,6 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    
                                     <div class="col-xs-6">
                                         <label class="control-label" >Date De Fin : </label>
                                         <div class="input-group date" id="datetimefin">
@@ -131,15 +130,17 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <label class="control-label" >Date De Validation : </label>
-                                        <div class="input-group date" id="datetimevalidation">
-                                            <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
+                                    <fieldset disabled="true" class="col-xs-6">
+                                        <div>
+                                            <label class="control-label" >Date De Validation : </label>
+                                            <!-- <div class="input-group date" id="datetimevalidation"> -->
+                                                <input type="text" class="form-control" id="datevalidation" name="datevalidation" placeholder="datevalidation">
+                                                <!-- <span class="input-group-addon">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span> 
+                                            </div> -->
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="form-group">

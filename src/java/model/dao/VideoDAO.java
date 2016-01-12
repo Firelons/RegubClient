@@ -139,22 +139,22 @@ public class VideoDAO {
     }
     
     // Ajouté par Aurélien Touche pas Serge
-        public boolean addcliVideo(Video vid) {
+        public int addcliVideo(Video vid) {
         System.out.println("TST:");
-        
+        int ID = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             
             session.beginTransaction();
-            session.save(vid);
+            ID = (int) session.save(vid);
             session.getTransaction().commit();
-            return true;
+            return ID;
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.close();
         HibernateUtil.getSessionFactory().close();
-        return false;
+        return ID;
     }
         
         public  Video updCliVideo(Video vid) {

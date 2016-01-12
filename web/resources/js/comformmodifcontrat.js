@@ -13,11 +13,7 @@ $(document).ready(function () {
     
     $('.selectregion').SumoSelect({
         placeholder: 'Choississez une ou plusieurs region',
-        csvDispCount: 5,
-        multiple: true,
-        //multipleWidth: auto
-        //width: auto
-        length: '50%'
+        csvDispCount: 5
     });
     /*$("select").multipleSelect({
         multipleWidth: 55,

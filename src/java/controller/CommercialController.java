@@ -13,6 +13,7 @@ import entities.Video;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -33,6 +34,8 @@ import model.dao.CompteDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
 import model.dao.VideoDAO;
+import model.util.Devis;
+import model.util.Facture;
 import model.util.sendEmail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -265,10 +268,14 @@ public class CommercialController {
         Client client = ClientDAO.Charge(id).get(0);
         Compte comcompt = (Compte)session.getAttribute("compteConnected");
         
+        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+        Date currentDate = new Date();
+        String datecourante = dateformat.format(currentDate);
+        
         Video vid = new Video(client, comcompt, titrecontrat, 
                 Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
                 ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datevalidcontrat), 
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datecourante), 
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
         
@@ -317,14 +324,14 @@ public class CommercialController {
 
     //By T.serge
     //Action exec lorsk un com modifie un contrat datecourante'un client
-    @RequestMapping("regub/commercial/contrats/comformmodifiercontrat/{id}")
+    @RequestMapping(value="regub/commercial/contrats/modifiercontratcom", method = RequestMethod.POST)
     String formmodifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
-            Model model,
-            @PathVariable("id") Integer idContrat) {
+            Model model) {
 
         Client lst = ClientDAO.getClient(cleclient);
+        int idContrat = Integer.parseInt(request.getParameter("idvideo"));
         clecontrat = idContrat;
 
         //recup des infos du contrat selectionné
@@ -353,7 +360,7 @@ public class CommercialController {
 
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
-
+        
         return "comformmodifiercontrat";
     }
 
@@ -410,10 +417,11 @@ public class CommercialController {
         //return listClientAction(request, session, model);
     }
 
-    @RequestMapping("regub/commercial/contrats/annulercontrat/{id}")
-    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model, Client cli, @PathVariable("id") Integer idContrat) throws ParseException {
+    @RequestMapping(value="regub/commercial/contrats/annulercontratcom", method = RequestMethod.POST)
+    public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model) throws ParseException {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
+        int idContrat = Integer.parseInt(request.getParameter("idvideo"));
         DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 
         Video vid = VidBDD.modifcontrat(idContrat);
@@ -440,7 +448,46 @@ public class CommercialController {
             VidBDD.deleteComContrat(idContrat);
         }
 
-        return listClientAction(request, session, model);
+        //return listClientAction(request, session, model);
+        return "redirect:/regub/commercial";
+    }
+    
+    @RequestMapping(value="regub/commercial/contrats/deviscom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String devisAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+        Client cli = (Client) request.getAttribute("clicom");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Devis devis = new Devis();
+        devis.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0));
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/regub/commercial/contrats/1";
+    }
+    
+    @RequestMapping(value="regub/commercial/contrats/facturecom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String factureAction(
+            HttpServletRequest request,
+            HttpSession session, 
+            Model model) throws IOException {
+        
+        
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Facture facture = new Facture();
+        facture.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0));
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        return "redirect:/regub/commercial/contrats/1";
     }
 
 }
