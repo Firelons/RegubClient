@@ -148,6 +148,14 @@ public class AdmController {
         return "typeRayon";
     }
     
+    
+    //bouton de suppression de rayon
+     @RequestMapping(value = "supprimerrayon-{id}", method = RequestMethod.GET)
+    public String deletrayon(HttpServletRequest request, HttpSession session, Model model, Region reg, @PathVariable("id") Integer IdRegion) {
+        regBDD.deleteRegion(IdRegion);
+        return "redirect:/region";
+    }
+    
      //  bouton modifier de la page compte utilisateur
     @RequestMapping(value = "ModifCompte{id}", method = RequestMethod.GET)
     protected String modifierCompteAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
@@ -442,4 +450,9 @@ public class AdmController {
          model.addAttribute("nomregion",nameregion);
         return "admMagasinsRegion";
     }
+    
+    
+    
+    
+    
 }

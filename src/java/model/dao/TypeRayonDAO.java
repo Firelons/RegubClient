@@ -79,6 +79,23 @@ public class TypeRayonDAO {
         session.close();
         return list;
     }
+        public boolean deleteRayon(Integer idRay) {
+
+        List<Typerayon> list = new ArrayList<Typerayon>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Typerayon suppray = (Typerayon) session.load(Typerayon.class, idRay);
+            session.beginTransaction();
+            session.delete(suppray);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        HibernateUtil.getSessionFactory().close();
+        return false;
+    }
         
         
 }
