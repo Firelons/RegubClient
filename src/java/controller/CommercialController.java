@@ -121,7 +121,7 @@ public class CommercialController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } 
+        }
         //model.addAttribute("societe", cli.getSociete());
         return "redirect:/regub/commercial/";
     }
@@ -178,8 +178,10 @@ public class CommercialController {
         }
         return "contrats";
     }
+
     //value="regub/commercial/contrats/modifiercontratcom", method = RequestMethod.POST
-    @RequestMapping(value="regub/commercial/contrats/ajoutercontratcom")
+
+    @RequestMapping(value = "regub/commercial/contrats/ajoutercontratcom")
     String formajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
@@ -210,18 +212,18 @@ public class CommercialController {
     }
 
     /*
-        Modif T.serge
-        methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
-        en une liste datecourante'entiers de type Set 
+     Modif T.serge
+     methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
+     en une liste datecourante'entiers de type Set 
      */
     protected Set<Region> tableaureg(String[] lst) {
         //int[] array = Arrays.asList(lst).stream().mapToInt(Integer::parseInt).toArray();
         Set<Region> numbers = new HashSet<>();
         //Set numbers = new HashSet();
         /*for (Integer m : array) {
-        Region reg = new Region(m);
-        numbers.add(reg);
-        }*/
+         Region reg = new Region(m);
+         numbers.add(reg);
+         }*/
         for (String lst1 : lst) {
             numbers.add(RegionDAO.RegionPrec(lst1).get(0));
         }
@@ -233,9 +235,9 @@ public class CommercialController {
         Set<Typerayon> numbers = new HashSet<>();
         //Set numbers = new HashSet();
         /*for (Integer m : array) {
-        Typerayon ray = new Typerayon(m);
-        numbers.add(ray);
-        }*/
+         Typerayon ray = new Typerayon(m);
+         numbers.add(ray);
+         }*/
         for (String lst1 : lst) {
             numbers.add(TypeRayonDAO.RayonPrec(lst1).get(0));
         }
@@ -253,38 +255,38 @@ public class CommercialController {
         //Pour pouvoir conserver l'Id du client pour lequel 
         //l'ajout du contrat est fait
         int id = cleclient;
-        
-        String [] choixrayon = request.getParameterValues("rayon");
-        String [] choixregion = request.getParameterValues("region");
+
+        String[] choixrayon = request.getParameterValues("rayon");
+        String[] choixregion = request.getParameterValues("region");
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
-        String datedebutcontrat = request.getParameter("datedebut");  
+        String datedebutcontrat = request.getParameter("datedebut");
         String datefincontrat = request.getParameter("datefin");
         String daterecepcontrat = request.getParameter("datereception");
         String datevalidcontrat = request.getParameter("datevalidation");
         String tarifcontrat = request.getParameter("tarif");
         String choixstatut = request.getParameter("statut");
-        
+
         Set<Region> mySetregion = tableaureg(choixregion);
         Set<Typerayon> mySettyperayon = tableauray(choixrayon);
-        
+
         Client client = ClientDAO.Charge(id).get(0);
-        Compte comcompt = (Compte)session.getAttribute("compteConnected");
-        
+        Compte comcompt = (Compte) session.getAttribute("compteConnected");
+
         DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
         Date currentDate = new Date();
         String datecourante = dateformat.format(currentDate);
-        
-        Video vid = new Video(client, comcompt, titrecontrat, 
-                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat), 
-                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat), 
-                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datecourante), 
+
+        Video vid = new Video(client, comcompt, titrecontrat,
+                Integer.parseInt(freqcontrat), Integer.parseInt(durecontrat),
+                ConvertToSqlDate(datedebutcontrat), ConvertToSqlDate(datefincontrat),
+                ConvertToSqlDate(daterecepcontrat), ConvertToSqlDate(datecourante),
                 Double.parseDouble(tarifcontrat), Integer.parseInt(choixstatut),
                 mySetregion, mySettyperayon);
-        
+
         int videoid = VidBDD.addComContrat(vid);// appelle de la méthode pr inserer dans la table video et recup de l'id de l'element qui a été inséré
-        
+
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -293,30 +295,30 @@ public class CommercialController {
                 String rootPath = System.getProperty("catalina.home");
                 //System.out.println(""+rootPath+File.separator);
                 //System.out.println(""+file.getOriginalFilename());
- 
+
                 // Create the file on server
                 //file.getOriginalFilename() permet de recup le nom du fichier original selectionné
                 //Mon chemein de test
                 //File serverFile = new File("A:\\test"+ File.separator + 20 + ".mp4");//ça marche
                 //Chemin officiel du serveur
-                File serverFile = new File(rootPath + File.separator + "webapps"+ File.separator + "manager" 
+                File serverFile = new File(rootPath + File.separator + "webapps" + File.separator + "manager"
                         + File.separator + "videos" + File.separator + videoid + ".mp4");
-                System.out.println(""+serverFile);
+                System.out.println("" + serverFile);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("You failed to upload ");
         }
-        
+
         //return "redirect:/regub/commercial";
-        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
-        
+        return "redirect:/regub/commercial/contrats/" + vid.getClient().getIdClient();
+
     }
 
     //By T.serge
@@ -329,9 +331,9 @@ public class CommercialController {
 
     //By T.serge
     /*Action exec lorsk un com modifie un contrat d'un client
-        method = RequestMethod.POST, peut etre ajouté en paramètre mais c pas nécessaire
-    */
-    @RequestMapping(value="regub/commercial/contrats/modifiercontratcom")
+     method = RequestMethod.POST, peut etre ajouté en paramètre mais c pas nécessaire
+     */
+    @RequestMapping(value = "regub/commercial/contrats/modifiercontratcom")
     String formmodifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
@@ -352,11 +354,11 @@ public class CommercialController {
         System.out.println("" + vid.getStatut());
         Set<Region> lt = vid.getRegions();
         /*lt.stream().forEach((str) -> {
-            System.out.println(str.getIdRegion()+" "+ str.getLibelle());
-        });*/
- /*for (Region str : lt) {
-	    System.out.println(str.getIdRegion()+" "+ str.getLibelle());
-	}*/
+         System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+         });*/
+        /*for (Region str : lt) {
+         System.out.println(str.getIdRegion()+" "+ str.getLibelle());
+         }*/
 
         model.addAttribute("contratselected", vid);
 
@@ -367,7 +369,7 @@ public class CommercialController {
 
         model.addAttribute("ajout", lst.getSociete());
         model.addAttribute("cleclient", cleclient);
-        
+
         return "comformmodifiercontrat";
     }
 
@@ -407,7 +409,7 @@ public class CommercialController {
         vid.setDateFin(ConvertToSqlDate(datefincontrat));
         //vid.setDateReception(ConvertToSqlDate(daterecepcontrat));
         //vid.setDateValidation(ConvertToSqlDate(datevalidcontrat));
-        if(Integer.parseInt(choixstatut)==1){
+        if (Integer.parseInt(choixstatut) == 1) {
             DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
             Date currentDate = new Date();
             String datecourante = dateformat.format(currentDate);
@@ -420,11 +422,11 @@ public class CommercialController {
 
         //Thread.sleep(2000);
         VidBDD.updComContrat(vid, "modifier");
-        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
+        return "redirect:/regub/commercial/contrats/" + vid.getClient().getIdClient();
         //return listClientAction(request, session, model);
     }
 
-    @RequestMapping(value="regub/commercial/contrats/annulercontratcom", method = RequestMethod.POST)
+    @RequestMapping(value = "regub/commercial/contrats/annulercontratcom", method = RequestMethod.POST)
     public String annulercontratAction(HttpServletRequest request, HttpSession session, Model model) throws ParseException {
         //ClientConnecte cli = new ClientConnecte((Client) session.getAttribute("UserConnected"));
         //session.removeAttribute("UserConnected");
@@ -457,20 +459,20 @@ public class CommercialController {
 
         //return listClientAction(request, session, model);
         //return "redirect:/regub/commercial";
-        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
+        return "redirect:/regub/commercial/contrats/" + vid.getClient().getIdClient();
     }
-    
-    @RequestMapping(value="regub/commercial/contrats/deviscom", method = RequestMethod.POST)
+
+    @RequestMapping(value = "regub/commercial/contrats/deviscom", method = RequestMethod.POST)
     //public @ResponseBody
     String devisAction(
-            HttpServletRequest request,HttpServletResponse response,
-            HttpSession session, 
+            HttpServletRequest request, HttpServletResponse response,
+            HttpSession session,
             Model model) throws IOException {
-        
+
         Client cli = (Client) request.getAttribute("clicom");
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
         Devis devis = new Devis();
-        devis.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0),request.getServletContext());
+        devis.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(), VidBDD.VideoPrec(idvideo).get(0), request.getServletContext());
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
@@ -483,10 +485,10 @@ public class CommercialController {
 
         try {
 
-            File downloadFile = new File(appPath+"\\resources\\reports\\devis.pdf");
+            File downloadFile = new File(appPath + "\\resources\\reports\\devis.pdf");
             FileInputStream fis = new FileInputStream(downloadFile);
             // get MIME type of the file
-            String mimeType = context.getMimeType(appPath+"\\resources\\reports\\devis.pdf");
+            String mimeType = context.getMimeType(appPath + "\\resources\\reports\\devis.pdf");
             if (mimeType == null) {
                 // set to binary type if MIME mapping not found
                 mimeType = "application/octet-stream";
@@ -521,20 +523,19 @@ public class CommercialController {
             ex.printStackTrace();
         }
 
-        return "redirect:/regub/commercial/contrats/"+cli.getIdClient();
+        return "redirect:/regub/commercial/contrats/" + cli.getIdClient();
     }
-    
-    @RequestMapping(value="regub/commercial/contrats/facturecom", method = RequestMethod.POST)
+
+    @RequestMapping(value = "regub/commercial/contrats/facturecom", method = RequestMethod.POST)
     //public @ResponseBody
     String factureAction(
             HttpServletRequest request, HttpServletResponse response,
-            HttpSession session, 
+            HttpSession session,
             Model model) throws IOException {
-        
-        
+
         int idvideo = Integer.parseInt(request.getParameter("idvideo"));
         Facture facture = new Facture();
-        facture.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(),VidBDD.VideoPrec(idvideo).get(0),request.getServletContext());
+        facture.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(), VidBDD.VideoPrec(idvideo).get(0), request.getServletContext());
         //if(request.getSession()){
         //int test = Integer.parseInt(request.getParameter("select")) ;
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
@@ -547,10 +548,10 @@ public class CommercialController {
 
         try {
 
-            File downloadFile = new File(appPath+"\\resources\\reports\\facture.pdf");
+            File downloadFile = new File(appPath + "\\resources\\reports\\facture.pdf");
             FileInputStream fis = new FileInputStream(downloadFile);
             // get MIME type of the file
-            String mimeType = context.getMimeType(appPath+"\\resources\\reports\\facture.pdf");
+            String mimeType = context.getMimeType(appPath + "\\resources\\reports\\facture.pdf");
             if (mimeType == null) {
                 // set to binary type if MIME mapping not found
                 mimeType = "application/octet-stream";
@@ -584,7 +585,14 @@ public class CommercialController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return "redirect:/regub/commercial/contrats/"+VidBDD.VideoPrec(idvideo).get(0).getClient().getIdClient();
+        return "redirect:/regub/commercial/contrats/" + VidBDD.VideoPrec(idvideo).get(0).getClient().getIdClient();
     }
 
+    //List des contrats passes
+    @RequestMapping(value = "regub/commercial/derniercontrats")
+    protected String listcontratspasses(Model model) {
+       List<Video> lst= VideoDAO.listContratspasses();
+       model.addAttribute("derniercontrats", lst);
+        return "listderniercontrats";
+    }
 }

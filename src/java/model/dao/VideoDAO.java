@@ -5,11 +5,15 @@
  */
 package model.dao;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import entities.Client;
 import entities.Region;
 import entities.Typerayon;
 import entities.Video;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
@@ -37,9 +41,9 @@ public class VideoDAO {
         //session.close();
         return lst;
     }
-    
+
     public static List<Typerayon> RayonSelect(Video vid) {
-        
+
         List<Typerayon> listrayons = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -52,7 +56,7 @@ public class VideoDAO {
         }
         return listrayons;
     }
-    
+
     //By T.serge
     //Methode effectuant l'insertion d'un contrat effectué par le com pour un client
     public int addComContrat(Video vid) {
@@ -72,7 +76,7 @@ public class VideoDAO {
         //HibernateUtil.getSessionFactory().close();
         //System.out.println("TST: fermeture session");
     }
-    
+
     //By T.serge
     //Methode effectuant l'update d'un contrat pour un client fait par le com
     public void updComContrat(Video vid, String s) {
@@ -80,7 +84,7 @@ public class VideoDAO {
         try {
             session.beginTransaction();
             Video updcontrat = (Video) session.load(Video.class, vid.getIdVideo());
-            if(s.equalsIgnoreCase("modifier")){
+            if (s.equalsIgnoreCase("modifier")) {
                 updcontrat.setTitre(vid.getTitre());
                 updcontrat.setFrequence(vid.getFrequence());
                 updcontrat.setDuree(vid.getDuree());
@@ -93,10 +97,10 @@ public class VideoDAO {
                 updcontrat.setRegions(vid.getRegions());
                 updcontrat.setTyperayons(vid.getTyperayons());
             }
-            if(s.equalsIgnoreCase("annuler")){
+            if (s.equalsIgnoreCase("annuler")) {
                 updcontrat.setDateFin(vid.getDateFin());
             }
-            
+
             session.update(updcontrat);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -105,7 +109,7 @@ public class VideoDAO {
         session.close();
         //HibernateUtil.getSessionFactory().close();
     }
-    
+
     public boolean deleteComContrat(Integer idContrat) {
 
         List<Client> list = new ArrayList<Client>();
@@ -123,7 +127,7 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return false;
     }
-    
+
     //Methode appellée pour charger les infos d'un contrat
     public Video modifcontrat(Integer idContrat) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -137,14 +141,14 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return null;
     }
-    
+
     // Ajouté par Aurélien Touche pas Serge
-        public int addcliVideo(Video vid) {
+    public int addcliVideo(Video vid) {
         System.out.println("TST:");
         int ID = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            
+
             session.beginTransaction();
             ID = (int) session.save(vid);
             session.getTransaction().commit();
@@ -156,11 +160,11 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return ID;
     }
-        
-        public  Video updCliVideo(Video vid) {
-         Session session = HibernateUtil.getSessionFactory().openSession();
+
+    public Video updCliVideo(Video vid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-           
+
             session.beginTransaction();
             Video updvid = (Video) session.load(Video.class, vid.getIdVideo());
             updvid.setTitre(vid.getTitre());
@@ -182,9 +186,9 @@ public class VideoDAO {
         HibernateUtil.getSessionFactory().close();
         return null;
     }
-        public List<Video> VideoPrec(int idvid) {
-        
-        
+
+    public List<Video> VideoPrec(int idvid) {
+
         List<Video> listVideo = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -197,9 +201,9 @@ public class VideoDAO {
         }
         return listVideo;
     }
-         public static List<Region> RegionSelect(Video vid) {
-        
-        
+
+    public static List<Region> RegionSelect(Video vid) {
+
         List<Region> listregions = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -211,5 +215,33 @@ public class VideoDAO {
             e.printStackTrace();
         }
         return listregions;
+    }
+
+    public static List<Video> listContratspasses() {
+
+        List<Video> lst = new ArrayList<Video>();
+        List<Video> listpass = new ArrayList<Video>();
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String hql = "from Video";
+            Query query = session.createQuery(hql);
+            lst = query.list();
+            
+            DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+            Date currentDate = new Date();
+            String datecourante = dateformat.format(currentDate);
+            Date dcourante = dateformat.parse(datecourante);
+            
+            for(int i=0 ; i<lst.size(); i++){
+                if(lst.get(i).getDateFin().before(dcourante)){
+                    listpass.add(lst.get(i));
+                }
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listpass;
     }
 }
