@@ -153,7 +153,8 @@ public class AdmController {
        this.id = id;
        try {
             if(auth.selectCompte(id)!=null){
-                request.setAttribute("compte", auth.selectCompte(id));   
+                request.setAttribute("compte", auth.selectCompte(id)); 
+                
             }  
         } catch (Exception e) {
         }
@@ -166,7 +167,9 @@ public class AdmController {
        this.id = id;
        try {
             if(auth.selectMagasin(id)!=null){
-                request.setAttribute("magasin", auth.selectMagasin(id));   
+                request.setAttribute("magasin", auth.selectMagasin(id));  
+                request.setAttribute("regionlist", auth.region());
+                request.setAttribute("trayonlist", auth.typerayon());
             }  
         } catch (Exception e) {
         }
@@ -210,7 +213,11 @@ public class AdmController {
     protected String annuleCreationUserAction(HttpServletRequest request, Model model) {
         return userAction(request, model);
     }
-    
+     //bouton annuler du compte utilsateur
+    @RequestMapping(value = "AnnuleMagasin")
+    protected String annuleMagasinAction(HttpServletRequest request, Model model) {
+        return magasinAction(request, model);
+    }
     
     
     
@@ -234,13 +241,6 @@ public class AdmController {
                System.out.println(formater.format(date));
                
                adm = new Compte(tcpt, nom, prenom, login, mdp, "sel", date );
-               
-                /*System.out.println("nom:"+ nom);
-                System.out.println("prenom:"+prenom);
-                System.out.println("login:"+login);
-                System.out.println("mdp:"+mdp);
-                System.out.println("typec:"+typec);
-                System.out.println("date:"+date);*/
                 ajout = auth.addCompte(adm);
                 //System.out.println("ajout:"+ajout); 
 
@@ -335,12 +335,6 @@ public class AdmController {
     }
     
 
-    
-    
-   
-   
-
-    
     
      // bouton accueil de la navigation
     @RequestMapping(value = "admin")
