@@ -81,7 +81,7 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid">
+                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid" ENCTYPE="multipart/form-data">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>

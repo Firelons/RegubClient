@@ -70,14 +70,22 @@
                     </div>
                 </div>
             </div>
-           <div class="container" >
+            <div class="container" >
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- <a href="/RegubClient/regub/commercial/contrats/ajoutcontrat" class="btn btn-primary" data-toggle="modal"> -->
                         <!-- data-target="#myModalAjouter" -->
-                        <td><a href="/RegubClient/regub/commercial/contrats/comformajoutcontrat" class="btn btn-primary" data-toggle="modal">
+                        <td>
+                            <!--
+                            <a href="/RegubClient/regub/commercial/contrats/comformajoutcontrat" class="btn btn-primary" data-toggle="modal">
                                 <c:out value=""></c:out>Ajouter</a>
+                                -->
+                                <form method="post" action="ajoutercontratcom">
+                                    <input type="hidden" name="idvideo" class="form-control"/>
+                                <button type="submit"  class="btn btn-primary">Ajouter</button>
+                            </form>
                         </td>
+
                     </div>
                 </div>
             </div>
@@ -91,7 +99,7 @@
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${video}">
-                                <% %>
+                                <%%>
                                 <tr>
                                     <td>
                                         <c:out value="${vid.getTitre()}"></c:out>
@@ -123,39 +131,39 @@
                                         </c:if>
                                     </td>
                                     <td>
-                                            <form method="post" action="deviscom">
-                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                        <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                        <form method="post" action="deviscom">
+                                            <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                            <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
                                             <button type="submit"  class="btn btn-info">Voir</button>
-                                                </form>
-                                           
-                                        </td>
-                                        <td>
-                                            <form method="post" action="facturecom">
-                                                <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
-                                                    <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"   class="btn btn-primary">Voir</button>
-                                                </form>                                          
-                                            
-                                        </td>
-                                        <td><!-- <a href="#" class="btn btn-primary"> -->
-                                            <!--<a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
-                                            
-                                            -->
-                                            <form method="post" action="modifiercontratcom">
-                                                <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"  class="btn btn-info">Modifier</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <!--<a href="/RegubClient/regub/commercial/contrats/annulercontrat/${vid.getIdVideo()}" class="btn btn-primary">
-                                            <c:out value=""></c:out></a>
-                                            -->
-                                            <form method="post" action="annulercontratcom">
-                                                <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
-                                                <button type="submit"  class="btn btn-primary">Annuler</button>
-                                            </form>
+                                        </form>
+
+                                    </td>
+                                    <td>
+                                        <form method="post" action="facturecom">
+                                            <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                            <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                            <button type="submit"   class="btn btn-primary">Voir</button>
+                                        </form>                                          
+
+                                    </td>
+                                    <td><!-- <a href="#" class="btn btn-primary"> -->
+                                        <!--<a href="/RegubClient/regub/commercial/contrats/comformmodifiercontrat/${vid.getIdVideo()}" class="btn btn-primary" data-toggle="modal">
                                         
+                                        -->
+                                        <form method="post" action="modifiercontratcom">
+                                            <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                            <button type="submit"  class="btn btn-info">Modifier</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!--<a href="/RegubClient/regub/commercial/contrats/annulercontrat/${vid.getIdVideo()}" class="btn btn-primary">
+                                        
+                                        -->
+                                        <form method="post" action="annulercontratcom">
+                                            <input type="hidden" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                            <button type="submit"  class="btn btn-primary">Annuler</button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -164,9 +172,9 @@
                 </div>
             </div>
         </section>
-                        
+
         <jsp:include page="foot.jsp" />        
-        
+
         <!-- Modal Ajouter -->
         <div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -233,7 +241,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal Modifier -->
         <div class="modal fade" id="myModalModifier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -296,14 +304,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" <c:if test="${now gt vid.getDateFin()}">disabled</c:if> class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        
-        <!-- jQuery -->
-        <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+
+
+            <!-- jQuery -->
+            <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
