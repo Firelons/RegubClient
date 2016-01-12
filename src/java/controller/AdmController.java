@@ -262,20 +262,27 @@ public class AdmController {
      // traitement de la page creation du magasin  
     @RequestMapping(value = "CreationMagasin", method = RequestMethod.POST)
     protected String creationMagasinAction(HttpServletRequest request, Model model){
+       Set<Typerayon> typeR =  new HashSet<Typerayon>() ;
+       
+       Region R = new Region();
        String nom = request.getParameter("nom");
        String rue = request.getParameter("addrLigne1");
        String complement = request.getParameter("addrLigne2");
        String codep = request.getParameter("codepostal");
        String ville = request.getParameter("ville");
        int idregion = Integer.parseInt(request.getParameter("Region"));
-        String[] trayon = request.getParameterValues("typerayon");
-       Region R = new Region();
+       String[] trayon = request.getParameterValues("typerayon");
+       
        R.setIdRegion(idregion);
-       //Set<String> typeR =  new HashSet<String>() ;
-     //System.out.println(trayon.toString());
+      
+       for(int i=0; i< trayon.length; i++){
+            typeR.add(TypeRayonDAO.RayonPrec(trayon[i]).get(0));
+            
+        }
         boolean ajout = true;
         try {
             Magasin magasin = new Magasin(R, nom, rue, complement, codep, ville);
+            magasin.setTyperayons(typeR);
             ajout = auth.addMagasin(magasin);
             System.out.println(ajout);
         } catch (Exception e) {
@@ -326,7 +333,7 @@ public class AdmController {
          Region R = new Region();
          R.setIdRegion(idregion);
          try {
-             
+            // modif = auth.updateMagasin(id, R, nom, rue, rue, codep, ville, null)
     
         } catch (Exception e) {
             e.printStackTrace();

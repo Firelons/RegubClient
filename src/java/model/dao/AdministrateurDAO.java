@@ -17,6 +17,7 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import model.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -246,10 +247,8 @@ public class AdministrateurDAO {
             cpt.setNom(nom);
             cpt.setPrenom(prenom);
             cpt.setLogin(login);
-            System.out.println(cpt.getTypecompte().getIdTypeCompte());
-            //System.out.println(tcpt);
             cpt.setTypecompte(T);
-             System.out.println("khgu: "+cpt.getTypecompte().getIdTypeCompte());
+            
             session.update(cpt);
             session.getTransaction().commit();
             return true;
@@ -262,12 +261,20 @@ public class AdministrateurDAO {
         
         return false;
     }
-    public boolean updateMagasin(){
+    public boolean updateMagasin(int id, Region R, String nom, String a1, String a2, String cp, String ville, Set trayon){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try {
             session.beginTransaction();
-           
+           Magasin mag = (Magasin)session.load(Magasin.class, id);
+           mag.setNom(nom);
+           mag.setRegion(R);
+           mag.setAddrLigne1(a1);
+           mag.setAddrLigne2(a2);
+           mag.setCodePostal(cp);
+           mag.setVille(ville);
+           mag.setTyperayons(trayon);
+           session.update(mag);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
