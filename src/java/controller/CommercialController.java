@@ -174,8 +174,8 @@ public class CommercialController {
         }
         return "contrats";
     }
-
-    @RequestMapping("regub/commercial/contrats/comformajoutcontrat")
+    //value="regub/commercial/contrats/modifiercontratcom", method = RequestMethod.POST
+    @RequestMapping(value="regub/commercial/contrats/ajoutercontratcom")
     String formajoutcontratAction(
             HttpServletRequest request,
             HttpSession session,
@@ -310,7 +310,8 @@ public class CommercialController {
             System.out.println("You failed to upload ");
         }
         
-        return "redirect:/regub/commercial";
+        //return "redirect:/regub/commercial";
+        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
         
     }
 
@@ -323,8 +324,10 @@ public class CommercialController {
     }
 
     //By T.serge
-    //Action exec lorsk un com modifie un contrat datecourante'un client
-    @RequestMapping(value="regub/commercial/contrats/modifiercontratcom", method = RequestMethod.POST)
+    /*Action exec lorsk un com modifie un contrat d'un client
+        method = RequestMethod.POST, peut etre ajouté en paramètre mais c pas nécessaire
+    */
+    @RequestMapping(value="regub/commercial/contrats/modifiercontratcom")
     String formmodifiercontratAction(
             HttpServletRequest request,
             HttpSession session,
@@ -413,7 +416,7 @@ public class CommercialController {
 
         //Thread.sleep(2000);
         VidBDD.updComContrat(vid, "modifier");
-        return "redirect:/regub/commercial";
+        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
         //return listClientAction(request, session, model);
     }
 
@@ -449,7 +452,8 @@ public class CommercialController {
         }
 
         //return listClientAction(request, session, model);
-        return "redirect:/regub/commercial";
+        //return "redirect:/regub/commercial";
+        return "redirect:/regub/commercial/contrats/"+vid.getClient().getIdClient();
     }
     
     @RequestMapping(value="regub/commercial/contrats/deviscom", method = RequestMethod.POST)
@@ -468,7 +472,7 @@ public class CommercialController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/regub/commercial/contrats/1";
+        return "redirect:/regub/commercial/contrats/"+cli.getIdClient();
     }
     
     @RequestMapping(value="regub/commercial/contrats/facturecom", method = RequestMethod.POST)
@@ -487,7 +491,7 @@ public class CommercialController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
-        return "redirect:/regub/commercial/contrats/1";
+        return "redirect:/regub/commercial/contrats/"+VidBDD.VideoPrec(idvideo).get(0).getClient().getIdClient();
     }
 
 }
