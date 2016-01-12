@@ -40,5 +40,27 @@ $(document).ready(function () {
                 alert("Erreur accès au reseau");
             }
         });
+    
+    });
+    
+    $('#entreprise').on('submit', function (e) {
+       
+        // j'annule le submit par defaut du navigateur
+        e.preventDefault();
+        //je recupere les deux champs du formulaire
+        var $this = $(this);
+        //je precise a ajax les params 
+        $.ajax({
+            url: 'entrepriseenregistrer', //url qui est liÃ©e avec l'action de controller
+            data: $this.serialize(), //donnÃ©es 
+            type: 'POST', //methode d'envoie de donnÃ©es
+            success: function (response) {
+                    alert("Enregistrement effectué");
+                     window.location.reload(); //redirection
+            },
+            error: function (e) {
+                alert("Erreur accés au reseau");
+            }
+        });
     });
 });
