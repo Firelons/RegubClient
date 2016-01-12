@@ -29,3 +29,7 @@ body {
 .form-group.last {
  margin-bottom:0px;
 }
+
+form .invalide {
+    border-color: #E06C4A;
+}

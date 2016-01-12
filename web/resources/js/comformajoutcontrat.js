@@ -38,6 +38,7 @@ $(function () {
         return Math.round(x) === x;
     }
 
+ /*
 function validateComFormulaireAjoutContrat() {
     var currentDate = new Date();
     var day = currentDate.getDate();
@@ -57,12 +58,13 @@ function validateComFormulaireAjoutContrat() {
     var x10 = document.forms["ComFormulaireAjoutContrat"]["region"].value;
     var x11 = document.forms["ComFormulaireAjoutContrat"]["tarif"].value;
     var x12 = document.forms["ComFormulaireAjoutContrat"]["duree"].value;
+    var x13 = document.forms["ComFormulaireAjoutContrat"]["file"].value;
     
     if (x1 === null || x1 === "") {
         $('p.erreur-form').html("Vous devez fournir un titre");
         return false;
     }
-    
+   
     if (x2 === null || x2 === "") {
         $('p.erreur-form').html("Vous devez fournir une fréquence");
         return false;
@@ -141,6 +143,11 @@ function validateComFormulaireAjoutContrat() {
         $('p.erreur-form').html("Le tarif doit être un chiffe ou un nombre");
         return false;
     }
-     
     
-}
+    if (x13 === null) {
+        $('p.erreur-form').html("Vous devez choisir une vidéo");
+        return false;
+    }
+    
+} 
+*/
