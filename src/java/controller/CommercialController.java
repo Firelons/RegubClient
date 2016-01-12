@@ -483,10 +483,10 @@ public class CommercialController {
 
         try {
 
-            File downloadFile = new File(appPath+"\\resources\\reports\\facture.pdf");
+            File downloadFile = new File(appPath+"\\resources\\reports\\devis.pdf");
             FileInputStream fis = new FileInputStream(downloadFile);
             // get MIME type of the file
-            String mimeType = context.getMimeType(appPath+"\\resources\\reports\\facture.pdf");
+            String mimeType = context.getMimeType(appPath+"\\resources\\reports\\devis.pdf");
             if (mimeType == null) {
                 // set to binary type if MIME mapping not found
                 mimeType = "application/octet-stream";
