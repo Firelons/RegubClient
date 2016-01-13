@@ -71,7 +71,8 @@
                         <strong class="">Modifier Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireModif" method="post" action="/RegubClient/regub/commercial/contrats/commodifiercontrat" role="form" class="form-horizontal">
+                        <form id="FormulaireModif" name="FormulaireModif" method="post" action="commodifiercontrat" 
+                              role="form" class="form-horizontal" onsubmit="return ( validateComFormulaireAjoutContrat() );">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>

@@ -176,7 +176,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <label class="control-label">Type De Rayon :</label></BR>
+                                        <label class="control-label">Rayons :</label></BR>
                                         <select name="rayon" class="selectrayon form-control" multiple="multiple">
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
@@ -299,7 +299,6 @@
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
         <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
-        <script src="<c:url value="/resources/js/valideajout.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>
