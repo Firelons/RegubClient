@@ -595,4 +595,132 @@ public class CommercialController {
        model.addAttribute("derniercontrats", lst);
         return "listderniercontrats";
     }
+    
+    // devis générer sur la jsp listderniercontrat
+    @RequestMapping(value = "regub/commercial/deviscom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String devis2Action(
+            HttpServletRequest request, HttpServletResponse response,
+            HttpSession session,
+            Model model) throws IOException {
+
+        Client cli = (Client) request.getAttribute("clicom");
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Devis devis = new Devis();
+        devis.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(), VidBDD.VideoPrec(idvideo).get(0), request.getServletContext());
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        int BUFFER_SIZE = 4096;
+        ServletContext context = request.getServletContext();
+        String appPath = context.getRealPath("");
+        System.out.println(appPath);
+
+        try {
+
+            File downloadFile = new File(appPath + "\\resources\\reports\\devis.pdf");
+            FileInputStream fis = new FileInputStream(downloadFile);
+            // get MIME type of the file
+            String mimeType = context.getMimeType(appPath + "\\resources\\reports\\devis.pdf");
+            if (mimeType == null) {
+                // set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            System.out.println("MIME type: " + mimeType);
+
+            // set content attributes for the response
+            response.setContentType(mimeType);
+            response.setContentLength((int) downloadFile.length());
+
+            // set headers for the response
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"",
+                    downloadFile.getName());
+            response.setHeader(headerKey, headerValue);
+
+            // get output stream of the response
+            OutputStream outStream = response.getOutputStream();
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead = -1;
+
+            // write bytes read from the input stream into the output stream
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+            }
+
+            fis.close();
+            outStream.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return "redirect:/regub/commercial/derniercontras";
+    }
+    
+    // facture générer sur la jsp listderniercontrat
+    @RequestMapping(value = "regub/commercial/facturecom", method = RequestMethod.POST)
+    //public @ResponseBody
+    String facture2Action(
+            HttpServletRequest request, HttpServletResponse response,
+            HttpSession session,
+            Model model) throws IOException {
+
+        int idvideo = Integer.parseInt(request.getParameter("idvideo"));
+        Facture facture = new Facture();
+        facture.Consulter(VidBDD.VideoPrec(idvideo).get(0).getClient(), VidBDD.VideoPrec(idvideo).get(0), request.getServletContext());
+        //if(request.getSession()){
+        //int test = Integer.parseInt(request.getParameter("select")) ;
+        //request.setAttribute("Modify", this.modif.modifcontrat(id));
+        //}
+        //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        int BUFFER_SIZE = 4096;
+        ServletContext context = request.getServletContext();
+        String appPath = context.getRealPath("");
+        System.out.println(appPath);
+
+        try {
+
+            File downloadFile = new File(appPath + "\\resources\\reports\\facture.pdf");
+            FileInputStream fis = new FileInputStream(downloadFile);
+            // get MIME type of the file
+            String mimeType = context.getMimeType(appPath + "\\resources\\reports\\facture.pdf");
+            if (mimeType == null) {
+                // set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            System.out.println("MIME type: " + mimeType);
+
+            // set content attributes for the response
+            response.setContentType(mimeType);
+            response.setContentLength((int) downloadFile.length());
+
+            // set headers for the response
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"",
+                    downloadFile.getName());
+            response.setHeader(headerKey, headerValue);
+
+            // get output stream of the response
+            OutputStream outStream = response.getOutputStream();
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int bytesRead = -1;
+
+            // write bytes read from the input stream into the output stream
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+            }
+
+            fis.close();
+            outStream.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "redirect:/regub/commercial/contrats/derniercontrats";
+    }
 }
