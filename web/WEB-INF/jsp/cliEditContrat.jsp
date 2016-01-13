@@ -48,7 +48,7 @@
 
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/animate.min.css"/>" type="text/css">
-<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker-css.css"/>" type="text/css">
         <!-- Custom CSS -->
         <link rel="stylesheet" href="<c:url value="/resources/css/creative.css"/>" type="text/css">
         <link rel="stylesheet" href="<c:url value="/resources/css/comformajoutcontrat.css"/>" type="text/css">
@@ -81,7 +81,8 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post"  role="form" class="form-horizontal" modelAttribute="vid" ENCTYPE="multipart/form-data">
+                        <form id="FormulaireAjout" name="FormulaireAjout" method="post" action="ajoutercontrat" role="form" class="form-horizontal" 
+                            modelAttribute="vid" ENCTYPE="multipart/form-data" onsubmit="return ( validateComFormulaireAjoutContrat() );">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -95,23 +96,23 @@
                                         <input type="hidden" path="idClient" name="idClient" value="3">
                                    
                                         <label class="control-label" >Titre</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre">
+                                        <input type="text" class="form-control" id="titre" name="titre" path="titre" placeholder="Titre" required>
                                     
                                         <label class="control-label" >Frequence(par jour)</label>
-                                        <input type="text" class="form-control" id="frequence" name="frequence" path="frequence" placeholder="frequence">
+                                        <input type="text" class="form-control" id="frequence" name="frequence" path="frequence" placeholder="frequence" required>
                                     
                                         <label class="control-label" >Fichier(Mp4) :</label>
                                         <!-- filestyle -->
-                                        <input type="file" accept=".mp4"class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false">
+                                        <input type="file" accept=".mp4"class="filestyle" id="fichier" name="file" data-placeholder="Choississez un fichier video" data-buttonText="Browse" data-buttonName="btn-primary" data-icon="false" required>
                                    
                                         
                                         <label class="control-label" >Durée(en secondes)</label>
-                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree">
+                                        <input type="text" class="form-control" id="duree" name="duree" path="duree" placeholder="duree" required>
                                   
                                         <div class="col-xs-6">
                                         <label class="control-label" >Date De Debut</label>
                                         <div class="input-group date" id="datetimedebut">
-                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" placeholder="datedebut">
+                                            <input type="date" class="form-control" id="" name="dateDebut" path="dateDebut" placeholder="datedebut" required>
                                             
                                         </div>
                                         <label class="control-label" >Date De Reception</label>
@@ -124,7 +125,7 @@
                                         
                                         <label class="control-label" >Date De Fin</label>
                                         <div class="input-group date" id="datetimefin">
-                                            <input type="date" class="form-control" id="" path="dateFin" name="dateFin" placeholder="datefin">
+                                            <input type="date" class="form-control" id="" path="dateFin" name="dateFin" placeholder="datefin" required>
                                             
                                         </div>
                                    
@@ -143,7 +144,7 @@
                                     <div class="col-xs-6">
                                         
                                         <label class="control-label">Type De Rayon :</label></BR>
-                                        <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5">
+                                        <select class="selectrayon form-control" multiple="multiple"  name="rayon" size="7.5" required>
                                             <%
                                                     for(int i=0; i<listrayon.size(); i++){
                                             %>   
@@ -157,7 +158,7 @@
                                         </select>
                                         
                                         <label class="control-label">Regions :</label></BR>
-                                        <select multiple class = "selectregion form-control" size="7" name="region">
+                                        <select multiple class = "selectregion form-control" size="7" name="region" required>
                                             <%
                                                     for(int i=0; i<listregion.size(); i++){
                                             %>   
@@ -326,7 +327,7 @@
         <script src="<c:url value="/resources/js/creative.js"/>"></script>
         <!--App JavaScript-->
         <script src="<c:url value="/resources/app/client.js"/>"></script>
-        <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
+        <script src="<c:url value="/resources/js/cliformajoutcontrat.js"/>"></script>
     </body>
 
 </html>

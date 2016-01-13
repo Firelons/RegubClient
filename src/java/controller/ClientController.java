@@ -216,8 +216,33 @@ public class ClientController {
         return "redirect:/accueil";
     }
 
+    /*
+     Modif T.serge
+     methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
+     en une liste de type Set<Region> 
+     */
+    protected Set<Region> tableaureg(String[] lst) {
+        Set<Region> numbers = new HashSet<>();
+        for (String lst1 : lst) {
+            numbers.add(RegionDAO.RegionPrec(lst1).get(0));
+        }
+        return numbers;
+    }
+    
+    /*
+     Modif T.serge
+     methode permettant de convertir la liste des choix recupérés ss forme de string dans le formulaire
+     en une liste de type Set<Typerayon> 
+     */
+    protected Set<Typerayon> tableauray(String[] lst) {
+        Set<Typerayon> numbers = new HashSet<>();
+        for (String lst1 : lst) {
+            numbers.add(TypeRayonDAO.RayonPrec(lst1).get(0));
+        }
+        return numbers;
+    }
+    
     @RequestMapping(value = "/ajoutercontrat", method = RequestMethod.POST)
-    //public @ResponseBody
     String ajoutercontratAction(
             HttpServletRequest request,
             Model model,
@@ -229,9 +254,10 @@ public class ClientController {
         //request.setAttribute("Modify", this.modif.modifcontrat(id));
         //}
         //session.setAttribute("Modify", this.modif.modifcontrat(id));
+        
         Set<Region> regions = new HashSet<>();
         Set<Typerayon> typerayons = new HashSet<>();
-
+        
         java.util.Date date = new java.util.Date();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
@@ -251,6 +277,7 @@ public class ClientController {
 
             System.out.println(choixregion[i]);
         }
+        
         String titrecontrat = request.getParameter("titre");
         String freqcontrat = request.getParameter("frequence");
         String durecontrat = request.getParameter("duree");
@@ -267,7 +294,8 @@ public class ClientController {
                 sdf.parse(sdf.format(date)), sdf.parse(sdf.format(date)),
                 0,
                 2);
-
+        
+        
         vid.setRegions(regions);
         vid.setTyperayons(typerayons);
 
