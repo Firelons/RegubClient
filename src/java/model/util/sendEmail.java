@@ -95,7 +95,7 @@ public class sendEmail {
 				+ ",\nPour Activer votre compte, veuillez cliquer sur ce lien:\n\n"
                                 +Link
                                 +  "\n\n Bonne journée."
-                                +  "\n\n\n <<Service regubClient onLine>>");
+                                +  "\n\n\n <<Service reguClient onLine>>");
 
 			Transport.send(message);
 
