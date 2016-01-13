@@ -75,7 +75,7 @@
                         </div>
                     <div class="col-lg-5">
                         <td><a href="/RegubClient/regub/commercial/derniercontrats" class="btn btn-primary" data-toggle="modal" data-target="">
-                                <c:out value=""></c:out>Dernier contrats</a>
+                                <c:out value=""></c:out>Contrat(s) Terminé(s)</a>
                             </td>
                         </div>
                     </div>
