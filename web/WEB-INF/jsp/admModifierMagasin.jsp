@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.Set"%>
 <%@page import="entities.Magasin"%>
@@ -87,7 +88,7 @@
                                 <%
                                 Magasin mag = new Magasin();
                                 mag = (Magasin)request.getAttribute("magasin");
-                                Set <Typerayon> setmag = new HashSet <Typerayon>();
+                                Set <Typerayon> setmag = new HashSet();
                                 setmag = (Set)mag.getTyperayons();
                                 %>
                                 
@@ -142,11 +143,11 @@
                                                     for(int i=0; i<list.size();i++){
                                                         if(list.get(i).getLibelle()== mag.getRegion().getLibelle()){
                                                 %>
-                                                <option value="<%=mag.getRegion().getIdRegion() %>" selected><%=mag.getRegion().getLibelle() %></option>
+                                                <option value="<%= mag.getRegion().getIdRegion() %>" selected="selected" ><%=mag.getRegion().getLibelle() %></option>
                                                 <%
                                                         }else{
                                                 %>
-                                                <option value="<%=list.get(i).getIdRegion() %>"><%= list.get(i).getLibelle() %></option>
+                                                <option value="<%=list.get(i).getIdRegion() %>" ><%= list.get(i).getLibelle() %></option>
                                                 <% } }%>
                                             </select> <br>
                                         </div>
@@ -162,25 +163,22 @@
                                                 
                                                 <%
                                                     
-                                                    ArrayList<Typerayon> rayon = new ArrayList<Typerayon>();
+                                                    ArrayList<Typerayon> rayon = new ArrayList();
                                                     rayon = (ArrayList<Typerayon>) request.getAttribute("trayonlist");
-                                                    
+                                                        Iterator <Typerayon> it = setmag.iterator();
                                                     for(int i=0; i<rayon.size();i++){
-                                                        boolean etat= false ;
-                                                        for(int j=0; j<setmag.size(); j++){
-                                                            if(rayon.get(i) == setmag.iterator().next()){
-                                                                etat= true ;
-                                                            }else etat = false;
+                                                        while(it.hasNext()){
+                                                            if(rayon.get(i) == it.next()){
+                                                               %>
+                                                                <option value="<%=it.next().getIdTypeRayon() %>" selected="selected" ><%= it.next().getLibelle() %></option>
+                                                               <%  
+                                                            }
                                                         }
-                                                        if(etat=true){
-                                                            
-                                                %>
-                                                <option value="<%=rayon.get(i).getIdTypeRayon() %>" selected="" ><%= rayon.get(i).getLibelle() %></option>
-                                                <%
-                                                        }else{
-                                                %>
-                                                <option value="<%=rayon.get(i).getIdTypeRayon() %>"><%= rayon.get(i).getLibelle() %></option>
-                                                <% } }%>
+                                                        %>
+                                                         <option value="<%=rayon.get(i).getIdTypeRayon() %>"><%= rayon.get(i).getLibelle() %></option>
+                                                        <%
+                                                    }  %>      
+                                                
                                             </select>
                                             
                                         </div>

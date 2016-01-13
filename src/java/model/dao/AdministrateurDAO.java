@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Clock;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -253,7 +254,6 @@ public class AdministrateurDAO {
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            System.out.println("dans le catch");
             e.printStackTrace();
         }
         session.close();
@@ -263,22 +263,27 @@ public class AdministrateurDAO {
     }
     public boolean updateMagasin(int id, Region R, String nom, String a1, String a2, String cp, String ville, Set trayon){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+        Set<Typerayon> typeR =  new HashSet<Typerayon>() ;
+        Iterator<Typerayon> it = trayon.iterator();
         try {
-            session.beginTransaction();
+           session.beginTransaction();
+           
            Magasin mag = (Magasin)session.load(Magasin.class, id);
-           mag.setNom(nom);
-           mag.setRegion(R);
-           mag.setAddrLigne1(a1);
-           mag.setAddrLigne2(a2);
-           mag.setCodePostal(cp);
-           mag.setVille(ville);
-           mag.setTyperayons(trayon);
+           mag.setNom(nom);        mag.setRegion(R);
+           mag.setAddrLigne1(a1);  mag.setAddrLigne2(a2);
+           mag.setCodePostal(cp);  mag.setVille(ville);
+           
+           /*typeR = mag.getTyperayons();
+           if(! trayon.isEmpty()){
+               while(it.hasNext()){
+                   typeR.add(it.next());
+               }
+           }
+           mag.setTyperayons(typeR);*/
            session.update(mag);
-            session.getTransaction().commit();
+           session.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            System.out.println("dans le catch");
             e.printStackTrace();
         }
         session.close();

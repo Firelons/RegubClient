@@ -62,7 +62,8 @@ public class AdmController {
     private final RegionDAO regBDD = new RegionDAO();
 
 
-    protected int id = 0;
+    protected int idC = 0;
+    protected int idM = 0;
 
     
    
@@ -150,7 +151,7 @@ public class AdmController {
      //  bouton modifier de la page compte utilisateur
     @RequestMapping(value = "ModifCompte{id}", method = RequestMethod.GET)
     protected String modifierCompteAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
-       this.id = id;
+       this.idM = id;
        try {
             if(auth.selectCompte(id)!=null){
                 request.setAttribute("compte", auth.selectCompte(id)); 
@@ -164,13 +165,14 @@ public class AdmController {
      //  bouton modifier de la page magasin
     @RequestMapping(value = "ModifMagasin{id}", method = RequestMethod.GET)
     protected String modifierMagasinAction(HttpServletRequest request,  Model model, @PathVariable(value = "id") Integer id) {
-       this.id = id;
+       this.idM = id;
        try {
             if(auth.selectMagasin(id)!=null){
                 request.setAttribute("magasin", auth.selectMagasin(id));  
                 request.setAttribute("regionlist", auth.region());
                 request.setAttribute("trayonlist", auth.typerayon());
             }  
+            System.out.println("region:"+auth.selectMagasin(id).getRegion().getLibelle());
         } catch (Exception e) {
         }
         return "admModifierMagasin";
@@ -272,12 +274,10 @@ public class AdmController {
        String ville = request.getParameter("ville");
        int idregion = Integer.parseInt(request.getParameter("Region"));
        String[] trayon = request.getParameterValues("typerayon");
-       
        R.setIdRegion(idregion);
       
        for(int i=0; i< trayon.length; i++){
-            typeR.add(TypeRayonDAO.RayonPrec(trayon[i]).get(0));
-            
+            typeR.add(TypeRayonDAO.RayonPrec(trayon[i]).get(0));  
         }
         boolean ajout = true;
         try {
@@ -301,15 +301,11 @@ public class AdmController {
          String prenom = request.getParameter("prenom");
          String login = request.getParameter("login");
          int tcpt = Integer.parseInt(request.getParameter("typecompte"));
-         //int id = auth.selectCompte1(login).getIdCompte();
+        
          Typecompte T = new Typecompte();
          T.setIdTypeCompte(tcpt);
          try {
-             System.out.println(this.id);
-             System.out.println(nom);
-             modif = auth.updateCompte(this.id, nom, prenom, login, T);
-            System.out.println(modif); 
-    
+             modif = auth.updateCompte(this.idC, nom, prenom, login, T);
         } catch (Exception e) {
             e.printStackTrace();
         }       
@@ -321,20 +317,27 @@ public class AdmController {
      // traitement de la page modification du compte utilisateur
     @RequestMapping(value = "ModifDataMagasin", method=RequestMethod.POST)
     protected String modifierDataMagasinAction(HttpServletRequest request, Model model) {
-         boolean modif=false;
-
-         String nom = request.getParameter("nom");
-       String rue = request.getParameter("addrLigne1");
-       String complement = request.getParameter("addrLigne2");
-       String codep = request.getParameter("codepostal");
-       String ville = request.getParameter("ville");
-       int idregion = Integer.parseInt(request.getParameter("Region"));
-         
-         Region R = new Region();
-         R.setIdRegion(idregion);
+        boolean modif=false;
+        Set<Typerayon> typeR =  new HashSet<Typerayon>() ;
+        
+        String nom = request.getParameter("nom");
+        String rue = request.getParameter("addrLigne1");
+        String complement = request.getParameter("addrLigne2");
+        String codep = request.getParameter("codepostal");
+        String ville = request.getParameter("ville");
+        int idregion = Integer.parseInt(request.getParameter("Region"));
+        Region R = new Region();
+        R.setIdRegion(idregion);
+        String[] trayon = request.getParameterValues("typerayon");
+       
+        for(int i=0; i< trayon.length; i++){
+            typeR.add(TypeRayonDAO.RayonPrec(trayon[i]).get(0)); 
+        }
          try {
-            // modif = auth.updateMagasin(id, R, nom, rue, rue, codep, ville, null)
-    
+             
+             System.out.println("region:"+idregion);
+                modif = auth.updateMagasin(this.idM, R, nom, rue, complement, codep, ville, typeR);
+             System.out.println("region:"+idregion);
         } catch (Exception e) {
             e.printStackTrace();
         }       
