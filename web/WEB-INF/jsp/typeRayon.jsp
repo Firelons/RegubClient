@@ -75,7 +75,7 @@
               <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Nom du rayon</th><th>Modifier</th><th>Supprimer</th>
+                                    <th>Nom du rayon</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,13 +84,15 @@
                                     <td>
                                         <c:out value="${R.getLibelle()}"></c:out>
                                         </td>
-                                        <td>
-                                            <form id="modifbutton" role="form" >
-                                                <input type="hidden" id="id" name="id" value="${cli.getIdClient()}" class="form-control"/>
-                                                <button class="btn btn-info" type="submit">modifier</button>
-                                            </form>
-                                        </td>
-                                        <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" class="btn btn-primary">
+                                    <td><a href="modifierrayon-${R.getIdTypeRayon()}"   class="btn btn-primary"x>
+                                        <c:out value=""></c:out>Modifier</a>
+
+                                    </td>
+                                        <td><a href="magasinsrayon-${R.getIdTypeRayon()}"   class="btn btn-info"x>
+                                        <c:out value=""></c:out>Magasins</a>
+
+                                    </td>
+                                        <td><a href="supprimerrayon-${R.getIdTypeRayon()}" class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
                                         </td>
                                     </tr>

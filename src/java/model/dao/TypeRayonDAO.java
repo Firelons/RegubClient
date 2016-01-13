@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import entities.Region;
 import entities.Typerayon;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class TypeRayonDAO {
         List<Typerayon> listrayon = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "select distinct f.typerayons from Magasin f ";
+            String hql = "from Rayon as Ra WHERE EXISTS ( FROM Magasin as Ma WHERE Ma.rayon = Ra ) ";
             Query query = session.createQuery(hql);
             listrayon = query.list();
             //System.out.println(listrayon);
@@ -79,6 +80,23 @@ public class TypeRayonDAO {
         session.close();
         return list;
     }
+          public static Typerayon getRayon(Integer IdRayon) {
+
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Typerayon ray = (Typerayon) session.load(Typerayon.class, IdRayon);
+            System.out.println(ray);
+            return ray;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+       
+   
+       
+    
         public boolean deleteRayon(Integer idRay) {
 
         List<Typerayon> list = new ArrayList<Typerayon>();
@@ -97,5 +115,21 @@ public class TypeRayonDAO {
         return false;
     }
         
-        
+        public Typerayon updRayon(Integer id, String lib) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            Typerayon updray = (Typerayon) session.load(Typerayon.class, id);
+            updray.setLibelle(lib);
+            session.update(updray);
+            session.getTransaction().commit();
+            return updray;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        session.close();
+        return null;
+    }
+    
+  
 }

@@ -148,12 +148,43 @@ public class AdmController {
         return "typeRayon";
     }
     
+    //modification de rayon
+       @RequestMapping(value = "modifierrayon-{id}", method = RequestMethod.GET)
+    public String afficherpagemodifrayon(HttpServletRequest request, HttpSession session, Model model, Typerayon ray, @PathVariable("id") Integer IdRayon) {
+        ray =   RayBDD.getRayon(IdRayon);
+        model.addAttribute("ray",ray);
+        return "admModifierRayon";
+    }
+    @RequestMapping(value = "modifierrayon", method = RequestMethod.POST)
+    public String modifierrayon(@RequestParam("idRayon") Integer idRayon,
+            @RequestParam("libelle") String lib,Model model) {
+        RayBDD.updRayon(idRayon,lib);
+        listRayonAction(model);
+        return "redirect:/rayon";
+    }
     
     //bouton de suppression de rayon
      @RequestMapping(value = "supprimerrayon-{id}", method = RequestMethod.GET)
-    public String deletrayon(HttpServletRequest request, HttpSession session, Model model, Region reg, @PathVariable("id") Integer IdRegion) {
-        regBDD.deleteRegion(IdRegion);
-        return "redirect:/region";
+    public String deletrayon(HttpServletRequest request, HttpSession session, Model model, Typerayon ray, @PathVariable("id") Integer IdRayon) {
+        RayBDD.deleteRayon(IdRayon);
+        return "redirect:/rayon";
+    }
+    
+     
+    @RequestMapping(value = "magasinsrayon-{id}", method = RequestMethod.GET)
+    public String listmagasin(HttpServletRequest request, HttpSession session, Model model, Typerayon ray, @PathVariable("id") Integer IdRayon) {
+         Compte cpt = (Compte) session.getAttribute("AdministrateurConnected");
+         
+        Typerayon rayon = TypeRayonDAO.getRayon(IdRayon);
+        //Set <Magasin> ListMag;
+        //ListMag = rayon.getMagasins();
+        List<Magasin> listmagasins = MagasinDAO.Magasinliste();
+        request.setAttribute("magasins",listmagasins);
+        //request.setAttribute("statselected", vid.getStatut());
+        //model.addAttribute("magasins",ListMag);
+        String namerayon = rayon.getLibelle();
+        model.addAttribute("namerayon",namerayon);
+        return "admMagasinsRayon";
     }
     
      //  bouton modifier de la page compte utilisateur
