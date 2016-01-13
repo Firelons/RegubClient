@@ -56,19 +56,19 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label>Nom*</label>
-                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${CommercialConnected.getNom()} "required>
+                                        <input type="text" name="nom" id="nom" class="form-control input-sm" placeholder="nom" value="${compteConnected.getNom()} "required>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <label>Prenom*</label>
                                     <div class="form-group">
-                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${CommercialConnected.getPrenom()}" required>
+                                        <input type="text" name="prenom" id="prenom" class="form-control input-sm" placeholder="prenom"value="${compteConnected.getPrenom()}" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Login*</label>
-                                <input type="login" name="login" id="login" class="form-control input-sm" placeholder="login" value="${CommercialConnected.getLogin()}" required>
+                                <input type="login" name="login" id="login" class="form-control input-sm" placeholder="login" value="${compteConnected.getLogin()}" required>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">

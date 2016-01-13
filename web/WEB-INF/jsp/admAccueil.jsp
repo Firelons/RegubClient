@@ -69,8 +69,9 @@
 
                     <a href="rayon" class="btn btn-lg btn-primary car"><strong>Gestion de Type Rayons</strong></a><br/><br/>
 
-                    <a href="#" class="btn btn-lg btn-primary car" data-toggle="modal" data-target="#myModalEntreprise"><strong>Entreprises</strong></a>
-
+                    <a href="#" class="btn btn-lg btn-primary car" data-toggle="modal" data-target="#myModalEntreprise"><strong>Entreprises</strong></a><br/><br/>
+                    
+                    <a href="regub/commercial/" class="btn btn-lg btn-primary car"><strong>Accueil Commercial</strong></a><br/><br/>
 
                 </div>
             </div>
