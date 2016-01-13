@@ -42,122 +42,113 @@ function isInteger(x) {
 function validateComFormulaireAjoutContrat() {
     var currentDate = new Date();
     var day = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
+    var month = currentDate.getMonth()+1;
     var year = currentDate.getFullYear();
-    var date = year+"-"+month+"-"+day;
+    var date = day+"-"+month+"-"+year;
     
-    alert("formulaire");
-    var x1 = document.FormulaireAjout.titre.value;
-    var x13 = document.getElementById("fichier");
-    alert("Av decl");
-    //var x1 = document.forms["ComFormulaireAjoutContrat"]["titre"].value;
-    /*var x2 = document.forms["ComFormulaireAjoutContrat"]["frequence"].value;
-    var x3 = document.forms["ComFormulaireAjoutContrat"]["rayon"].value;
-    var x4 = document.forms["ComFormulaireAjoutContrat"]["datedebut"].value;
-    var x5 = document.forms["ComFormulaireAjoutContrat"]["datefin"].value;
-    var x6 = document.forms["ComFormulaireAjoutContrat"]["datereception"].value;
-    var x7 = document.forms["ComFormulaireAjoutContrat"]["datevalidation"].value;
-    var x8 = document.forms["ComFormulaireAjoutContrat"]["fichier"].value;
-    var x9 = document.forms["ComFormulaireAjoutContrat"]["statut"].value;
-    var x10 = document.forms["ComFormulaireAjoutContrat"]["region"].value;
-    var x11 = document.forms["ComFormulaireAjoutContrat"]["tarif"].value;
-    var x12 = document.forms["ComFormulaireAjoutContrat"]["duree"].value;
-    var x13 = document.forms["ComFormulaireAjoutContrat"]["file"].value;
-    */
+    var titre = document.FormulaireAjout.titre.value;
+    var freq = document.FormulaireAjout.frequence.value;
+    var dure = document.FormulaireAjout.duree.value;
+    var datedebut = document.FormulaireAjout.datedebut.value;
+    var datereception = document.FormulaireAjout.datereception.value;
+    var datefin = document.FormulaireAjout.datefin.value;
+    var fichier = document.getElementById("fichier");
+    var tarif = document.FormulaireAjout.tarif.value;
+    var statut = document.FormulaireAjout.statut.value;
+    var rayon = document.FormulaireAjout.rayon.value;
+    var region = document.FormulaireAjout.region.value;
     
-    if (x13.value === "") {
-        alert("Aucune video");
-        $('p.erreur-form').html("Vous devez choisir une vidéo");
-        return false;
-    }
-    /*if (x1 === null || x1 === "") {
-        alert("Titre null");
-        $('p.erreur-form').html("Vous devez fournir un titre");
-        return false;
-    }*/
-    /*
-    if (x2 === null || x2 === "") {
+    //verif sur la frequence
+    if (freq === null || freq === "") {
         $('p.erreur-form').html("Vous devez fournir une fréquence");
         return false;
     }
-    if (isNaN(x2)) {
+    if (isNaN(freq)) {
         $('p.erreur-form').html("La fréquence doit être un chiffe ou un nombre");
         return false;
     }
-    if (isInteger(x2) === false) {
-        $('p.erreur-form').html("La fréquence doit être un entier");
+    
+    //verif sur le titre
+    if (titre === null || titre === "") {
+        $('p.erreur-form').html("Vous devez fournir un titre");
         return false;
     }
+    if (titre !== null || titre !== "") {
+        var alphanum = /^[0-9A-Za-z]+$/;
+        if(!titre.match(alphanum)){
+            $('p.erreur-form').html("Le titre ne peut contenir que des lettres et des chiffres");
+            return false;
+        }
+    }
     
-    if (x12 === null || x12 === "") {
+    //Verif sur la durée
+    if (dure === null || dure === "") {
         $('p.erreur-form').html("Vous devez fournir une durée");
         return false;
     }
-    if (isNaN(x12)) {
+    if (isNaN(dure)) {
         $('p.erreur-form').html("La durée doit être un chiffe ou un nombre");
         return false;
     }
     
-    if (x3 === null || x3 === "") {
-        $('p.erreur-form').html("Vous devez choisir un rayon");
-        return false;
-    }
-    
-    if (x4 === null || x4 === "") {
+    //verif sur la date de debut
+    if (datedebut === null || datedebut === "") {
         $('p.erreur-form').html("Vous devez choisir une date de debut");
         return false;
     }
-    if (x4<date) {
-        $('p.erreur-form').html("La date de debut doit être supérieur à la date du jour");
+    if (datedebut<date || datedebut !== date) {
+        $('p.erreur-form').html("La date de debut doit être supérieur ou égale à la date du jour");
         return false;
     }
     
-    if (x5 === null || x5 === "") {
-        $('p.erreur-form').html("Vous devez choisir une date de fin");
-        return false;
-    }
-    if (x5<x4) {
-        $('p.erreur-form').html("La date de fin doit être supérieure à la date de debut");
-        return false;
-    }
-    
-    if (x6 === null || x6 === "") {
+    //verif sur la date de reception
+    if (datereception === null || datereception === "") {
         $('p.erreur-form').html("Vous devez choisir une date de reception");
         return false;
     }
     
-    if (x7 === null || x7 === "") {
-        $('p.erreur-form').html("Vous devez choisir une date de validation");
+    //verif sur la date de fin
+    if (datefin === null || datefin === "") {
+        $('p.erreur-form').html("Vous devez choisir une date de fin");
+        return false;
+    }
+    if (datefin<datedebut) {
+        $('p.erreur-form').html("La date de fin doit être supérieure à la date de debut");
         return false;
     }
     
-    if (x8 === null || x8 === "") {
-        $('p.erreur-form').html("Vous devez choisir un fichier");
+    //verif si fichier présent
+    if (fichier.value === "") {
+        $('p.erreur-form').html("Vous devez choisir une vidéo");
         return false;
     }
     
-    if (x9 === null || x9 === "") {
-        $('p.erreur-form').html("Vous devez choisir un statut");
+    //verif sur le tarif
+    if (tarif === null || tarif === "") {
+        $('p.erreur-form').html("Vous devez entrer un tarif");
         return false;
     }
-    
-    if (x10 === null || x10 === "") {
-        $('p.erreur-form').html("Vous devez choisir une ou plusieurs regions");
-        return false;
-    }
-    
-    if (x11 === null || x11 === "") {
-        $('p.erreur-form').html("Vous devez fournir un tarif");
-        return false;
-    }
-    if (isNaN(x11)) {
+    if (isNaN(tarif)) {
         $('p.erreur-form').html("Le tarif doit être un chiffe ou un nombre");
         return false;
     }
     
-    if (x13 === null) {
-        $('p.erreur-form').html("Vous devez choisir une vidéo");
+    //verif sur le statut
+    if (statut === null || statut === "") {
+        $('p.erreur-form').html("Vous devez choisir un statut");
         return false;
     }
-    */
+    
+    //verif sur le rayon
+    if (rayon === null || rayon === "") {
+        $('p.erreur-form').html("Vous devez choisir un ou plusieurs rayon(s)");
+        return false;
+    }
+    
+    //verif sur la region
+    if (region === null || region === "") {
+        $('p.erreur-form').html("Vous devez choisir une ou plusieurs regions(s)");
+        return false;
+    }
+    
 } 

@@ -75,7 +75,7 @@
                         </div>
                     <div class="col-lg-5">
                         <td><a href="/RegubClient/regub/commercial/derniercontrats" class="btn btn-primary" data-toggle="modal" data-target="">
-                                <c:out value=""></c:out>Contrats terminé</a>
+                                <c:out value=""></c:out>Dernier contrats</a>
                             </td>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                                     <td><a href="/RegubClient/regub/commercial/${cli.getIdClient()}" <c:if test="${!empty cli.getVideos() }">disabled </c:if> class="btn btn-primary">
                                             <c:out value=""></c:out>Supprimer</a>
                                             
-                                        </td>
+                                    </td>
                                     </tr>
                             </c:forEach>
                         </tbody>

@@ -223,7 +223,7 @@ public class VideoDAO {
         List<Video> listpass = new ArrayList<Video>();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Video";
+            String hql = "from Video order by DateFin desc";
             Query query = session.createQuery(hql);
             lst = query.list();
             
