@@ -25,7 +25,8 @@ public class TypeRayonDAO {
         List<Typerayon> listrayon = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "from Rayon as Ra WHERE EXISTS ( FROM Magasin as Ma WHERE Ma.rayon = Ra ) ";
+            //"from Rayon as Ra WHERE EXISTS ( FROM Magasin as Ma WHERE Ma.rayon = Ra ) "
+            String hql = "select distinct f.typerayons from Magasin f";
             Query query = session.createQuery(hql);
             listrayon = query.list();
             //System.out.println(listrayon);

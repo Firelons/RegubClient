@@ -65,6 +65,7 @@ public class AccueilController {
             try {
                 session.setAttribute("usersigned", cli);
                 sendEmail.send(cli, "http://localhost:8080/RegubClient/XY0Ao25pTASC"+cli.getIdClient()+"45xRGB");
+                System.out.println("http://localhost:8080/RegubClient/XY0Ao25pTASC"+cli.getIdClient()+"45xRGB");
                 return "inscripClient";
             } catch (Exception ex) {
                 Logger.getLogger(AccueilController.class.getName()).log(Level.SEVERE, null, ex);
