@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Set"%>
 <%@page import="entities.Magasin"%>
 <%@page import="entities.Compte"%>
 <%@page import="entities.Typerayon"%>
@@ -85,6 +88,8 @@
                                 <%
                                 Magasin mag = new Magasin();
                                 mag = (Magasin)request.getAttribute("magasin");
+                                Set <Typerayon> setmag = new HashSet();
+                                setmag = (Set)mag.getTyperayons();
                                 %>
                                 
                                 <div class="row">
@@ -138,11 +143,11 @@
                                                     for(int i=0; i<list.size();i++){
                                                         if(list.get(i).getLibelle()== mag.getRegion().getLibelle()){
                                                 %>
-                                                <option value="<%=mag.getRegion().getLibelle() %>" selected><%=mag.getRegion().getLibelle() %></option>
+                                                <option value="<%= mag.getRegion().getIdRegion() %>" selected="selected" ><%=mag.getRegion().getLibelle() %></option>
                                                 <%
                                                         }else{
                                                 %>
-                                                <option value="<%=list.get(i).getIdRegion() %>"><%= list.get(i).getLibelle() %></option>
+                                                <option value="<%=list.get(i).getIdRegion() %>" ><%= list.get(i).getLibelle() %></option>
                                                 <% } }%>
                                             </select> <br>
                                         </div>
@@ -157,13 +162,23 @@
                                             <select id="typereyon" class="form-control input-sm" name="typerayon" size="18" multiple required  >
                                                 
                                                 <%
-                                                    ArrayList<Typerayon> rayon = new ArrayList<Typerayon>();
-                                                    rayon = (ArrayList<Typerayon>) request.getAttribute("trayonlist");  
+                                                    
+                                                    ArrayList<Typerayon> rayon = new ArrayList();
+                                                    rayon = (ArrayList<Typerayon>) request.getAttribute("trayonlist");
+                                                        Iterator <Typerayon> it = setmag.iterator();
                                                     for(int i=0; i<rayon.size();i++){
-                                                %>
-
-                                                <option value="<%=rayon.get(i).getLibelle() %>"><%= rayon.get(i).getLibelle() %></option>
-                                                <% } %>
+                                                        while(it.hasNext()){
+                                                            if(rayon.get(i) == it.next()){
+                                                               %>
+                                                                <option value="<%=it.next().getIdTypeRayon() %>" selected="selected" ><%= it.next().getLibelle() %></option>
+                                                               <%  
+                                                            }
+                                                        }
+                                                        %>
+                                                         <option value="<%=rayon.get(i).getIdTypeRayon() %>"><%= rayon.get(i).getLibelle() %></option>
+                                                        <%
+                                                    }  %>      
+                                                
                                             </select>
                                             
                                         </div>

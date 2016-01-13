@@ -150,7 +150,7 @@
                                                     for(int i=0; i<rayon.size();i++){
                                                 %>
 
-                                                <option value="<%=rayon.get(i).getLibelle() %>"><%= rayon.get(i).getLibelle() %></option>
+                                                <option value="<%=rayon.get(i).getIdTypeRayon() %>"><%= rayon.get(i).getLibelle() %></option>
                                                 <% } %>
                                             </select>
                                             
