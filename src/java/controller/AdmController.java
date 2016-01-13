@@ -169,23 +169,7 @@ public class AdmController {
         RayBDD.deleteRayon(IdRayon);
         return "redirect:/rayon";
     }
-    
-     
-    @RequestMapping(value = "magasinsrayon-{id}", method = RequestMethod.GET)
-    public String listmagasin(HttpServletRequest request, HttpSession session, Model model, Typerayon ray, @PathVariable("id") Integer IdRayon) {
-         Compte cpt = (Compte) session.getAttribute("AdministrateurConnected");
-         
-        Typerayon rayon = TypeRayonDAO.getRayon(IdRayon);
-        //Set <Magasin> ListMag;
-        //ListMag = rayon.getMagasins();
-        List<Magasin> listmagasins = MagasinDAO.Magasinliste();
-        request.setAttribute("magasins",listmagasins);
-        //request.setAttribute("statselected", vid.getStatut());
-        //model.addAttribute("magasins",ListMag);
-        String namerayon = rayon.getLibelle();
-        model.addAttribute("namerayon",namerayon);
-        return "admMagasinsRayon";
-    }
+
     
      //  bouton modifier de la page compte utilisateur
     @RequestMapping(value = "ModifCompte{id}", method = RequestMethod.GET)
