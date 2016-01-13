@@ -71,23 +71,23 @@
                     </div>
                 </div>
             </div>
-         
+
             <div class="container">
                 <div class="table-responsive">          
                     <table class="table">
                         <thead>
                             <tr>
-                          <th>Clients</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif</th><th>Devis</th><th>Facture</th>
+                                <th>Clients</th><th>Titre de la vidéo</th><th>Durée</th><th>Date de debut</th><th>Date de fin</th><th>Tarif</th><th>Devis</th><th>Facture</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="vid" items="${derniercontrats}">
-                                
+
                                 <tr>
-                                     <td>
+                                    <td>
                                         <c:out value="${vid.getClient().getSociete()}"></c:out>
                                         </td>
-                                    <td>
+                                        <td>
                                         <c:out value="${vid.getTitre()}"></c:out>
                                         </td>
                                         <td>
@@ -103,9 +103,25 @@
                                         <c:out value="${vid.getTarif()}"></c:out>
                                         </td>
                                         <td>
-                                      
+                                            <form method="post" action="deviscom">
+                                                <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                                <button type="submit"  class="btn btn-info">Voir</button>
+                                            </form>
+
+                                        </td>
+                                        <td>
+                                            <form method="post" action="facturecom">
+                                                <input type="hidden" id="id" name="clicom" value="${vid.getClient()}" class="form-control"/>
+                                                <input type="hidden" id="id" name="idvideo" value="${vid.getIdVideo()}" class="form-control"/>
+                                                <button type="submit"   class="btn btn-primary">Voir</button>
+                                            </form>                                          
+
+                                        </td>
+                                    <td>
+
                                     </td>
-                                    
+
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -113,10 +129,10 @@
                 </div>
             </div>
         </section>
-                        
+
         <jsp:include page="foot.jsp" />        
-            
-        
+
+
         <!-- jQuery -->
         <script src="<c:url value="/resources/js/jquery.js"/>"></script>
 
