@@ -8,6 +8,7 @@ package controller;
 
 import entities.Client;
 import entities.Compte;
+import entities.Entreprise;
 import entities.Magasin;
 import entities.Region;
 import entities.Typecompte;
@@ -33,6 +34,7 @@ import javax.swing.JOptionPane;
 import model.dao.AdministrateurDAO;
 import model.dao.ClientDAO;
 import model.dao.CompteDAO;
+import model.dao.EntrepriseDAO;
 import model.dao.MagasinDAO;
 import model.dao.RegionDAO;
 import model.dao.TypeRayonDAO;
@@ -465,7 +467,13 @@ public class AdmController {
          model.addAttribute("nomregion",nameregion);
         return "admMagasinsRegion";
     }
-    
+    // bouton enregistrer de entreprise
+    @RequestMapping(value = "entrepriseenregistrer", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifiEntreprise(@ModelAttribute("ent") Entreprise ent, HttpSession session) {
+        EntrepriseDAO.enregistrerEntreprise(ent);   
+        return "regub"; //facultatif géré ds la js administrateur
+    }
     
     
     

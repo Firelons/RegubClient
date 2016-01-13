@@ -51,7 +51,7 @@ $(document).ready(function () {
         var $this = $(this);
         //je precise a ajax les params 
         $.ajax({
-            url: 'entrepriseenregistrer', //url qui est liÃ©e avec l'action de controller
+            url: 'entrepriseenregistrer', //url qui est liée avec l'action de controller
             data: $this.serialize(), //donnÃ©es 
             type: 'POST', //methode d'envoie de donnÃ©es
             success: function (response) {
