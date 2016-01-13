@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 20 Décembre 2015 à 19:55
--- Version du serveur :  5.6.21
--- Version de PHP :  5.6.3
+-- Généré le :  Mer 13 Janvier 2016 à 15:11
+-- Version du serveur :  10.1.9-MariaDB
+-- Version de PHP :  5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `regub`
@@ -24,8 +24,7 @@ DELIMITER $$
 --
 -- Procédures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLogin`(IN `log` VARCHAR(64) CHARSET utf8, IN `pass` VARCHAR(64) CHARSET utf8)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getLogin` (IN `log` VARCHAR(64) CHARSET utf8, IN `pass` VARCHAR(64) CHARSET utf8)  NO SQL
     DETERMINISTIC
 BEGIN
 	SELECT Compte.idCompte AS id, Compte.nom,Compte.prenom,Compte.login,Compte.creation,TypeCompte.libelle AS type,TypeCompte.dblogin,TypeCompte.dbpassword
@@ -33,8 +32,7 @@ BEGIN
 	WHERE (log = Compte.login AND Compte.password = SHA2( CONCAT( pass , Compte.salt),256));
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updPass`(IN `login` VARCHAR(64) CHARSET utf8, IN `oldpass` VARCHAR(64) CHARSET utf8, IN `newpass` VARCHAR(64) CHARSET utf8)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updPass` (IN `login` VARCHAR(64) CHARSET utf8, IN `oldpass` VARCHAR(64) CHARSET utf8, IN `newpass` VARCHAR(64) CHARSET utf8)  NO SQL
 BEGIN
 	DECLARE cmpt INT(10);
 
@@ -58,8 +56,8 @@ DELIMITER ;
 -- Structure de la table `client`
 --
 
-CREATE TABLE IF NOT EXISTS `client` (
-`idClient` int(8) NOT NULL,
+CREATE TABLE `client` (
+  `idClient` int(8) NOT NULL,
   `societe` varchar(64) NOT NULL,
   `telephone` varchar(10) NOT NULL,
   `email` varchar(32) NOT NULL,
@@ -69,42 +67,35 @@ CREATE TABLE IF NOT EXISTS `client` (
   `code_postal` char(5) NOT NULL,
   `mot_de_passe` varchar(64) NOT NULL,
   `salt` char(32) NOT NULL,
-  `valide` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
+  `valide` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`idClient`, `societe`, `telephone`, `email`, `addr_ligne1`, `addr_ligne2`, `ville`, `code_postal`, `mot_de_passe`, `salt`, `valide`) VALUES
-(1, 'TF1      ', '0624912564', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', 'ebb918fc66572e10029d05e49cc2b2256d7728e7a985c740805d110fc0f5189e', 'ec746e58619f5c757d1eb91e4eb10571', 1),
+(1, 'TF1 ', '0606060606', 'tf1@gmail.com', '10 rue de la loi', '', 'Paris', '75000', '9fb68d2dbc4907b4ec57f0927a67e18d48a86ef709c61ccba3e5117a026ece21', 'a2068f59964559d8cfd7ca015593ee09', 1),
 (3, 'Camlait', '0647696161', 'lons@lons.fr', '43 rue du petit tour', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
 (45, '3il', '0555316729', 'e3il@3il.fr', '43 rue Sainte-Anne', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
-(46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
-(47, 'Intermarche', '0800008180', 'landryl@yahoo.com', '24 rue Auguste Chabrieres ', '', ' Paris', '75737', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
-(48, 'Leclerc', '0800865286', 'Francklin@yahoo.com', 'Rue Henri Giffard', '', 'Limoges', '87280', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
-(50, 'lagoma', '55222', 'fjkd@kdokdlm.com', 'rueee', NULL, 'jiji', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
-(52, 'mesmer', '0625649875', 'm@g.fr', '45 rue fjknlk', NULL, 'l,lfsk', '05611', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 0),
-(57, 'yu', 'yu', 'yu@ft.fop', 'yu', 'yu', 'yu', 'yuyyu', '79c1d49d56ec48dafc5bb45bb7c777309a1e1a98553e5e112414644cc6521b91', '05620579050a1f4486f3effd7e50426e', 0),
-(58, 'Messy', '0624912407', 'mesmerloic@gmail.com', '185 avenue Alber thomas', '', 'Limoges', '87100', 'c63d9e996e6d8c43185a1842e815c1a9ea2c3689936b5694738af4512f01d742', '0cf186aef6c797ce83e8f09b49d2b3d3', 0),
-(59, 'Messy', '0624912407', 'mesmerloic@gmail.com', '185 avenue Alber thomas', '', 'Limoges', '87100', 'e57950c5706f6486834bd5532d3b0cad63d94080cc5143fc679b3f1eb5fdfc68', 'f1c7d90b33dcb48cf956b921933b4030', 0),
-(102, 'uy', 'yu', 'mesmerloic@gmail.com', 'yu', 'yuy', 'yu', 'u', '4d5654297c1bd3ff0c816ba419c312008e183ce5d381ee628fa06babc85d585e', 'c0eb6706f4274c91ee69b97de8968d0a', 1),
-(103, 'io', 'io', 'mesmerloic@gmail.com', 'io', 'io', 'io', 'io', 'b489116259ca531e15f8e3687f58fd9bdf870ff0210cdd8a9afc8ad6595cf457', '27c4341f2c1824ac1f06b344e04c0d06', 0);
+(46, 'Carrefour', '0555500370', 'panelcarrefour@cospirit.com', '36 Avenue Baudin\r\n', '', 'Limoges', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(47, 'Intermarche', '0800008180', 'landryl@yahoo.com', '24 rue Auguste Chabrieres ', '', ' Paris', '75737', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(48, 'Leclerc', '0800865286', 'Francklin@yahoo.com', 'Rue Henri Giffard', '', 'Limoges', '87280', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(50, 'lagoma', '55222', 'fjkd@kdokdlm.com', 'rueee', NULL, 'jiji', '87000', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1),
+(52, 'mesmer', '0625649875', 'm@g.fr', '45 rue fjknlk', NULL, 'l,lfsk', '05611', 'fe2ee7f067e9a92ac3ea5d5f8f36efe146100993d5bf7c4a1fe5a9637030ce47', 'e2234b4fb4ee9e3ab61ef18cab406d86', 1);
 
 --
 -- Déclencheurs `client`
 --
-DELIMITER //
-CREATE TRIGGER `insCli` BEFORE INSERT ON `client`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `insCli` BEFORE INSERT ON `client` FOR EACH ROW BEGIN
 	SET NEW.salt = md5(uuid());            
 	SET NEW.mot_de_passe =SHA2(CONCAT(NEW.mot_de_passe,NEW.salt),256);            
 END
-//
+$$
 DELIMITER ;
-DELIMITER //
-CREATE TRIGGER `updCli` BEFORE UPDATE ON `client`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `updCli` BEFORE UPDATE ON `client` FOR EACH ROW BEGIN
 	IF ( NEW.mot_de_passe <> OLD.mot_de_passe ) THEN
 		SET NEW.salt = md5(uuid());            
 		SET NEW.mot_de_passe =SHA2(CONCAT(NEW.mot_de_passe,NEW.salt),256); 
@@ -112,7 +103,7 @@ CREATE TRIGGER `updCli` BEFORE UPDATE ON `client`
 		SET NEW.salt = OLD.salt;
 	END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -121,8 +112,8 @@ DELIMITER ;
 -- Structure de la table `compte`
 --
 
-CREATE TABLE IF NOT EXISTS `compte` (
-`idCompte` int(8) NOT NULL,
+CREATE TABLE `compte` (
+  `idCompte` int(8) NOT NULL,
   `nom` varchar(32) NOT NULL,
   `prenom` varchar(32) NOT NULL,
   `login` varchar(32) NOT NULL,
@@ -130,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `salt` char(32) NOT NULL,
   `creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `idTypeCompte` int(8) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `compte`
@@ -145,17 +136,15 @@ INSERT INTO `compte` (`idCompte`, `nom`, `prenom`, `login`, `password`, `salt`, 
 --
 -- Déclencheurs `compte`
 --
-DELIMITER //
-CREATE TRIGGER `insCmpt` BEFORE INSERT ON `compte`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `insCmpt` BEFORE INSERT ON `compte` FOR EACH ROW BEGIN
 	SET NEW.salt = md5(uuid());            
 	SET NEW.password =SHA2(CONCAT(NEW.password,NEW.salt),256);            
 END
-//
+$$
 DELIMITER ;
-DELIMITER //
-CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `compte`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `compte` FOR EACH ROW BEGIN
 	IF ( NEW.password <> OLD.password ) THEN
 		SET NEW.salt = md5(uuid());            
 		SET NEW.password =SHA2(CONCAT(NEW.password,NEW.salt),256); 
@@ -163,7 +152,7 @@ CREATE TRIGGER `updCmpt` BEFORE UPDATE ON `compte`
 		SET NEW.salt = OLD.salt;
 	END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -172,7 +161,7 @@ DELIMITER ;
 -- Structure de la table `diffusionregions`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusionregions` (
+CREATE TABLE `diffusionregions` (
   `idVideo` int(8) NOT NULL,
   `idRegion` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -183,21 +172,22 @@ CREATE TABLE IF NOT EXISTS `diffusionregions` (
 
 INSERT INTO `diffusionregions` (`idVideo`, `idRegion`) VALUES
 (2, 5),
-(9, 5),
-(10, 5),
-(11, 5),
-(12, 5),
-(4, 6),
-(11, 6),
-(5, 7),
-(9, 14),
-(10, 14),
 (3, 17),
+(4, 6),
+(5, 7),
+(9, 5),
+(9, 14),
 (9, 17),
 (9, 21),
+(10, 5),
+(10, 14),
+(11, 5),
+(11, 6),
+(12, 5),
 (12, 21),
 (13, 21),
-(13, 30);
+(13, 30),
+(14, 17);
 
 -- --------------------------------------------------------
 
@@ -205,26 +195,13 @@ INSERT INTO `diffusionregions` (`idVideo`, `idRegion`) VALUES
 -- Structure de la table `diffusions`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusions` (
-`idDiffusion` int(8) NOT NULL,
+CREATE TABLE `diffusions` (
+  `idDiffusion` int(8) NOT NULL,
   `idVideo` int(8) NOT NULL,
   `idMagasin` int(8) NOT NULL,
   `idTypeRayon` int(8) NOT NULL,
   `dateDiffusion` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `diffusions`
---
-
-INSERT INTO `diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, `dateDiffusion`) VALUES
-(1, 2, 3, 5, '2015-04-23 16:00:00'),
-(2, 2, 3, 6, '2015-04-23 16:00:00'),
-(3, 5, 3, 4, '2015-04-24 13:00:00'),
-(5, 5, 7, 5, '2015-04-22 09:00:00'),
-(6, 5, 7, 5, '2015-04-22 10:00:00'),
-(7, 4, 5, 9, '2015-04-29 10:00:00'),
-(8, 4, 5, 5, '2015-04-29 20:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -232,7 +209,7 @@ INSERT INTO `diffusions` (`idDiffusion`, `idVideo`, `idMagasin`, `idTypeRayon`, 
 -- Structure de la table `diffusionstypesrayons`
 --
 
-CREATE TABLE IF NOT EXISTS `diffusionstypesrayons` (
+CREATE TABLE `diffusionstypesrayons` (
   `idVideo` int(8) NOT NULL,
   `idTypeRayon` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -243,27 +220,29 @@ CREATE TABLE IF NOT EXISTS `diffusionstypesrayons` (
 
 INSERT INTO `diffusionstypesrayons` (`idVideo`, `idTypeRayon`) VALUES
 (2, 1),
-(3, 1),
+(2, 9),
+(3, 2),
+(3, 8),
 (4, 1),
-(5, 1),
 (4, 2),
-(11, 2),
-(9, 3),
-(10, 3),
-(12, 3),
-(13, 3),
-(10, 4),
+(4, 7),
+(5, 1),
+(5, 2),
 (5, 5),
 (5, 6),
-(4, 7),
+(9, 2),
 (9, 7),
-(12, 7),
-(13, 7),
-(3, 8),
-(2, 9),
 (9, 9),
-(11, 9),
-(12, 9);
+(10, 2),
+(10, 3),
+(10, 4),
+(11, 2),
+(12, 3),
+(12, 7),
+(12, 9),
+(13, 3),
+(13, 7),
+(14, 1);
 
 -- --------------------------------------------------------
 
@@ -271,15 +250,15 @@ INSERT INTO `diffusionstypesrayons` (`idVideo`, `idTypeRayon`) VALUES
 -- Structure de la table `entreprise`
 --
 
-CREATE TABLE IF NOT EXISTS `entreprise` (
-`idEntreprise` int(8) NOT NULL,
+CREATE TABLE `entreprise` (
+  `idEntreprise` int(8) NOT NULL,
   `nom` varchar(64) CHARACTER SET utf8 NOT NULL,
   `adresse` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
   `code` char(5) CHARACTER SET utf8 NOT NULL,
   `ville` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
   `telephone` varchar(10) CHARACTER SET utf8 NOT NULL,
   `mail` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `entreprise`
@@ -294,15 +273,15 @@ INSERT INTO `entreprise` (`idEntreprise`, `nom`, `adresse`, `code`, `ville`, `te
 -- Structure de la table `magasin`
 --
 
-CREATE TABLE IF NOT EXISTS `magasin` (
-`idMagasin` int(11) NOT NULL,
+CREATE TABLE `magasin` (
+  `idMagasin` int(11) NOT NULL,
   `nom` varchar(32) NOT NULL,
   `addr_ligne1` varchar(32) DEFAULT NULL,
   `addr_ligne2` varchar(32) DEFAULT NULL,
   `code_postal` char(5) NOT NULL,
   `idRegion` int(8) NOT NULL,
   `ville` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `magasin`
@@ -327,7 +306,7 @@ INSERT INTO `magasin` (`idMagasin`, `nom`, `addr_ligne1`, `addr_ligne2`, `code_p
 -- Structure de la table `rayons`
 --
 
-CREATE TABLE IF NOT EXISTS `rayons` (
+CREATE TABLE `rayons` (
   `idMagasin` int(8) NOT NULL,
   `idTypeRayon` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -338,19 +317,21 @@ CREATE TABLE IF NOT EXISTS `rayons` (
 
 INSERT INTO `rayons` (`idMagasin`, `idTypeRayon`) VALUES
 (1, 1),
-(6, 1),
 (1, 2),
 (2, 3),
-(5, 3),
-(6, 3),
 (2, 4),
-(3, 4),
-(5, 4),
-(6, 4),
 (2, 7),
-(6, 7),
+(3, 4),
+(5, 2),
+(5, 3),
+(5, 4),
 (5, 8),
-(5, 9);
+(5, 9),
+(6, 1),
+(6, 2),
+(6, 3),
+(6, 4),
+(6, 7);
 
 -- --------------------------------------------------------
 
@@ -358,10 +339,10 @@ INSERT INTO `rayons` (`idMagasin`, `idTypeRayon`) VALUES
 -- Structure de la table `region`
 --
 
-CREATE TABLE IF NOT EXISTS `region` (
-`idRegion` int(8) NOT NULL,
+CREATE TABLE `region` (
+  `idRegion` int(8) NOT NULL,
   `libelle` varchar(32) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `region`
@@ -403,12 +384,12 @@ INSERT INTO `region` (`idRegion`, `libelle`) VALUES
 -- Structure de la table `typecompte`
 --
 
-CREATE TABLE IF NOT EXISTS `typecompte` (
-`idTypeCompte` int(8) NOT NULL,
+CREATE TABLE `typecompte` (
+  `idTypeCompte` int(8) NOT NULL,
   `libelle` varchar(32) NOT NULL,
   `dblogin` varchar(64) NOT NULL,
   `dbpassword` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typecompte`
@@ -425,10 +406,10 @@ INSERT INTO `typecompte` (`idTypeCompte`, `libelle`, `dblogin`, `dbpassword`) VA
 -- Structure de la table `typerayon`
 --
 
-CREATE TABLE IF NOT EXISTS `typerayon` (
-`idTypeRayon` int(8) NOT NULL,
+CREATE TABLE `typerayon` (
+  `idTypeRayon` int(8) NOT NULL,
   `libelle` varchar(32) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typerayon`
@@ -451,8 +432,8 @@ INSERT INTO `typerayon` (`idTypeRayon`, `libelle`) VALUES
 -- Structure de la table `video`
 --
 
-CREATE TABLE IF NOT EXISTS `video` (
-`idVideo` int(8) NOT NULL,
+CREATE TABLE `video` (
+  `idVideo` int(8) NOT NULL,
   `titre` varchar(32) NOT NULL,
   `frequence` int(11) NOT NULL,
   `duree` int(11) NOT NULL,
@@ -464,22 +445,23 @@ CREATE TABLE IF NOT EXISTS `video` (
   `statut` int(1) NOT NULL,
   `idCommercial` int(8) NOT NULL,
   `idClient` int(8) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `video`
 --
 
 INSERT INTO `video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dateFin`, `dateReception`, `dateValidation`, `tarif`, `statut`, `idCommercial`, `idClient`) VALUES
+(0, 'wololo', 10, 12, '2015-11-20', '2015-12-06', '2015-05-21', '2015-05-21', 1, 3, 1, 52),
+(1, 'TestLons', 6, 8, '2015-10-20', '2016-01-20', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50),
 (2, 'Test', 3, 26, '2015-04-16', '2015-05-21', '2015-03-11', '2015-03-13', 25, 3, 1, 1),
-(3, 'Controlla', 4, 30, '2015-03-11', '2015-05-30', '2015-03-31', '2015-03-27', 111, 1, 2, 45),
-(4, 'Danza kuduro', 7, 100, '2015-03-26', '2015-06-19', '2015-03-23', '2015-03-27', 155, 1, 2, 46),
-(5, 'Ser Exclu', 2, 85, '2015-03-18', '2015-07-16', '2015-03-01', '2015-03-02', 1222, 1, 1, 47),
-(9, 'test', 10, 10, '2015-05-20', '2015-05-21', '2015-05-19', '2015-05-19', 10, 3, 1, 1),
-(10, 'm', 12, 10, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 12, 3, 1, 52),
-(11, '8.mp4', 10, 12, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 1, 3, 1, 52),
-(12, 'TestLons', 6, 8, '2015-10-20', '2015-10-24', '2015-10-20', '2015-10-20', 1.2, 1, 1, 50),
-(13, 'Retest', 2, 2, '2015-11-17', '2015-11-17', '2015-11-16', '2015-11-16', 2, 1, 1, 1);
+(3, 'Controlla', 4, 5, '2015-11-20', '2016-01-20', '2015-03-31', '2015-03-27', 111, 1, 2, 45),
+(4, 'Danza kuduro', 7, 5, '2015-05-19', '2015-10-14', '2015-03-23', '2015-03-27', 155, 1, 2, 46),
+(5, 'Ser Exclu', 2, 4, '2015-11-17', '2016-01-20', '2015-03-01', '2015-03-02', 1222, 1, 1, 47),
+(6, 'Retest', 2, 2, '2015-11-17', '2015-11-17', '2015-11-16', '2015-11-16', 2, 1, 1, 1),
+(7, 'Dernier_Test', 20, 6, '2015-11-23', '2015-12-18', '2015-11-23', '2015-11-23', 1, 1, 1, 1),
+(9, 'test', 10, 115, '2015-05-20', '2016-01-20', '2015-05-19', '2015-05-19', 10, 3, 1, 1),
+(10, 'm', 12, 10, '2015-05-22', '2015-05-21', '2015-05-21', '2015-05-21', 12, 3, 1, 52);
 
 --
 -- Index pour les tables exportées
@@ -489,73 +471,86 @@ INSERT INTO `video` (`idVideo`, `titre`, `frequence`, `duree`, `dateDebut`, `dat
 -- Index pour la table `client`
 --
 ALTER TABLE `client`
- ADD PRIMARY KEY (`idClient`);
+  ADD PRIMARY KEY (`idClient`);
 
 --
 -- Index pour la table `compte`
 --
 ALTER TABLE `compte`
- ADD PRIMARY KEY (`idCompte`), ADD UNIQUE KEY `login` (`login`), ADD KEY `idTypeCompte` (`idTypeCompte`);
+  ADD PRIMARY KEY (`idCompte`),
+  ADD UNIQUE KEY `login` (`login`),
+  ADD KEY `idTypeCompte` (`idTypeCompte`);
 
 --
 -- Index pour la table `diffusionregions`
 --
 ALTER TABLE `diffusionregions`
- ADD PRIMARY KEY (`idVideo`,`idRegion`), ADD KEY `fk_idRegion` (`idRegion`);
+  ADD PRIMARY KEY (`idVideo`,`idRegion`),
+  ADD KEY `fk_idRegion` (`idRegion`);
 
 --
 -- Index pour la table `diffusions`
 --
 ALTER TABLE `diffusions`
- ADD PRIMARY KEY (`idDiffusion`), ADD KEY `idVideo` (`idVideo`), ADD KEY `idMagasin` (`idMagasin`), ADD KEY `idTypeRayon` (`idTypeRayon`);
+  ADD PRIMARY KEY (`idDiffusion`),
+  ADD KEY `idVideo` (`idVideo`),
+  ADD KEY `idMagasin` (`idMagasin`),
+  ADD KEY `idTypeRayon` (`idTypeRayon`);
 
 --
 -- Index pour la table `diffusionstypesrayons`
 --
 ALTER TABLE `diffusionstypesrayons`
- ADD PRIMARY KEY (`idVideo`,`idTypeRayon`), ADD KEY `fk_typerayon` (`idTypeRayon`);
+  ADD PRIMARY KEY (`idVideo`,`idTypeRayon`),
+  ADD KEY `fk_typerayon` (`idTypeRayon`);
 
 --
 -- Index pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
- ADD PRIMARY KEY (`idEntreprise`), ADD UNIQUE KEY `idEntreprise` (`idEntreprise`);
+  ADD PRIMARY KEY (`idEntreprise`);
 
 --
 -- Index pour la table `magasin`
 --
 ALTER TABLE `magasin`
- ADD PRIMARY KEY (`idMagasin`), ADD KEY `idRegion` (`idRegion`);
+  ADD PRIMARY KEY (`idMagasin`),
+  ADD KEY `idRegion` (`idRegion`);
 
 --
 -- Index pour la table `rayons`
 --
 ALTER TABLE `rayons`
- ADD PRIMARY KEY (`idMagasin`,`idTypeRayon`), ADD KEY `fk_typRay` (`idTypeRayon`);
+  ADD PRIMARY KEY (`idMagasin`,`idTypeRayon`),
+  ADD KEY `fk_typRay` (`idTypeRayon`);
 
 --
 -- Index pour la table `region`
 --
 ALTER TABLE `region`
- ADD PRIMARY KEY (`idRegion`), ADD UNIQUE KEY `libelle` (`libelle`);
+  ADD PRIMARY KEY (`idRegion`),
+  ADD UNIQUE KEY `libelle` (`libelle`);
 
 --
 -- Index pour la table `typecompte`
 --
 ALTER TABLE `typecompte`
- ADD PRIMARY KEY (`idTypeCompte`);
+  ADD PRIMARY KEY (`idTypeCompte`);
 
 --
 -- Index pour la table `typerayon`
 --
 ALTER TABLE `typerayon`
- ADD PRIMARY KEY (`idTypeRayon`), ADD UNIQUE KEY `libelle` (`libelle`);
+  ADD PRIMARY KEY (`idTypeRayon`),
+  ADD UNIQUE KEY `libelle` (`libelle`);
 
 --
 -- Index pour la table `video`
 --
 ALTER TABLE `video`
- ADD PRIMARY KEY (`idVideo`), ADD KEY `idCommercial` (`idCommercial`), ADD KEY `idClient` (`idClient`);
+  ADD PRIMARY KEY (`idVideo`),
+  ADD KEY `idCommercial` (`idCommercial`),
+  ADD KEY `idClient` (`idClient`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -565,47 +560,47 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-MODIFY `idClient` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=104;
+  MODIFY `idClient` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT pour la table `compte`
 --
 ALTER TABLE `compte`
-MODIFY `idCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `idCompte` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `diffusions`
 --
 ALTER TABLE `diffusions`
-MODIFY `idDiffusion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `idDiffusion` int(8) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-MODIFY `idEntreprise` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idEntreprise` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `magasin`
 --
 ALTER TABLE `magasin`
-MODIFY `idMagasin` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `idMagasin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `region`
 --
 ALTER TABLE `region`
-MODIFY `idRegion` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `idRegion` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `typecompte`
 --
 ALTER TABLE `typecompte`
-MODIFY `idTypeCompte` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `idTypeCompte` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `typerayon`
 --
 ALTER TABLE `typerayon`
-MODIFY `idTypeRayon` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `idTypeRayon` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `video`
 --
 ALTER TABLE `video`
-MODIFY `idVideo` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `idVideo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
