@@ -13,8 +13,11 @@ import entities.Region;
 import entities.Typerayon;
 
 import entities.Video;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.servlet.ServletContext;
 import javax.swing.table.DefaultTableModel;
 import model.dao.EntrepriseDAO;
 import model.dao.MagasinDAO;
@@ -32,6 +36,7 @@ import model.dao.VideoDAO;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
@@ -56,24 +61,26 @@ public class Facture {
       public Facture() {
     }
 
-    public  void Consulter(Client cli, Video vid) throws IOException {
-        String curDir = System.getProperty("user.dir");
-    System.out.println ("Le répertoire courant est: "+curDir);
+    public  void Consulter(Client cli, Video vid,ServletContext context) throws IOException {
       
-     
+     String appPath = context.getRealPath("");
        
         JasperPrint jasperPrint = null;
         net.sf.jasperreports.engine.JasperReport x = null; 
         TableModelData(cli, vid);
         try {
-            x = JasperCompileManager.compileReport("C:/Users/Lons/Documents/NetBeansProjects/RegubClient/reports/facture.jrxml");
+             System.out.println(appPath+"\\resources\\reports\\facture.jrxml");
+            x = JasperCompileManager.compileReport(appPath+"\\resources\\reports\\facture.jrxml");
             //JasperCompileManager.compileReportToFile("reports/report1.jrxml");
             jasperPrint = JasperFillManager.fillReport(x, parameters,
                     new JRTableModelDataSource(tableModel));
             //JasperViewer jasperViewer = new JasperViewer(jasperPrint);
             //jasperViewer.setVisible(true);
           
-            JasperViewer.viewReport(jasperPrint, false);
+           //JasperViewer.viewReport(jasperPrint, false);
+           
+            OutputStream output = new FileOutputStream(new File(appPath+"\\resources\\reports\\facture.pdf"));
+            JasperExportManager.exportReportToPdfStream(jasperPrint, output);
         } catch (JRException ex) {
             ex.printStackTrace();
         }

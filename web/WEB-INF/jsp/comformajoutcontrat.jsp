@@ -67,7 +67,9 @@
                         <strong class="">Ajouter Contrat</strong>
                     </div>
                     <div class="panel-body">
-                        <form id="FormulaireAjout" method="post" action="/RegubClient/regub/commercial/contrats/comajoutcontrat" role="form" class="form-horizontal" ENCTYPE="multipart/form-data">
+                        <!-- /RegubClient/regub/commercial/contrats/  return ( validateComFormulaireAjoutContrat() ); -->
+                        <form id="FormulaireAjout" name="FormulaireAjout" method="post" action="comajoutcontrat" 
+                            role="form" class="form-horizontal" onsubmit="return ( validateComFormulaireAjoutContrat() );" ENCTYPE="multipart/form-data">
                             <div class="form-group">
                                 <p class="erreur-form" id="para"/>
                             </div>
@@ -89,11 +91,11 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <label class="control-label" >Titre :</label>
-                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre">
+                                        <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" data-validate="required,alpha">
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="control-label" >Durée(en secondes) : </label>
-                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree">
+                                        <input type="text" class="form-control" id="duree" name="duree" placeholder="duree" data-validate="required,number">
                                     </div>
                                 </div>
                             </div>            
@@ -206,7 +208,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info col-xs-6">Ajouter</button>
+                                <button id="sub" type="submit" class="btn btn-info col-xs-6">Ajouter</button>
                                 <a href="/RegubClient/regub/commercial/contrats/${cleclient}" class="btn btn-info col-xs-6" data-toggle="modal"> 
                                     <c:out value=""></c:out>Annuler</a>
                             </div>
@@ -297,6 +299,7 @@
         <script src="<c:url value="/resources/js/bootstrap-datepicker.js"/>"></script>
         <script src="<c:url value="/resources/js/bootstrap-filestyle.min.js"/>"></script> 
         <script src="<c:url value="/resources/js/comformajoutcontrat.js"/>"></script>
+        <script src="<c:url value="/resources/js/valideajout.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.sumoselect.min.js"/>"></script>
         
     </body>

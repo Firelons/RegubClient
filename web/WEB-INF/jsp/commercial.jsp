@@ -68,9 +68,14 @@
             </div>
             <div class="container" >
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-1">
                         <td><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModalAjouter">
                                 <c:out value=""></c:out>Ajouter</a>
+                            </td>
+                        </div>
+                    <div class="col-lg-5">
+                        <td><a href="/RegubClient/regub/commercial/derniercontrats" class="btn btn-primary" data-toggle="modal" data-target="">
+                                <c:out value=""></c:out>Contrats terminé</a>
                             </td>
                         </div>
                     </div>

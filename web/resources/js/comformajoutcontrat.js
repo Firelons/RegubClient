@@ -34,9 +34,10 @@ $(function () {
 });
 
 //peut aussi etre utilisé pr le type string
- function isInteger(x) {
-        return Math.round(x) === x;
-    }
+function isInteger(x) {
+    return Math.round(x) === x;
+}
+
 
 function validateComFormulaireAjoutContrat() {
     var currentDate = new Date();
@@ -45,8 +46,12 @@ function validateComFormulaireAjoutContrat() {
     var year = currentDate.getFullYear();
     var date = year+"-"+month+"-"+day;
     
-    var x1 = document.forms["ComFormulaireAjoutContrat"]["titre"].value;
-    var x2 = document.forms["ComFormulaireAjoutContrat"]["frequence"].value;
+    alert("formulaire");
+    var x1 = document.FormulaireAjout.titre.value;
+    var x13 = document.getElementById("fichier");
+    alert("Av decl");
+    //var x1 = document.forms["ComFormulaireAjoutContrat"]["titre"].value;
+    /*var x2 = document.forms["ComFormulaireAjoutContrat"]["frequence"].value;
     var x3 = document.forms["ComFormulaireAjoutContrat"]["rayon"].value;
     var x4 = document.forms["ComFormulaireAjoutContrat"]["datedebut"].value;
     var x5 = document.forms["ComFormulaireAjoutContrat"]["datefin"].value;
@@ -57,12 +62,20 @@ function validateComFormulaireAjoutContrat() {
     var x10 = document.forms["ComFormulaireAjoutContrat"]["region"].value;
     var x11 = document.forms["ComFormulaireAjoutContrat"]["tarif"].value;
     var x12 = document.forms["ComFormulaireAjoutContrat"]["duree"].value;
+    var x13 = document.forms["ComFormulaireAjoutContrat"]["file"].value;
+    */
     
-    if (x1 === null || x1 === "") {
-        $('p.erreur-form').html("Vous devez fournir un titre");
+    if (x13.value === "") {
+        alert("Aucune video");
+        $('p.erreur-form').html("Vous devez choisir une vidéo");
         return false;
     }
-    
+    /*if (x1 === null || x1 === "") {
+        alert("Titre null");
+        $('p.erreur-form').html("Vous devez fournir un titre");
+        return false;
+    }*/
+    /*
     if (x2 === null || x2 === "") {
         $('p.erreur-form').html("Vous devez fournir une fréquence");
         return false;
@@ -141,6 +154,10 @@ function validateComFormulaireAjoutContrat() {
         $('p.erreur-form').html("Le tarif doit être un chiffe ou un nombre");
         return false;
     }
-     
     
-}
+    if (x13 === null) {
+        $('p.erreur-form').html("Vous devez choisir une vidéo");
+        return false;
+    }
+    */
+} 
